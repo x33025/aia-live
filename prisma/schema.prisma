@@ -1,0 +1,117 @@
+generator client {
+    provider = "prisma-client-js"
+   // output = "./generated/client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url = env("DATABASE_URL") // uses connection pooling
+
+}
+
+model ArticleMetadata {
+  article_metadata_id String   @id @default(uuid())
+  title               String
+  word_count          Int      @default(0)
+  semrush_score       Float    @default(0.0)
+  author              User     @relation("Author", fields: [author_id], references: [user_id])
+  author_id           String
+  category            Category? @relation(fields: [category_id], references: [category_id])
+  category_id         String?
+  status              Status   @relation(fields: [status_id], references: [status_id])
+  status_id           String
+  main_keyword        Keyword?  @relation("MainKeyword", fields: [main_keyword_id], references: [keyword_id])
+  main_keyword_id     String?
+  keywords            Keyword[] @relation("ArticleKeywords")
+  article             Article?  
+  get_info            GetInfo   @relation(fields: [get_info_id], references: [get_info_id])
+  get_info_id         String
+
+  @@index([author_id], name: "author_id")
+  @@index([category_id], name: "category_id")
+  @@index([status_id], name: "status_id")
+  @@index([main_keyword_id], name: "main_keyword_id")
+}
+
+model Article {
+    article_id           String       @id @default(uuid())
+    article_metadata_id  String       @unique
+    articleMetadata      ArticleMetadata @relation(fields: [article_metadata_id], references: [article_metadata_id])
+    quick_look           String?      // Change from Json to String
+    description          String?
+    content              String
+    @@index([article_id], name: "article_id")
+}
+
+model Keyword {
+  keyword_id     String    @id @default(uuid())
+  keyword        String
+  evergreen      Boolean   @default(false)
+  volume         Int    @default(0)
+  keyword_density Int      @default(0)
+  country        Country?  @relation(fields: [country_id], references: [country_id])
+  country_id     String?
+  ArticleMetadata_Keywords ArticleMetadata[] @relation("ArticleKeywords")
+  ArticleMetadata_MainKeyword ArticleMetadata[] @relation("MainKeyword")
+  get_info            GetInfo @relation(fields: [get_info_id], references: [get_info_id])
+  get_info_id         String
+
+  @@index([keyword_id], name: "keyword_id")
+}
+
+model Category {
+  category_id   String  @id @default(uuid())
+  category_name String
+  ArticleMetadata ArticleMetadata[]
+}
+
+model Status {
+  status_id   String  @id @default(uuid())
+  status      String
+  timestamp   DateTime
+  ArticleMetadata ArticleMetadata[]
+}
+
+model Role {
+  role_id   String  @id @default(uuid())
+  role_name String
+  User      User[]
+}
+
+model User {
+  user_id       String  @id @default(uuid())
+  email         String  @unique
+  password_hash String
+  name          String
+  last_name     String
+  author_name   String
+  role          Role?   @relation(fields: [role_id], references: [role_id])
+  role_id       String?
+  ArticleMetadata_Author ArticleMetadata[] @relation("Author")
+  GetInfo_Modifier GetInfo[] @relation("Modifier")
+  GetInfo_Creator  GetInfo[] @relation("Creator")
+
+  @@index([role_id], name: "role_id")
+}
+
+model GetInfo {
+  get_info_id         String   @id @default(uuid())
+  date_created        DateTime @default(now())
+  date_updated        DateTime @updatedAt
+  date_deleted        DateTime?
+  last_modified_by    User     @relation("Modifier", fields: [last_modified_by_id], references: [user_id])
+  last_modified_by_id String
+  created_by          User     @relation("Creator", fields: [created_by_id], references: [user_id])
+  created_by_id       String
+  ArticleMetadata     ArticleMetadata[]
+  Keyword             Keyword[]
+
+  @@index([last_modified_by_id], name: "last_modified_by_id")
+  @@index([created_by_id], name: "created_by_id")
+}
+
+model Country {
+  country_id   String  @id @default(uuid())
+  country_name String
+  Keyword      Keyword[]
+}

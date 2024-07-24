@@ -1,0 +1,65 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    
+}
+
+
+:root {
+  --red: #FF3B30;
+  --pink: #FF2D55;
+  --orange: #FF9500;
+  --yellow: #FFCC00;
+  --green: #28CD41;
+  --mint: #00C7BE;
+  --teal: #59ADC4;
+  --cyan: #55BEF0;
+  --blue: #007AFF;
+  --indigo: #5856D6;
+  --purple: #AF52DE;
+  --gray: #8E8E93;
+  --brown: #A2845E;
+}
+
+
+
+:root {
+  --gray-1: rgb(242, 242, 247); /* Lightest */
+  --gray-2: rgb(229, 229, 234);
+  --gray-3: rgb(209, 209, 214);
+  --gray-4: rgb(199, 199, 204);
+  --gray-5: rgb(174, 174, 178);
+  --gray-6: rgb(142, 142, 147); /* Darkest */
+}
+
+
+
+body {
+    font-family: 'Inter', sans-serif;   
+}
+
+
+
+html, body {
+  height: 100%;
+  overflow: hidden;  /* Prevent scrolling */
+
+}
+
+
+
+
+textarea {
+  overflow-y: scroll;
+  resize: none; /* Prevent manual resizing */
+  width: 100%;
+  padding: 1em;
+  border-radius: 1em;
+  font-size: 1em;
+}
+
+hr {
+  border: 0.05em solid var(--gray-4);
+
+}
