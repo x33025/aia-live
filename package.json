@@ -8,7 +8,8 @@
 		"preview": "vite preview",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
-		"build:ts": "tsc"
+		"build:ts": "tsc",
+		"postinstall": "prisma generate"
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "^3.0.0",
