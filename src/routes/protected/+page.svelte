@@ -18,8 +18,8 @@
     <h1>Welcome, {user.name}!</h1>
     <nav>
         <ul>
-            <li><a href="/protected/keywords">Keywords View</a></li>
-            <li><a href="/protected/articles">Articles View</a></li>
+            <li><a href="/protected/keywords">Keywords</a></li>
+            <li><a href="/protected/articles">Articles</a></li>
         </ul>
     </nav>
 </main>
