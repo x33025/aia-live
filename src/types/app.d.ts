@@ -10,7 +10,6 @@ declare global {
     // You can uncomment these and extend as needed
     // interface Error {}
     // interface PageData {}
-    // interface PageState {}
     // interface Platform {}
   }
 

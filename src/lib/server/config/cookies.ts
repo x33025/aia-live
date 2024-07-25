@@ -1,31 +1,17 @@
-//src/lib/server/config/cookies.ts
+// src/lib/server/config/cookies.ts
 import type { Cookies } from '@sveltejs/kit';
-import jsonwebtoken from 'jsonwebtoken';
-import { randomUUID } from 'crypto';
-import { dev } from '$app/environment';
-import { JWT_SECRET } from '$env/static/private';
+import jwt from 'jsonwebtoken';
+import { env } from '$env/dynamic/private';
 
-export const setAuthenticationCookies = (cookies: Cookies, uuid: string) => {
-    const token = jsonwebtoken.sign({ uuid }, JWT_SECRET, { expiresIn: '15m' });
-    const refreshToken = randomUUID();
+const JWT_SECRET = env.JWT_SECRET;
 
-    console.log('Setting cookies:', { token, refreshToken });
+export const setAuthenticationCookies = (cookies: Cookies, userId: string) => {
+  const token = jwt.sign({ userId }, JWT_SECRET, { expiresIn: '1h' });
 
-    cookies.set('sveltekit_auth_app', token, {
-        path: '/',
-        httpOnly: true,
-        sameSite: 'strict',
-        secure: !dev,
-        maxAge: 60 * 60 * 24 * 30 // 30 days
-    });
-
-    cookies.set('sveltekit_auth_app_refresh_token', refreshToken, {
-        path: '/',
-        httpOnly: true,
-        sameSite: 'strict',
-        secure: !dev,
-        maxAge: 60 * 60 * 24 * 30 // 30 days
-    });
-
-    console.log('Cookies set successfully');
+  cookies.set('jwt', token, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    maxAge: 60 * 60, // 1 hour
+    path: '/'
+  });
 };
