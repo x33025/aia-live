@@ -24,6 +24,8 @@ model ArticleMetadata {
   article           Article?
   get_info          GetInfo   @relation(fields: [get_info_id], references: [id])
   get_info_id       String
+  website           Website?  @relation(fields: [website_id], references: [id])
+  website_id        String?
 
   @@index([author_id], name: "author_id")
   @@index([category_id], name: "category_id")
@@ -113,4 +115,11 @@ model Country {
   id                String  @id @default(uuid())
   name              String
   Keyword           Keyword[]
+}
+
+model Website {
+  id                String  @id @default(uuid())
+  name              String
+  url               String
+  ArticleMetadata   ArticleMetadata[]
 }

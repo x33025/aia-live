@@ -4,15 +4,12 @@
   
   <InteractiveText text="aia" />
   
-  <p class="login-container">
+ 
     <a href="/login" class="login">Login</a>
-  </p>
+
   
   <style>
-    .login-container {
-      text-align: right; /* Align the link to the right */
-      margin: 2em; /* Add some space around the link */
-    }
+
   
     .login {
       position: relative;

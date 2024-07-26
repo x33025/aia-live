@@ -55,19 +55,19 @@ html, body {
 
 }
 
-
-
-
+/* Remove default styling for text fields and inputs */
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="number"],
 textarea {
-  overflow-y: scroll;
-  resize: none; /* Prevent manual resizing */
-  width: 100%;
-  padding: 1em;
-  border-radius: 1em;
-  font-size: 1em;
-}
-
-hr {
-  border: 0.05em solid var(--gray-4);
-
+  border: none; /* Remove border */
+  background: none; /* Remove background */
+  padding: 0; /* Remove padding */
+  margin: 0; /* Remove margin */
+  font: inherit; /* Inherit font styling */
+  color: inherit; /* Inherit text color */
+  outline: none; /* Remove focus outline */
+  box-shadow: none; /* Remove box shadow */
+  appearance: none; /* Remove default browser appearance */
 }
