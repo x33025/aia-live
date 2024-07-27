@@ -1,5 +1,4 @@
 <script lang="ts">
-  import type { KeywordWithData } from './+layout.server';
   import { debounce } from 'lodash-es';
   import KeywordRow from '$lib/views/keyword/+keyword-row.svelte';
   import { onMount } from 'svelte';
@@ -76,16 +75,18 @@
     display: flex;
     flex-direction: column;
     height: 100vh; /* Full height of the viewport */
+    overflow-x: auto; /* Enable horizontal scrolling if needed */
   }
 
   .table-wrapper {
     overflow-y: auto; /* Enable vertical scrolling */
-    overflow-x: hidden; /* Disable horizontal scrolling */
+    overflow-x: hidden; /* Disable horizontal scrolling in the wrapper */
     flex-grow: 1; /* Allow the table wrapper to take up remaining space */
   }
 
   table {
     width: 100%;
+    min-width: 66.67%; /* Minimum width of 2/3rd of the screen */
     border-collapse: collapse;
   }
 
@@ -94,11 +95,19 @@
     top: 0;
     background-color: white; /* Adjust background as needed */
     z-index: 1;
+    text-align: left; /* Align headers to the left */
+    border-right: none; /* Remove vertical dividers */
   }
 
   td, th {
     padding: 8px;
-    border: 1px solid #ddd; /* Adjust border as needed */
+    border-top: 1px solid #ddd; /* Adjust border as needed */
+    border-bottom: 1px solid #ddd;
+    text-align: left; /* Align cells to the left */
+  }
+
+  td {
+    border-top: none; /* Remove top border from cells */
   }
 
   .date-row {
@@ -106,13 +115,6 @@
     color: var(--blue);
   }
 
-  /* Hide horizontal scrollbar on desktop */
-  @media (min-width: 1024px) {
-    .table-wrapper::-webkit-scrollbar {
-      width: 0px;
-      background: transparent; /* Optional: Make scrollbar invisible */
-    }
-  }
 </style>
 
 <h1>Keywords</h1>

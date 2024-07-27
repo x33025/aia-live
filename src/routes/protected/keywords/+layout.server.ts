@@ -1,11 +1,6 @@
+// src/routes/+layout.server.ts
 import type { LayoutServerLoad } from './$types';
 import { prisma } from '$lib/server/config/prisma';
-import type { Keyword, Country, GetInfo } from '@prisma/client';
-
-export type KeywordWithData = Keyword & {
-  country: Country | null;
-  get_info: GetInfo;
-};
 
 export const load: LayoutServerLoad = async ({ url }) => {
   const take = 20;

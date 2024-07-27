@@ -36,6 +36,7 @@
 		"dotenv": "^16.4.5",
 		"jsonwebtoken": "^9.0.2",
 		"lodash-es": "^4.17.21",
-		"mathjs": "^13.0.3"
+		"mathjs": "^13.0.3",
+		"openai": "^4.53.2"
 	}
 }

@@ -41,18 +41,16 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-size: 1em;
 }
 
 body {
-    font-family: 'Nunito', sans-serif;   
+  font-family: 'Nunito', sans-serif;   
 }
-
-
 
 html, body {
   height: 100%;
   overflow: hidden;  /* Prevent scrolling */
-
 }
 
 /* Remove default styling for text fields and inputs */
@@ -70,4 +68,29 @@ textarea {
   outline: none; /* Remove focus outline */
   box-shadow: none; /* Remove box shadow */
   appearance: none; /* Remove default browser appearance */
+}
+
+/* Remove default button styling */
+button {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  color: inherit;
+  text-align: inherit;
+  cursor: pointer;
+}
+
+/* Heading sizes in em */
+h1 {
+  font-size: 2em;
+}
+
+h2 {
+  font-size: 1.5em;
+}
+
+h3 {
+  font-size: 1.17em;
 }

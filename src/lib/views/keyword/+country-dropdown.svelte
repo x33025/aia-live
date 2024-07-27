@@ -1,31 +1,33 @@
 <script lang="ts">
     import { createEventDispatcher } from 'svelte';
-    import { writable } from 'svelte/store';
+    import { writable, get } from 'svelte/store'; 
     import type { Country } from '@prisma/client';
-  
+    import { openDropdownId } from '$lib/stores/+country-dropdown'; 
+    
     export let countries: Country[] = [];
-    export let id: string;
-  
+    
     let selectedCountry: Country | null = null;
     const dispatch = createEventDispatcher();
-    const openDropdownId = writable<string | null>(null);
-  
+    
     function selectCountry(country: Country | null) {
       selectedCountry = country;
+      console.log(`Country selected:`, country); // Logging selected country
       dispatch('select', country);
       closeDropdown();
     }
-  
+    
     function openDropdown() {
-      openDropdownId.set(id);
+      console.log('Dropdown opened'); // Logging dropdown open
+      openDropdownId.set('dropdown');
     }
-  
+    
     function closeDropdown() {
+      console.log('Dropdown closed'); // Logging dropdown close
       openDropdownId.set(null);
     }
-  
-    $: isOpen = $openDropdownId === id;
-  
+    
+    $: isOpen = get(openDropdownId) === 'dropdown';
+    
     function handleKeydown(event: KeyboardEvent, country: Country | null) {
       if (event.key === 'Enter' || event.key === ' ') {
         selectCountry(country);
@@ -42,11 +44,9 @@
   
     .dropdown-button {
       width: 100%;
-      padding: 10px;
-      font-size: 16px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      background-color: white;
+      padding: 0.5em;
+      background-color: var(--gray-1);
+      border-radius: 0.5em;
       cursor: pointer;
       text-align: left;
     }
@@ -57,14 +57,14 @@
       background-color: #f9f9f9;
       width: 100%;
       box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-      z-index: 1;
-      max-height: 200px;
+      z-index: 10;
+      max-height: 250px;
       overflow-y: auto;
     }
   
     .dropdown-content button {
       width: 100%;
-      padding: 12px 16px;
+      padding: 1em;
       text-align: left;
       border: none;
       background: none;
@@ -82,7 +82,7 @@
   
   <div class="dropdown" class:open={isOpen}>
     <button type="button" class="dropdown-button" on:click={openDropdown} aria-haspopup="listbox">
-      {selectedCountry ? selectedCountry.name : 'Select a country'}
+      {selectedCountry ? selectedCountry.name : 'Select a Country'}
     </button>
     <div class="dropdown-content" role="listbox">
       <button

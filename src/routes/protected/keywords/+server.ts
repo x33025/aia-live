@@ -3,7 +3,7 @@ import { json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 
 export const POST: RequestHandler = async ({ request }) => {
-  const { id, keyword, volume, keyword_density, evergreen } = await request.json();
+  const { id, keyword, volume, keyword_density, evergreen, countryId } = await request.json();
 
   // Create an object to hold the fields to be updated
   const updateData: any = {};
@@ -11,6 +11,12 @@ export const POST: RequestHandler = async ({ request }) => {
   if (volume !== undefined) updateData.volume = volume;
   if (keyword_density !== undefined) updateData.keyword_density = keyword_density;
   if (evergreen !== undefined) updateData.evergreen = evergreen;
+
+  if (countryId !== undefined) {
+    updateData.country = countryId 
+      ? { connect: { id: countryId } } 
+      : { disconnect: true };
+  }
 
   try {
     await prisma.keyword.update({
