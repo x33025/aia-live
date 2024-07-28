@@ -35,6 +35,14 @@
   const createDots = async () => {
     if (!ctx) return;
     ctx.clearRect(0, 0, canvas!.width, canvas!.height);
+
+    // Adjust font size based on screen width
+    if (window.innerWidth <= 768) {
+      fontSize = "40vw";
+    } else {
+      fontSize = "20vw";
+    }
+
     ctx.font = `${fontSize} 'Nunito', sans-serif`;
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
@@ -198,13 +206,6 @@
     left: 0;
     width: 100%;
     height: 100%;
-  }
-
-  @media (max-width: 768px) {
-    /* Increase the font size for mobile devices */
-    canvas {
-      font-size: 40vw;
-    }
   }
 </style>
 
