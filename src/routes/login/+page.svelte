@@ -70,6 +70,10 @@
       color: rgb(10, 10, 10);
     }
   </style>
+
+<svelte:head>
+  <title>Log In</title>
+</svelte:head>
   
   <div class="full-screen">
     <Metaball />

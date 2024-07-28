@@ -2,19 +2,15 @@
   import { debounce } from 'lodash-es';
   import KeywordRow from '$lib/views/keyword/+keyword-row.svelte';
   import { onMount } from 'svelte';
-  import type { Country } from '@prisma/client';
 
   export let data: {
     keywords: KeywordWithData[];
-    countries: Country[];
     total: number;
     skip: number;
     take: number;
   };
 
   let keywords: KeywordWithData[] = data.keywords;
-  let countries: Country[] = data.countries;
-  console.log('Received countries:', countries); // Log the received countries
   let total = data.total;
   let skip = data.skip;
   let take = data.take;
@@ -114,8 +110,11 @@
     font-weight: bold;
     color: var(--blue);
   }
-
 </style>
+
+<svelte:head>
+    <title>Keywords</title>
+</svelte:head>
 
 <h1>Keywords</h1>
 
@@ -138,7 +137,7 @@
             <td colspan="6">{date}</td>
           </tr>
           {#each groupedKeywords[date] as keyword}
-            <KeywordRow {keyword} {countries} />
+            <KeywordRow {keyword} />
           {/each}
         {/each}
       </tbody>

@@ -3,36 +3,63 @@
     import { writable, get } from 'svelte/store'; 
     import type { Country } from '@prisma/client';
     import { openDropdownId } from '$lib/stores/+country-dropdown'; 
-    
+  
     export let countries: Country[] = [];
-    
-    let selectedCountry: Country | null = null;
+    export let keyword: KeywordWithData;
+  
+    let selectedCountry: Country | null = keyword.country || null;
     const dispatch = createEventDispatcher();
-    
+  
+    console.log('Countries:', countries); // Verify countries array
+  
     function selectCountry(country: Country | null) {
       selectedCountry = country;
-      console.log(`Country selected:`, country); // Logging selected country
-      dispatch('select', country);
+      console.log(`Country selected:`, country);
+      dispatch('select', { keywordId: keyword.id, country });
       closeDropdown();
     }
-    
+  
     function openDropdown() {
-      console.log('Dropdown opened'); // Logging dropdown open
-      openDropdownId.set('dropdown');
+      const currentDropdownId = get(openDropdownId);
+      if (currentDropdownId === keyword.id) {
+        closeDropdown();
+      } else {
+        console.log('Dropdown opened');
+        openDropdownId.set(keyword.id);
+      }
     }
-    
+  
     function closeDropdown() {
-      console.log('Dropdown closed'); // Logging dropdown close
+      console.log('Dropdown closed');
       openDropdownId.set(null);
     }
-    
-    $: isOpen = get(openDropdownId) === 'dropdown';
-    
+  
+    $: isOpen = get(openDropdownId) === keyword.id;
+  
     function handleKeydown(event: KeyboardEvent, country: Country | null) {
       if (event.key === 'Enter' || event.key === ' ') {
         selectCountry(country);
       }
     }
+  
+    // Close dropdown when clicking outside
+    function handleClickOutside(event: MouseEvent) {
+      if (dropdownElement && !dropdownElement.contains(event.target as Node)) {
+        closeDropdown();
+      }
+    }
+  
+    let dropdownElement: HTMLDivElement | null = null;
+  
+    // Add and remove event listeners for handling click outside
+    import { onMount, onDestroy } from 'svelte';
+    onMount(() => {
+      document.addEventListener('click', handleClickOutside);
+    });
+  
+    onDestroy(() => {
+      document.removeEventListener('click', handleClickOutside);
+    });
   </script>
   
   <style>
@@ -80,7 +107,7 @@
     }
   </style>
   
-  <div class="dropdown" class:open={isOpen}>
+  <div class="dropdown" bind:this={dropdownElement} class:open={isOpen}>
     <button type="button" class="dropdown-button" on:click={openDropdown} aria-haspopup="listbox">
       {selectedCountry ? selectedCountry.name : 'Select a Country'}
     </button>

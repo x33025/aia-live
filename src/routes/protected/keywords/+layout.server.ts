@@ -1,16 +1,16 @@
 // src/routes/+layout.server.ts
 import type { LayoutServerLoad } from './$types';
 import { prisma } from '$lib/server/config/prisma';
+import type { Country, Keyword } from '@prisma/client';
 
 export const load: LayoutServerLoad = async ({ url }) => {
   const take = 20;
   const skip = Number(url.searchParams.get('skip')) || 0;
 
   try {
-    const countries = await prisma.country.findMany();
-    console.log('Fetched countries:', countries); // Log the countries array
-
-    const keywords: KeywordWithData[] = await prisma.keyword.findMany({
+    // Fetch countries and keywords with related data
+    const countries: Country[] = await prisma.country.findMany();
+    const keywords: Keyword[] = await prisma.keyword.findMany({
       include: {
         country: true,
         get_info: true,
@@ -24,14 +24,17 @@ export const load: LayoutServerLoad = async ({ url }) => {
       take,
     });
 
-    const total = await prisma.keyword.count();
+    const total: number = await prisma.keyword.count();
 
+    // Return data including countries and other details
     return {
-      countries,
-      keywords,
-      total,
-      skip,
-      take,
+      data: {
+        countries,
+        keywords,
+        total,
+        skip,
+        take,
+      },
     };
   } catch (error) {
     console.error('Error fetching data:', error);

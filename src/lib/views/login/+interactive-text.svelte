@@ -10,6 +10,7 @@
   let dots: Array<{ x: number; y: number; originalX: number; originalY: number; vx: number; vy: number; radius: number }> = [];
   let mouse = { x: 0, y: 0 };
   let isMouseOver = false;
+  let fontSize = "20vw"; // Default font size for desktop
 
   interface Dot {
     x: number;
@@ -24,7 +25,7 @@
   const loadImage = (src: string): Promise<HTMLImageElement> => {
     return new Promise((resolve, reject) => {
       const img = new Image();
-      img.crossOrigin = 'anonymous'; // Correctly set the crossOrigin attribute
+      img.crossOrigin = 'anonymous';
       img.onload = () => resolve(img);
       img.onerror = (err) => reject(err);
       img.src = src;
@@ -34,7 +35,7 @@
   const createDots = async () => {
     if (!ctx) return;
     ctx.clearRect(0, 0, canvas!.width, canvas!.height);
-    ctx.font = `${canvas!.width / 3}px 'Nunito', sans-serif`;
+    ctx.font = `${fontSize} 'Nunito', sans-serif`;
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
 
@@ -177,6 +178,17 @@
   const handleMouseOut = () => {
     isMouseOver = false;
   };
+
+  const handleTouchMove = (event: TouchEvent) => {
+    const rect = canvas!.getBoundingClientRect();
+    mouse.x = event.touches[0].clientX - rect.left;
+    mouse.y = event.touches[0].clientY - rect.top;
+    isMouseOver = true;
+  };
+
+  const handleTouchEnd = () => {
+    isMouseOver = false;
+  };
 </script>
 
 <style>
@@ -188,7 +200,18 @@
     height: 100%;
   }
 
-
+  @media (max-width: 768px) {
+    /* Increase the font size for mobile devices */
+    canvas {
+      font-size: 40vw;
+    }
+  }
 </style>
 
-<canvas bind:this={canvas} on:mousemove={handleMouseMove} on:mouseout={handleMouseOut}></canvas>
+<canvas 
+  bind:this={canvas} 
+  on:mousemove={handleMouseMove} 
+  on:mouseout={handleMouseOut} 
+  on:touchmove={handleTouchMove} 
+  on:touchend={handleTouchEnd}>
+</canvas>

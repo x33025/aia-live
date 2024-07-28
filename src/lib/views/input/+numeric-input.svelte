@@ -6,10 +6,12 @@
   const dispatch = createEventDispatcher();
 
   let input = value ? value.toString() : '0';
+  let inputElement: HTMLInputElement;
 
   function handleInput(event: KeyboardEvent) {
     if (event.key === 'Enter') {
       processInput();
+      inputElement.blur(); // Remove focus from the input element
     } else {
       validateKey(event);
     }
@@ -62,6 +64,7 @@
 <input
   type="text"
   bind:value={input}
+  bind:this={inputElement}
   on:keydown={handleInput}
   on:paste={handlePaste}
   placeholder="0"
