@@ -10,7 +10,7 @@
   let dots: Array<{ x: number; y: number; originalX: number; originalY: number; vx: number; vy: number; radius: number }> = [];
   let mouse = { x: 0, y: 0 };
   let isMouseOver = false;
-  let fontSize = "20vw"; // Default font size for desktop
+  let fontSize = "30vw"; // Default font size for desktop
 
   interface Dot {
     x: number;
@@ -40,7 +40,7 @@
     if (window.innerWidth <= 768) {
       fontSize = "40vw";
     } else {
-      fontSize = "20vw";
+      fontSize = "30vw";
     }
 
     ctx.font = `${fontSize} 'Nunito', sans-serif`;
