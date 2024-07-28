@@ -8,10 +8,9 @@
   
   <main>
     <div class="vstack">
-      <div class="header">
-        <h1>Articles</h1>
-      </div>
-      <div class="content" transition:fade={{ duration: 300 }}>
+    <h1>Articles</h1>
+  
+
         <div class="article-list">
           {#if data.articles.length > 0}
             {#each data.articles as article, index}
@@ -25,7 +24,6 @@
           {/if}
         </div>
       </div>
-    </div>
   </main>
   
   <style>
@@ -33,10 +31,9 @@
       display: flex;
       flex-direction: column;
       gap: 1em;
-      height: 100vh;
+
       position: relative;
-      background-color: var(--gray-1);
-      padding: 1em;
+
     }
   
     .vstack {
@@ -44,24 +41,7 @@
       flex-direction: column;
       gap: 1em;
       height: 100%;
-    }
-  
-    .header {
-      padding: 1em;
-      background-color: var(--gray-2);
-      border-radius: 1em;
-    }
-  
-    .content {
-      display: flex;
-      flex-direction: column;
-      gap: 1em;
-      height: 100%;
-      background-color: white;
-      border-radius: 1em;
-      padding: 1em;
-    }
-  
+    }    
     .article-list {
       display: flex;
       flex-direction: column;
@@ -75,11 +55,8 @@
     .divider {
       height: 1px;
       background-color: #ddd;
-      margin: 0.5em 0;
+      margin: 0.25em 0;
     }
   
-    p {
-      margin: 0;
-    }
   </style>
   

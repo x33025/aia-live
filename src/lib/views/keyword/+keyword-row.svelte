@@ -1,4 +1,3 @@
-<!-- src/routes/keywords/KeywordRow.svelte -->
 <script lang="ts">
   import { createEventDispatcher, onMount, onDestroy } from 'svelte';
   import { page } from '$app/stores';
@@ -100,30 +99,38 @@
   }
 </style>
 
-<div class="dropdown" bind:this={dropdownElement} class:open={isOpen}>
-  <button type="button" class="dropdown-button" on:click={openDropdown} aria-haspopup="listbox">
-    {selectedCountry ? selectedCountry.name : 'Select a Country'}
-  </button>
-  <div class="dropdown-content" role="listbox">
-    <button
-      type="button"
-      role="option"
-      aria-selected={selectedCountry === null}
-      on:click={() => selectCountry(null)}
-      on:keydown={(event) => handleKeydown(event, null)}
-    >
-      None
-    </button>
-    {#each $countries as country}
-      <button
-        type="button"
-        role="option"
-        aria-selected={selectedCountry && selectedCountry.id === country.id}
-        on:click={() => selectCountry(country)}
-        on:keydown={(event) => handleKeydown(event, country)}
-      >
-        {country.name}
+<tr>
+  <td>{keyword.keyword}</td>
+  <td>{keyword.evergreen ? 'Yes' : 'No'}</td>
+  <td>
+    <div class="dropdown" bind:this={dropdownElement} class:open={isOpen}>
+      <button type="button" class="dropdown-button" on:click={openDropdown} aria-haspopup="listbox">
+        {selectedCountry ? selectedCountry.name : 'Select a Country'}
       </button>
-    {/each}
-  </div>
-</div>
+      <div class="dropdown-content" role="listbox">
+        <button
+          type="button"
+          role="option"
+          aria-selected={selectedCountry === null}
+          on:click={() => selectCountry(null)}
+          on:keydown={(event) => handleKeydown(event, null)}
+        >
+          None
+        </button>
+        {#each $countries as country}
+          <button
+            type="button"
+            role="option"
+            aria-selected={selectedCountry && selectedCountry.id === country.id}
+            on:click={() => selectCountry(country)}
+            on:keydown={(event) => handleKeydown(event, country)}
+          >
+            {country.name}
+          </button>
+        {/each}
+      </div>
+    </div>
+  </td>
+  <td>{keyword.volume}</td>
+  <td>{keyword.keyword_density}</td>
+</tr>

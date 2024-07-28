@@ -19,22 +19,39 @@
   function toggleDropdown() {
     dropdownOpen = !dropdownOpen;
   }
+
+  function handleKeydown(event: KeyboardEvent) {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      toggleDropdown();
+    }
+  }
 </script>
 
 <div class="dropdown">
-  <div class="dropdown-trigger hstack" on:click={toggleDropdown}>
+  <button 
+    type="button" 
+    class="dropdown-trigger hstack" 
+    on:click={toggleDropdown} 
+    on:keydown={handleKeydown} 
+    aria-haspopup="listbox" 
+    aria-expanded={dropdownOpen}>
     <span>{selected ? (items.find(item => item.id === selected)?.name || fallbackName) : placeholder}</span>
     <span class="dropdown-chevron">›</span>
-  </div>
+  </button>
   {#if dropdownOpen}
-    <div class="dropdown-menu vstack">
-      <div class="dropdown-item" on:click={() => selectItem(null)}>None</div>
+    <ul class="dropdown-menu vstack" role="listbox">
+      <li role="option" aria-selected={selected === null}>
+        <button type="button" class="dropdown-item" on:click={() => selectItem(null)}>None</button>
+      </li>
       {#each items as item}
-        <div class="dropdown-item" on:click={() => selectItem(item.id)}>
-          {item.name || fallbackName}
-        </div>
+        <li role="option" aria-selected={selected === item.id}>
+          <button type="button" class="dropdown-item" on:click={() => selectItem(item.id)}>
+            {item.name || fallbackName}
+          </button>
+        </li>
       {/each}
-    </div>
+    </ul>
   {/if}
 </div>
 
@@ -73,11 +90,18 @@
     margin-top: 0.3em; /* Adjust margin to control space */
     z-index: 1000;
     padding: 0.5em;
+    list-style: none;
+    margin: 0;
+    padding: 0;
   }
 
   .dropdown-item {
     padding: 0.5em;
     cursor: pointer;
+    width: 100%;
+    text-align: left;
+    background: none;
+    border: none;
   }
 
   .dropdown-item:hover {

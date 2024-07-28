@@ -25,7 +25,16 @@ export const load: LayoutServerLoad = async ({ url }) => {
     });
 
     // Fetch writers, categories, and statuses
-    const writersPromise = prisma.user.findMany();
+    const writersPromise = prisma.user.findMany({
+      where: {
+        role: {
+          name: 'Writer',
+        },
+      },
+      include: {
+        role: true,
+      },
+    });
     const categoriesPromise = prisma.category.findMany();
     const statusesPromise = prisma.status.findMany();
 
@@ -46,15 +55,13 @@ export const load: LayoutServerLoad = async ({ url }) => {
 
     // Return data including articles and other details
     return {
-      data: {
-        articles,
-        writers,
-        categories,
-        statuses,
-        total,
-        skip,
-        take,
-      },
+      articles,
+      writers,
+      categories,
+      statuses,
+      total,
+      skip,
+      take,
     };
   } catch (error) {
     console.error('Error fetching data:', error);

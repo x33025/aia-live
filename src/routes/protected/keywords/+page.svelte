@@ -10,30 +10,13 @@
     take: number;
   };
 
-  let keywords: KeywordWithData[] = data.keywords;
-  let total = data.total;
-  let skip = data.skip;
-  let take = data.take;
+  let keywords: KeywordWithData[] = data.keywords || [];
+  let total = data.total || 0;
+  let skip = data.skip || 0;
+  let take = data.take || 20;
 
   let loading = false;
   let allKeywordsLoaded = false;
-
-  function groupByDate(keywords: KeywordWithData[]) {
-    return keywords.reduce((groups, keyword) => {
-      const date = new Date(keyword.get_info?.date_created ?? '').toLocaleDateString('en-US', {
-        weekday: 'short',
-        month: 'short',
-        day: 'numeric',
-      });
-      if (!groups[date]) {
-        groups[date] = [];
-      }
-      groups[date].push(keyword);
-      return groups;
-    }, {} as Record<string, KeywordWithData[]>);
-  }
-
-  let groupedKeywords = groupByDate(keywords);
 
   async function loadMore() {
     if (loading || allKeywordsLoaded) return;
@@ -50,8 +33,6 @@
     if (keywords.length >= total) {
       allKeywordsLoaded = true;
     }
-
-    groupedKeywords = groupByDate(keywords);
   }
 
   function handleScroll() {
@@ -70,51 +51,43 @@
   .table-container {
     display: flex;
     flex-direction: column;
-    height: 100vh; /* Full height of the viewport */
-    overflow-x: auto; /* Enable horizontal scrolling if needed */
+    height: 100vh;
+    overflow-x: auto;
   }
 
   .table-wrapper {
-    overflow-y: auto; /* Enable vertical scrolling */
-    overflow-x: hidden; /* Disable horizontal scrolling in the wrapper */
-    flex-grow: 1; /* Allow the table wrapper to take up remaining space */
+    overflow-y: auto;
+    overflow-x: hidden;
+    flex-grow: 1;
   }
 
   table {
     width: 100%;
-    min-width: 66.67%; /* Minimum width of 2/3rd of the screen */
+    min-width: 66.67%;
     border-collapse: collapse;
   }
 
   th {
     position: sticky;
     top: 0;
-    background-color: white; /* Adjust background as needed */
+    background-color: white;
     z-index: 1;
-    text-align: left; /* Align headers to the left */
-    border-right: none; /* Remove vertical dividers */
+    text-align: left;
+    border-right: none;
   }
 
   td, th {
     padding: 8px;
-    border-top: 1px solid #ddd; /* Adjust border as needed */
+    border-top: 1px solid #ddd;
     border-bottom: 1px solid #ddd;
-    text-align: left; /* Align cells to the left */
+    text-align: left;
   }
 
   td {
-    border-top: none; /* Remove top border from cells */
-  }
-
-  .date-row {
-    font-weight: bold;
-    color: var(--blue);
+    border-top: none;
   }
 </style>
 
-<svelte:head>
-    <title>Keywords</title>
-</svelte:head>
 
 <h1>Keywords</h1>
 
@@ -123,7 +96,6 @@
     <table>
       <thead>
         <tr>
-          <th>Date</th>
           <th>Keyword</th>
           <th>Evergreen</th>
           <th>Country</th>
@@ -132,14 +104,15 @@
         </tr>
       </thead>
       <tbody>
-        {#each Object.keys(groupedKeywords) as date}
-          <tr class="date-row">
-            <td colspan="6">{date}</td>
-          </tr>
-          {#each groupedKeywords[date] as keyword}
+        {#if keywords && keywords.length > 0}
+          {#each keywords as keyword}
             <KeywordRow {keyword} />
           {/each}
-        {/each}
+        {:else}
+          <tr>
+            <td colspan="5">No keywords found</td>
+          </tr>
+        {/if}
       </tbody>
     </table>
   </div>

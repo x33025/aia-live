@@ -10,9 +10,6 @@
     }
 </script>
 
-<svelte:head>
-    <title>User Dashboard</title>
-</svelte:head>
 
 <main>
     <h1>Welcome, {user.name}!</h1>
