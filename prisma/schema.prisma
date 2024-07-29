@@ -81,20 +81,22 @@ model Role {
 }
 
 model User {
-  id                String  @id @default(uuid())
-  email             String  @unique
+  id                String    @id @default(uuid())
+  email             String    @unique
   password_hash     String
   name              String
   last_name         String
   author_name       String
-  role              Role?   @relation(fields: [role_id], references: [id])
+  role              Role?     @relation(fields: [role_id], references: [id])
   role_id           String?
   ArticleMetadata_Author ArticleMetadata[] @relation("Author")
   GetInfo_Modifier  GetInfo[] @relation("Modifier")
   GetInfo_Creator   GetInfo[] @relation("Creator")
+  last_active_at    DateTime? @default(now())
 
   @@index([role_id], name: "role_id")
 }
+
 
 model GetInfo {
   id                String   @id @default(uuid())
