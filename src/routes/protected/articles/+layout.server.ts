@@ -50,6 +50,15 @@ export const load: LayoutServerLoad = async ({ url }) => {
     console.log(`Fetched ${categories.length} categories`);
     console.log(`Fetched ${statuses.length} statuses`);
 
+    // Log if any keyword is associated with article metadata
+    articles.forEach(article => {
+      if (article.keywords && article.keywords.length > 0) {
+        console.log(`Article with ID ${article.id} has keywords:`, article.keywords.map(k => k.keyword).join(', '));
+      } else {
+        console.log(`Article with ID ${article.id} has no keywords`);
+      }
+    });
+
     const total: number = await prisma.articleMetadata.count();
     console.log(`Total number of articles: ${total}`);
 

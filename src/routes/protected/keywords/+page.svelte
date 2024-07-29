@@ -2,18 +2,12 @@
   import { debounce } from 'lodash-es';
   import KeywordRow from '$lib/views/keyword/+keyword-row.svelte';
   import { onMount } from 'svelte';
+  import type { Country, Keyword } from '@prisma/client';
+  import type { LayoutData } from './$types';
 
-  export let data: {
-    keywords: KeywordWithData[];
-    total: number;
-    skip: number;
-    take: number;
-  };
+  export let data: LayoutData;
 
-  let keywords: KeywordWithData[] = data.keywords || [];
-  let total = data.total || 0;
-  let skip = data.skip || 0;
-  let take = data.take || 20;
+  let { countries, keywords, total, skip, take } = data;
 
   let loading = false;
   let allKeywordsLoaded = false;
@@ -51,7 +45,6 @@
   .table-container {
     display: flex;
     flex-direction: column;
-    height: 100vh;
     overflow-x: auto;
   }
 
@@ -90,7 +83,6 @@
 
 
 <h1>Keywords</h1>
-
 <div class="table-container">
   <div class="table-wrapper">
     <table>
@@ -106,7 +98,7 @@
       <tbody>
         {#if keywords && keywords.length > 0}
           {#each keywords as keyword}
-            <KeywordRow {keyword} />
+            <KeywordRow {keyword} {countries}/>
           {/each}
         {:else}
           <tr>

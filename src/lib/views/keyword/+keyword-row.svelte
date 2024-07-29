@@ -1,136 +1,94 @@
 <script lang="ts">
-  import { createEventDispatcher, onMount, onDestroy } from 'svelte';
-  import { page } from '$app/stores';
-  import { derived, get } from 'svelte/store';
+  import { debounce } from 'lodash-es';
+  import Dropdown from '$lib/components/actions/+dropdown.svelte';
+  import NumericInput from '$lib/components/input/+numeric-input.svelte';
+
   import type { Country } from '@prisma/client';
-  import { openDropdownId } from '$lib/stores/+country-dropdown';
 
   export let keyword: KeywordWithData;
+  export let countries: Country[] = [];
 
-  const countries = derived(page, $page => $page.data.countries as Country[]);
-  const dispatch = createEventDispatcher();
+  const updateKeyword = debounce(async (id: string, updatedFields: object) => {
+    const response = await fetch('/protected/keywords', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ id, ...updatedFields }),
+    });
 
-  let selectedCountry: Country | null = keyword.country || null;
-  let dropdownElement: HTMLDivElement | null = null;
-
-  function selectCountry(country: Country | null) {
-    selectedCountry = country;
-    dispatch('select', { keywordId: keyword.id, country });
-    closeDropdown();
-  }
-
-  function openDropdown() {
-    const currentDropdownId = get(openDropdownId);
-    if (currentDropdownId === keyword.id) {
-      closeDropdown();
-    } else {
-      openDropdownId.set(keyword.id);
+    if (!response.ok) {
+      console.error('Failed to update keyword');
     }
+  }, 300);
+
+  function handleKeywordChange(event: Event, id: string) {
+    const input = event.target as HTMLInputElement;
+    input.value = input.value.toLowerCase();
+    updateKeyword(id, { keyword: input.value });
   }
 
-  function closeDropdown() {
-    openDropdownId.set(null);
+  function handleVolumeChange(event: CustomEvent, id: string) {
+    updateKeyword(id, { volume: event.detail.value });
   }
 
-  $: isOpen = get(openDropdownId) === keyword.id;
-
-  function handleKeydown(event: KeyboardEvent, country: Country | null) {
-    if (event.key === 'Enter' || event.key === ' ') {
-      selectCountry(country);
-    }
+  function handleDensityChange(event: CustomEvent, id: string) {
+    updateKeyword(id, { keyword_density: event.detail.value });
   }
 
-  function handleClickOutside(event: MouseEvent) {
-    if (dropdownElement && !dropdownElement.contains(event.target as Node)) {
-      closeDropdown();
-    }
+  function handleEvergreenToggle(id: string) {
+    updateKeyword(id, { evergreen: !keyword.evergreen });
   }
 
-  onMount(() => {
-    document.addEventListener('click', handleClickOutside);
-    return () => {
-      document.removeEventListener('click', handleClickOutside);
-    };
-  });
+  function handleCountrySelect(event: CustomEvent<string | number>) {
+    const selectedCountryId = event.detail;
+    updateKeyword(keyword.id, { country_id: selectedCountryId });
+  }
+
+  const countryOptions: DropdownOption[] = countries.map(country => ({ id: country.id, name: country.name }));
 </script>
 
+<tr>
+  <td>
+    <input
+      type="text"
+      value={keyword.keyword.toLowerCase()}
+      autocomplete="off"
+      autocorrect="off"
+      on:input={(event) => handleKeywordChange(event, keyword.id)}
+    />
+  </td>
+  <td>
+    <input
+      type="checkbox"
+      checked={keyword.evergreen}
+      on:change={() => handleEvergreenToggle(keyword.id)}
+    />
+  </td>
+  <td>
+    <Dropdown 
+      options={countryOptions}
+      selectedOptionId={keyword.country_id}
+      placeholder="Select a country"
+      on:select={handleCountrySelect}
+      menuWidth={150}
+      buttonHeight={50}
+      maxItemDisplayed={3}
+      dropdownId={`country-dropdown-${keyword.id}`}
+    />
+  </td>
+  <td>
+    <NumericInput value={keyword.volume} on:update={(event) => handleVolumeChange(event, keyword.id)} />
+  </td>
+  <td>
+    <NumericInput value={keyword.keyword_density} on:update={(event) => handleDensityChange(event, keyword.id)} />
+  </td>
+</tr>
+
 <style>
-  .dropdown {
-    position: relative;
-    display: inline-block;
-    width: 200px;
-  }
-
-  .dropdown-button {
-    width: 100%;
-    padding: 0.5em;
-    background-color: var(--gray-1);
-    border-radius: 0.5em;
-    cursor: pointer;
+  td {
+    padding: 8px;
     text-align: left;
-  }
-
-  .dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    width: 100%;
-    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-    z-index: 10;
-    max-height: 250px;
-    overflow-y: auto;
-  }
-
-  .dropdown-content button {
-    width: 100%;
-    padding: 1em;
-    text-align: left;
-    border: none;
-    background: none;
-    cursor: pointer;
-  }
-
-  .dropdown-content button:hover {
-    background-color: #f1f1f1;
-  }
-
-  .dropdown.open .dropdown-content {
-    display: block;
+    border-bottom: 1px solid #ddd;
   }
 </style>
-
-<tr>
-  <td>{keyword.keyword}</td>
-  <td>{keyword.evergreen ? 'Yes' : 'No'}</td>
-  <td>
-    <div class="dropdown" bind:this={dropdownElement} class:open={isOpen}>
-      <button type="button" class="dropdown-button" on:click={openDropdown} aria-haspopup="listbox">
-        {selectedCountry ? selectedCountry.name : 'Select a Country'}
-      </button>
-      <div class="dropdown-content" role="listbox">
-        <button
-          type="button"
-          role="option"
-          aria-selected={selectedCountry === null}
-          on:click={() => selectCountry(null)}
-          on:keydown={(event) => handleKeydown(event, null)}
-        >
-          None
-        </button>
-        {#each $countries as country}
-          <button
-            type="button"
-            role="option"
-            aria-selected={selectedCountry && selectedCountry.id === country.id}
-            on:click={() => selectCountry(country)}
-            on:keydown={(event) => handleKeydown(event, country)}
-          >
-            {country.name}
-          </button>
-        {/each}
-      </div>
-    </div>
-  </td>
-  <td>{keyword.volume}</td>
-  <td>{keyword.keyword_density}</td>
-</tr>

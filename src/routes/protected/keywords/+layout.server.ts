@@ -7,31 +7,30 @@ export const load: LayoutServerLoad = async ({ url }) => {
   const skip = Number(url.searchParams.get('skip')) || 0;
 
   try {
-    const countries: Country[] = await prisma.country.findMany();
-    const keywords: Keyword[] = await prisma.keyword.findMany({
-      include: {
-        country: true,
-        get_info: true,
-      },
-      orderBy: {
-        get_info: {
-          date_created: 'desc',
+    const [countries, keywords, total] = await Promise.all([
+      prisma.country.findMany(),
+      prisma.keyword.findMany({
+        include: {
+          country: true,
+          get_info: true,
         },
-      },
-      skip,
-      take,
-    });
-
-    const total: number = await prisma.keyword.count();
-
-    return {
-      data: {
-        countries,
-        keywords,
-        total,
+        orderBy: {
+          get_info: {
+            date_created: 'desc',
+          },
+        },
         skip,
         take,
-      },
+      }),
+      prisma.keyword.count(),
+    ]);
+
+    return {
+      countries,
+      keywords,
+      total,
+      skip,
+      take,
     };
   } catch (error) {
     console.error('Error fetching data:', error);

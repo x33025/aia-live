@@ -11,6 +11,7 @@ model ArticleMetadata {
   id                String   @id @default(uuid())
   title             String
   word_count        Int      @default(0)
+  goal_word_count   Int      @default(0) // Added this line
   semrush_score     Float    @default(0.0)
   author            User     @relation("Author", fields: [author_id], references: [id])
   author_id         String

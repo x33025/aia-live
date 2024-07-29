@@ -1,62 +1,53 @@
 <script lang="ts">
     import { fade } from 'svelte/transition';
-    import type { ArticleMetadata } from '@prisma/client';
+    import type { LayoutData } from './$types';
     import ArticleRow from '$lib/views/article/+article-row.svelte'; // Adjust the import path as needed
-  
-    export let data: { articles: ArticleMetadata[] };
-  </script>
-  
-  <main>
-    <div class="vstack">
-    <h1>Articles</h1>
-  
+    
+    export let data: LayoutData & { articles: ArticleMetadataWithRelated[] };
+</script>
 
-        <div class="article-list">
-          {#if data.articles.length > 0}
+<h1>Articles</h1>
+
+<div class="container">
+    <div class="article-list">
+        {#if data.articles.length > 0}
             {#each data.articles as article, index}
-              <ArticleRow {article} />
-              {#if index < data.articles.length - 1}
-                <div class="divider"></div>
-              {/if}
+                <ArticleRow
+                    {article}
+                    writerList={data.writers}
+                    categoryList={data.categories}
+                    statusList={data.statuses}
+                />
+                {#if index < data.articles.length - 1}
+                    <div class="divider"></div>
+                {/if}
             {/each}
-          {:else}
+        {:else}
             <p>No articles available.</p>
-          {/if}
-        </div>
-      </div>
-  </main>
-  
-  <style>
-    main {
-      display: flex;
-      flex-direction: column;
-      gap: 1em;
+        {/if}
+    </div>
+</div>
 
-      position: relative;
-
+<style>
+    .container {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
     }
-  
-    .vstack {
-      display: flex;
-      flex-direction: column;
-      gap: 1em;
-      height: 100%;
-    }    
+
+
+
     .article-list {
-      display: flex;
-      flex-direction: column;
-      gap: 1em;
-      overflow-y: auto;
-      -webkit-overflow-scrolling: touch;
-      width: 100%;
-      height: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 1em;
+        overflow-y: auto;
+        flex-grow: 1;
     }
-  
+
     .divider {
-      height: 1px;
-      background-color: #ddd;
-      margin: 0.25em 0;
+        height: 1px;
+        background-color: #ddd;
+        margin: 0.25em 0;
     }
-  
-  </style>
-  
+</style>

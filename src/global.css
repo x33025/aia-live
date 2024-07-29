@@ -1,4 +1,5 @@
 :root {
+  /* Color Variables */
   --red: #FF3B30;
   --pink: #FF2D55;
   --orange: #FF9500;
@@ -12,15 +13,23 @@
   --purple: #AF52DE;
   --gray: #8E8E93;
   --brown: #A2845E;
-}
 
-:root {
+  /* Gray Shades */
   --gray-1: rgb(242, 242, 247); /* Lightest */
   --gray-2: rgb(229, 229, 234);
   --gray-3: rgb(209, 209, 214);
   --gray-4: rgb(199, 199, 204);
   --gray-5: rgb(174, 174, 178);
   --gray-6: rgb(142, 142, 147); /* Darkest */
+}
+
+/* Font Faces */
+
+@font-face {
+  font-family: 'Nunito';
+  src: url('/src/fonts/Nunito-VariableFont_wght.ttf') format('truetype');
+  font-weight: 200 1000;
+  font-style: normal;
 }
 
 @font-face {
@@ -30,13 +39,7 @@
   font-style: normal;
 }
 
-@font-face {
-  font-family: 'Nunito';
-  src: url('/src/fonts/Nunito-VariableFont_wght.ttf') format('truetype');
-  font-weight: 200 1000;
-  font-style: normal;
-}
-
+/* Global Styles */
 * {
   margin: 0;
   padding: 0;
@@ -44,13 +47,13 @@
   font-size: 1em;
 }
 
-body {
-  font-family: 'Nunito', sans-serif;   
-}
-
 html, body {
   height: 100%;
   overflow: hidden;  /* Prevent scrolling */
+}
+
+body {
+  font-family: 'Nunito', sans-serif;
 }
 
 /* Remove default styling for text fields and inputs */
@@ -61,8 +64,6 @@ input[type="number"],
 textarea {
   border: none; /* Remove border */
   background: none; /* Remove background */
-  padding: 0; /* Remove padding */
-  margin: 0; /* Remove margin */
   font: inherit; /* Inherit font styling */
   color: inherit; /* Inherit text color */
   outline: none; /* Remove focus outline */
@@ -74,8 +75,6 @@ textarea {
 button {
   background: none;
   border: none;
-  padding: 0;
-  margin: 0;
   font: inherit;
   color: inherit;
   text-align: inherit;

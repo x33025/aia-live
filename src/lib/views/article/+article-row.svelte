@@ -1,65 +1,71 @@
 <script lang="ts">
-  import type { ArticleMetadata, User, Category, Status, Keyword } from '@prisma/client';
-  import CustomDropdown from './+dropdown.svelte';
+  import type { User, Category, Status } from '@prisma/client';
+
+  import CustomDropdown from '$lib/components/actions/+dropdown.svelte';
   import Title from './+title.svelte';
   import Keywords from './+keywords.svelte';
 
-  export let article: ArticleMetadata;
+  export let article: ArticleMetadataWithRelated;
   export let writerList: User[] = [];
   export let categoryList: Category[] = [];
   export let statusList: Status[] = [];
 
-  interface WriterSelectEvent extends CustomEvent {
-    detail: string;
+  let selectedWriterId: string | null = article.author_id ?? null;
+  let selectedCategoryId: string | null = article.category_id ?? null;
+  let selectedStatusId: string | null = article.status_id ?? null;
+
+  function handleWriterSelect(event: CustomEvent<string | number>) {
+    selectedWriterId = event.detail as string;
   }
 
-  function handleWriterSelect(event: WriterSelectEvent) {
-    const selectedWriterId = event.detail;
-    console.log('Selected writer ID:', selectedWriterId);
+  function handleCategorySelect(event: CustomEvent<string | number>) {
+    selectedCategoryId = event.detail as string;
   }
 
-  interface CategorySelectEvent extends CustomEvent {
-    detail: string;
+  function handleStatusSelect(event: CustomEvent<string | number>) {
+    selectedStatusId = event.detail as string;
   }
 
-  function handleCategorySelect(event: CategorySelectEvent) {
-    const selectedCategoryId = event.detail;
-    console.log('Selected category ID:', selectedCategoryId);
-  }
-
-  interface StatusSelectEvent extends CustomEvent {
-    detail: string;
-  }
-
-  function handleStatusSelect(event: StatusSelectEvent) {
-    const selectedStatusId = event.detail;
-    console.log('Selected status ID:', selectedStatusId);
-  }
+  const writerOptions: DropdownOption[] = writerList.map(writer => ({ id: writer.id, name: writer.name }));
+  const categoryOptions: DropdownOption[] = categoryList.map(category => ({ id: category.id, name: category.name }));
+  const statusOptions: DropdownOption[] = statusList.map(status => ({ id: status.id, name: status.status }));
 </script>
 
 <div class="vstack">
   <div class="hstack">
     <Title {article} />
     <CustomDropdown 
-      items={writerList.map(writer => ({ id: writer.id, name: writer.name ?? 'Unnamed Writer' }))}
-      placeholder="Writer"
-      fallbackName="Unnamed"
-      on:select={handleWriterSelect} 
+      options={writerOptions}
+      selectedOptionId={selectedWriterId}
+      placeholder="Select a writer" 
+      on:select={handleWriterSelect}
+      menuWidth={150}
+      buttonHeight={50}
+      maxItemDisplayed={3}
+      dropdownId="writer-dropdown"
     />
     <CustomDropdown 
-      items={categoryList.map(category => ({ id: category.id, name: category.name ?? 'Unnamed Category' }))}
-      placeholder="Category"
-      fallbackName="Unnamed"
-      on:select={handleCategorySelect} 
+      options={categoryOptions}
+      selectedOptionId={selectedCategoryId}
+      placeholder="Select a category" 
+      on:select={handleCategorySelect}
+      menuWidth={150}
+      buttonHeight={50}
+      maxItemDisplayed={3}
+      dropdownId="category-dropdown"
     />
     <CustomDropdown 
-      items={statusList.map(status => ({ id: status.id, name: status.status ?? 'Unnamed Status' }))}
-      placeholder="Status"
-      fallbackName="Unnamed"
-      on:select={handleStatusSelect} 
+      options={statusOptions}
+      selectedOptionId={selectedStatusId}
+      placeholder="Select a status" 
+      on:select={handleStatusSelect}
+      menuWidth={150}
+      buttonHeight={50}
+      maxItemDisplayed={3}
+      dropdownId="status-dropdown"
     />
   </div>
-  <!-- <Keywords keywords={article.keywords ?? []} articleMetadataId={String(article.id)} /> -->
+  <Keywords keywords={article.keywords} mainKeywordId={article.main_keyword_id} />
 </div>
 
 <style>
