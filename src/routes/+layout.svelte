@@ -1,6 +1,7 @@
 <script>
     import '../global.css';
     import ContextMenu from '$lib/components/actions/+context-menu.svelte';
+    import Analytics from '$lib/components/site-data/+analytics.svelte'; // Import the custom analytics component
 </script>
 
 <svelte:head>
@@ -12,6 +13,7 @@
         <slot />
     </div>
     <ContextMenu />
+    <Analytics /> <!-- Use the custom analytics component here -->
 </main>
 
 <style>
