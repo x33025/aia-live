@@ -2,6 +2,7 @@ import { Server } from 'socket.io';
 import { createServer } from 'http';
 import type { User } from '@prisma/client';
 import { prisma } from '$lib/server/config/prisma';
+import { env } from '$env/dynamic/private'; // Importing env from SvelteKit
 
 let io: Server;
 let activeUsers: Map<string, User> = new Map();
@@ -11,7 +12,7 @@ export function initializeSocketServer() {
 
   io = new Server(httpServer, {
     cors: {
-      origin: "http://localhost:5173", // Your SvelteKit app's URL
+      origin: env.VERCEL_URL || "http://localhost:5173", // Use the Vercel URL in production
       methods: ["GET", "POST"]
     }
   });
@@ -37,8 +38,9 @@ export function initializeSocketServer() {
   });
 
   // Listen on the same port as the SvelteKit server
-  httpServer.listen(3000, () => {
-    console.log('Socket.IO server running on http://localhost:3000');
+  const PORT = env.PORT || 3000;
+  httpServer.listen(PORT, () => {
+    console.log(`Socket.IO server running on http://localhost:${PORT}`);
   });
 }
 
