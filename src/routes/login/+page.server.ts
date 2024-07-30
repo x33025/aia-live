@@ -1,33 +1,20 @@
+// src/routes/login/+page.server.ts
 import type { Actions } from './$types';
 import { fail, redirect } from '@sveltejs/kit';
-import bcrypt from 'bcryptjs'; // Import default and destructure
-import { setAuthenticationCookies } from '$lib/server/config/cookies';
-import { findByEmail } from '$lib/server/services/users';
-
-const { compareSync } = bcrypt; // Destructure the necessary function
+import { supabase } from '$lib/config/supabase';
 
 export const actions: Actions = {
-  login: async ({ cookies, request }) => {
-    const data = await request.formData();
-    const email = data.get('email');
-    const password = data.get('password');
+  login: async ({ request, locals: { supabase } }) => {
+    const formData = await request.formData()
+    const email = formData.get('email') as string
+    const password = formData.get('password') as string
 
-    // Validate form data
-    if (!email || !password) {
-      return fail(400, { error: 'Email and password are required' });
+    const { error } = await supabase.auth.signInWithPassword({ email, password })
+    if (error) {
+      console.error(error)
+      redirect(303, '/login')
+    } else {
+      redirect(303, '/protected')
     }
-
-    const user = await findByEmail(String(email));
-
-    // Check if the user exists and the password is correct
-    if (!user || !compareSync(String(password), String(user.password_hash))) {
-      return fail(400, { error: 'Invalid email or password' });
-    }
-
-    // Set authentication cookies
-    setAuthenticationCookies(cookies, user.id);
-
-    // Redirect to the dashboard
-    throw redirect(302, '/protected');
   }
 };

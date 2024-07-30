@@ -1,17 +1,16 @@
-// src/lib/server/config/cookies.ts
 import type { Cookies } from '@sveltejs/kit';
-import jwt from 'jsonwebtoken';
-import { env } from '$env/dynamic/private';
 
-const JWT_SECRET = env.JWT_SECRET;
+export const setAuthenticationCookies = (cookies: Cookies, accessToken: string) => {
+  console.log('Setting cookie with access token:', accessToken); // Log the access token
 
-export const setAuthenticationCookies = (cookies: Cookies, userId: string) => {
-  const token = jwt.sign({ userId }, JWT_SECRET, { expiresIn: '1h' });
-
-  cookies.set('jwt', token, {
+  cookies.set('supabase-auth-token', accessToken, {
     httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
+    // Assuming your application will always run over HTTPS
+    secure: true,
     maxAge: 60 * 60, // 1 hour
     path: '/'
   });
+
+  // Log the cookie set operation
+  console.log('Cookie set with access token:', cookies.get('supabase-auth-token'));
 };

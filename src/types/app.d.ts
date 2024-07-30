@@ -1,16 +1,20 @@
-// src/app.d.ts
-import type { User, Keyword, Country, GetInfo, ArticleMetadata } from '@prisma/client';
-import type { PrismaClient } from '@prisma/client';
+import type { Session, SupabaseClient, User } from '@supabase/supabase-js';
+import type { PrismaClient, Keyword, Country, GetInfo, ArticleMetadata } from '@prisma/client';
 
 declare global {
   namespace App {
     interface Locals {
+      supabase: SupabaseClient;
+      safeGetSession: () => Promise<{ session: Session | null; user: User | null }>;
+      session: Session | null;
       user: User | null;
     }
-
+    interface PageData {
+      session: Session | null;
+    }
     // Add other custom interfaces here
     // interface Error {}
-    // interface PageData {}
+  
     // interface Platform {}
   }
 
