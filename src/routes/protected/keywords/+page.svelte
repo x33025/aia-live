@@ -2,12 +2,11 @@
   import { debounce } from 'lodash-es';
   import KeywordRow from '$lib/views/keyword/+keyword-row.svelte';
   import { onMount } from 'svelte';
-  import type { Country, Keyword } from '@prisma/client';
   import type { LayoutData } from './$types';
 
   export let data: LayoutData;
 
-  let { countries, keywords, total, skip, take } = data;
+  let { keywords, total, skip, take } = data;
 
   let loading = false;
   let allKeywordsLoaded = false;
@@ -17,23 +16,24 @@
     loading = true;
 
     const res = await fetch(`/keywords?skip=${keywords.length}`);
-    const data = await res.json();
+    const newData = await res.json();
 
-    keywords = [...keywords, ...data.keywords];
-    skip = data.skip;
-    take = data.take;
-    loading = false;
-
-    if (keywords.length >= total) {
+    if (newData.keywords.length > 0) {
+      keywords = [...keywords, ...newData.keywords];
+      skip = newData.skip;
+      take = newData.take;
+    } else {
       allKeywordsLoaded = true;
     }
+
+    loading = false;
   }
 
-  function handleScroll() {
+  const handleScroll = debounce(() => {
     if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 200) {
       loadMore();
     }
-  }
+  }, 200);
 
   onMount(() => {
     window.addEventListener('scroll', handleScroll);
@@ -81,7 +81,6 @@
   }
 </style>
 
-
 <h1>Keywords</h1>
 <div class="table-container">
   <div class="table-wrapper">
@@ -98,7 +97,7 @@
       <tbody>
         {#if keywords && keywords.length > 0}
           {#each keywords as keyword}
-            <!-- <KeywordRow {keyword} {countries}/> -->
+            {keyword.id}
           {/each}
         {:else}
           <tr>

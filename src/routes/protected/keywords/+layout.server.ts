@@ -1,39 +1,38 @@
-// import type { LayoutServerLoad } from './$types';
-// import { prisma } from '$lib/server/config/prisma';
-// import type { Country, Keyword } from '@prisma/client';
+import type { LayoutServerLoad } from './$types';
+import { supabase } from '$lib/config/supabase';
 
-// export const load: LayoutServerLoad = async ({ url }) => {
-//   const take = 20;
-//   const skip = Number(url.searchParams.get('skip')) || 0;
+export const load: LayoutServerLoad = async ({ url }) => {
+  const take = 20;
+  const skip = Number(url.searchParams.get('skip')) || 0;
 
-//   try {
-//     const [countries, keywords, total] = await Promise.all([
-//       prisma.country.findMany(),
-//       prisma.keyword.findMany({
-//         include: {
-//           country: true,
-//           get_info: true,
-//         },
-//         orderBy: {
-//           get_info: {
-//             date_created: 'desc',
-//           },
-//         },
-//         skip,
-//         take,
-//       }),
-//       prisma.keyword.count(),
-//     ]);
+  try {
+    // Fetch keywords with pagination
+    const { data: keywords, error: keywordsError } = await supabase
+      .from('Keyword')
+      .select('*')
+      .range(skip, skip + take - 1);
 
-//     return {
-//       countries,
-//       keywords,
-//       total,
-//       skip,
-//       take,
-//     };
-//   } catch (error) {
-//     console.error('Error fetching data:', error);
-//     throw new Error('Failed to load data');
-//   }
-// };
+    if (keywordsError) {
+      throw new Error(`Error fetching keywords: ${keywordsError.message}`);
+    }
+
+    // Fetch total count of keywords
+    const { count: total, error: countError } = await supabase
+      .from('Keyword')
+      .select('*', { count: 'exact', head: true });
+
+    if (countError) {
+      throw new Error(`Error fetching total count: ${countError.message}`);
+    }
+
+    return {
+      keywords,
+      total: total || 0,
+      skip,
+      take,
+    };
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    throw new Error('Failed to load data');
+  }
+};
