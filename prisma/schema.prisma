@@ -106,13 +106,14 @@ model User {
 model TimeData {
   id                String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   date_created      DateTime   @default(now()) @db.Timestamptz
-  date_updated      DateTime   @updatedAt @db.Timestamptz
+  date_updated      DateTime   @updatedAt @default(now()) @db.Timestamptz
   date_deleted      DateTime?  @db.Timestamptz
   ArticleMetadata   ArticleMetadata[]
   Keyword           Keyword[]
 
   @@index([id], map: "time_data_id_idx")
 }
+
 
 model ActivityData {
   id                String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid

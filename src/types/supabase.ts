@@ -359,7 +359,7 @@ export type Database = {
         Insert: {
           date_created?: string
           date_deleted?: string | null
-          date_updated: string
+          date_updated?: string
           id?: string
         }
         Update: {
