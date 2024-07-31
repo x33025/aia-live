@@ -11,20 +11,22 @@ export const load: LayoutServerLoad = async ({ url }) => {
       .from('Keyword')
       .select('*')
       .range(skip, skip + take - 1);
-
+  
     if (keywordsError) {
+      console.error('Error details:', keywordsError);
       throw new Error(`Error fetching keywords: ${keywordsError.message}`);
     }
-
+  
     // Fetch total count of keywords
     const { count: total, error: countError } = await supabase
       .from('Keyword')
       .select('*', { count: 'exact', head: true });
-
+  
     if (countError) {
+      console.error('Error details:', countError);
       throw new Error(`Error fetching total count: ${countError.message}`);
     }
-
+  
     return {
       keywords,
       total: total || 0,
@@ -35,4 +37,5 @@ export const load: LayoutServerLoad = async ({ url }) => {
     console.error('Error fetching data:', error);
     throw new Error('Failed to load data');
   }
+  
 };

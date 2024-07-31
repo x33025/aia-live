@@ -1,12 +1,10 @@
 <script lang="ts">
   import { debounce } from 'lodash-es';
-  import Dropdown from '$lib/components/actions/+dropdown.svelte';
   import NumericInput from '$lib/components/input/+numeric-input.svelte';
+  import type { Database } from '../../../types/supabase'; // Adjust the path based on where you saved the types
+  type Keyword = Database['public']['Tables']['Keyword']['Row'];
 
-  import type { Country } from '@prisma/client';
-
-  export let keyword: KeywordWithData;
-  export let countries: Country[] = [];
+  export let keyword: Keyword;
 
   const updateKeyword = debounce(async (id: string, updatedFields: object) => {
     const response = await fetch('/protected/keywords', {
@@ -39,13 +37,6 @@
   function handleEvergreenToggle(id: string) {
     updateKeyword(id, { evergreen: !keyword.evergreen });
   }
-
-  function handleCountrySelect(event: CustomEvent<string | number>) {
-    const selectedCountryId = event.detail;
-    updateKeyword(keyword.id, { country_id: selectedCountryId });
-  }
-
-  const countryOptions: DropdownOption[] = countries.map(country => ({ id: country.id, name: country.name }));
 </script>
 
 <tr>
@@ -63,18 +54,6 @@
       type="checkbox"
       checked={keyword.evergreen}
       on:change={() => handleEvergreenToggle(keyword.id)}
-    />
-  </td>
-  <td>
-    <Dropdown 
-      options={countryOptions}
-      selectedOptionId={keyword.country_id}
-      placeholder="Select a country"
-      on:select={handleCountrySelect}
-      menuWidth={150}
-      buttonHeight={50}
-      maxItemDisplayed={3}
-      dropdownId={`country-dropdown-${keyword.id}`}
     />
   </td>
   <td>

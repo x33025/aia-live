@@ -11,8 +11,8 @@ datasource db {
 
 model Article {
   id                String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  quick_look        String     @default("") @db.VarChar(255)
-  description       String     @default("") @db.VarChar(255)
+  quick_look        String     @default("") @db.Text
+  description       String     @default("") @db.Text
   content           String     @default("")
   word_count        Int        @default(0) @db.Integer
   article_metadata  ArticleMetadata?
@@ -22,7 +22,7 @@ model Article {
 
 model ArticleMetadata {
   id                String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  title             String     @default("") @db.VarChar(255)
+  title             String     @default("") @db.Text
   target_word_count Int        @default(0) @db.Integer
   semrush_score     Float      @default(0.0) @db.Real
   author            User?      @relation("Author", fields: [author_id], references: [id])
@@ -53,7 +53,7 @@ model ArticleMetadata {
 
 model Keyword {
   id                String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  keyword           String     @unique @default("") @db.VarChar(255)
+  keyword           String     @unique @default("") @db.Text
   evergreen         Boolean    @default(false)
   volume            Int        @default(0) @db.Integer
   keyword_density   Int        @default(0) @db.Integer
@@ -69,45 +69,45 @@ model Keyword {
 
 model Category {
   id                String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  name              String     @unique @default("") @db.VarChar(255)
+  name              String     @unique @default("") @db.Text
   ArticleMetadata   ArticleMetadata[]
 }
 
 model Status {
   id                String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  name              String     @unique @default("") @db.VarChar(255)
-  timestamp         DateTime   @default(now())
+  name              String     @unique @default("") @db.Text
+  timestamp         DateTime   @default(now()) @db.Timestamptz
   ArticleMetadata   ArticleMetadata[]
 }
 
 model Role {
   id                String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  name              String     @unique @default("") @db.VarChar(255)
+  name              String     @unique @default("") @db.Text
   User              User[]
 }
 
 model User {
   id                String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  email             String     @unique @default("") @db.VarChar(255)
-  name              String     @default("") @db.VarChar(255)
-  last_name         String     @default("") @db.VarChar(255)
-  author_name       String     @default("") @db.VarChar(255)
+  email             String     @unique @default("") @db.Text
+  name              String     @default("") @db.Text
+  last_name         String     @default("") @db.Text
+  author_name       String     @default("") @db.Text
   role              Role?      @relation(fields: [role_id], references: [id])
   role_id           String?    @db.Uuid
   ArticleMetadata_Author ArticleMetadata[] @relation("Author")
   ActivityData_Modifier ActivityData[] @relation("Modifier")
   ActivityData_Creator  ActivityData[] @relation("Creator")
   ActivityData_Deleter  ActivityData[] @relation("Deleter")
-  last_active_at    DateTime?  @default(now())
+  last_active_at    DateTime?  @default(now()) @db.Timestamptz
 
   @@index([role_id], map: "user_role_id_idx")
 }
 
 model TimeData {
   id                String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  date_created      DateTime   @default(now())
-  date_updated      DateTime   @updatedAt
-  date_deleted      DateTime?
+  date_created      DateTime   @default(now()) @db.Timestamptz
+  date_updated      DateTime   @updatedAt @db.Timestamptz
+  date_deleted      DateTime?  @db.Timestamptz
   ArticleMetadata   ArticleMetadata[]
   Keyword           Keyword[]
 
@@ -131,13 +131,13 @@ model ActivityData {
 
 model Country {
   id                String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  name              String     @unique @default("") @db.VarChar(255)
+  name              String     @unique @default("") @db.Text
   Keyword           Keyword[]
 }
 
 model Website {
   id                String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  name              String     @unique @default("") @db.VarChar(255)
-  url               String     @default("") @db.VarChar(255)
+  name              String     @unique @default("") @db.Text
+  url               String     @default("") @db.Text
   ArticleMetadata   ArticleMetadata[]
 }

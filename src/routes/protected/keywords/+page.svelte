@@ -96,8 +96,8 @@
       </thead>
       <tbody>
         {#if keywords && keywords.length > 0}
-          {#each keywords as keyword}
-            {keyword.id}
+          {#each keywords as keyword (keyword.id)}
+            <KeywordRow {keyword} />
           {/each}
         {:else}
           <tr>
