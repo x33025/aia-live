@@ -98,7 +98,7 @@
       <tbody>
         {#if keywords && keywords.length > 0}
           {#each keywords as keyword}
-            <KeywordRow {keyword} {countries}/>
+            <!-- <KeywordRow {keyword} {countries}/> -->
           {/each}
         {:else}
           <tr>
