@@ -7,7 +7,6 @@
   let keywords: Keyword[] = data.keywords;
 </script>
 
-<h1>Keywords</h1>
 <div class="table-container">
   <div class="table-wrapper">
     <table>

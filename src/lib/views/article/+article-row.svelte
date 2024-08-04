@@ -1,11 +1,10 @@
 <script lang="ts">
-  import type { User, Category, Status } from '@prisma/client';
 
   import CustomDropdown from '$lib/components/actions/+dropdown.svelte';
   import Title from './+title.svelte';
   import Keywords from './+keywords.svelte';
 
-  export let article: ArticleMetadataWithRelated;
+  export let article: ArticleMetadataWithRelations;
   export let writerList: User[] = [];
   export let categoryList: Category[] = [];
   export let statusList: Status[] = [];
@@ -28,7 +27,7 @@
 
   const writerOptions: DropdownOption[] = writerList.map(writer => ({ id: writer.id, name: writer.name }));
   const categoryOptions: DropdownOption[] = categoryList.map(category => ({ id: category.id, name: category.name }));
-  const statusOptions: DropdownOption[] = statusList.map(status => ({ id: status.id, name: status.status }));
+  const statusOptions: DropdownOption[] = statusList.map(status => ({ id: status.id, name: status.name }));
 </script>
 
 <div class="vstack">

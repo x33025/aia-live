@@ -24,5 +24,8 @@ export const load: LayoutLoad = async ({ data, depends, fetch }) => {
   const { data: { session } = { session: null } } = await supabase.auth.getSession();
   const { data: { user } = { user: null } } = await supabase.auth.getUser();
 
-  return { session, supabase, user };
+  // You can fetch the title from an API or set it statically
+  const title = undefined;
+
+  return { session, supabase, user, title };
 };

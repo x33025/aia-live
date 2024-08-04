@@ -17,6 +17,7 @@ export const load: LayoutServerLoad = async () => {
     return {
       keywords,
       total: keywords.length,
+      title: "Keywords"
     };
   } catch (error) {
     console.error('Error fetching data:', error);
