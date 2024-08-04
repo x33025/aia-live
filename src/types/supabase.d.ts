@@ -273,6 +273,7 @@ export type Database = {
       }
       Keyword: {
         Row: {
+          activity_data_id: string
           country_id: string | null
           evergreen: boolean
           id: string
@@ -282,6 +283,7 @@ export type Database = {
           volume: number
         }
         Insert: {
+          activity_data_id: string
           country_id?: string | null
           evergreen?: boolean
           id?: string
@@ -291,6 +293,7 @@ export type Database = {
           volume?: number
         }
         Update: {
+          activity_data_id?: string
           country_id?: string | null
           evergreen?: boolean
           id?: string
@@ -300,6 +303,13 @@ export type Database = {
           volume?: number
         }
         Relationships: [
+          {
+            foreignKeyName: "Keyword_activity_data_id_fkey"
+            columns: ["activity_data_id"]
+            isOneToOne: false
+            referencedRelation: "ActivityData"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "Keyword_country_id_fkey"
             columns: ["country_id"]

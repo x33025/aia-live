@@ -197,6 +197,10 @@
   const handleTouchEnd = () => {
     isMouseOver = false;
   };
+
+  const handleBlur = () => {
+    isMouseOver = false;
+  };
 </script>
 
 <style>
@@ -214,5 +218,8 @@
   on:mousemove={handleMouseMove} 
   on:mouseout={handleMouseOut} 
   on:touchmove={handleTouchMove} 
-  on:touchend={handleTouchEnd}>
+  on:touchend={handleTouchEnd} 
+  on:blur={handleBlur} 
+  tabindex="0"
+  aria-label="Interactive canvas with animated dots">
 </canvas>

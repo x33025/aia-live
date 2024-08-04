@@ -1,8 +1,8 @@
 -- CreateTable
 CREATE TABLE "Article" (
     "id" UUID NOT NULL DEFAULT gen_random_uuid(),
-    "quick_look" VARCHAR(255) NOT NULL DEFAULT '',
-    "description" VARCHAR(255) NOT NULL DEFAULT '',
+    "quick_look" TEXT NOT NULL DEFAULT '',
+    "description" TEXT NOT NULL DEFAULT '',
     "content" TEXT NOT NULL DEFAULT '',
     "word_count" INTEGER NOT NULL DEFAULT 0,
 
@@ -12,7 +12,7 @@ CREATE TABLE "Article" (
 -- CreateTable
 CREATE TABLE "ArticleMetadata" (
     "id" UUID NOT NULL DEFAULT gen_random_uuid(),
-    "title" VARCHAR(255) NOT NULL DEFAULT '',
+    "title" TEXT NOT NULL DEFAULT '',
     "target_word_count" INTEGER NOT NULL DEFAULT 0,
     "semrush_score" REAL NOT NULL DEFAULT 0.0,
     "author_id" UUID,
@@ -30,7 +30,7 @@ CREATE TABLE "ArticleMetadata" (
 -- CreateTable
 CREATE TABLE "Keyword" (
     "id" UUID NOT NULL DEFAULT gen_random_uuid(),
-    "keyword" VARCHAR(255) NOT NULL DEFAULT '',
+    "keyword" TEXT NOT NULL DEFAULT '',
     "evergreen" BOOLEAN NOT NULL DEFAULT false,
     "volume" INTEGER NOT NULL DEFAULT 0,
     "keyword_density" INTEGER NOT NULL DEFAULT 0,
@@ -43,7 +43,7 @@ CREATE TABLE "Keyword" (
 -- CreateTable
 CREATE TABLE "Category" (
     "id" UUID NOT NULL DEFAULT gen_random_uuid(),
-    "name" VARCHAR(255) NOT NULL DEFAULT '',
+    "name" TEXT NOT NULL DEFAULT '',
 
     CONSTRAINT "Category_pkey" PRIMARY KEY ("id")
 );
@@ -51,8 +51,8 @@ CREATE TABLE "Category" (
 -- CreateTable
 CREATE TABLE "Status" (
     "id" UUID NOT NULL DEFAULT gen_random_uuid(),
-    "name" VARCHAR(255) NOT NULL DEFAULT '',
-    "timestamp" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "name" TEXT NOT NULL DEFAULT '',
+    "timestamp" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "Status_pkey" PRIMARY KEY ("id")
 );
@@ -60,7 +60,7 @@ CREATE TABLE "Status" (
 -- CreateTable
 CREATE TABLE "Role" (
     "id" UUID NOT NULL DEFAULT gen_random_uuid(),
-    "name" VARCHAR(255) NOT NULL DEFAULT '',
+    "name" TEXT NOT NULL DEFAULT '',
 
     CONSTRAINT "Role_pkey" PRIMARY KEY ("id")
 );
@@ -68,12 +68,12 @@ CREATE TABLE "Role" (
 -- CreateTable
 CREATE TABLE "User" (
     "id" UUID NOT NULL DEFAULT gen_random_uuid(),
-    "email" VARCHAR(255) NOT NULL DEFAULT '',
-    "name" VARCHAR(255) NOT NULL DEFAULT '',
-    "last_name" VARCHAR(255) NOT NULL DEFAULT '',
-    "author_name" VARCHAR(255) NOT NULL DEFAULT '',
+    "email" TEXT NOT NULL DEFAULT '',
+    "name" TEXT NOT NULL DEFAULT '',
+    "last_name" TEXT NOT NULL DEFAULT '',
+    "author_name" TEXT NOT NULL DEFAULT '',
     "role_id" UUID,
-    "last_active_at" TIMESTAMP(3) DEFAULT CURRENT_TIMESTAMP,
+    "last_active_at" TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );
@@ -81,9 +81,9 @@ CREATE TABLE "User" (
 -- CreateTable
 CREATE TABLE "TimeData" (
     "id" UUID NOT NULL DEFAULT gen_random_uuid(),
-    "date_created" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "date_updated" TIMESTAMP(3) NOT NULL,
-    "date_deleted" TIMESTAMP(3),
+    "date_created" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "date_updated" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "date_deleted" TIMESTAMPTZ,
 
     CONSTRAINT "TimeData_pkey" PRIMARY KEY ("id")
 );
@@ -101,7 +101,7 @@ CREATE TABLE "ActivityData" (
 -- CreateTable
 CREATE TABLE "Country" (
     "id" UUID NOT NULL DEFAULT gen_random_uuid(),
-    "name" VARCHAR(255) NOT NULL DEFAULT '',
+    "name" TEXT NOT NULL DEFAULT '',
 
     CONSTRAINT "Country_pkey" PRIMARY KEY ("id")
 );
@@ -109,8 +109,8 @@ CREATE TABLE "Country" (
 -- CreateTable
 CREATE TABLE "Website" (
     "id" UUID NOT NULL DEFAULT gen_random_uuid(),
-    "name" VARCHAR(255) NOT NULL DEFAULT '',
-    "url" VARCHAR(255) NOT NULL DEFAULT '',
+    "name" TEXT NOT NULL DEFAULT '',
+    "url" TEXT NOT NULL DEFAULT '',
 
     CONSTRAINT "Website_pkey" PRIMARY KEY ("id")
 );

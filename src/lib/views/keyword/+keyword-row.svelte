@@ -1,8 +1,6 @@
 <script lang="ts">
   import { debounce } from 'lodash-es';
   import NumericInput from '$lib/components/input/+numeric-input.svelte';
-  import type { Database } from '../../../types/supabase'; // Adjust the path based on where you saved the types
-  type Keyword = Database['public']['Tables']['Keyword']['Row'];
 
   export let keyword: Keyword;
 
