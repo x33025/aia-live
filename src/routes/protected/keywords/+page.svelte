@@ -1,10 +1,11 @@
 <script lang="ts">
   import KeywordRow from '$lib/views/keyword/+keyword-row.svelte';
-  import type { LayoutData } from './$types';
+  import type { PageData } from './$types';
 
-  export let data: LayoutData;
+  export let data: PageData;
 
-  let keywords: Keyword[] = data.keywords;
+  let keywords: KeywordWithRelations[] = data.keywords;
+  let countries: Country[] = data.countries; // Assuming countries data is part of PageData
 </script>
 
 <div class="table-container">
@@ -22,7 +23,7 @@
       <tbody>
         {#if keywords && keywords.length > 0}
           {#each keywords as keyword (keyword.id)}
-            <KeywordRow {keyword} />
+            <KeywordRow {keyword} {countries} />
           {/each}
         {:else}
           <tr>
@@ -38,13 +39,16 @@
   .table-container {
     display: flex;
     flex-direction: column;
-    overflow-x: auto;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    flex-grow: 1;
   }
 
   .table-wrapper {
+    flex-grow: 1;
     overflow-y: auto;
     overflow-x: hidden;
-    flex-grow: 1;
   }
 
   table {

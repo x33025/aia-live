@@ -1,8 +1,11 @@
 <script lang="ts">
   import { debounce } from 'lodash-es';
-  import NumericInput from '$lib/components/input/+numeric-input.svelte';
+  import NumericInput from '$lib/components/advanced input/+numeric-input.svelte';
+  import Keyword from './+keyword.svelte';
+  import Dropdown from '$lib/components/actions/+dropdown.svelte';
 
-  export let keyword: Keyword;
+  export let keyword: KeywordWithRelations;
+  export let countries: Country[];
 
   const updateKeyword = debounce(async (id: string, updatedFields: object) => {
     const response = await fetch('/protected/keywords', {
@@ -12,7 +15,6 @@
       },
       body: JSON.stringify({ id, ...updatedFields }),
     });
-
     if (!response.ok) {
       console.error('Failed to update keyword');
     }
@@ -35,16 +37,20 @@
   function handleEvergreenToggle(id: string) {
     updateKeyword(id, { evergreen: !keyword.evergreen });
   }
+
+  function handleCountrySelect(event: CustomEvent<string | number>) {
+    const selectedCountryId = event.detail;
+    updateKeyword(keyword.id, { country_id: selectedCountryId });
+  }
+
+  $: countryOptions = countries.map(country => ({ id: country.id, name: country.name }));
 </script>
 
 <tr>
   <td>
-    <input
-      type="text"
-      value={keyword.keyword.toLowerCase()}
-      autocomplete="off"
-      autocorrect="off"
-      on:input={(event) => handleKeywordChange(event, keyword.id)}
+    <Keyword
+      keyword={keyword} 
+      on:keywordChange={(event) => handleKeywordChange(event.detail.value, keyword.id)}
     />
   </td>
   <td>
@@ -52,6 +58,15 @@
       type="checkbox"
       checked={keyword.evergreen}
       on:change={() => handleEvergreenToggle(keyword.id)}
+    />
+  </td>
+  <td>
+    <Dropdown 
+      options={countryOptions}
+      selectedOptionId={keyword.country_id}
+      placeholder="Select a country" 
+      on:select={handleCountrySelect}
+      maxItemDisplayed={3}
     />
   </td>
   <td>

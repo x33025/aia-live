@@ -59,7 +59,7 @@
 </style>
 
 <svelte:head>
-  <title>Log In</title>
+  <title>Login</title>
 </svelte:head>
 
 <div class="login-container">

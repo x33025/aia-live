@@ -17,6 +17,10 @@ declare global {
     // interface Platform {}
   }
 
+
+
+ 
+  
   // Define your custom types here
   type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[];
 
@@ -39,6 +43,10 @@ declare global {
     created_by: User;
     last_modified_by: User;
     deleted_by?: User | null;
+  };
+
+  type UserWithRole = User & {
+    role: Role[];
   };
 
   type ArticleMetadataWithRelations = ArticleMetadata & {
@@ -73,6 +81,16 @@ declare global {
     name: string;
     [key: string]: any; // Allow additional properties
   };
+
+  enum TextType {
+    Title = 'title',
+    Headline = 'headline',
+    Subheadline = 'subheadline',
+    Body = 'body',
+    Callout = 'callout',
+    Caption = 'caption',
+  }
+
 }
 
 export {};

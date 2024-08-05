@@ -1,17 +1,25 @@
+<!-- src/routes/example.svelte -->
 <script lang="ts">
-
   import CustomDropdown from '$lib/components/actions/+dropdown.svelte';
   import Title from './+title.svelte';
   import Keywords from './+keywords.svelte';
+  import NumericInput from '$lib/components/advanced input/+numeric-input.svelte';
+  import NumericTarget from '$lib/components/advanced input/+numeric-target.svelte';
+  import VStack from '$lib/components/basic/+v-stack.svelte';
+  import HStack from '$lib/components/basic/+h-stack.svelte';
 
   export let article: ArticleMetadataWithRelations;
-  export let writerList: User[] = [];
-  export let categoryList: Category[] = [];
-  export let statusList: Status[] = [];
+  export let writers: User[];
+  export let categories: Category[];
+  export let statuses: Status[];
 
-  let selectedWriterId: string | null = article.author_id ?? null;
-  let selectedCategoryId: string | null = article.category_id ?? null;
-  let selectedStatusId: string | null = article.status_id ?? null;
+  $: selectedWriterId = article.author_id ?? null;
+  $: selectedCategoryId = article.category_id ?? null;
+  $: selectedStatusId = article.status_id ?? null;
+
+  $: writerOptions = writers.map((writer) => ({ id: writer.id, name: writer.name }));
+  $: categoryOptions = categories.map((category) => ({ id: category.id, name: category.name }));
+  $: statusOptions = statuses.map((status) => ({ id: status.id, name: status.name }));
 
   function handleWriterSelect(event: CustomEvent<string | number>) {
     selectedWriterId = event.detail as string;
@@ -25,21 +33,25 @@
     selectedStatusId = event.detail as string;
   }
 
-  const writerOptions: DropdownOption[] = writerList.map(writer => ({ id: writer.id, name: writer.name }));
-  const categoryOptions: DropdownOption[] = categoryList.map(category => ({ id: category.id, name: category.name }));
-  const statusOptions: DropdownOption[] = statusList.map(status => ({ id: status.id, name: status.name }));
+  function updateSemrushScore(value: number) {
+    console.log(`Updating semrush_score to ${value}`);
+    // Implement actual update logic here, e.g., making a request to your backend.
+  }
+
+  function updateTargetWordCount(value: number) {
+    console.log(`Updating target_word_count to ${value}`);
+    // Implement actual update logic here, e.g., making a request to your backend.
+  }
 </script>
 
-<div class="vstack">
-  <div class="hstack">
+<VStack spacing={0.5}>
+  <HStack spacing={0.5}>
     <Title {article} />
     <CustomDropdown 
       options={writerOptions}
       selectedOptionId={selectedWriterId}
       placeholder="Select a writer" 
       on:select={handleWriterSelect}
-      menuWidth={150}
-      buttonHeight={50}
       maxItemDisplayed={3}
       dropdownId="writer-dropdown"
     />
@@ -48,8 +60,6 @@
       selectedOptionId={selectedCategoryId}
       placeholder="Select a category" 
       on:select={handleCategorySelect}
-      menuWidth={150}
-      buttonHeight={50}
       maxItemDisplayed={3}
       dropdownId="category-dropdown"
     />
@@ -58,30 +68,21 @@
       selectedOptionId={selectedStatusId}
       placeholder="Select a status" 
       on:select={handleStatusSelect}
-      menuWidth={150}
-      buttonHeight={50}
       maxItemDisplayed={3}
       dropdownId="status-dropdown"
     />
-  </div>
+  </HStack>
+
+  <HStack spacing={0.5}>
+    <NumericInput
+      value={article.semrush_score} 
+      on:update={(event) => updateSemrushScore(event.detail.value)}
+    />
+    <NumericTarget
+      target={article.target_word_count} 
+      current={0} 
+      update={updateTargetWordCount}
+    />
+  </HStack>
   <Keywords keywords={article.keywords} mainKeywordId={article.main_keyword_id} />
-</div>
-
-<style>
-  .vstack {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5em;
-    background-color: #fff;
-    width: 100%;
-  }
-
-  .hstack {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    gap: 0.5em;
-    width: 100%;
-  }
-</style>
+</VStack>
