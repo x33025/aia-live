@@ -15,6 +15,11 @@ export enum  VerticalAlignment {
   Bottom = 'bottom',
 }
 
+export interface Alignment {
+  horizontal: HorizontalAlignment;
+  vertical: VerticalAlignment;
+}
+
   export enum TextType {
     Title = 'title',
     Headline = 'headline',

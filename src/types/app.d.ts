@@ -91,6 +91,8 @@ declare global {
     Caption = 'caption',
   }
 
+  
+
 }
 
 export {};

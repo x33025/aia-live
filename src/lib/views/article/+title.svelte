@@ -1,6 +1,6 @@
 <!-- +title.svelte -->
 <script lang="ts">
-  import Input from '$lib/components/basic/+input.svelte';
+  import Input from '$lib/components/layout/+input.svelte';
   import type { ArticleMetadata } from '@prisma/client';
   import { TextType } from '$lib/types';
   

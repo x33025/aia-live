@@ -5,8 +5,8 @@
   import Keywords from './+keywords.svelte';
   import NumericInput from '$lib/components/advanced input/+numeric-input.svelte';
   import NumericTarget from '$lib/components/advanced input/+numeric-target.svelte';
-  import VStack from '$lib/components/basic/+v-stack.svelte';
-  import HStack from '$lib/components/basic/+h-stack.svelte';
+  import VStack from '$lib/components/layout/+v-stack.svelte';
+  import HStack from '$lib/components/layout/+h-stack.svelte';
 
   export let article: ArticleMetadataWithRelations;
   export let writers: User[];

@@ -1,5 +1,5 @@
 <script lang="ts">
-    import Input from '$lib/components/basic/+input.svelte';
+    import Input from '$lib/components/layout/+input.svelte';
     import type { Keyword } from '@prisma/client'; // Adjust import based on your actual model
     import { TextType } from '$lib/types';
   
