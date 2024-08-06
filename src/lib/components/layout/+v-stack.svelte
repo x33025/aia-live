@@ -1,9 +1,9 @@
-<!-- src/lib/components/+v-stack.svelte -->
 <script lang="ts">
   import { VerticalAlignment } from '$lib/types';
 
   export let alignment: VerticalAlignment = VerticalAlignment.Top;
   export let spacing: number = 0;
+  export let className: string = '';
 
   const getAlignmentClass = (alignment: VerticalAlignment) => {
     switch (alignment) {
@@ -38,6 +38,6 @@
   }
 </style>
 
-<div class={`v-stack ${getAlignmentClass(alignment)}`} style="gap: {spacing}em;">
+<div class={`v-stack ${getAlignmentClass(alignment)} ${className}`} style="gap: {spacing}em;">
   <slot></slot>
 </div>

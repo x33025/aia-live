@@ -6,6 +6,7 @@
   
     export let type: TextType = TextType.Body;
     export let className: string = '';
+    export let buttonType: 'button' | 'submit' | 'reset' = 'button'; // Adding the buttonType prop
   
     const dispatch = createEventDispatcher();
   
@@ -15,7 +16,16 @@
     }
   </script>
   
-  <button class="{className}" on:click={handleClick}>
+  <style>
+    button {
+        background-color: var(--blue);
+    color: white;
+    border-radius: 0.5em;
+    padding: 0.5em 1em;
+    }
+  </style>
+  
+  <button class="{className}" type={buttonType} on:click={handleClick}>
     <Text {type}>
       <slot></slot>
     </Text>

@@ -23,11 +23,4 @@
 
 </ZStack>
 
-<style>
-  :global(.login-button) {
-    background-color: var(--blue);
-    color: white;
-    border-radius: 0.5em;
-    padding: 0.5em 1em;
-  }
-</style>
+

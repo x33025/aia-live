@@ -21,7 +21,7 @@
 <main>
   <VStack alignment={VerticalAlignment.Top} spacing={1}>
     {#if $title}
-      <h1 class="title">{$title}</h1>
+      <h1>{$title}</h1>
     {/if}
     <Group className="content">
       <slot />
@@ -39,9 +39,6 @@
     align-items: stretch;
     min-height: 100vh;
     width: 100%;
-  }
-  .title {
-    margin-bottom: 0.3em;
   }
   :global(.content) {
     background-color: white;

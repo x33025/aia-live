@@ -2,6 +2,7 @@
   import { fade } from 'svelte/transition';
   import type { LayoutData } from './$types';
   import ArticleRow from '$lib/views/article/+article-row.svelte';
+  import ScrollView from '$lib/components/layout/+scroll-view.svelte'; // Import the ScrollView component
   
   export let data: LayoutData;
   
@@ -32,39 +33,25 @@
   }
 </script>
 
-<div class="container">
-  <div class="article-list">
-    {#if data.articles && data.articles.length > 0}
-      {#each data.articles as article, index}
-        <ArticleRow 
-          {article} 
-          {writers} 
-          categories={data.categories} 
-          statuses={data.statuses}
-        />
-        {#if index < data.articles.length - 1}
-          <div class="divider"></div>
-        {/if}
-      {/each}
-    {:else}
-      <p>No articles available.</p>
-    {/if}
-  </div>
-</div>
+<ScrollView >
+  {#if data.articles && data.articles.length > 0}
+    {#each data.articles as article, index}
+      <ArticleRow 
+        {article} 
+        {writers} 
+        categories={data.categories} 
+        statuses={data.statuses}
+      />
+      {#if index < data.articles.length - 1}
+        <div class="divider"></div>
+      {/if}
+    {/each}
+  {:else}
+    <p>No articles available.</p>
+  {/if}
+</ScrollView>
 
 <style>
-  .container {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-  }
-  .article-list {
-    display: flex;
-    flex-direction: column;
-    gap: 1em;
-    overflow-y: auto;
-    flex-grow: 1;
-  }
   .divider {
     height: 1px;
     background-color: #ddd;
