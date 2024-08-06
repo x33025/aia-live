@@ -3,6 +3,9 @@
   import NumericInput from '$lib/components/advanced-input/+numeric-input.svelte';
   import Keyword from './+keyword.svelte';
   import Picker from '$lib/components/actions/picker/+picker.svelte';
+  import VStack from '$lib/components/layout/+v-stack.svelte';
+  import { selectedOption, showPicker } from '$lib/components/actions/picker/+store';
+  import { onMount } from 'svelte';
 
   export let keyword: KeywordWithRelations;
   export let countries: Country[];
@@ -45,6 +48,10 @@
   }
 
   $: countryOptions = countries.map(country => ({ id: country.id, label: country.name }));
+
+  onMount(() => {
+    selectedOption.set(countryOptions.find(option => option.id === keyword.country_id) || null);
+  });
 </script>
 
 <tr>
@@ -62,13 +69,18 @@
     />
   </td>
   <td>
-    <Picker 
-      options={countryOptions}
-      selectedOption={countryOptions.find(option => option.id === keyword.country_id) || null}
-      placeholder="Select a country" 
-      on:select={handleCountrySelect}
-      maxItemDisplayed={3}
-    />
+    <Picker>
+      <div slot="label">
+        <button>{$selectedOption ? $selectedOption.label : "Select a country"}</button>
+      </div>
+      <VStack slot="view" spacing={0.5}>
+        {#each countryOptions as option}
+          <div on:click={() => handleCountrySelect({ detail: option })} class="picker-item">
+            {option.label}
+          </div>
+        {/each}
+      </VStack>
+    </Picker>
   </td>
   <td>
     <NumericInput value={keyword.volume} on:update={(event) => handleVolumeChange(event, keyword.id)} />
@@ -83,5 +95,15 @@
     padding: 8px;
     text-align: left;
     border-bottom: 1px solid #ddd;
+  }
+
+  .picker-item {
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+
+  .picker-item:hover {
+    background-color: #f5f5f5;
   }
 </style>

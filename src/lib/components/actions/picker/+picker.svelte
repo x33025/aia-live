@@ -2,7 +2,7 @@
   import { onMount, tick } from 'svelte';
   import { writable } from 'svelte/store';
   import { createEventDispatcher } from 'svelte';
-  import { showPicker, pickerPosition, selectedOption } from './+store';
+  import { showPicker, pickerPosition } from './+store';
 
   const dispatch = createEventDispatcher();
   let buttonElement: HTMLDivElement;
@@ -42,12 +42,12 @@
 </script>
 
 <div bind:this={buttonElement} class="picker-container">
-  <div class="picker-trigger" on:click={togglePicker} aria-haspopup="true" aria-expanded={$showPicker}>
-    <slot name="trigger"></slot>
+  <div class="picker-label" on:click={togglePicker} aria-haspopup="true" aria-expanded={$showPicker}>
+    <slot name="label"></slot>
   </div>
   {#if $showPicker}
     <div class="picker-content" bind:this={pickerElement} style="top: {$pickerPosition.top}px; right: {$pickerPosition.right}px;">
-      <slot name="content"></slot>
+      <slot name="view"></slot>
     </div>
   {/if}
 </div>
@@ -59,7 +59,7 @@
     font-family: Arial, sans-serif;
   }
 
-  .picker-trigger {
+  .picker-label {
     cursor: pointer;
     position: relative;
     z-index: 1;
