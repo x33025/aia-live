@@ -1,19 +1,9 @@
-<!-- src/lib/components/+z-stack.svelte -->
 <script lang="ts">
+  import Group from './+group.svelte';
 
   export let className: string = '';
 </script>
 
-<style>
-  .z-stack {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: 100%;
-  
-  }
-</style>
-
-<div class="z-stack ${className}" >
+<Group className={`z-stack ${className}`}>
   <slot></slot>
-</div>
+</Group>

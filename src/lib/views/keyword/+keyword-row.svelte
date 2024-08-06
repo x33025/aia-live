@@ -1,8 +1,8 @@
 <script lang="ts">
   import { debounce } from 'lodash-es';
-  import NumericInput from '$lib/components/advanced input/+numeric-input.svelte';
+  import NumericInput from '$lib/components/advanced-input/+numeric-input.svelte';
   import Keyword from './+keyword.svelte';
-  import Dropdown from '$lib/components/actions/+dropdown.svelte';
+  import Dropdown from '$lib/components/actions/+picker.svelte';
 
   export let keyword: KeywordWithRelations;
   export let countries: Country[];

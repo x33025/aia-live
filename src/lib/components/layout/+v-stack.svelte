@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Group from './+group.svelte';
   import { VerticalAlignment } from '$lib/types';
 
   export let alignment: VerticalAlignment = VerticalAlignment.Top;
@@ -19,25 +20,6 @@
   };
 </script>
 
-<style>
-  .v-stack {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: 100%;
-    flex: 1;
-  }
-  .align-top {
-    align-items: flex-start;
-  }
-  .align-center {
-    align-items: center;
-  }
-  .align-bottom {
-    align-items: flex-end;
-  }
-</style>
-
-<div class={`v-stack ${getAlignmentClass(alignment)} ${className}`} style="gap: {spacing}em;">
+<Group className={`v-stack ${getAlignmentClass(alignment)} ${className}`} style={`gap: ${spacing}em;`}>
   <slot></slot>
-</div>
+</Group>

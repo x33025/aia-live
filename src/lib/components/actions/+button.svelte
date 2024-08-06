@@ -1,7 +1,7 @@
 <!-- src/lib/components/layout/+button.svelte -->
 <script lang="ts">
     import { createEventDispatcher } from 'svelte';
-    import Text from './+text.svelte';
+    import Text from '../display/+text.svelte';
     import { TextType } from '$lib/types';
   
     export let type: TextType = TextType.Body;
@@ -25,7 +25,11 @@
     }
   </style>
   
-  <button class="{className}" type={buttonType} on:click={handleClick}>
+  <button class="{className}" 
+  type={buttonType} 
+  on:click={handleClick}
+  {...$$restProps} > 
+  
     <Text {type}>
       <slot></slot>
     </Text>

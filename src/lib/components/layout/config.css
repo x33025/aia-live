@@ -1,0 +1,50 @@
+/* src/config.css */
+
+:root {
+    --align-top: flex-start;
+    --align-center: center;
+    --align-bottom: flex-end;
+    --align-leading: flex-start;
+    --align-center-justify: center;
+    --align-trailing: flex-end;
+  }
+
+/* Global styles for v-stack */
+.v-stack {
+  display: flex;
+  flex-direction: column;
+}
+
+.align-top {
+  align-items: flex-start; /* Matches VerticalAlignment.Top */
+}
+
+.align-center {
+  align-items: center; /* Matches VerticalAlignment.Center */
+}
+
+.align-bottom {
+  align-items: flex-end; /* Matches VerticalAlignment.Bottom */
+}
+
+.h-stack {
+  display: flex;
+  flex-direction: row;
+}
+
+.align-leading {
+  justify-content: flex-start; /* Matches HorizontalAlignment.Leading */
+}
+
+.align-center {
+  justify-content: center; /* Matches HorizontalAlignment.Center */
+}
+
+.align-trailing {
+  justify-content: flex-end; /* Matches HorizontalAlignment.Trailing */
+}
+
+.z-stack {
+  display: flex;
+  flex-direction: column;
+}

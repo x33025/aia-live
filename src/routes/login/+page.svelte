@@ -2,7 +2,7 @@
   import VStack from '$lib/components/layout/+v-stack.svelte';
   import HStack from '$lib/components/layout/+h-stack.svelte';
   import ZStack from '$lib/components/layout/+z-stack.svelte';
-  import Button from '$lib/components/layout/+button.svelte';
+  import Button from '$lib/components/actions/+button.svelte';
   import { HorizontalAlignment, TextType, VerticalAlignment } from '$lib/types';
 
   interface Form {
@@ -45,7 +45,7 @@
 </svelte:head>
 
 <HStack alignment={HorizontalAlignment.Center}>
-  <VStack spacing={1}>
+  <VStack spacing={1} alignment={VerticalAlignment.Top}>
     <h2>Login</h2>
     <form method="POST" action="?/login">
       <VStack spacing={1}>

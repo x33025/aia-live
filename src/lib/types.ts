@@ -3,23 +3,6 @@ export enum NumberType {
   Float = 'float'
 }
 
-export enum HorizontalAlignment {
-  Leading = 'leading',
-  Center = 'center',
-  Trailing = 'trailing',
-}
-
-export enum  VerticalAlignment {
-  Top = 'top',
-  Center = 'center',
-  Bottom = 'bottom',
-}
-
-export interface Alignment {
-  horizontal: HorizontalAlignment;
-  vertical: VerticalAlignment;
-}
-
   export enum TextType {
     Title = 'title',
     Headline = 'headline',
@@ -28,3 +11,21 @@ export interface Alignment {
     Callout = 'callout',
     Caption = 'caption',
   }
+
+  export enum HorizontalAlignment {
+    Leading = 'leading',
+    Center = 'center',
+    Trailing = 'trailing',
+  }
+  
+  export enum VerticalAlignment {
+    Top = 'top',
+    Center = 'center',
+    Bottom = 'bottom',
+  }
+  
+  export interface Alignment {
+    horizontal: HorizontalAlignment;
+    vertical: VerticalAlignment;
+  }
+  

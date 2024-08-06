@@ -1,6 +1,6 @@
 <!-- +input.svelte -->
 <script lang="ts">
-  import Text from "./+text.svelte";
+  import Text from "../display/+text.svelte";
   export let type: TextType = TextType.Body;
   export let className: string = '';
   export let value: string;

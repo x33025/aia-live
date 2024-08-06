@@ -3,7 +3,7 @@
   import InteractiveText from '$lib/views/login/+interactive-text.svelte';
   import ZStack from '$lib/components/layout/+z-stack.svelte';
   import AlignedItem from '$lib/components/layout/+aligned-item.svelte';
-  import Button from '$lib/components/layout/+button.svelte';
+  import Button from '$lib/components/actions/+button.svelte';
   import { HorizontalAlignment, VerticalAlignment } from '$lib/types';
 
   function handleLoginClick() {

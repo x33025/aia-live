@@ -9,10 +9,11 @@
       flex-direction: column;
       width: 100%;
       height: 100%;
+      flex: 1;
     }
   </style>
   
-  <div class={`group ${className}`}>
+  <div class={`${className} group`} {...$$restProps}>
     <slot></slot>
   </div>
   

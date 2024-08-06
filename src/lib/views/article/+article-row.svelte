@@ -1,10 +1,10 @@
 <!-- src/routes/example.svelte -->
 <script lang="ts">
-  import CustomDropdown from '$lib/components/actions/+dropdown.svelte';
+  import CustomDropdown from '$lib/components/actions/+picker.svelte';
   import Title from './+title.svelte';
   import Keywords from './+keywords.svelte';
-  import NumericInput from '$lib/components/advanced input/+numeric-input.svelte';
-  import NumericTarget from '$lib/components/advanced input/+numeric-target.svelte';
+  import NumericInput from '$lib/components/advanced-input/+numeric-input.svelte';
+  import NumericTarget from '$lib/components/advanced-input/+numeric-target.svelte';
   import VStack from '$lib/components/layout/+v-stack.svelte';
   import HStack from '$lib/components/layout/+h-stack.svelte';
 

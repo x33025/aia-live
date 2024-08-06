@@ -1,5 +1,5 @@
 <script lang="ts">
-  import NumericInput from '$lib/components/advanced input/+numeric-input.svelte';
+  import NumericInput from '$lib/components/advanced-input/+numeric-input.svelte';
 
   export let target: number;
   export let current: number;

@@ -60,6 +60,12 @@ declare global {
     website?: Website | null;
   };
 
+  type MenuItem = {
+    id: string | number;
+    label: string;
+  };
+  
+
   type KeywordWithRelations = Keyword & {
     activity_data: ActivityDataWithUser;
     country?: Country | null;
@@ -73,13 +79,6 @@ declare global {
   type _ArticleKeywordsWithRelations = _ArticleKeywords & {
     A: ArticleMetadata;
     B: Keyword;
-  };
-
-  // Define the DropdownOption type
-  type DropdownOption = {
-    id: string | number;
-    name: string;
-    [key: string]: any; // Allow additional properties
   };
 
   enum TextType {

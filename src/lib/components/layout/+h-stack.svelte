@@ -1,17 +1,17 @@
-<!-- src/lib/components/+h-stack.svelte -->
 <script lang="ts">
+  import Group from './+group.svelte';
   import { HorizontalAlignment } from '$lib/types';
-  
+
   export let alignment: HorizontalAlignment = HorizontalAlignment.Leading;
   export let spacing: number = 0;
-  
+
   const getAlignmentClass = (alignment: HorizontalAlignment) => {
     switch (alignment) {
-      case 'leading':
+      case HorizontalAlignment.Leading:
         return 'align-leading';
-      case 'center':
+      case HorizontalAlignment.Center:
         return 'align-center';
-      case 'trailing':
+      case HorizontalAlignment.Trailing:
         return 'align-trailing';
       default:
         return 'align-leading';
@@ -19,25 +19,6 @@
   };
 </script>
 
-<style>
-  .h-stack {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    height: 100%; 
-    flex: 1;/* Make sure the stack fills its container's height */
-  }
-  .align-leading {
-    justify-content: flex-start;
-  }
-  .align-center {
-    justify-content: center;
-  }
-  .align-trailing {
-    justify-content: flex-end;
-  }
-</style>
-
-<div class={`h-stack ${getAlignmentClass(alignment)}`} style="gap: {spacing}em;">
+<Group className={`h-stack ${getAlignmentClass(alignment)}`} style={`gap: ${spacing}em;`}>
   <slot></slot>
-</div>
+</Group>

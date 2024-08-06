@@ -3,6 +3,7 @@ import { supabase } from '$lib/config/supabase';
 import { type Handle, redirect } from '@sveltejs/kit';
 import { sequence } from '@sveltejs/kit/hooks';
 
+
 const supabaseHandle: Handle = async ({ event, resolve }) => {
   event.locals.supabase = supabase;
 
