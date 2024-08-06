@@ -43,7 +43,7 @@
   .title {
     margin-bottom: 0.3em;
   }
-  .content {
+  :global(.content) {
     background-color: white;
     border-radius: 1em;
     padding: 1em;

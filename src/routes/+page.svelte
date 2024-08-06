@@ -1,28 +1,33 @@
 <script lang="ts">
+  import { goto } from '$app/navigation';
   import InteractiveText from '$lib/views/login/+interactive-text.svelte';
   import ZStack from '$lib/components/layout/+z-stack.svelte';
   import AlignedItem from '$lib/components/layout/+aligned-item.svelte';
+  import Button from '$lib/components/layout/+button.svelte';
   import { HorizontalAlignment, VerticalAlignment } from '$lib/types';
+
+  function handleLoginClick() {
+    console.log('Login button clicked');
+    goto('/login');
+  }
 </script>
 
-<ZStack spacing={0}>
+<ZStack>
+  <InteractiveText text="aia" />
   <AlignedItem alignment={{ horizontal: HorizontalAlignment.Trailing, vertical: VerticalAlignment.Top }}>
-    <a href="/login" class="login">Login</a>
+    <Button className="login-button" on:click={handleLoginClick}>
+      Login
+    </Button>
   </AlignedItem>
-  <AlignedItem alignment={{ horizontal: HorizontalAlignment.Center, vertical: VerticalAlignment.Center }}>
-    <InteractiveText text="aia" />
-  </AlignedItem>
+ 
+
 </ZStack>
 
 <style>
-  .login {
-    position: absolute;
-    top: 0;
-    right: 0;
-    z-index: 1;
-    font-weight: 700;
-    font-size: 1.25em;
-    text-decoration: none;
-    color: rgb(10, 10, 10);
+  :global(.login-button) {
+    background-color: var(--blue);
+    color: white;
+    border-radius: 0.5em;
+    padding: 0.5em 1em;
   }
 </style>
