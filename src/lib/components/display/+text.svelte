@@ -1,5 +1,5 @@
 <script lang="ts">
-
+import { TextType } from "$lib/types";
     export let type: TextType = TextType.Body;
     export let className: string = '';
   </script>

@@ -1,6 +1,7 @@
 <script lang="ts">
   import Group from './+group.svelte';
   import { VerticalAlignment } from '$lib/types';
+  import { createEventDispatcher } from 'svelte';
 
   export let alignment: VerticalAlignment = VerticalAlignment.Top;
   export let spacing: number = 0;
@@ -18,8 +19,12 @@
         return 'align-top';
     }
   };
+
+  const dispatch = createEventDispatcher();
 </script>
 
-<Group className={`v-stack ${getAlignmentClass(alignment)} ${className}`} style={`gap: ${spacing}em;`}>
+<Group class={`v-stack ${getAlignmentClass(alignment)} ${className}`} style={`gap: ${spacing}em;`} {...$$restProps}>
   <slot></slot>
 </Group>
+
+

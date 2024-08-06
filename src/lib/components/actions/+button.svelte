@@ -1,37 +1,24 @@
-<!-- src/lib/components/layout/+button.svelte -->
 <script lang="ts">
-    import { createEventDispatcher } from 'svelte';
-    import Text from '../display/+text.svelte';
-    import { TextType } from '$lib/types';
+  import { createEventDispatcher } from 'svelte';
+
+  export let className: string = '';
+  export let buttonType: 'button' | 'submit' | 'reset' = 'button';
+
+  const dispatch = createEventDispatcher();
+
+  function handleClick() {
+    console.log('Button clicked');
+    dispatch('click');
+  }
+</script>
+
+<style>
   
-    export let type: TextType = TextType.Body;
-    export let className: string = '';
-    export let buttonType: 'button' | 'submit' | 'reset' = 'button'; // Adding the buttonType prop
-  
-    const dispatch = createEventDispatcher();
-  
-    function handleClick() {
-      console.log('Button clicked'); // Debugging log
-      dispatch('click');
-    }
-  </script>
-  
-  <style>
-    button {
-        background-color: var(--blue);
-    color: white;
-    border-radius: 0.5em;
-    padding: 0.5em 1em;
-    }
-  </style>
-  
-  <button class="{className}" 
+</style>
+
+<button class="{className}" 
   type={buttonType} 
   on:click={handleClick}
-  {...$$restProps} > 
-  
-    <Text {type}>
-      <slot></slot>
-    </Text>
-  </button>
-  
+  {...$$restProps}>
+  <slot></slot>
+</button>

@@ -1,6 +1,5 @@
-<!-- src/routes/example.svelte -->
 <script lang="ts">
-  import CustomDropdown from '$lib/components/actions/+picker.svelte';
+  import Picker from '$lib/components/actions/picker/+picker.svelte';
   import Title from './+title.svelte';
   import Keywords from './+keywords.svelte';
   import NumericInput from '$lib/components/advanced-input/+numeric-input.svelte';
@@ -17,20 +16,20 @@
   $: selectedCategoryId = article.category_id ?? null;
   $: selectedStatusId = article.status_id ?? null;
 
-  $: writerOptions = writers.map((writer) => ({ id: writer.id, name: writer.name }));
-  $: categoryOptions = categories.map((category) => ({ id: category.id, name: category.name }));
-  $: statusOptions = statuses.map((status) => ({ id: status.id, name: status.name }));
+  $: writerOptions = writers.map((writer) => ({ id: writer.id, label: writer.name }));
+  $: categoryOptions = categories.map((category) => ({ id: category.id, label: category.name }));
+  $: statusOptions = statuses.map((status) => ({ id: status.id, label: status.name }));
 
-  function handleWriterSelect(event: CustomEvent<string | number>) {
-    selectedWriterId = event.detail as string;
+  function handleWriterSelect(event: CustomEvent<MenuItem | null>) {
+    selectedWriterId = event.detail ? event.detail.id : null;
   }
 
-  function handleCategorySelect(event: CustomEvent<string | number>) {
-    selectedCategoryId = event.detail as string;
+  function handleCategorySelect(event: CustomEvent<MenuItem | null>) {
+    selectedCategoryId = event.detail ? event.detail.id : null;
   }
 
-  function handleStatusSelect(event: CustomEvent<string | number>) {
-    selectedStatusId = event.detail as string;
+  function handleStatusSelect(event: CustomEvent<MenuItem | null>) {
+    selectedStatusId = event.detail ? event.detail.id : null;
   }
 
   function updateSemrushScore(value: number) {
@@ -47,29 +46,26 @@
 <VStack spacing={0.5}>
   <HStack spacing={0.5}>
     <Title {article} />
-    <CustomDropdown 
+    <Picker 
       options={writerOptions}
-      selectedOptionId={selectedWriterId}
+      selectedOption={writerOptions.find(option => option.id === selectedWriterId) || null}
       placeholder="Select a writer" 
       on:select={handleWriterSelect}
       maxItemDisplayed={3}
-      dropdownId="writer-dropdown"
     />
-    <CustomDropdown 
+    <Picker 
       options={categoryOptions}
-      selectedOptionId={selectedCategoryId}
+      selectedOption={categoryOptions.find(option => option.id === selectedCategoryId) || null}
       placeholder="Select a category" 
       on:select={handleCategorySelect}
       maxItemDisplayed={3}
-      dropdownId="category-dropdown"
     />
-    <CustomDropdown 
+    <Picker 
       options={statusOptions}
-      selectedOptionId={selectedStatusId}
+      selectedOption={statusOptions.find(option => option.id === selectedStatusId) || null}
       placeholder="Select a status" 
       on:select={handleStatusSelect}
       maxItemDisplayed={3}
-      dropdownId="status-dropdown"
     />
   </HStack>
 

@@ -60,10 +60,7 @@ declare global {
     website?: Website | null;
   };
 
-  type MenuItem = {
-    id: string | number;
-    label: string;
-  };
+
   
 
   type KeywordWithRelations = Keyword & {
@@ -90,7 +87,10 @@ declare global {
     Caption = 'caption',
   }
 
-  
+  type MenuItem = {
+    id: string | number;
+    label: string;
+  };
 
 }
 

@@ -2,7 +2,7 @@
   import { debounce } from 'lodash-es';
   import NumericInput from '$lib/components/advanced-input/+numeric-input.svelte';
   import Keyword from './+keyword.svelte';
-  import Dropdown from '$lib/components/actions/+picker.svelte';
+  import Picker from '$lib/components/actions/picker/+picker.svelte';
 
   export let keyword: KeywordWithRelations;
   export let countries: Country[];
@@ -38,12 +38,13 @@
     updateKeyword(id, { evergreen: !keyword.evergreen });
   }
 
-  function handleCountrySelect(event: CustomEvent<string | number>) {
-    const selectedCountryId = event.detail;
+  function handleCountrySelect(event: CustomEvent<MenuItem | null>) {
+    const selectedCountry = event.detail;
+    const selectedCountryId = selectedCountry ? selectedCountry.id : null;
     updateKeyword(keyword.id, { country_id: selectedCountryId });
   }
 
-  $: countryOptions = countries.map(country => ({ id: country.id, name: country.name }));
+  $: countryOptions = countries.map(country => ({ id: country.id, label: country.name }));
 </script>
 
 <tr>
@@ -61,9 +62,9 @@
     />
   </td>
   <td>
-    <Dropdown 
+    <Picker 
       options={countryOptions}
-      selectedOptionId={keyword.country_id}
+      selectedOption={countryOptions.find(option => option.id === keyword.country_id) || null}
       placeholder="Select a country" 
       on:select={handleCountrySelect}
       maxItemDisplayed={3}
