@@ -11,21 +11,14 @@ export enum NumberType {
     Callout = 'callout',
     Caption = 'caption',
   }
+// $lib/types.ts
+export enum Alignment {
+  Start = 'start',
+  Center = 'center',
+  End = 'end',
+}
 
-  export enum HorizontalAlignment {
-    Leading = 'leading',
-    Center = 'center',
-    Trailing = 'trailing',
-  }
-  
-  export enum VerticalAlignment {
-    Top = 'top',
-    Center = 'center',
-    Bottom = 'bottom',
-  }
-  
-  export interface Alignment {
-    horizontal: HorizontalAlignment;
-    vertical: VerticalAlignment;
-  }
-  
+export enum Direction {
+  Row = 'row',
+  Column = 'column',
+}

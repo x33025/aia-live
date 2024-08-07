@@ -18,9 +18,9 @@
   $: selectedCategoryId = article.category_id ?? null;
   $: selectedStatusId = article.status_id ?? null;
 
-  $: writerOptions = writers.map((writer) => ({ id: writer.id, label: writer.name }));
-  $: categoryOptions = categories.map((category) => ({ id: category.id, label: category.name }));
-  $: statusOptions = statuses.map((status) => ({ id: status.id, label: status.name }));
+  $: writerOptions = writers.map((writer) => ({ id: writer.id, name: writer.name }));
+  $: categoryOptions = categories.map((category) => ({ id: category.id, name: category.name }));
+  $: statusOptions = statuses.map((status) => ({ id: status.id, name: status.name }));
 
   function handleWriterSelect(event: CustomEvent<MenuItem | null>) {
     selectedWriterId = event.detail ? event.detail.id : null;
@@ -55,7 +55,7 @@
       on:select={handleWriterSelect}
       maxItemsDisplayed={3}
     >
-      <span slot="option" let:option>{option.label}</span>
+      <span slot="option" let:option>{option.name}</span>
     </Picker>
     <Picker 
       options={categoryOptions}
@@ -64,7 +64,7 @@
       on:select={handleCategorySelect}
       maxItemsDisplayed={3}
     >
-      <span slot="option" let:option>{option.label}</span>
+      <span slot="option" let:option>{option.name}</span>
     </Picker>
     <Picker 
       options={statusOptions}
@@ -73,7 +73,7 @@
       on:select={handleStatusSelect}
       maxItemsDisplayed={3}
     >
-      <span slot="option" let:option>{option.label}</span>
+      <span slot="option" let:option>{option.name}</span>
     </Picker>
   </HStack>
 

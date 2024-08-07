@@ -4,7 +4,6 @@
   import Keyword from './+keyword.svelte';
   import Picker from '$lib/components/actions/dropdown/+dropdown-menu.svelte';
   import VStack from '$lib/components/layout/+v-stack.svelte';
-  import { selectedOption } from '$lib/components/actions/dropdown/+store';
   import { onMount } from 'svelte';
 
   export let keyword: KeywordWithRelations;
@@ -52,10 +51,12 @@
     updateKeyword(keyword.id, { country_id: selectedCountryId });
   }
 
+  let selectedOption: Identifiable | null = null;
+
   $: countryOptions = countries.map(country => ({ id: country.id, name: country.name }));
 
   onMount(() => {
-    selectedOption.set(countryOptions.find(option => option.id === keyword.country_id) || null);
+    selectedOption = countryOptions.find(option => option.id === keyword.country_id) || null;
   });
 </script>
 
@@ -76,17 +77,11 @@
   <td>
     <Picker 
       options={countryOptions}
-      selection={$selectedOption}
+      selection={selectedOption}
       placeholder="Select a country" 
       on:select={handleCountrySelect}
       maxItemsDisplayed={5}
-    >
-      <VStack slot="option" spacing={0.5}>
-        {#each countryOptions as option}
-          <div>{option.name}</div>
-        {/each}
-      </VStack>
-    </Picker>
+    />
   </td>
   <td>
     <NumericInput value={keyword.volume} on:update={(event) => handleVolumeChange(event, keyword.id)} />

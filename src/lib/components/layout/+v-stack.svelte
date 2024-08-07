@@ -23,7 +23,7 @@
   const dispatch = createEventDispatcher();
 </script>
 
-<Group class={`v-stack ${getAlignmentClass(alignment)} ${className}`} style={`gap: ${spacing}em;`} {...$$restProps}>
+<Group className={`v-stack ${getAlignmentClass(alignment)} ${className}`} style={`gap: ${spacing}em;`} >
   <slot></slot>
 </Group>
 

@@ -1,0 +1,17 @@
+<!-- +stack.svelte -->
+<script lang="ts">
+    import { Alignment, Direction } from '$lib/types';
+  
+    export let direction: Direction = Direction.Row;
+    export let alignment: Alignment = Alignment.Start;
+    export let spacing: string | number = 0;
+    export let className: string = '';
+  
+    const getDirectionClass = (direction: Direction) => `direction-${direction}`;
+    const getAlignmentClass = (alignment: Alignment) => `align-${alignment}`;
+  </script>
+  
+  <div class={`stack ${getDirectionClass(direction)} ${getAlignmentClass(alignment)} ${className}`} style={`gap: ${spacing}`}>
+    <slot></slot>
+  </div>
+  

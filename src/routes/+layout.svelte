@@ -4,9 +4,8 @@
   import { page } from '$app/stores';
   import { derived } from 'svelte/store';
   import ContextMenu from '$lib/components/actions/+context-menu.svelte';
-  import Group from '$lib/components/layout/+group.svelte';
-  import VStack from '$lib/components/layout/+v-stack.svelte';
-  import { VerticalAlignment } from '$lib/types';
+  import Stack from '$lib/components/layout/+stack.svelte';
+  import { Alignment, Direction } from '$lib/types';
 
   // Extract title from the $page store
   const title = derived(page, $page => $page.data.title);
@@ -23,15 +22,19 @@
 </svelte:head>
 
 <main>
-  <VStack alignment={VerticalAlignment.Top} spacing={1}>
+  <Stack direction={Direction.Column} alignment={Alignment.Start} spacing={1}>
     {#if $title}
       <h1>{$title}</h1>
     {/if}
-    <Group className="content">
+
+    
+    <div class="content">
       <slot />
-    </Group>
-    <ContextMenu />
-  </VStack>
+    </div>
+ 
+  </Stack>
+
+  <ContextMenu />
 </main>
 
 <style>
@@ -44,7 +47,7 @@
     min-height: 100vh;
     width: 100%;
   }
-  :global(.content) {
+  .content {
     background-color: white;
     border-radius: 1em;
     padding: 1em;

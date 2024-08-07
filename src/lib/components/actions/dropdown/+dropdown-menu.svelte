@@ -1,10 +1,14 @@
 <script lang="ts">
-  import { onMount, tick } from 'svelte';
+  import Text from '$lib/components/display/+text.svelte';
+  import { onMount, tick, afterUpdate } from 'svelte';
   import { createEventDispatcher } from 'svelte';
+  import Button from '../+button.svelte';
 
   const dispatch = createEventDispatcher();
   let buttonElement: HTMLDivElement;
   let pickerElement: HTMLDivElement;
+  let hiddenContainer: HTMLDivElement;
+  let maxLabelWidth = 0;
 
   interface Identifiable {
     id: number | string;
@@ -13,7 +17,7 @@
 
   export let options: Identifiable[] = [];
   export let selection: Identifiable | null = null;
-  export let placeholder: string = '';
+  export let placeholder: string = 'Select an option';
   export let maxItemsDisplayed: number = 5;
 
   let showPicker = false;
@@ -43,26 +47,44 @@
     }
   }
 
+  function calculateMaxLabelWidth() {
+    if (hiddenContainer) {
+      maxLabelWidth = Array.from(hiddenContainer.children).reduce((maxWidth, child) => {
+        const width = (child as HTMLElement).offsetWidth;
+        return Math.max(maxWidth, width);
+      }, 0);
+    }
+  }
+
   onMount(() => {
     document.addEventListener('click', handleClickOutside, true);
+    calculateMaxLabelWidth();
     return () => {
       document.removeEventListener('click', handleClickOutside, true);
     };
   });
 
-  function selectOption(option: Identifiable) {
+  afterUpdate(() => {
+    calculateMaxLabelWidth();
+  });
+
+  function selectOption(option: Identifiable | null) {
     selection = option;
     showPicker = false;
     dispatch('select', option);
   }
 </script>
 
-<div bind:this={buttonElement} class="picker-container">
-  <div class="picker-label" on:click={togglePicker} aria-haspopup="true" aria-expanded={showPicker}>
+<div bind:this={buttonElement} class="picker-container" style="width: {maxLabelWidth}px;">
+  <Button class="picker-label" on:click={togglePicker}>
     {selection ? selection.name : placeholder}
-  </div>
+  </Button>
+
   {#if showPicker}
     <div class="picker-content" bind:this={pickerElement} style="top: {pickerPosition.top}px; right: {pickerPosition.right}px;">
+      <div class="picker-item" on:click={() => selectOption(null)}>
+        <slot name="option" option={null}>None</slot>
+      </div>
       {#each options.slice(0, maxItemsDisplayed) as option}
         <div class="picker-item" on:click={() => selectOption(option)}>
           <slot name="option" {option}>{option.name}</slot>
@@ -70,6 +92,14 @@
       {/each}
     </div>
   {/if}
+
+  <!-- Hidden container to measure label widths -->
+  <div bind:this={hiddenContainer} class="hidden-container">
+    <div class="hidden-item">{placeholder}</div>
+    {#each options as option}
+      <div class="hidden-item">{option.name}</div>
+    {/each}
+  </div>
 </div>
 
 <style>
@@ -79,35 +109,50 @@
     font-family: Arial, sans-serif;
   }
 
-  .picker-label {
+  :global(.picker-label) {
     cursor: pointer;
     position: relative;
     z-index: 1;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    background-color: #f9f9f9;
+    padding: 0.5em;
+    border-radius: 0.5em;
+    background-color: var(--gray-1);
+    display: inline-block;
+    white-space: nowrap;
   }
 
   .picker-content {
     background-color: #ffffff;
-    border-top: none;
-    border-radius: 4px;
+    border: 1px solid #ccc;
+    border-radius: 0.5em;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     position: fixed;
     z-index: 9999;
     display: flex;
     flex-direction: column;
-    padding-top: 10px;
+    padding: 0.25em;
   }
 
   .picker-item {
-    padding: 8px;
+    padding: 0.5em;
     cursor: pointer;
+    border-radius: 0.3em;
   }
 
   .picker-item:hover {
-    background-color: #f1f1f1;
+    background-color: var(--gray-1);
+  }
+
+  .hidden-container {
+    position: absolute;
+    visibility: hidden;
+    white-space: nowrap;
+    pointer-events: none;
+    height: 0;
+  }
+
+  .hidden-item {
+    display: inline-block;
+    padding: 0.5em;
   }
 </style>
