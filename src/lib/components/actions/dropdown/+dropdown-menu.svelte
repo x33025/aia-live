@@ -1,11 +1,6 @@
 <script lang="ts">
   import { onMount, tick } from 'svelte';
-  import { writable } from 'svelte/store';
   import { createEventDispatcher } from 'svelte';
-
-  const showPicker = writable(false);
-  const pickerPosition = writable({ top: 0, right: 0 });
-  const selectedOption = writable<Identifiable | null>(null);
 
   const dispatch = createEventDispatcher();
   let buttonElement: HTMLDivElement;
@@ -21,8 +16,11 @@
   export let placeholder: string = '';
   export let maxItemsDisplayed: number = 5;
 
+  let showPicker = false;
+  let pickerPosition = { top: 0, right: 0 };
+
   function togglePicker() {
-    showPicker.update(value => !value);
+    showPicker = !showPicker;
     positionPicker();
   }
 
@@ -33,7 +31,7 @@
       pickerElement &&
       !pickerElement.contains(event.target as Node)
     ) {
-      showPicker.set(false);
+      showPicker = false;
     }
   }
 
@@ -41,7 +39,7 @@
     await tick(); // Wait for DOM updates
     if (buttonElement && pickerElement) {
       const buttonRect = buttonElement.getBoundingClientRect();
-      pickerPosition.set({ top: buttonRect.bottom, right: window.innerWidth - buttonRect.right });
+      pickerPosition = { top: buttonRect.bottom, right: window.innerWidth - buttonRect.right };
     }
   }
 
@@ -53,22 +51,18 @@
   });
 
   function selectOption(option: Identifiable) {
-    selectedOption.set(option);
-    showPicker.set(false);
+    selection = option;
+    showPicker = false;
     dispatch('select', option);
-  }
-
-  $: if (selection !== $selectedOption) {
-    selectedOption.set(selection);
   }
 </script>
 
 <div bind:this={buttonElement} class="picker-container">
-  <div class="picker-label" on:click={togglePicker} aria-haspopup="true" aria-expanded={$showPicker}>
+  <div class="picker-label" on:click={togglePicker} aria-haspopup="true" aria-expanded={showPicker}>
     {selection ? selection.name : placeholder}
   </div>
-  {#if $showPicker}
-    <div class="picker-content" bind:this={pickerElement} style="top: {$pickerPosition.top}px; right: {$pickerPosition.right}px;">
+  {#if showPicker}
+    <div class="picker-content" bind:this={pickerElement} style="top: {pickerPosition.top}px; right: {pickerPosition.right}px;">
       {#each options.slice(0, maxItemsDisplayed) as option}
         <div class="picker-item" on:click={() => selectOption(option)}>
           <slot name="option" {option}>{option.name}</slot>

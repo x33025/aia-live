@@ -2,13 +2,18 @@
   import { debounce } from 'lodash-es';
   import NumericInput from '$lib/components/advanced-input/+numeric-input.svelte';
   import Keyword from './+keyword.svelte';
-  import Picker from '$lib/components/actions/dropdown/+dropdown.svelte';
+  import Picker from '$lib/components/actions/dropdown/+dropdown-menu.svelte';
   import VStack from '$lib/components/layout/+v-stack.svelte';
-  import { selectedOption, showPicker } from '$lib/components/actions/dropdown/+store';
+  import { selectedOption } from '$lib/components/actions/dropdown/+store';
   import { onMount } from 'svelte';
 
   export let keyword: KeywordWithRelations;
   export let countries: Country[];
+
+  interface Identifiable {
+    id: number | string;
+    name: string;
+  }
 
   const updateKeyword = debounce(async (id: string, updatedFields: object) => {
     const response = await fetch('/protected/keywords', {
@@ -41,13 +46,13 @@
     updateKeyword(id, { evergreen: !keyword.evergreen });
   }
 
-  function handleCountrySelect(event: CustomEvent<MenuItem | null>) {
+  function handleCountrySelect(event: CustomEvent<Identifiable | null>) {
     const selectedCountry = event.detail;
     const selectedCountryId = selectedCountry ? selectedCountry.id : null;
     updateKeyword(keyword.id, { country_id: selectedCountryId });
   }
 
-  $: countryOptions = countries.map(country => ({ id: country.id, label: country.name }));
+  $: countryOptions = countries.map(country => ({ id: country.id, name: country.name }));
 
   onMount(() => {
     selectedOption.set(countryOptions.find(option => option.id === keyword.country_id) || null);
@@ -58,7 +63,7 @@
   <td>
     <Keyword
       keyword={keyword} 
-      on:keywordChange={(event) => handleKeywordChange(event.detail.value, keyword.id)}
+      on:keywordChange={(event) => handleKeywordChange(event, keyword.id)}
     />
   </td>
   <td>
@@ -76,9 +81,9 @@
       on:select={handleCountrySelect}
       maxItemsDisplayed={5}
     >
-      <VStack  slot="option" spacing={0.5}>
+      <VStack slot="option" spacing={0.5}>
         {#each countryOptions as option}
-          <div>{option.label}</div>
+          <div>{option.name}</div>
         {/each}
       </VStack>
     </Picker>
@@ -97,6 +102,4 @@
     text-align: left;
     border-bottom: 1px solid #ddd;
   }
-
-
 </style>
