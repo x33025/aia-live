@@ -2,9 +2,9 @@
   import { debounce } from 'lodash-es';
   import NumericInput from '$lib/components/advanced-input/+numeric-input.svelte';
   import Keyword from './+keyword.svelte';
-  import Picker from '$lib/components/actions/picker/+picker.svelte';
+  import Picker from '$lib/components/actions/dropdown/+dropdown.svelte';
   import VStack from '$lib/components/layout/+v-stack.svelte';
-  import { selectedOption, showPicker } from '$lib/components/actions/picker/+store';
+  import { selectedOption, showPicker } from '$lib/components/actions/dropdown/+store';
   import { onMount } from 'svelte';
 
   export let keyword: KeywordWithRelations;

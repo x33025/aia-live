@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Picker from '$lib/components/actions/picker/+picker.svelte';
+  import Picker from '$lib/components/actions/dropdown/+dropdown.svelte';
   import Title from './+title.svelte';
   import Keywords from './+keywords.svelte';
   import NumericInput from '$lib/components/advanced-input/+numeric-input.svelte';

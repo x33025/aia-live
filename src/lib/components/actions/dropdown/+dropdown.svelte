@@ -1,14 +1,23 @@
 <script lang="ts">
   import { onMount, tick } from 'svelte';
-  import { showPicker, pickerPosition, selectedOption } from './+store';
+  import { writable } from 'svelte/store';
   import { createEventDispatcher } from 'svelte';
+
+  const showPicker = writable(false);
+  const pickerPosition = writable({ top: 0, right: 0 });
+  const selectedOption = writable<Identifiable | null>(null);
 
   const dispatch = createEventDispatcher();
   let buttonElement: HTMLDivElement;
   let pickerElement: HTMLDivElement;
 
-  export let options: any[] = [];
-  export let selection: any = null;
+  interface Identifiable {
+    id: number | string;
+    name: string;
+  }
+
+  export let options: Identifiable[] = [];
+  export let selection: Identifiable | null = null;
   export let placeholder: string = '';
   export let maxItemsDisplayed: number = 5;
 
@@ -43,7 +52,7 @@
     };
   });
 
-  function selectOption(option: any) {
+  function selectOption(option: Identifiable) {
     selectedOption.set(option);
     showPicker.set(false);
     dispatch('select', option);
@@ -56,13 +65,13 @@
 
 <div bind:this={buttonElement} class="picker-container">
   <div class="picker-label" on:click={togglePicker} aria-haspopup="true" aria-expanded={$showPicker}>
-    {selection ? selection.label : placeholder}
+    {selection ? selection.name : placeholder}
   </div>
   {#if $showPicker}
     <div class="picker-content" bind:this={pickerElement} style="top: {$pickerPosition.top}px; right: {$pickerPosition.right}px;">
       {#each options.slice(0, maxItemsDisplayed) as option}
         <div class="picker-item" on:click={() => selectOption(option)}>
-          <slot name="option" {option}>{option.label}</slot>
+          <slot name="option" {option}>{option.name}</slot>
         </div>
       {/each}
     </div>

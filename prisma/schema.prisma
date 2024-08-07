@@ -109,9 +109,9 @@ model User {
 
 model TimeData {
   id                String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  date_created      DateTime   @default(now()) @db.Timestamptz
-  date_updated      DateTime   @updatedAt @default(now()) @db.Timestamptz
-  date_deleted      DateTime?  @db.Timestamptz
+  created_at        DateTime   @default(now()) @db.Timestamptz
+  updated_at        DateTime   @updatedAt @default(now()) @db.Timestamptz
+  deleted_at        DateTime?  @db.Timestamptz
   article_metadata  ArticleMetadata[]
   keyword           Keyword[]
 
@@ -120,8 +120,8 @@ model TimeData {
 
 model ActivityData {
   id                String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  last_modified_by  User       @relation("Modifier", fields: [last_modified_by_id], references: [id])
-  last_modified_by_id String   @db.Uuid
+  updated_by        User?      @relation("Modifier", fields: [updated_by_id], references: [id])
+  updated_by_id     String?    @db.Uuid
   created_by        User       @relation("Creator", fields: [created_by_id], references: [id])
   created_by_id     String     @db.Uuid
   deleted_by        User?      @relation("Deleter", fields: [deleted_by_id], references: [id])
@@ -129,7 +129,7 @@ model ActivityData {
   article_metadata  ArticleMetadata[]
   keyword           Keyword[]
 
-  @@index([last_modified_by_id], map: "activity_data_last_modified_by_id_idx")
+  @@index([updated_by_id], map: "activity_data_updated_by_id_idx")
   @@index([created_by_id], map: "activity_data_created_by_id_idx")
   @@index([deleted_by_id], map: "activity_data_deleted_by_id_idx")
 }
