@@ -1,6 +1,7 @@
 <!-- +stack.svelte -->
 <script lang="ts">
     import { Alignment, Direction } from '$lib/types';
+    import Group from './+group.svelte';
   
     export let direction: Direction = Direction.Row;
     export let alignment: Alignment = Alignment.Start;
@@ -11,7 +12,7 @@
     const getAlignmentClass = (alignment: Alignment) => `align-${alignment}`;
   </script>
   
-  <div class={`stack ${getDirectionClass(direction)} ${getAlignmentClass(alignment)} ${className}`} style={`gap: ${spacing}`}>
+  <Group className={`stack ${getDirectionClass(direction)} ${getAlignmentClass(alignment)} ${className}`} style={`gap: ${spacing}`}>
     <slot></slot>
-  </div>
+  </Group>
   
