@@ -7,7 +7,7 @@
   export let placeholder: string = '';
 </script>
 
-<Text {type} {className}>
+<Text {type} {className} {...$$restProps}>
   <input
     type="text"
     bind:value={value}
@@ -19,12 +19,8 @@
 
 <style>
   input {
-    border: none;
-    background-color: transparent;
     width: 100%;
     box-sizing: border-box;
-    font-size: 1em;
-    outline: none;
   }
 
   input::placeholder {

@@ -69,15 +69,16 @@
     />
   </td>
   <td>
-    <Picker>
-      <div slot="label">
-        <button>{$selectedOption ? $selectedOption.label : "Select a country"}</button>
-      </div>
-      <VStack slot="view" spacing={0.5}>
+    <Picker 
+      options={countryOptions}
+      selection={$selectedOption}
+      placeholder="Select a country" 
+      on:select={handleCountrySelect}
+      maxItemsDisplayed={5}
+    >
+      <VStack  slot="option" spacing={0.5}>
         {#each countryOptions as option}
-          <div on:click={() => handleCountrySelect({ detail: option })} class="picker-item">
-            {option.label}
-          </div>
+          <div>{option.label}</div>
         {/each}
       </VStack>
     </Picker>
@@ -97,13 +98,5 @@
     border-bottom: 1px solid #ddd;
   }
 
-  .picker-item {
-    padding: 10px 15px;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-  }
 
-  .picker-item:hover {
-    background-color: #f5f5f5;
-  }
 </style>

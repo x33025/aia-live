@@ -7,6 +7,8 @@
   import VStack from '$lib/components/layout/+v-stack.svelte';
   import HStack from '$lib/components/layout/+h-stack.svelte';
 
+  type MenuItem = { id: any; label: string };
+
   export let article: ArticleMetadataWithRelations;
   export let writers: User[];
   export let categories: Category[];
@@ -48,25 +50,31 @@
     <Title {article} />
     <Picker 
       options={writerOptions}
-      selectedOption={writerOptions.find(option => option.id === selectedWriterId) || null}
+      selection={writerOptions.find(option => option.id === selectedWriterId) || null}
       placeholder="Select a writer" 
       on:select={handleWriterSelect}
-      maxItemDisplayed={3}
-    />
+      maxItemsDisplayed={3}
+    >
+      <span slot="option" let:option>{option.label}</span>
+    </Picker>
     <Picker 
       options={categoryOptions}
-      selectedOption={categoryOptions.find(option => option.id === selectedCategoryId) || null}
+      selection={categoryOptions.find(option => option.id === selectedCategoryId) || null}
       placeholder="Select a category" 
       on:select={handleCategorySelect}
-      maxItemDisplayed={3}
-    />
+      maxItemsDisplayed={3}
+    >
+      <span slot="option" let:option>{option.label}</span>
+    </Picker>
     <Picker 
       options={statusOptions}
-      selectedOption={statusOptions.find(option => option.id === selectedStatusId) || null}
+      selection={statusOptions.find(option => option.id === selectedStatusId) || null}
       placeholder="Select a status" 
       on:select={handleStatusSelect}
-      maxItemDisplayed={3}
-    />
+      maxItemsDisplayed={3}
+    >
+      <span slot="option" let:option>{option.label}</span>
+    </Picker>
   </HStack>
 
   <HStack spacing={0.5}>
