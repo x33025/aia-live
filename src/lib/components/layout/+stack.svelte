@@ -1,4 +1,3 @@
-<!-- +stack.svelte -->
 <script lang="ts">
     import { Alignment, Direction } from '$lib/types';
     import Group from './+group.svelte';
@@ -10,9 +9,8 @@
   
     const getDirectionClass = (direction: Direction) => `direction-${direction}`;
     const getAlignmentClass = (alignment: Alignment) => `align-${alignment}`;
-  </script>
+</script>
   
-  <Group className={`stack ${getDirectionClass(direction)} ${getAlignmentClass(alignment)} ${className}`} style={`gap: ${spacing}`}>
+<Group className={`stack ${getDirectionClass(direction)} ${getAlignmentClass(alignment)} ${className}`} style={`gap: ${spacing}em`}>
     <slot></slot>
-  </Group>
-  
+</Group>

@@ -1,63 +1,45 @@
 <script lang="ts">
-    import { HorizontalAlignment, VerticalAlignment } from '$lib/types';
-    import type { Alignment } from '$lib/types';
-  
-    export let alignment: Alignment = {
-      horizontal: HorizontalAlignment.Leading,
-      vertical: VerticalAlignment.Top,
-    };
-  
-    const getHorizontalAlignmentClass = (alignment: HorizontalAlignment) => {
-      switch (alignment) {
-        case HorizontalAlignment.Leading:
-          return 'align-horizontal-leading';
-        case HorizontalAlignment.Center:
-          return 'align-horizontal-center';
-        case HorizontalAlignment.Trailing:
-          return 'align-horizontal-trailing';
-        default:
-          return 'align-horizontal-leading';
-      }
-    };
-  
-    const getVerticalAlignmentClass = (alignment: VerticalAlignment) => {
-      switch (alignment) {
-        case VerticalAlignment.Top:
-          return 'align-vertical-top';
-        case VerticalAlignment.Center:
-          return 'align-vertical-center';
-        case VerticalAlignment.Bottom:
-          return 'align-vertical-bottom';
-        default:
-          return 'align-vertical-top';
-      }
-    };
+  import { Alignment } from '$lib/types';
+  import Group from './+group.svelte';
+
+  export let alignment: {
+    horizontal: Alignment,
+    vertical: Alignment,
+  } = {
+    horizontal: Alignment.Start,
+    vertical: Alignment.Start,
+  };
+  export let zIndex: number | null = null;
+
+  const getHorizontalAlignmentClass = (alignment: Alignment) => {
+    switch (alignment) {
+      case Alignment.Start:
+        return 'align-horizontal-start';
+      case Alignment.Center:
+        return 'align-horizontal-center';
+      case Alignment.End:
+        return 'align-horizontal-end';
+      default:
+        return 'align-horizontal-start';
+    }
+  };
+
+  const getVerticalAlignmentClass = (alignment: Alignment) => {
+    switch (alignment) {
+      case Alignment.Start:
+        return 'align-vertical-start';
+      case Alignment.Center:
+        return 'align-vertical-center';
+      case Alignment.End:
+        return 'align-vertical-end';
+      default:
+        return 'align-vertical-start';
+    }
+  };
+
+  const getZIndexStyle = (zIndex: number | null) => zIndex !== null ? `z-index: ${zIndex};` : '';
 </script>
-  
-<style>
-    .align-horizontal-leading {
-      align-self: flex-start;
-    }
-    .align-horizontal-center {
-      align-self: center;
-    }
-    .align-horizontal-trailing {
-      align-self: flex-end;
-    }
-    .align-vertical-top {
-      justify-self: flex-start;
-    }
-    .align-vertical-center {
-      justify-self: center;
-    }
-    .align-vertical-bottom {
-      justify-self: flex-end;
-    }
-    .aligned-item {
-      z-index: 10;
-    }
-</style>
-  
-<div class={`aligned-item ${getHorizontalAlignmentClass(alignment.horizontal)} ${getVerticalAlignmentClass(alignment.vertical)}`}>
-    <slot></slot>
-</div>
+
+<Group className={`aligned-item ${getHorizontalAlignmentClass(alignment.horizontal)} ${getVerticalAlignmentClass(alignment.vertical)}`} style={getZIndexStyle(zIndex)}>
+  <slot></slot>
+</Group>

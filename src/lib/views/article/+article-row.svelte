@@ -4,8 +4,8 @@
   import Keywords from './+keywords.svelte';
   import NumericInput from '$lib/components/advanced-input/+numeric-input.svelte';
   import NumericTarget from '$lib/components/advanced-input/+numeric-target.svelte';
-  import VStack from '$lib/components/layout/+v-stack.svelte';
-  import HStack from '$lib/components/layout/+h-stack.svelte';
+  import Stack from '$lib/components/layout/+stack.svelte';
+    import { Direction } from '$lib/types';
 
   type MenuItem = { id: any; label: string };
 
@@ -45,8 +45,8 @@
   }
 </script>
 
-<VStack spacing={0.5}>
-  <HStack spacing={0.5}>
+<Stack direction={Direction.Column} spacing={0.5}>
+  <Stack direction={Direction.Row} className="direction-row" spacing={0.5}>
     <Title {article} />
     <Picker 
       options={writerOptions}
@@ -55,7 +55,7 @@
       on:select={handleWriterSelect}
       maxItemsDisplayed={3}
     >
-      <span slot="option" let:option>{option.name}</span>
+  
     </Picker>
     <Picker 
       options={categoryOptions}
@@ -64,7 +64,6 @@
       on:select={handleCategorySelect}
       maxItemsDisplayed={3}
     >
-      <span slot="option" let:option>{option.name}</span>
     </Picker>
     <Picker 
       options={statusOptions}
@@ -73,11 +72,10 @@
       on:select={handleStatusSelect}
       maxItemsDisplayed={3}
     >
-      <span slot="option" let:option>{option.name}</span>
     </Picker>
-  </HStack>
+  </Stack>
 
-  <HStack spacing={0.5}>
+  <Stack direction={Direction.Row} spacing={0.5}>
     <NumericInput
       value={article.semrush_score} 
       on:update={(event) => updateSemrushScore(event.detail.value)}
@@ -87,6 +85,7 @@
       current={0} 
       update={updateTargetWordCount}
     />
-  </HStack>
+  </Stack>
+  
   <Keywords keywords={article.keywords} mainKeywordId={article.main_keyword_id} />
-</VStack>
+</Stack>

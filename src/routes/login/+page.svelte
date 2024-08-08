@@ -41,7 +41,6 @@
   <title>Login</title>
 </svelte:head>
 
-<Stack direction={Direction.Row} alignment={Alignment.Center} spacing={1}>
   <Stack direction={Direction.Column} alignment={Alignment.Start} spacing={1}>
     <h2>Login</h2>
     <form method="POST" action="?/login">
@@ -57,4 +56,4 @@
       </Stack>
     </form>
   </Stack>
-</Stack>
+

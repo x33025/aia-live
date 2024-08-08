@@ -6,6 +6,7 @@
   import ContextMenu from '$lib/components/actions/+context-menu.svelte';
   import Stack from '$lib/components/layout/+stack.svelte';
   import { Alignment, Direction } from '$lib/types';
+    import Group from '$lib/components/layout/+group.svelte';
 
   // Extract title from the $page store
   const title = derived(page, $page => $page.data.title);
@@ -28,9 +29,9 @@
     {/if}
 
     
-    <div class="content">
+    <Group className="content">
       <slot />
-    </div>
+    </Group>
  
   </Stack>
 
@@ -46,14 +47,5 @@
     align-items: stretch;
     min-height: 100vh;
     width: 100%;
-  }
-  .content {
-    background-color: white;
-    border-radius: 1em;
-    padding: 1em;
-    flex: 1;
-    display: flex;
-    width: 100%;
-    height: 100%;
   }
 </style>

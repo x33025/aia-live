@@ -75,8 +75,8 @@
   }
 </script>
 
-<div bind:this={buttonElement} class="picker-container" style="width: {maxLabelWidth}px;">
-  <Button class="picker-label" on:click={togglePicker}>
+<div bind:this={buttonElement} class="picker-button-container">
+  <Button class="picker-label" on:click={togglePicker} style="min-width: {maxLabelWidth}px;">
     {selection ? selection.name : placeholder}
   </Button>
 
@@ -103,10 +103,8 @@
 </div>
 
 <style>
-  .picker-container {
-    display: inline-block;
-    position: relative;
-    font-family: Arial, sans-serif;
+  .picker-button-container {
+    width: 100%;
   }
 
   :global(.picker-label) {
@@ -116,8 +114,10 @@
     padding: 0.5em;
     border-radius: 0.5em;
     background-color: var(--gray-1);
-    display: inline-block;
+    display: block;
     white-space: nowrap;
+    width: 100%;
+    text-align: left;
   }
 
   .picker-content {
@@ -131,6 +131,7 @@
     display: flex;
     flex-direction: column;
     padding: 0.25em;
+    max-width: 100%; /* Ensures the picker doesn't exceed the viewport width */
   }
 
   .picker-item {
