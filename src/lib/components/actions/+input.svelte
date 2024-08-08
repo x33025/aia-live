@@ -18,11 +18,6 @@
 </Text>
 
 <style>
-  input {
-    width: 100%;
-    box-sizing: border-box;
-  }
-
   input::placeholder {
     color: rgba(0, 0, 0, 0.95);
   }

@@ -2,7 +2,7 @@
     import { Alignment, Direction } from '$lib/types';
     import Group from './+group.svelte';
   
-    export let direction: Direction = Direction.Row;
+    export let direction: Direction = Direction.Column;
     export let alignment: Alignment = Alignment.Start;
     export let spacing: string | number = 0;
     export let className: string = '';
