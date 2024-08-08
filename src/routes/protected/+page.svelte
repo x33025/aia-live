@@ -49,7 +49,7 @@
 
 <Stack spacing={0.5}>
   <a href="/protected/keywords">Keywords</a>
-<a href="/protected/articles">Articles</a>
+  <a href="/protected/articles">Articles</a>
   {#if activeUsers.length > 0}
     {#each activeUsers as user}
       <div class="user">
@@ -61,8 +61,3 @@
   {/if}
 </Stack>
 
-<style>
-  .user {
-    margin: 5px 0;
-  }
-</style>

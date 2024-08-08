@@ -41,16 +41,16 @@
   <title>Login</title>
 </svelte:head>
 
-  <Stack spacing={1}>
+  <Stack>
     <h2>Login</h2>
     <form method="POST" action="?/login">
-      <Stack spacing={1}>
+      <Stack>
         <input type="email" id="email" name="email" bind:value={email} placeholder="Email" required />
         <input type="password" id="password" name="password" bind:value={password} placeholder="Password" required />
         {#if form?.error}
           <p class="error">{form.error}</p>
         {/if}
-        <Button type={TextType.Body} buttonType="submit">
+        <Button buttonType="submit">
           Login
         </Button>
       </Stack>

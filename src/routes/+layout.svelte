@@ -23,7 +23,7 @@
 </svelte:head>
 
 <main>
-  <Stack spacing={1}>
+  <Stack>
     {#if $title}
       <h1>{$title}</h1>
     {/if}

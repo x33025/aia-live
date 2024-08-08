@@ -4,7 +4,7 @@
   
     export let direction: Direction = Direction.Column;
     export let alignment: Alignment = Alignment.Start;
-    export let spacing: string | number = 0;
+    export let spacing: string | number = 1;
     export let className: string = '';
   
     const getDirectionClass = (direction: Direction) => `direction-${direction}`;
