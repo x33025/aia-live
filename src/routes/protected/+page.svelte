@@ -3,6 +3,8 @@
   import { presences, setupPresenceChannel } from '$lib/stores/presence';
   import type { LayoutData } from './$types';
   import { page } from '$app/stores';
+  import Stack from '$lib/components/layout/+stack.svelte';
+  import { Direction, Alignment } from '$lib/types';
 
   let allUsers: User[];
   let user_id: string;
@@ -43,10 +45,11 @@
   }
 </script>
 
-<a href="/protected/keywords">Keywords</a>
-<a href="/protected/articles">Articles</a>
 
-<div class="vstack">
+
+<Stack spacing={0.5}>
+  <a href="/protected/keywords">Keywords</a>
+<a href="/protected/articles">Articles</a>
   {#if activeUsers.length > 0}
     {#each activeUsers as user}
       <div class="user">
@@ -56,13 +59,9 @@
   {:else}
     <div class="user">No active users</div>
   {/if}
-</div>
+</Stack>
 
 <style>
-  .vstack {
-    display: flex;
-    flex-direction: column;
-  }
   .user {
     margin: 5px 0;
   }

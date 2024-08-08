@@ -12,7 +12,7 @@
   }
 </script>
 
-<Stack direction={Direction.Column} alignment={Alignment.End} spacing={0}>
+<Stack alignment={Alignment.End} spacing={0}>
   <!-- Z-Index higher for the login button -->
  
     <Button class="login-button" on:click={handleLoginClick}>
@@ -29,12 +29,13 @@
 <style>
   :global(.login-button) {
     padding: 0.5em;
-    border-radius: 0.75em;
+    border-radius: 0.5em;
     border: 0.1em solid var(--gray-2);
     box-shadow: 0 0 0 0.1em var(--gray-1),
     0 0 0 0.1em var(--gray-1);
     font-weight: bold;
     color: var(--blue);
-    margin: 0.3em;
+    margin: 0.1em;
   }
+
 </style>

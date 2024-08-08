@@ -23,7 +23,7 @@
 </svelte:head>
 
 <main>
-  <Stack direction={Direction.Column} alignment={Alignment.Start} spacing={1}>
+  <Stack spacing={1}>
     {#if $title}
       <h1>{$title}</h1>
     {/if}
