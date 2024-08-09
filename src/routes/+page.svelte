@@ -20,10 +20,9 @@
     </Button>
 
   
-  <!-- Z-Index lower for the interactive text -->
-  <AlignedItem alignment={{ horizontal: Alignment.Center, vertical: Alignment.Center }} zIndex={0}>
+
     <InteractiveText text="aia" />
-  </AlignedItem>
+
 </Stack>
 
 <style>
@@ -36,6 +35,7 @@
     font-weight: bold;
     color: var(--blue);
     margin: 0.1em;
+    z-index: 100;
   }
 
 </style>

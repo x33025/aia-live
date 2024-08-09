@@ -1,19 +1,16 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import type { Article } from '$lib/utils/interfaces/+article';
-  import { initializeArticle } from '$lib/utils/config/+article';
-  import BodyView from './body/+page.svelte';
+
+  import BodyView from '../../../../lib/views/article/[id]/body/+page.svelte';
   import DataView from './data/+page.svelte';
   import QuickLookView from './quick-look/+page.svelte';
   import DescriptionView from './description/+page.svelte';
   import NavBar from './navigation-bar/+page.svelte';
-  import Modal from '$lib/components/+modal.svelte';
+
 
   export let data: { article?: Article };
 
-  onMount(() => {
-    initializeArticle(data);
-  });
 </script>
 
 <main class="container">
@@ -34,7 +31,6 @@
       </div>
     </div>
   </div>
-  <Modal />
 </main>
 
 <style>

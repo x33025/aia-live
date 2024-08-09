@@ -1,35 +1,45 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
-  import { supabase } from '$lib/config/supabase';
   import Input from '$lib/components/actions/+input.svelte';
-  import type { Keyword } from '@prisma/client'; // Adjust import based on your actual model
+  import type { Keyword } from '@prisma/client';
   import { TextType } from '$lib/types';
 
-  export let keyword: Keyword; // Ensure this matches your model
+  export let keyword: Keyword;
   const textType = TextType.Body;
 
-  // Ensure keyword has necessary properties
-  if (!keyword.keyword) {
-      keyword.keyword = '';
+  async function updateKeyword() {
+    try {
+      const response = await fetch(`/protected/keywords`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          id: keyword.id,
+          keyword: keyword.keyword,
+        }),
+      });
+
+      const result = await response.json();
+
+      if (!result.success) {
+        console.error('Error updating keyword:', result.error);
+      } else {
+        console.log('Keyword updated successfully');
+      }
+    } catch (error) {
+      console.error('Error processing update:', error);
+    }
   }
 
-  onMount(() => {
-    const keywordSubscription = supabase
-      .channel('public:Keyword')
-      .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'Keyword' }, payload => {
-        console.log('Change received!', payload);
-        // Update the keyword state based on the payload received
-        if (payload.new.id === keyword.id) {
-          keyword.keyword = payload.new.keyword;
-        }
-      })
-      .subscribe();
+  function handleKeydown(event: CustomEvent) {
+    const keyboardEvent = event.detail as KeyboardEvent;
 
-    return () => {
-      // Clean up subscription on component unmount
-      supabase.removeChannel(keywordSubscription);
-    };
-  });
+    if (keyboardEvent.key === 'Enter') {
+      (keyboardEvent.target as HTMLInputElement).blur();
+      updateKeyword();
+
+    }
+  }
 </script>
 
 <Input 
@@ -37,11 +47,12 @@
   className="keyword"
   bind:value={keyword.keyword}
   placeholder="Keyword"
+  on:keydown={handleKeydown} 
 />
 
 <style>
   :global(.keyword) {
-    background-color: var(--gray-1); /* Change color to distinguish it from the title */
+    background-color: var(--gray-1);
     border-radius: 0.5em;
     padding: 0.5em;
     flex: 1;

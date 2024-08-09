@@ -6,7 +6,7 @@
   import { onMount } from 'svelte';
 
   export let keyword: KeywordWithRelations;
-  export let countries: Country[];
+  export let countries: Country[] = [];
 
   interface Identifiable {
     id: number | string;

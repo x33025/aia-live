@@ -1,6 +1,7 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
   import { NumberType } from '$lib/types'; // Ensure this import is correct
+  import Input from '../actions/+input.svelte';
 
   export let value: number | null = null;
   export let numberType: NumberType = NumberType.Integer;
@@ -10,17 +11,14 @@
   const dispatch = createEventDispatcher();
 
   let input = value !== null ? value.toString() : '';
-  let inputElement: HTMLInputElement;
 
   $: allowNegative = min === null || min < 0;
 
-  function handleInput(event: Event) {
-    const inputValue = (event.target as HTMLInputElement).value;
+  function handleInput(event: CustomEvent) {
+    const inputValue = event.detail.value;
 
     if (isValidInput(inputValue)) {
       input = inputValue;
-    } else {
-      event.preventDefault();
     }
   }
 
@@ -65,11 +63,9 @@
   }
 </script>
 
-<input
-  type="text"
-  bind:value={input}
-  bind:this={inputElement}
+<Input
+  value={input}
   on:input={handleInput}
   on:blur={handleBlur}
-  placeholder="Enter a value"
+  placeholder="0"
 />

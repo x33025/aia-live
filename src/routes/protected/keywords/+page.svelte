@@ -1,38 +1,63 @@
 <script lang="ts">
+  import InfiniteLoading from 'svelte-infinite-loading';
+  import { supabase } from '$lib/config/supabase';
   import KeywordRow from '$lib/views/keyword/+keyword-row.svelte';
-  import type { PageData } from './$types';
 
-  export let data: PageData;
+  let keywordsList: KeywordWithRelations[] = [];
+  let page = 1;
+  const PAGE_SIZE = 20;
 
-  let keywords: KeywordWithRelations[] = data.keywords;
-  let countries: Country[] = data.countries; // Assuming countries data is part of PageData
+  async function loadMoreKeywords(event: CustomEvent<{ loaded: () => void; complete: () => void }>) {
+    const { loaded, complete } = event.detail;
+
+    const from = (page - 1) * PAGE_SIZE;
+    const to = from + PAGE_SIZE - 1;
+
+    const { data: newKeywords, error } = await supabase
+      .from('Keyword')
+      .select(`
+        *,
+        ActivityData (*),
+        Country (*),
+        TimeData (*)
+      `)
+      .range(from, to);
+
+    if (error) {
+      console.error('Error fetching more keywords:', error);
+      complete();
+      return;
+    }
+
+    if (newKeywords.length < PAGE_SIZE) {
+      complete();
+    }
+
+    keywordsList = [...keywordsList, ...newKeywords];
+    page++;
+    loaded();
+  }
 </script>
 
 <div class="table-container">
-  <div class="table-wrapper">
-    <table>
-      <thead>
-        <tr>
-          <th>Keyword</th>
-          <th>Evergreen</th>
-          <th>Country</th>
-          <th>Volume</th>
-          <th>Keyword Density</th>
-        </tr>
-      </thead>
-      <tbody>
-        {#if keywords && keywords.length > 0}
-          {#each keywords as keyword (keyword.id)}
-            <KeywordRow {keyword} {countries} />
-          {/each}
-        {:else}
-          <tr>
-            <td colspan="5">No keywords found</td>
-          </tr>
-        {/if}
-      </tbody>
-    </table>
-  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>Keyword</th>
+        <th>Evergreen</th>
+        <th>Country</th>
+        <th>Volume</th>
+        <th>Keyword Density</th>
+      </tr>
+    </thead>
+    <tbody>
+      {#each keywordsList as keyword (keyword.id)}
+        <KeywordRow {keyword} />
+      {/each}
+    </tbody>
+  </table>
+  
+  <InfiniteLoading on:infinite={loadMoreKeywords} />
 </div>
 
 <style>
@@ -41,14 +66,8 @@
     flex-direction: column;
     width: 100%;
     height: 100%;
-    overflow: auto;
+    overflow: hidden;
     flex-grow: 1;
-  }
-
-  .table-wrapper {
-    flex-grow: 1;
-    overflow-y: auto;
-    overflow-x: hidden;
   }
 
   table {
