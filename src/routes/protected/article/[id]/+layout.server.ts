@@ -11,7 +11,7 @@ export const load: LayoutServerLoad = async ({ locals, params }) => {
   if (articleId) {
     // Fetch article and its associated metadata in one query
     const { data, error } = await supabase
-      .from<Article>('Article') // Replace 'Article' with your actual table name
+      .from('Article') // Replace 'Article' with your actual table name
       .select(`
         *,
         metadata: ArticleMetadata(*) 

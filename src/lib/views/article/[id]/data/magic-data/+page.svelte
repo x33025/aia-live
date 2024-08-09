@@ -1,4 +1,4 @@
-<script>
+<!-- <script>
     import { onDestroy, onMount } from 'svelte';
     import { magicDataStore } from '$lib/stores/+magic-data';
     import { searchMagicDataPromise } from '$lib/api/+promises';
@@ -146,4 +146,4 @@
     .message {
         color: var(--gray-6);
     }
-</style>
+</style> -->

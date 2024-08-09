@@ -1,4 +1,4 @@
-<script>
+<!-- <script>
     import EllipsisCircle from '$lib/icons/+ellipsis-circle.svelte';
 
     let open = false;
@@ -76,4 +76,4 @@
         <a href="#" role="menuitem">Link 2</a>
         <a href="#" role="menuitem">Link 3</a>
     </div>
-</div>
+</div> -->

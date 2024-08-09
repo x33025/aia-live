@@ -1,4 +1,4 @@
-<script lang="ts">
+<!-- <script lang="ts">
     import { patchArticle } from '$lib/api/+article';
     import { get, writable } from 'svelte/store';
     import { article } from '$lib/stores/+article'; 
@@ -50,4 +50,4 @@
         cursor: pointer;
         margin: 1em;
     }    
-  </style>
+  </style> -->

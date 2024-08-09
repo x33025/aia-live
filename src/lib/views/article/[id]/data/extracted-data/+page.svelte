@@ -1,4 +1,4 @@
-<script lang="ts">
+<!-- <script lang="ts">
   import { filteredRawData } from '$lib/stores/+article';
   import { extractionPromise } from '$lib/api/+promises';
   import DataPointView from '../data-point/+page.svelte';
@@ -48,4 +48,4 @@
   .placeholder {
     color: var(--gray-5);
   }
-</style>
+</style> -->

@@ -1,4 +1,4 @@
-<script lang="ts">
+<!-- <script lang="ts">
   import { onDestroy } from 'svelte';
   import { article } from '$lib/stores/+article';
   import { generateTitlePromise } from '$lib/api/+promises';
@@ -186,4 +186,4 @@
     opacity: 0.5;
     cursor: not-allowed;
   }
-</style>
+</style> -->

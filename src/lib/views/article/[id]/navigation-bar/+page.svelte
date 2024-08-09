@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Navbar from '$lib/components/+navigation-bar.svelte';
+  import Navbar from '$lib/views/article/[id]/navigation-bar/+page.svelte';
   import TitleView from '../title/+page.svelte';
   import BackButton from './back/+page.svelte';
   import Options from './options/+page.svelte';

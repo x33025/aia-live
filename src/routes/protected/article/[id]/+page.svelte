@@ -1,12 +1,11 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import type { Article } from '$lib/utils/interfaces/+article';
 
-  import BodyView from '../../../../lib/views/article/[id]/body/+page.svelte';
-  import DataView from './data/+page.svelte';
-  import QuickLookView from './quick-look/+page.svelte';
-  import DescriptionView from './description/+page.svelte';
-  import NavBar from './navigation-bar/+page.svelte';
+  import BodyView from '$lib/views/article/[id]/body/+page.svelte';
+  import DataView from '$lib/views/article/[id]/data/+page.svelte';
+  import QuickLookView from '$lib/views/article/[id]/quick-look/+page.svelte';
+  import DescriptionView from '$lib/views/article/[id]/description/+page.svelte';
+  import NavBar from '$lib/views/article/[id]/navigation-bar/+page.svelte';
 
 
   export let data: { article?: Article };

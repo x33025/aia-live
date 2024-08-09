@@ -1,10 +1,5 @@
-<script lang="ts">
-  import { article } from '$lib/stores/+article';
+<!-- <script lang="ts">
   import { onDestroy } from 'svelte';
-  import { generateQuickLook } from '$lib/api/gpt/+quick-look';
-  import { patchArticle } from '$lib/api/+article';
-  import GenerateButton from '$lib/components/+generate-button.svelte';
-  import type { Article } from '$lib/utils/interfaces/+article';
 
   let bulletPoints: [string, string, string, string, string, string] = ['', '', '', '', '', ''];
   let displayedBulletPoints: [string, string, string] = ['', '', ''];
@@ -152,4 +147,4 @@
     right: 0.5em;
     transition: opacity 0.3s ease-in-out;
   }
-</style>
+</style> -->

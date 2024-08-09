@@ -6,6 +6,7 @@
   import NumericTarget from '$lib/components/advanced-input/+numeric-target.svelte';
   import Stack from '$lib/components/layout/+stack.svelte';
     import { Direction } from '$lib/types';
+    import { goto } from '$app/navigation';
 
   type MenuItem = { id: any; label: string };
 
@@ -42,6 +43,10 @@
   function updateTargetWordCount(value: number) {
     console.log(`Updating target_word_count to ${value}`);
     // Implement actual update logic here, e.g., making a request to your backend.
+  }
+
+  function openArticle() {
+    goto(`/protected/article/${article.id}`);
   }
 </script>
 
@@ -88,4 +93,7 @@
   </Stack>
   
   <Keywords keywords={article.keywords} mainKeywordId={article.main_keyword_id} />
+  <button on:click={openArticle} class="open-article-button">
+    Open Article
+  </button>
 </Stack>

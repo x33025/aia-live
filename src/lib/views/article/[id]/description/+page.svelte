@@ -1,4 +1,4 @@
-<script lang="ts">
+<!-- <script lang="ts">
   import { onDestroy, onMount, createEventDispatcher } from 'svelte';
   import { article } from '$lib/stores/+article';
   import { generateDescriptionPromise } from '$lib/api/+promises';
@@ -195,4 +195,4 @@
       </div>
     </button>
   </div>
-</div>
+</div> -->
