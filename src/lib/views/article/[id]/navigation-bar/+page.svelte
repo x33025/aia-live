@@ -1,24 +1,24 @@
 <script lang="ts">
-  import Navbar from '$lib/views/article/[id]/navigation-bar/+page.svelte';
+ 
   import TitleView from '../title/+page.svelte';
   import BackButton from './back/+page.svelte';
   import Options from './options/+page.svelte';
 </script>
 
-<Navbar>
-  <div slot="left" class="nav-left">
+
+  <div class="nav-left">
     <BackButton />
 
   </div>
-  <div slot="center" class="nav-center">
+  <div  class="nav-center">
   
     <TitleView />
 
   </div>
-  <div slot="right" class="nav-right">
+  <div  class="nav-right">
     <Options />
   </div>
-</Navbar>
+
 
 <style>
   .nav-left, .nav-right {
