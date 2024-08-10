@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Alignment } from '../../../types';
+
   import Group from './+group.svelte';
 
   export let alignment: {

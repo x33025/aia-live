@@ -1,5 +1,4 @@
 <script lang="ts">
-    import { Alignment, Direction } from '../../../types';
     import Group from './+group.svelte';
   
     export let direction: Direction = Direction.Column;
