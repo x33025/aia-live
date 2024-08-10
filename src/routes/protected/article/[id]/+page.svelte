@@ -45,11 +45,4 @@
     background-color: var(--gray-2);
     border-radius: 8px;
   }
-
-  @media (max-width: 768px) {
-    .placeholder-shape {
-      width: 100%;
-      height: 200px; /* Adjust height as needed for smaller screens */
-    }
-  }
 </style>

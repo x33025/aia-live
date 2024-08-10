@@ -55,6 +55,6 @@
   .divider {
     height: 1px;
     background-color: #ddd;
-    margin: 0.25em 0;
+    margin: 1em 0;
   }
 </style>

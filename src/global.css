@@ -69,6 +69,7 @@ textarea {
   outline: none; /* Remove focus outline */
   box-shadow: none; /* Remove box shadow */
   appearance: none; /* Remove default browser appearance */
+  width: inherit;
 }
 
 /* Remove default button styling */
