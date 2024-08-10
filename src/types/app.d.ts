@@ -15,20 +15,6 @@ declare global {
   
     // interface Platform {}
   }
-
-  enum TextType {
-    Title = 'title',
-    Headline = 'headline',
-    Subheadline = 'subheadline',
-    Body = 'body',
-    Callout = 'callout',
-    Caption = 'caption',
-  }
-
-  type MenuItem = {
-    id: string | number;
-    label: string;
-  };
 }
 
 export {};

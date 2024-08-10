@@ -2,9 +2,7 @@
   import { goto } from '$app/navigation';
   import InteractiveText from '$lib/views/login/+interactive-text.svelte';
   import Stack from '$lib/components/layout/+stack.svelte';
-  import AlignedItem from '$lib/components/layout/+aligned-item.svelte';
   import Button from '$lib/components/actions/+button.svelte';
-  import { Alignment, Direction } from '$lib/types';
 
   function handleLoginClick() {
     console.log('Login button clicked');
@@ -13,16 +11,11 @@
 </script>
 
 <Stack alignment={Alignment.End} spacing={0}>
-  <!-- Z-Index higher for the login button -->
  
     <Button class="login-button" on:click={handleLoginClick}>
       Login
     </Button>
-
-  
-
     <InteractiveText text="aia" />
-
 </Stack>
 
 <style>

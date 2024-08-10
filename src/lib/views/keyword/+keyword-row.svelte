@@ -1,4 +1,4 @@
-<script lang="ts">
+<!-- <script lang="ts">
   import { debounce } from 'lodash-es';
   import NumericInput from '$lib/components/advanced-input/+numeric-input.svelte';
   import Keyword from './+keyword.svelte';
@@ -96,4 +96,4 @@
     text-align: left;
     border-bottom: 1px solid #ddd;
   }
-</style>
+</style> -->

@@ -1,4 +1,4 @@
-<script lang="ts">
+<!-- <script lang="ts">
   import InfiniteLoading from 'svelte-infinite-loading';
   import { supabase } from '$lib/config/supabase';
   import KeywordRow from '$lib/views/keyword/+keyword-row.svelte';
@@ -95,4 +95,4 @@
   td {
     border-top: none;
   }
-</style>
+</style> -->

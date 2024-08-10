@@ -1,13 +1,15 @@
 <script lang="ts">
   import Stack from '$lib/components/layout/+stack.svelte';
   import Button from '$lib/components/actions/+button.svelte';
-  import { Alignment, Direction, TextType } from '$lib/types';
+  import { Alignment, Direction, TextType } from '../../types';
 
   interface Form {
     email?: string;
     password?: string;
     error?: string;
   }
+
+  
 
   let email = '';
   let password = '';

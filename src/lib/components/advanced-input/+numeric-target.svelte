@@ -1,7 +1,7 @@
 <script lang="ts">
   import Stack from '../layout/+stack.svelte';
   import NumericInput from '$lib/components/advanced-input/+numeric-input.svelte';
-  import { Direction } from '$lib/types';
+  import { Direction } from '../../../types';
     import Group from '../layout/+group.svelte';
 
   export let target: number;

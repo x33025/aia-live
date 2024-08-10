@@ -1,4 +1,3 @@
-// src/routes/login/+page.server.ts
 import type { Actions, PageServerLoad } from './$types';
 import { pb } from '$lib/config/pocketbase'; // Import your PocketBase client
 import { fail, redirect } from '@sveltejs/kit';
@@ -8,9 +7,9 @@ export const load: PageServerLoad = async ({ cookies }) => {
   pb.authStore.loadFromCookie(cookies.get('pb_auth') || '');
 
   const user = pb.authStore.model;
-  const session = null; // Adjust or remove if you handle sessions differently
+  const session = null;
 
-  return { user, session };
+  return { user, session, form: {} };  // Ensure `form` is always passed as an object
 };
 
 export const actions: Actions = {
@@ -37,7 +36,7 @@ export const actions: Actions = {
       console.error('Login failed:', error);
 
       // Return a failure response with the error message
-      return fail(400, { error: 'Invalid email or password' });
+      return fail(400, { form: { error: 'Invalid email or password' } });
     }
   }
 };

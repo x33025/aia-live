@@ -1,4 +1,4 @@
-<script lang="ts">
+<!-- <script lang="ts">
   import Input from '$lib/components/actions/+input.svelte';
   import type { Keyword } from '@prisma/client';
   import { TextType } from '$lib/types';
@@ -58,4 +58,4 @@
     flex: 1;
     display: block;
   }
-</style>
+</style> -->

@@ -1,6 +1,6 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
-  import { NumberType } from '$lib/types'; // Ensure this import is correct
+  import { NumberType } from '../../../types'; // Ensure this import is correct
   import Input from '../actions/+input.svelte';
 
   export let value: number | null = null;
