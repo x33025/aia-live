@@ -1,9 +1,11 @@
-export enum NumberType {
-  Integer = 'integer',
-  Float = 'float'
-}
+// routes/types/index.d.ts
+declare global {
+  enum NumberType {
+    Integer = 'integer',
+    Float = 'float'
+  }
 
-  export enum TextType {
+  enum TextType {
     Title = 'title',
     Headline = 'headline',
     Subheadline = 'subheadline',
@@ -11,14 +13,17 @@ export enum NumberType {
     Callout = 'callout',
     Caption = 'caption',
   }
-// $lib/types.ts
-export enum Alignment {
-  Start = 'start',
-  Center = 'center',
-  End = 'end',
+
+  enum Alignment {
+    Start = 'start',
+    Center = 'center',
+    End = 'end',
+  }
+
+  enum Direction {
+    Row = 'row',
+    Column = 'column',
+  }
 }
 
-export enum Direction {
-  Row = 'row',
-  Column = 'column',
-}
+export {};

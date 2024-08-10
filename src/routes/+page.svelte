@@ -4,6 +4,8 @@
   import Stack from '$lib/components/layout/+stack.svelte';
   import Button from '$lib/components/actions/+button.svelte';
 
+
+
   function handleLoginClick() {
     console.log('Login button clicked');
     goto('/login');

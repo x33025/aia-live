@@ -1,3 +1,4 @@
+declare global {
 interface Identifiable {
     id: number | string;
     name: string;
@@ -61,4 +62,6 @@ interface Identifiable {
     id: string;
     name: string; // Empty string if not provided
   }
-  
+}
+
+export {};

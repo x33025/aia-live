@@ -33,4 +33,6 @@ declare module 'd3-quadtree' {
   export function quadtree<T>(): Quadtree<T>;
   export function quadtree<T>(data: T[]): Quadtree<T>;
   export function quadtree<T>(data: T[], x: (d: T) => number, y: (d: T) => number): Quadtree<T>;
+
+  
 }
