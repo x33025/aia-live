@@ -11,8 +11,10 @@
 
   let email = '';
   let password = '';
-  let error = '';
   export let form: Form = {};
+
+  // If there's an error in the form, bind it to the local error variable
+  $: error = form.error;
 </script>
 
 <style>
@@ -41,19 +43,18 @@
   <title>Login</title>
 </svelte:head>
 
-  <Stack>
-    <h2>Login</h2>
-    <form method="POST" action="?/login">
-      <Stack>
-        <input type="email" id="email" name="email" bind:value={email} placeholder="Email" required />
-        <input type="password" id="password" name="password" bind:value={password} placeholder="Password" required />
-        {#if form?.error}
-          <p class="error">{form.error}</p>
-        {/if}
-        <Button buttonType="submit">
-          Login
-        </Button>
-      </Stack>
-    </form>
-  </Stack>
-
+<Stack>
+  <h2>Login</h2>
+  <form method="POST" action="?/login">
+    <Stack>
+      <input type="email" id="email" name="email" bind:value={email} placeholder="Email" required />
+      <input type="password" id="password" name="password" bind:value={password} placeholder="Password" required />
+      {#if error}
+        <p class="error">{error}</p>
+      {/if}
+      <Button buttonType="submit">
+        Login
+      </Button>
+    </Stack>
+  </form>
+</Stack>

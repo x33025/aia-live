@@ -1,4 +1,4 @@
-<script lang="ts">
+<!-- <script lang="ts">
   import Stack from '$lib/components/layout/+stack.svelte';
   import Input from '$lib/components/actions/+input.svelte';
   import { Alignment, Direction } from '$lib/types';
@@ -52,4 +52,4 @@
     padding: 1em;
     white-space: pre-wrap; /* Preserve formatting */
   }
-</style>
+</style> -->

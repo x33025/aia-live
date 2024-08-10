@@ -1,11 +1,11 @@
-<script lang="ts">
+<!-- <script lang="ts">
   import { onMount } from 'svelte';
   import type { LayoutData } from './$types';
   import ArticleRow from '$lib/views/article/+article-row.svelte';
-  import ArticleInputRow from '$lib/views/article/+article-input-row.svelte';
+  import ArticleInputRow from '$lib/views/article/+article-input-row.svelte'; // Import ArticleInputRow
   import InfiniteLoading from 'svelte-infinite-loading';
   import { writable } from 'svelte/store';
-  import Stack from '$lib/components/layout/+stack.svelte';
+    import Stack from '$lib/components/layout/+stack.svelte';
 
   export let data: LayoutData;
   
@@ -21,34 +21,35 @@
     }
   }
 
-  async function loadMoreArticles(event: CustomEvent) {
-  if (loading || !hasMore) return;
-  loading = true;
+  async function loadMoreArticles(done: (more: boolean) => void) {
+    if (loading || !hasMore) return;
+    loading = true;
 
-  try {
-    const res = await fetch(`?page=${page + 1}`);
-    const newData = await res.json();
+    try {
+      const res = await fetch(`?page=${page + 1}`);
+      const newData = await res.json();
 
-    if (newData.articles.length) {
-      articles.update(curr => [...curr, ...newData.articles]);
-      page += 1;
-    } else {
+      if (newData.articles.length) {
+        articles.update(curr => [...curr, ...newData.articles]);
+        page += 1;
+        done(true); // Signal that more data is available
+      } else {
+        hasMore = false;
+        done(false); // Signal that no more data is available
+      }
+    } catch (err) {
+      console.error('Failed to load more articles:', err);
       hasMore = false;
+      done(false); // Signal that no more data is available
+    } finally {
+      loading = false;
     }
-  } catch (err) {
-    console.error('Failed to load more articles:', err);
-    hasMore = false;
-  } finally {
-    if (event.target && typeof event.target.complete === 'function') {
-      event.target.complete(hasMore); // Inform the infinite loader that the operation is complete
-    }
-    loading = false;
   }
-}
-
 
   function createNewArticle() {
-    // Logic to create a new article
+
+  
+    // Here you would also call the server to persist the new article
   }
 </script>
 
@@ -62,6 +63,7 @@
 
   <InfiniteLoading
     on:infinite={loadMoreArticles}
+    hasMore={hasMore}
   >
     {#each $articles as article, index (article.id)}
       <ArticleRow 
@@ -76,7 +78,7 @@
     {/each}
 
     <div slot="loading">Loading more articles...</div>
-    <div slot="noMore">No more articles available.</div>
+    <div slot="no-more">No more articles available.</div>
   </InfiniteLoading>
 </Stack>
 
@@ -86,4 +88,19 @@
     background-color: #ddd;
     margin: 1em 0;
   }
-</style>
+
+  .create-article-button {
+    margin-bottom: 1em;
+    background-color: #4CAF50;
+    color: white;
+    padding: 0.5em 1em;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .create-article-button:hover {
+    background-color: #45a049;
+  }
+</style> -->

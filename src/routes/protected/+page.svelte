@@ -1,4 +1,4 @@
-<script lang="ts">
+<!-- <script lang="ts">
   import { onMount } from 'svelte';
   import { presences, setupPresenceChannel } from '$lib/stores/presence';
   import type { LayoutData } from './$types';
@@ -60,4 +60,4 @@
     <div class="user">No active users</div>
   {/if}
 </Stack>
-
+ -->

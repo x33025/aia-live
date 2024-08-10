@@ -1,53 +1,43 @@
 import type { LayoutServerLoad } from './$types';
-import { supabase } from '$lib/config/supabase';
+import { pb } from '$lib/config/pocketbase'; // Import the PocketBase client
+import { redirect } from '@sveltejs/kit';
 
-export const load: LayoutServerLoad = async ({ locals }) => {
+export const load: LayoutServerLoad = async ({ locals, cookies }) => {
+  // Load the authentication state from cookies
+  pb.authStore.loadFromCookie(cookies.get('pb_auth') || '');
+
+  // Check if the user is authenticated
+  const user = pb.authStore.model;
+
+  if (!user) {
+    // If the user is not authenticated, redirect them to the login page
+    throw redirect(303, '/login');
+  }
+
+  // If the user is authenticated, proceed with fetching necessary data
   try {
     console.log('Fetching all users...');
 
-    // Fetch all users from the public schema with their roles
-    const { data: allUsers, error: allUsersError } = await supabase
-      .from('User')
-      .select('id, name, last_name, email, role:role_id(name)');
-
-    if (allUsersError) {
-      throw allUsersError;
-    }
+    // Fetch all users from the PocketBase API
+    const allUsers = await pb.collection('users').getFullList();
 
     console.log(`Fetched ${allUsers.length} users`);
 
     console.log('Fetching categories and statuses...');
 
     // Fetch categories
-    const { data: categories, error: categoriesError } = await supabase
-      .from('Category')
-      .select('*');
+    const categories = await pb.collection('categories').getFullList();
 
-    if (categoriesError) {
-      throw categoriesError;
-    }
+    console.log(`Fetched ${categories.length} categories`);
 
     // Fetch statuses
-    const { data: statuses, error: statusesError } = await supabase
-      .from('Status')
-      .select('*');
+    const statuses = await pb.collection('statuses').getFullList();
 
-    if (statusesError) {
-      throw statusesError;
-    }
+    console.log(`Fetched ${statuses.length} statuses`);
 
     // Fetch countries
-    const { data: countries, error: countriesError } = await supabase
-      .from('Country')
-      .select('*');
+    const countries = await pb.collection('countries').getFullList();
 
-    if (countriesError) {
-      throw countriesError;
-    }
-
-    // Log the counts for debugging purposes
-    console.log(`Fetched ${categories.length} categories`);
-    console.log(`Fetched ${statuses.length} statuses`);
     console.log(`Fetched ${countries.length} countries`);
 
     // Return data including all users, categories, statuses, countries, and the user session
@@ -56,8 +46,9 @@ export const load: LayoutServerLoad = async ({ locals }) => {
       categories,
       statuses,
       countries,
-      user_id: locals.user?.id ?? null,
-      session: locals.session,
+      user, // Include the authenticated user here
+      user_id: user.id,
+      session: null, // Adjust this if you need session handling
       title: "Dashboard"
     };
   } catch (error) {
