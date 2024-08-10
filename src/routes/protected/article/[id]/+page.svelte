@@ -1,103 +1,55 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
+  import Stack from '$lib/components/layout/+stack.svelte';
+  import { Alignment, Direction } from '$lib/types';
 
-  import BodyView from '$lib/views/article/[id]/body/+page.svelte';
-  import DataView from '$lib/views/article/[id]/data/+page.svelte';
-  import QuickLookView from '$lib/views/article/[id]/quick-look/+page.svelte';
-  import DescriptionView from '$lib/views/article/[id]/description/+page.svelte';
-  import NavBar from '$lib/views/article/[id]/navigation-bar/+page.svelte';
+  export let article: Article;
+  export let metadata: ArticleMetadata;
+  export let activityData: ActivityData;
+  export let timeData: TimeData;
 
-
-  export let data: { article?: Article };
-
+  console.log('Received article:', article);
+  console.log('Received metadata:', metadata);
+  console.log('Received activity data:', activityData);
+  console.log('Received time data:', timeData);
 </script>
 
-<main class="container">
-  <NavBar />
-  <div class="content">
-    <div class="column left-column">
-      <DataView />
-    </div>
-    <div class="column center-column">
-      <BodyView />
-    </div>
-    <div class="column right-column">
-      <div class="half-height">
-        <QuickLookView />
-      </div>
-      <div class="half-height">
-        <DescriptionView />
-      </div>
-    </div>
-  </div>
-</main>
+<Stack direction={Direction.Row} alignment={Alignment.Center} spacing={1}>
+  <Stack direction={Direction.Column} alignment={Alignment.Start}>
+    <h1 class="title">{metadata?.title || 'No title available'}</h1>
+    <p class="body">{article?.content || 'No content available'}</p>
+  </Stack>
+
+  <div class="placeholder-shape"></div>
+</Stack>
 
 <style>
-  .container {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    box-sizing: border-box;
-    position: relative;
-    background-color: var(--gray-1);
+  .title {
+    width: 100%;
+    font-size: 1.5em;
+    background-color: var(--gray-3);
+    border-radius: 8px;
+    margin-bottom: 1em;
+    padding: 0.5em;
   }
 
-  .content {
-    display: flex;
+  .body {
+    width: 100%;
+    background-color: var(--gray-4);
+    border-radius: 8px;
+    padding: 1em;
+    white-space: pre-wrap; /* Preserve formatting */
+  }
+
+  .placeholder-shape {
     flex: 1;
-    gap: 1em;
-    padding: 0 1em;
-    overflow: hidden;
-    justify-content: center;
-  }
-
-  .column {
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    gap: 1em;
-  }
-
-  .left-column, .right-column {
-    flex: 1;
-    height: 100%;
-    max-width: 30%;
-    min-width: 200px;
-    box-sizing: border-box;
-  }
-
-  .center-column {
-    flex: 2;
-    height: 100%;
-    max-width: 40%;
-    min-width: 300px;
-    box-sizing: border-box;
-  }
-
-  .half-height {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    background-color: var(--gray-2);
+    border-radius: 8px;
   }
 
   @media (max-width: 768px) {
-    .container {
-      flex-direction: column;
-    }
-
-    .column {
-      flex: none;
-      max-width: none;
-      min-width: 0;
-    }
-
-    .left-column, .center-column, .right-column {
-      padding: 1em;
-    }
-
-    .center-column {
-      width: auto;
+    .placeholder-shape {
+      width: 100%;
+      height: 200px; /* Adjust height as needed for smaller screens */
     }
   }
 </style>

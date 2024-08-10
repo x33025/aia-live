@@ -10,11 +10,6 @@
   let hiddenContainer: HTMLDivElement;
   let maxLabelWidth = 0;
 
-  interface Identifiable {
-    id: number | string;
-    name: string;
-  }
-
   export let options: Identifiable[] = [];
   export let selection: Identifiable | null = null;
   export let placeholder: string = 'Select an option';
@@ -104,7 +99,7 @@
 
 <style>
   .picker-button-container {
-    width: 100%;
+    width: 15%;
   }
 
   :global(.picker-label) {

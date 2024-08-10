@@ -1,6 +1,5 @@
 <script lang="ts">
  
-  import TitleView from '../title/+page.svelte';
   import BackButton from './back/+page.svelte';
   import Options from './options/+page.svelte';
 </script>
@@ -11,8 +10,7 @@
 
   </div>
   <div  class="nav-center">
-  
-    <TitleView />
+
 
   </div>
   <div  class="nav-right">

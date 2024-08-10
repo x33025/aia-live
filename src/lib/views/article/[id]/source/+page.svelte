@@ -1,4 +1,4 @@
-<script lang="ts">
+<!-- <script lang="ts">
   import { onMount, onDestroy } from 'svelte';
   import { article } from '$lib/stores/+article'; // Adjust the path as needed
   import type { Article } from '$lib/utils/interfaces/+article';
@@ -53,4 +53,4 @@
   textarea:focus {
     border: none;
   }
-</style>
+</style> -->

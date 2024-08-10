@@ -1,4 +1,4 @@
-<script lang="ts">
+<!-- <script lang="ts">
   import { onMount } from 'svelte';
   import { article } from '$lib/stores/+article';
   import { get } from 'svelte/store';
@@ -136,4 +136,4 @@
     width: auto;
     transition: width 0.2s; /* Smooth width transition */
   }
-</style>
+</style> -->

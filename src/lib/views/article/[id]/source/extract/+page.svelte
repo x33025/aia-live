@@ -1,4 +1,4 @@
-<script lang="ts">
+<!-- <script lang="ts">
   import { article } from '$lib/stores/+article';
   import { extractDataFromSource } from '$lib/api/gpt/+extractor';
   import { extractionPromise } from '$lib/api/+promises';
@@ -80,4 +80,4 @@
     padding: 0.75em;
     border-radius: 0.5em;
   }
-</style>
+</style> -->

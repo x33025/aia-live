@@ -1,4 +1,4 @@
-<script lang="ts">
+<!-- <script lang="ts">
   import { onDestroy } from 'svelte';
   import { writable } from 'svelte/store';
   import { article } from '$lib/stores/+article';
@@ -145,4 +145,4 @@
     background-color: white;
     padding: 1em;
   }
-</style>
+</style> -->
