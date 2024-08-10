@@ -1,55 +1,84 @@
 <script lang="ts">
-  import { fade } from 'svelte/transition';
+  import { onMount } from 'svelte';
   import type { LayoutData } from './$types';
   import ArticleRow from '$lib/views/article/+article-row.svelte';
-  import ScrollView from '$lib/components/layout/+scroll-view.svelte'; // Import the ScrollView component
-  
+  import ArticleInputRow from '$lib/views/article/+article-input-row.svelte';
+  import InfiniteLoading from 'svelte-infinite-loading';
+  import { writable } from 'svelte/store';
+  import Stack from '$lib/components/layout/+stack.svelte';
+
   export let data: LayoutData;
   
-  // Initialize writers as an empty array
   let writers: UserWithRole[] = [];
+  let articles = writable(data.articles);
+  let page = data.page;
+  let hasMore = true;
+  let loading = false;
 
   $: {
-    console.log('LayoutData:', data);
-    console.log('All Users:', data.allUsers);
-    
     if (Array.isArray(data.allUsers)) {
-      writers = data.allUsers.filter((user: UserWithRole) => {
-        console.log('User being checked:', user);
-        if (user.role) {
-          console.log('User role:', user.role);
-          return user.role.name === 'Writer';
-        } else {
-          console.log('User has no role:', user);
-          return false;
-        }
-      });
-    } else {
-      console.error('data.allUsers is not an array:', data.allUsers);
-      writers = [];
+      writers = data.allUsers.filter((user: UserWithRole) => user.role?.name === 'Writer');
     }
+  }
 
-    console.log('Filtered Writers:', writers);
+  async function loadMoreArticles(event: CustomEvent) {
+  if (loading || !hasMore) return;
+  loading = true;
+
+  try {
+    const res = await fetch(`?page=${page + 1}`);
+    const newData = await res.json();
+
+    if (newData.articles.length) {
+      articles.update(curr => [...curr, ...newData.articles]);
+      page += 1;
+    } else {
+      hasMore = false;
+    }
+  } catch (err) {
+    console.error('Failed to load more articles:', err);
+    hasMore = false;
+  } finally {
+    if (event.target && typeof event.target.complete === 'function') {
+      event.target.complete(hasMore); // Inform the infinite loader that the operation is complete
+    }
+    loading = false;
+  }
+}
+
+
+  function createNewArticle() {
+    // Logic to create a new article
   }
 </script>
 
-<ScrollView >
-  {#if data.articles && data.articles.length > 0}
-    {#each data.articles as article, index}
+<Stack>
+  <ArticleInputRow 
+    {writers} 
+    categories={data.categories} 
+    statuses={data.statuses}
+    on:create={createNewArticle}
+  />
+
+  <InfiniteLoading
+    on:infinite={loadMoreArticles}
+  >
+    {#each $articles as article, index (article.id)}
       <ArticleRow 
         {article} 
         {writers} 
         categories={data.categories} 
         statuses={data.statuses}
       />
-      {#if index < data.articles.length - 1}
+      {#if index < $articles.length - 1}
         <div class="divider"></div>
       {/if}
     {/each}
-  {:else}
-    <p>No articles available.</p>
-  {/if}
-</ScrollView>
+
+    <div slot="loading">Loading more articles...</div>
+    <div slot="noMore">No more articles available.</div>
+  </InfiniteLoading>
+</Stack>
 
 <style>
   .divider {

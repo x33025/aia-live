@@ -1,15 +1,18 @@
 import type { LayoutServerLoad } from './$types';
 import { supabase } from '$lib/config/supabase';
 
-export const load: LayoutServerLoad = async () => {
+export const load: LayoutServerLoad = async ({ url }) => {
   try {
-    console.log('Fetching article metadata...');
+    const page = Number(url.searchParams.get('page')) || 1;
+    const pageSize = 20; // Fetch 20 items at a time
 
-    // Fetch article metadata with a limit of 100
+    console.log(`Fetching article metadata for page ${page}...`);
+
+    // Fetch article metadata with pagination
     const { data: articles, error: articlesError } = await supabase
       .from('ArticleMetadata')
       .select('*')
-      .limit(100);
+      .range((page - 1) * pageSize, page * pageSize - 1);
 
     if (articlesError) {
       throw articlesError;
@@ -17,10 +20,10 @@ export const load: LayoutServerLoad = async () => {
 
     console.log(`Fetched ${articles.length} articles`);
 
-    // Return data including articles
     return {
       articles,
-      title: "Articles"
+      title: "Articles",
+      page,
     };
   } catch (error) {
     console.error('Error fetching data:', error);

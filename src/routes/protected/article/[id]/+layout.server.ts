@@ -32,9 +32,9 @@ export const load: LayoutServerLoad = async ({ locals, params }) => {
     } else if (data) {
       console.log('Data fetched successfully:', data);
       article = data;
-      metadata = data.ArticleMetadata;
-      activityData = metadata.ActivityData;
-      timeData = metadata.TimeData;
+      metadata = data?.ArticleMetadata ?? null;
+      activityData = metadata?.ActivityData ?? null;
+      timeData = metadata?.TimeData ?? null;
     } else {
       console.log('No data returned for article with ID:', articleId);
     }
@@ -47,5 +47,6 @@ export const load: LayoutServerLoad = async ({ locals, params }) => {
     metadata,
     activityData,
     timeData,
+    title: "Article"
   };
 };
