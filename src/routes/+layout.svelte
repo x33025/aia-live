@@ -5,7 +5,7 @@
   import { derived } from 'svelte/store';
   import ContextMenu from '$lib/components/actions/+context-menu.svelte';
   import Stack from '$lib/components/layout/+stack.svelte';
-  import Group from '$lib/components/layout/+group.svelte';
+
 
   // Extract title from the $page store
   const title = derived(page, $page => $page.data.title);
@@ -28,9 +28,9 @@
     {/if}
 
     
-    <Group className="content">
+    <Stack className="content">
       <slot />
-    </Group>
+    </Stack>
  
   </Stack>
 

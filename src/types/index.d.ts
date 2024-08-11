@@ -1,11 +1,11 @@
 // routes/types/index.d.ts
 declare global {
-  enum NumberType {
+  export enum NumberType {
     Integer = 'integer',
     Float = 'float'
   }
 
-  enum TextType {
+  export enum TextType {
     Title = 'title',
     Headline = 'headline',
     Subheadline = 'subheadline',
@@ -14,13 +14,13 @@ declare global {
     Caption = 'caption',
   }
 
-  enum Alignment {
+  export enum Alignment {
     Start = 'start',
     Center = 'center',
     End = 'end',
   }
 
-  enum Direction {
+  export enum Direction {
     Row = 'row',
     Column = 'column',
   }

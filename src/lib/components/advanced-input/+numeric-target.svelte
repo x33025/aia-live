@@ -1,8 +1,6 @@
 <script lang="ts">
-  import Stack from '../layout/+stack.svelte';
   import NumericInput from '$lib/components/advanced-input/+numeric-input.svelte';
-  import { Direction } from '../../../types';
-    import Group from '../layout/+group.svelte';
+    import Stack from '../layout/+stack.svelte';
 
   export let target: number;
   export let current: number;
@@ -13,15 +11,15 @@
   }
 </script>
 
-<Group className="numeric-target">
+<div class="numeric-target">
   <span>{current}</span>
   <span>/</span>
   <NumericInput bind:value={target} on:update={handleUpdate} />
-</Group>
+</div>
 
 <style>
 
-  :global(.numeric-target) {
+.numeric-target {
     padding: 0.5em;
 background-color: var(--gray-1);
   }

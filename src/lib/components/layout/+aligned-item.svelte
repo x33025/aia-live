@@ -1,7 +1,5 @@
 <script lang="ts">
 
-  import Group from './+group.svelte';
-
   export let alignment: {
     horizontal: Alignment,
     vertical: Alignment,
@@ -40,6 +38,6 @@
   const getZIndexStyle = (zIndex: number | null) => zIndex !== null ? `z-index: ${zIndex};` : '';
 </script>
 
-<Group className={`aligned-item ${getHorizontalAlignmentClass(alignment.horizontal)} ${getVerticalAlignmentClass(alignment.vertical)}`} style={getZIndexStyle(zIndex)}>
+<div class={`aligned-item ${getHorizontalAlignmentClass(alignment.horizontal)} ${getVerticalAlignmentClass(alignment.vertical)}`} style={getZIndexStyle(zIndex)}>
   <slot></slot>
-</Group>
+</div>
