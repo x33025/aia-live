@@ -1,61 +1,72 @@
 <script lang="ts">
+  import { enhance } from '$app/forms';
   import Stack from '$lib/components/layout/+stack.svelte';
   import Button from '$lib/components/actions/+button.svelte';
 
-  interface Form {
-    email?: string;
-    password?: string;
-    error?: string;
+
+    enum Alignment {
+    Start = 'flex-start',
+    Center = 'center',
+    End = 'flex-end',
+    Stretch = 'stretch', // Add stretch option
+    SpaceBetween = 'space-between', // Add space-between option
+    SpaceAround = 'space-around', // Add space-around option
+    SpaceEvenly = 'space-evenly', // Add space-evenly option
   }
 
-  
+  interface FormData {
+      email: string;
+      password: string;
+      error: string | null;
+  }
 
-  let email = '';
-  let password = '';
-  export let form: Form = {};
-
-  // If there's an error in the form, bind it to the local error variable
-  $: error = form.error;
+  export let form: FormData | null = null;
 </script>
+
+<Stack alignment={Alignment.Center}>
+  <h1>Login</h1>
+<form method="POST" action="?/login" use:enhance>
+  <Stack alignment={Alignment.Center}>
+      <input 
+          type="email" 
+          id="email" 
+          name="email" 
+          value={form?.email ?? ''} 
+          placeholder="Email" 
+          required 
+      />
+      <input 
+          type="password" 
+          id="password" 
+          name="password" 
+          placeholder="Password" 
+          required 
+      />
+      {#if form?.error}
+          <p class="error">{form.error}</p>
+      {/if}
+      <Button buttonType="submit">
+          Login
+      </Button>
+  </Stack>
+</form>
+</Stack>
+
+
 
 <style>
   input {
-    width: 100%;
-    padding: 0.7em;
-    border-radius: 0.5em;
-    border: none;
-    font-size: 1em;
-    border: 1px solid var(--gray-1);
-  }
-  input:focus {
-    outline: none;
+      width: 100%;
+      padding: 0.7em;
+      border-radius: 0.5em;
+      border: none;
+      font-size: 1em;
+      border: 1px solid var(--gray-1);
   }
   .error {
-    margin-top: 1em;
-    color: var(--red);
-    text-align: center;
+      color: var(--red);
   }
-  h2 {
-    color: rgb(10, 10, 10);
+  h1 {
+    margin-bottom: 1em;
   }
 </style>
-
-<svelte:head>
-  <title>Login</title>
-</svelte:head>
-
-<Stack>
-  <h2>Login</h2>
-  <form method="POST" action="?/login">
-    <Stack>
-      <input type="email" id="email" name="email" bind:value={email} placeholder="Email" required />
-      <input type="password" id="password" name="password" bind:value={password} placeholder="Password" required />
-      {#if error}
-        <p class="error">{error}</p>
-      {/if}
-      <Button buttonType="submit">
-        Login
-      </Button>
-    </Stack>
-  </form>
-</Stack>

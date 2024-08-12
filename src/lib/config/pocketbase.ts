@@ -1,4 +1,3 @@
-// src/lib/pocketbase.ts
 import PocketBase from 'pocketbase';
 
 // Initialize the PocketBase client with the server URL

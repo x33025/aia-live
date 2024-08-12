@@ -1,11 +1,10 @@
 <script lang="ts">
   import '../global.css';
-  import '$lib/components/layout/config.css';
+  // import '$lib/components/layout/config.css';
   import { page } from '$app/stores';
   import { derived } from 'svelte/store';
   import ContextMenu from '$lib/components/actions/+context-menu.svelte';
   import Stack from '$lib/components/layout/+stack.svelte';
-
 
   // Extract title from the $page store
   const title = derived(page, $page => $page.data.title);
@@ -14,24 +13,24 @@
   const headTitle = derived(title, $title => $title || 'aia');
 
   // Debugging: Log the title when it changes
-  $: console.log('Page title:', $title);
+  $: console.log('Page title:', $headTitle);
 </script>
 
 <svelte:head>
-  <title>{$headTitle}</title>
+  <title>{"aia • "} {$headTitle}</title>
 </svelte:head>
 
 <main>
   <Stack>
     {#if $title}
-      <h1>{$title}</h1>
+      {#if $title !== 'Login'}
+        <h1>{$title}</h1>
+      {/if}
     {/if}
 
-    
     <Stack className="content">
       <slot />
     </Stack>
- 
   </Stack>
 
   <ContextMenu />

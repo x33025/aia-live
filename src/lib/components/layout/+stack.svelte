@@ -1,23 +1,57 @@
 <script lang="ts">
-    export let direction: Direction = Direction.Column;
-    export let alignment: Alignment = Alignment.Start;
-    export let spacing: string | number = 1;
-    export let className: string = '';
-    export let style: string = '';
+  enum Alignment {
+    Start = 'flex-start',
+    Center = 'center',
+    End = 'flex-end',
+    Stretch = 'stretch',
+    SpaceBetween = 'space-between',
+    SpaceAround = 'space-around',
+    SpaceEvenly = 'space-evenly',
+  }
 
-    const getDirectionClass = (direction: Direction) => `direction-${direction}`;
-    const getAlignmentClass = (alignment: Alignment) => `align-${alignment}`;
+  enum Direction {
+    Row = 'row',
+    Column = 'column',
+  }
+
+  export let direction: Direction = Direction.Column;
+  export let alignment: Alignment = Alignment.Start; // Unified alignment
+  export let spacing: string | number = 1;
+  export let className: string = '';
+  export let style: string = '';
+
+  const getClasses = () => [
+    'stack',
+    `direction-${direction}`,
+    className,
+  ].join(' ');
+
+  const getStyles = () => [
+    `gap: ${spacing}em;`,
+    direction === 'row' 
+      ? `justify-content: ${alignment}; align-items: ${alignment};` 
+      : `justify-content: ${alignment}; align-items: ${alignment};`,
+    style,
+  ].join(' ');
 </script>
 
 <style>
   .stack {
     display: flex;
+    flex: 1;
     width: 100%;
     height: 100%;
-    flex: 1;
+  }
+
+  .direction-row {
+    flex-direction: row;
+  }
+
+  .direction-column {
+    flex-direction: column;
   }
 </style>
 
-<div class={`${className} stack ${getDirectionClass(direction)} ${getAlignmentClass(alignment)}`} style={`gap: ${spacing}em; ${style}`}>
-    <slot></slot>
+<div class={getClasses()} style={getStyles()}>
+  <slot></slot>
 </div>
