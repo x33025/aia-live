@@ -1,32 +1,45 @@
-// import type { LayoutServerLoad } from './$types';
-// import { pb } from '$lib/config/pocketbase'; // Import the configured PocketBase client
-// import { redirect } from '@sveltejs/kit';
+import type { LayoutServerLoad } from './$types';
+import { pb } from '$lib/config/pocketbase';
+import { redirect } from '@sveltejs/kit';
 
-// export const load: LayoutServerLoad = async ({ cookies }) => {
-//   // Load the authentication state from cookies
-//   pb.authStore.loadFromCookie(cookies.get('pb_auth') || '');
+export const load: LayoutServerLoad = async ({ cookies }) => {
+  const storedAuthCookie = cookies.get('pb_auth');
+  console.log('PROTECTED: Stored auth cookie:', storedAuthCookie ? 'exists' : 'not found');
 
-//   // Check if the authentication is valid
-//   if (!pb.authStore.isValid) {
-//     console.log('PROTECTED: Invalid authentication, redirecting to login...');
-//     // If the authentication is not valid, redirect to the login page
-//     throw redirect(303, '/login');
-//   }
+  if (storedAuthCookie) {
+    pb.authStore.loadFromCookie(storedAuthCookie);
+  } else {
+    console.error('PROTECTED: No auth cookie found, redirecting to login');
+    throw redirect(303, '/login');
+  }
 
-//   try {
-//     // Refresh the authentication to ensure the token is up-to-date
-//     await pb.collection('users').authRefresh();
-//   } catch (error) {
-//     console.error('PROTECTED: Failed to refresh authentication:', error);
-//     // Redirect to login if the token refresh fails
-//     throw redirect(303, '/login');
-//   }
+  console.log('PROTECTED: Auth store valid:', pb.authStore.isValid);
 
-//   // If the authentication is valid, pass down the whole user object
-//   const user = pb.authStore.model;
-  
-//   return {
-//     user,
-//     title: "Dashboard"
-//   };
-// };
+  if (!pb.authStore.isValid) {
+    console.error('PROTECTED: Auth store is invalid, redirecting to login');
+    throw redirect(303, '/login');
+  }
+
+  try {
+    await pb.collection('users').authRefresh();
+    console.log('PROTECTED: Authentication refreshed successfully');
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error('PROTECTED: Failed to refresh authentication:', error.message);
+    } else {
+      console.error('PROTECTED: An unexpected error occurred:', error);
+    }
+    throw redirect(303, '/login');
+  }
+
+  // Get the user ID from the auth store model
+  const userId = pb.authStore.model?.id;
+
+  // Fetch the latest user details from the users collection
+  const user = await pb.collection('users').getOne(userId);
+
+  return {
+    user, // This now contains the full user object with first_name and other fields
+    title: 'Dashboard'
+  };
+};
