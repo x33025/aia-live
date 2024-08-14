@@ -25,3 +25,9 @@ export enum NumberType {
     Column = 'column',
   }
   
+  export enum ButtonType {
+    Button = 'button',
+    Submit = 'submit',
+    Reset = 'reset',
+  }
+  

@@ -1,41 +1,36 @@
-// import type { LayoutServerLoad } from './$types';
-// import { supabase } from '$lib/config/supabase';
+import type { LayoutServerLoad } from './$types';
+import { pb } from '$lib/config/pocketbase';
 
-// const PAGE_SIZE = 20; // Adjust as needed
+const PAGE_SIZE = 20;
 
-// export const load: LayoutServerLoad = async ({ locals, url }) => {
-//   try {
-//     const page = Number(url.searchParams.get('page')) || 1;
-//     const from = (page - 1) * PAGE_SIZE;
-//     const to = from + PAGE_SIZE - 1;
+export const load: LayoutServerLoad = async ({ locals, url }) => {
+  try {
+    console.log('KEYWORDS: Starting load function');
+    
+    const page = Number(url.searchParams.get('page')) || 1;  // Start page from 1
+    console.log(`KEYWORDS: Fetching page ${page} with page size ${PAGE_SIZE}`);
 
-//     const { data: keywords, error: keywordsError, count } = await supabase
-//       .from('Keyword')
-//       .select(`
-//         *,
-//         ActivityData (*),
-//         Country (*),
-//         TimeData (*)
-//       `, { count: 'exact' })
-//       .range(from, to);
+    const result = await pb.collection('keywords').getList(page, PAGE_SIZE); // Correct page indexing
+    console.log('KEYWORDS: Fetch request completed');
 
-//     if (keywordsError) {
-//       console.error('Error details:', keywordsError);
-//       throw new Error(`Error fetching keywords: ${keywordsError.message}`);
-//     }
+    if (!result) {
+      console.error('KEYWORDS: No result found, throwing an error');
+      throw new Error("Collection not found or no data returned");
+    }
 
-//     const { session, user } = await locals.safeGetSession();
+    const keywords = result.items;
+    const total = result.totalItems;
 
-//     return {
-//       keywords: keywords as KeywordWithRelations[],
-//       total: count ?? 0,
-//       page,
-//       title: "Keywords",
-//       session,
-//       user
-//     };
-//   } catch (error) {
-//     console.error('Error fetching data:', error);
-//     throw new Error('Failed to load data');
-//   }
-// };
+    console.log(`KEYWORDS: Retrieved ${keywords.length} keywords out of ${total} total items`);
+
+    return {
+      keywords,
+      total,
+      page,
+      title: "Keywords",
+    };
+  } catch (error) {
+    console.error('KEYWORDS: Error fetching data:', error);
+    throw new Error('Failed to load data');
+  }
+};

@@ -1,8 +1,9 @@
 <script lang="ts">
+    import { ButtonType } from '$lib/types';
   import { createEventDispatcher } from 'svelte';
 
   export let className: string = '';
-  export let buttonType: 'button' | 'submit' | 'reset' = 'button';
+  export let buttonType: ButtonType = ButtonType.Button;
 
   const dispatch = createEventDispatcher();
 

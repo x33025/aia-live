@@ -1,42 +1,11 @@
-<!-- <script lang="ts">
-  import InfiniteLoading from 'svelte-infinite-loading';
-  import { supabase } from '$lib/config/supabase';
-  import KeywordRow from '$lib/views/keyword/+keyword-row.svelte';
+<script lang="ts">
+  import type { PageData } from './$types';
+  import KeywordRow from "$lib/views/keyword/+keyword-row.svelte";
 
-  let keywordsList: KeywordWithRelations[] = [];
-  let page = 1;
-  const PAGE_SIZE = 20;
+  export let data: PageData;
 
-  async function loadMoreKeywords(event: CustomEvent<{ loaded: () => void; complete: () => void }>) {
-    const { loaded, complete } = event.detail;
-
-    const from = (page - 1) * PAGE_SIZE;
-    const to = from + PAGE_SIZE - 1;
-
-    const { data: newKeywords, error } = await supabase
-      .from('Keyword')
-      .select(`
-        *,
-        ActivityData (*),
-        Country (*),
-        TimeData (*)
-      `)
-      .range(from, to);
-
-    if (error) {
-      console.error('Error fetching more keywords:', error);
-      complete();
-      return;
-    }
-
-    if (newKeywords.length < PAGE_SIZE) {
-      complete();
-    }
-
-    keywordsList = [...keywordsList, ...newKeywords];
-    page++;
-    loaded();
-  }
+  // Destructure the keywords from the PageData
+  const { keywords } = data;
 </script>
 
 <div class="table-container">
@@ -51,13 +20,11 @@
       </tr>
     </thead>
     <tbody>
-      {#each keywordsList as keyword (keyword.id)}
+      {#each keywords as keyword (keyword.id)}
         <KeywordRow {keyword} />
       {/each}
     </tbody>
   </table>
-  
-  <InfiniteLoading on:infinite={loadMoreKeywords} />
 </div>
 
 <style>
@@ -95,4 +62,4 @@
   td {
     border-top: none;
   }
-</style> -->
+</style>

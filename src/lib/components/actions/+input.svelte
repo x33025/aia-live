@@ -1,6 +1,7 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
   import Text from "../display/+text.svelte";
+  import { TextType } from '$lib/types';
   
   export let type: TextType = TextType.Body;
   export let className: string = '';

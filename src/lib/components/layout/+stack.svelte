@@ -1,18 +1,5 @@
 <script lang="ts">
-  enum Alignment {
-    Start = 'flex-start',
-    Center = 'center',
-    End = 'flex-end',
-    Stretch = 'stretch',
-    SpaceBetween = 'space-between',
-    SpaceAround = 'space-around',
-    SpaceEvenly = 'space-evenly',
-  }
-
-  enum Direction {
-    Row = 'row',
-    Column = 'column',
-  }
+  import { Alignment, Direction } from "$lib/types";
 
   export let direction: Direction = Direction.Column;
   export let alignment: Alignment = Alignment.Start; // Unified alignment

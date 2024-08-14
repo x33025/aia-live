@@ -3,20 +3,9 @@
   import InteractiveText from '$lib/views/login/+interactive-text.svelte';
   import Stack from '$lib/components/layout/+stack.svelte';
   import Button from '$lib/components/actions/+button.svelte';
-  enum Alignment {
-    Start = 'flex-start',
-    Center = 'center',
-    End = 'flex-end',
-    Stretch = 'stretch', // Add stretch option
-    SpaceBetween = 'space-between', // Add space-between option
-    SpaceAround = 'space-around', // Add space-around option
-    SpaceEvenly = 'space-evenly', // Add space-evenly option
-  }
+  import { Alignment } from '$lib/types';
 
-  enum Direction {
-    Row = 'row',
-    Column = 'column',
-  }
+
 
   function handleLoginClick() {
     console.log('Login button clicked');

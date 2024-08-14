@@ -1,12 +1,13 @@
-<!-- <script lang="ts">
+<script lang="ts">
   import { debounce } from 'lodash-es';
   import NumericInput from '$lib/components/advanced-input/+numeric-input.svelte';
-  import Keyword from './+keyword.svelte';
   import Picker from '$lib/components/actions/+dropdown-menu.svelte';
   import { onMount } from 'svelte';
 
-  export let keyword: KeywordWithRelations;
+  export let keyword: Keyword;
   export let countries: Country[] = [];
+
+  console.log('Rendering keyword:', keyword);
 
   interface Identifiable {
     id: number | string;
@@ -44,27 +45,17 @@
     updateKeyword(id, { evergreen: !keyword.evergreen });
   }
 
-  function handleCountrySelect(event: CustomEvent<Identifiable | null>) {
-    const selectedCountry = event.detail;
-    const selectedCountryId = selectedCountry ? selectedCountry.id : null;
-    updateKeyword(keyword.id, { country_id: selectedCountryId });
-  }
+  // function handleCountrySelect(event: CustomEvent<Identifiable | null>) {
+  //   const selectedCountry = event.detail;
+  //   const selectedCountryId = selectedCountry ? selectedCountry.id : null;
+  //   updateKeyword(keyword.id, { country_id: selectedCountryId });
+  // }
 
-  let selectedOption: Identifiable | null = null;
-
-  $: countryOptions = countries.map(country => ({ id: country.id, name: country.name }));
-
-  onMount(() => {
-    selectedOption = countryOptions.find(option => option.id === keyword.country_id) || null;
-  });
 </script>
 
 <tr>
   <td>
-    <Keyword
-      keyword={keyword} 
-      on:keywordChange={(event) => handleKeywordChange(event, keyword.id)}
-    />
+   {keyword.keyword}
   </td>
   <td>
     <input
@@ -74,19 +65,21 @@
     />
   </td>
   <td>
-    <Picker 
+    <!-- <Picker 
       options={countryOptions}
       selection={selectedOption}
       placeholder="Select a country" 
       on:select={handleCountrySelect}
       maxItemsDisplayed={5}
-    />
+    /> -->
+
+    {keyword.country}
   </td>
   <td>
     <NumericInput value={keyword.volume} on:update={(event) => handleVolumeChange(event, keyword.id)} />
   </td>
   <td>
-    <NumericInput value={keyword.keyword_density} on:update={(event) => handleDensityChange(event, keyword.id)} />
+    <NumericInput value={keyword.density} on:update={(event) => handleDensityChange(event, keyword.id)} />
   </td>
 </tr>
 
@@ -96,4 +89,4 @@
     text-align: left;
     border-bottom: 1px solid #ddd;
   }
-</style> -->
+</style>
