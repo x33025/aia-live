@@ -8,6 +8,7 @@ declare global {
     id: string;
     first_name: string; // Required field
     last_name: string; // Required field
+    author_name: String;
     avatar: string; // File path, empty string if not provided
     role: Role | null; // Optional, can be null if not provided
   }
@@ -50,30 +51,30 @@ declare global {
     country: Country | null; // Optional, can be null
   }
 
-  export interface Category {
+  export interface Category extends Identifiable {
     id: string;
-    name: string; // Empty string if not provided
+    name: string;
   }
-
-  export interface Country {
+  
+  export interface Country extends Identifiable {
     id: string;
-    name: string; // Empty string if not provided
+    name: string;
   }
-
-  export interface Role {
+  
+  export interface Role extends Identifiable {
     id: string;
-    name: string; // Empty string if not provided
+    name: string;
   }
-
-  export interface Status {
+  
+  export interface Status extends Identifiable {
     id: string;
-    name: string; // Empty string if not provided
+    name: string;
   }
-
-  export interface Website {
+  
+  export interface Website extends Identifiable {
     id: string;
-    name: string; // Required field
-    url: string; // Empty string if not provided
+    name: string;
+    url: string;
   }
 }
 

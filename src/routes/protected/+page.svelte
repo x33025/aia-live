@@ -7,7 +7,7 @@
   let firstName: string | undefined;
 
   $: {
-    firstName = $page.data.user?.first_name;
+    firstName = $page.data.user.first_name;
   }
 </script>
 

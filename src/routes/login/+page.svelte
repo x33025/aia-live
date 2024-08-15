@@ -2,18 +2,10 @@
   import { enhance } from '$app/forms';
   import Stack from '$lib/components/layout/+stack.svelte';
   import Button from '$lib/components/actions/+button.svelte';
+  import { Alignment, ButtonType } from '$lib/types';
 
 
-    enum Alignment {
-    Start = 'flex-start',
-    Center = 'center',
-    End = 'flex-end',
-    Stretch = 'stretch', // Add stretch option
-    SpaceBetween = 'space-between', // Add space-between option
-    SpaceAround = 'space-around', // Add space-around option
-    SpaceEvenly = 'space-evenly', // Add space-evenly option
-  }
-
+  
   interface FormData {
       email: string;
       password: string;
@@ -45,7 +37,7 @@
       {#if form?.error}
           <p class="error">{form.error}</p>
       {/if}
-      <Button buttonType="submit">
+      <Button buttonType={ButtonType.Submit}>
           Login
       </Button>
   </Stack>

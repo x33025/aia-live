@@ -1,31 +1,56 @@
 <script lang="ts">
+  import KeywordRow from '$lib/views/keyword/+keyword-row.svelte';
+  import { debounce } from 'lodash-es';
   import type { PageData } from './$types';
-  import KeywordRow from "$lib/views/keyword/+keyword-row.svelte";
-
+ 
   export let data: PageData;
-
-  // Destructure the keywords from the PageData
-  const { keywords } = data;
-</script>
-
-<div class="table-container">
-  <table>
-    <thead>
-      <tr>
-        <th>Keyword</th>
-        <th>Evergreen</th>
-        <th>Country</th>
-        <th>Volume</th>
-        <th>Density</th>
-      </tr>
-    </thead>
-    <tbody>
-      {#each keywords as keyword (keyword.id)}
-        <KeywordRow {keyword} />
-      {/each}
-    </tbody>
-  </table>
-</div>
+  const { keywords, countries } = data;
+ 
+  // Debounced function to update keyword, declared in the parent
+  const updateKeyword = debounce(async (id: string, updatedFields: object) => {
+    try {
+      console.log(`KEYWORD_ROW: Updating keyword with ID ${id}`, updatedFields);
+      const response = await fetch(`/protected/keywords`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ id, ...updatedFields }), // Include ID in the request body
+      });
+ 
+      if (!response.ok) {
+        console.error('KEYWORD_ROW: Failed to update keyword with ID', id, 'Status:', response.status);
+        const errorText = await response.text();
+        console.error('KEYWORD_ROW: Error response:', errorText);
+        throw new Error('Failed to update keyword');
+      }
+ 
+      const result = await response.json();
+      console.log('KEYWORD_ROW: Keyword updated successfully:', result);
+    } catch (error) {
+      console.error('KEYWORD_ROW: Error updating keyword:', error);
+    }
+  }, 300);
+ </script>
+ 
+ <div class="table-container">
+   <table>
+     <thead>
+       <tr>
+         <th>Keyword</th>
+         <th>Evergreen</th>
+         <th>Country</th>
+         <th>Volume</th>
+         <th>Density</th>
+       </tr>
+     </thead>
+     <tbody>
+       {#each keywords as keyword (keyword.id)}
+         <KeywordRow {keyword} {countries} {updateKeyword} />
+       {/each}
+     </tbody>
+   </table>
+ </div>
 
 <style>
   .table-container {

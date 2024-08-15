@@ -3,17 +3,15 @@ import { pb } from '$lib/config/pocketbase';
 import { redirect } from '@sveltejs/kit';
 
 export const load: LayoutServerLoad = async ({ cookies }) => {
+  // Authenticate the user
   const storedAuthCookie = cookies.get('pb_auth');
-  console.log('PROTECTED: Stored auth cookie:', storedAuthCookie ? 'exists' : 'not found');
-
-  if (storedAuthCookie) {
-    pb.authStore.loadFromCookie(storedAuthCookie);
-  } else {
+  
+  if (!storedAuthCookie) {
     console.error('PROTECTED: No auth cookie found, redirecting to login');
     throw redirect(303, '/login');
   }
 
-  console.log('PROTECTED: Auth store valid:', pb.authStore.isValid);
+  pb.authStore.loadFromCookie(storedAuthCookie);
 
   if (!pb.authStore.isValid) {
     console.error('PROTECTED: Auth store is invalid, redirecting to login');
@@ -22,24 +20,42 @@ export const load: LayoutServerLoad = async ({ cookies }) => {
 
   try {
     await pb.collection('users').authRefresh();
-    console.log('PROTECTED: Authentication refreshed successfully');
   } catch (error) {
-    if (error instanceof Error) {
-      console.error('PROTECTED: Failed to refresh authentication:', error.message);
-    } else {
-      console.error('PROTECTED: An unexpected error occurred:', error);
-    }
+    console.error('PROTECTED: Failed to refresh authentication:', error);
     throw redirect(303, '/login');
   }
 
-  // Get the user ID from the auth store model
   const userId = pb.authStore.model?.id;
 
-  // Fetch the latest user details from the users collection
-  const user = await pb.collection('users').getOne(userId);
+  if (!userId) {
+    throw redirect(303, '/login');
+  }
+
+  // Fetch the authenticated user with expanded relations
+  const user = await pb.collection('users').getOne(userId, {
+    expand: 'role,profile' // Adjust based on your schema
+  });
+
+  // Fetch all other necessary data in parallel
+  const [statuses, categories, countries, websites, users, roles] = await Promise.all([
+    pb.collection('statuses').getFullList(),
+    pb.collection('categories').getFullList(),
+    pb.collection('countries').getFullList(),
+    pb.collection('websites').getFullList(),
+    pb.collection('users').getFullList(),
+    pb.collection('roles').getFullList(),
+  ]);
+
+  console.log('PROTECTED: All additional data fetched successfully.');
 
   return {
-    user, // This now contains the full user object with first_name and other fields
-    title: 'Dashboard'
+    user,
+    statuses,
+    categories,
+    countries,
+    websites,
+    users,
+    roles,
+    title: 'Dashboard',
   };
 };

@@ -1,5 +1,4 @@
 <script lang="ts">
-  import Text from '$lib/components/display/+text.svelte';
   import { onMount, tick, afterUpdate } from 'svelte';
   import { createEventDispatcher } from 'svelte';
   import Button from './+button.svelte';
