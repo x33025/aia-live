@@ -16,7 +16,7 @@
         <th>Evergreen</th>
         <th>Country</th>
         <th>Volume</th>
-        <th>Keyword Density</th>
+        <th>Density</th>
       </tr>
     </thead>
     <tbody>
