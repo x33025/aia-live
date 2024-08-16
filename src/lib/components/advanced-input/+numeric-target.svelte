@@ -1,5 +1,6 @@
 <script lang="ts">
   import NumericInput from '$lib/components/advanced-input/+numeric-input.svelte';
+    import { Direction } from '$lib/types';
     import Stack from '../layout/+stack.svelte';
 
   export let target: number;
@@ -10,17 +11,19 @@
     update(event.detail.value);
   }
 </script>
-
-<div class="numeric-target">
+<Stack direction={Direction.Horizontal} className="numeric-target">
   <span>{current}</span>
   <span>/</span>
   <NumericInput bind:value={target} on:update={handleUpdate} />
-</div>
+</Stack>
+
+
 
 <style>
 
-.numeric-target {
+:global(.numeric-target){
     padding: 0.5em;
 background-color: var(--gray-1);
+border-radius: 0.5em;
   }
 </style>

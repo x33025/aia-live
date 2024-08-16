@@ -7,21 +7,16 @@
   import { Direction, TextType, type Article, type Category, type Identifiable, type Status, type User } from '$lib/types';
   import { goto } from '$app/navigation';
   import { page } from '$app/stores';
+    import Button from '$lib/components/actions/+button.svelte';
 
   export let article: Article;
-  export let writers: User[];
   export let categories: Category[];
   export let statuses: Status[];
 
-  // These now store the entire object (User, Category, Status) instead of just IDs
-  $: selectedWriter = article.author ? writers.find(writer => writer === article.author) : null;
+
   $: selectedCategory = article.category ? categories.find(category => category === article.category) : null;
   $: selectedStatus = article.status ? statuses.find(status => status === article.status) : null;
 
-  // Update the entire object on selection
-  function handleWriterSelect(event: CustomEvent<User | null>) {
-    selectedWriter = event.detail;
-  }
 
   function handleCategorySelect(event: CustomEvent<Identifiable | null>) {
     selectedCategory = event.detail;
@@ -50,19 +45,13 @@
   }
 </script>
 
-<Stack spacing={0.25} className="article-row">
-  <Stack direction={Direction.Horizontal} className="direction-row" spacing={0.25}>
+
+<Stack spacing={0.5} wrap={false}>
+  <Stack direction={Direction.Horizontal} spacing={0.5}>
     <Input
       className="title"
       bind:value={article.title}
       placeholder="Title"
-    />
-    <DropdownPicker 
-      options={$page.data.writers}
-      selection={selectedWriter}
-      placeholder="Select a writer" 
-      on:select={handleWriterSelect}
-      maxItemsDisplayed={3}
     />
     <DropdownPicker 
       options={$page.data.categories}
@@ -80,7 +69,7 @@
     />
   </Stack>
 
-  <Stack direction={Direction.Horizontal} spacing={0.25}>
+  <Stack direction={Direction.Horizontal} spacing={0.5}>
     <NumericInput
       value={article.semrush_score} 
       on:update={(event) => updateSemrushScore(event.detail.value)}
@@ -90,46 +79,29 @@
       current={0} 
       update={updateTargetWordCount}
     />
-    <button on:click={openArticle} class="open-article-button">
-      Open Article
-    </button>
+    <Button on:click={openArticle}>Open Article</Button>
   </Stack>
 </Stack>
 
 <style>
-  :global(.article-row) {
-    background-color: red;
-    padding: 0.25em;
-    margin-bottom: 0.5em;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+  .article-row {
+    border: 1px solid #ddd;
+    padding: 1em;
+    border-radius: 0.5em;
+    background-color: #f9f9f9;
   }
 
   :global(.title) {
     background-color: var(--yellow);
     border-radius: 0.5em;
     padding: 0.5em;
+    max-width: 300px; /* Set max-width */
   }
 
-  :global(.direction-row) {
-    width: 100%;
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  :global(.open-article-button) {
-    background-color: #6c757d;
-    border: none;
-    color: white;
-    padding: 0.25em 0.5em;
-    border-radius: 0.5em;
-    cursor: pointer;
-  }
-
-  :global(.open-article-button:hover) {
-    background-color: #5a6268;
+  /* Adjust spacing */
+  .divider {
+    height: 1px;
+    background-color: #ddd;
+    margin: 1em 0;
   }
 </style>

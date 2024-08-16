@@ -3,14 +3,14 @@
   import ArticleRow from '$lib/views/article/+article-row.svelte';
 
   import Stack from '$lib/components/layout/+stack.svelte';
+
 </script>
 
-<Stack>
+<Stack spacing={0.5}>
 
   {#each $page.data.articles as article, index (article.id)}
     <ArticleRow 
       {article}
-      writers={$page.data.writers}
       categories={$page.data.categories}
       statuses={$page.data.statuses}
     />
