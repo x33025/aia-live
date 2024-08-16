@@ -2,6 +2,7 @@
   import { onMount, tick, afterUpdate } from 'svelte';
   import { createEventDispatcher } from 'svelte';
   import Button from './+button.svelte';
+  import type { Identifiable } from '$lib/types';
 
   const dispatch = createEventDispatcher();
   let buttonElement: HTMLDivElement;
@@ -10,7 +11,7 @@
   let maxLabelWidth = 0;
 
   export let options: Identifiable[] = [];
-  export let selection: Identifiable | null = null;
+  export let selection: Identifiable | null = null; // Update selection to be an Identifiable object
   export let placeholder: string = 'Select an option';
   export let maxItemsDisplayed: number = 5;
 
@@ -63,15 +64,19 @@
   });
 
   function selectOption(option: Identifiable | null) {
-    selection = option;
+    selection = option; // Set the selection to the full object, not just the ID
     showPicker = false;
-    dispatch('select', option);
+    dispatch('select', option); // Dispatch the full object
+  }
+
+  function getSelectedName() {
+    return selection ? selection.name : placeholder;
   }
 </script>
 
 <div bind:this={buttonElement} class="picker-button-container">
   <Button class="picker-label" on:click={togglePicker} style="min-width: {maxLabelWidth}px;">
-    {selection ? selection.name : placeholder}
+    {getSelectedName()} <!-- Display the name of the selected option -->
   </Button>
 
   {#if showPicker}

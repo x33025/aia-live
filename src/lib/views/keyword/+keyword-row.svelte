@@ -1,93 +1,99 @@
 <script lang="ts">
   import NumericInput from '$lib/components/advanced-input/+numeric-input.svelte';
-  import Picker from '$lib/components/actions/+dropdown-menu.svelte';
+  import Picker from '$lib/components/actions/+dropdown-picker.svelte';
   import Input from '$lib/components/actions/+input.svelte';
-  import { TextType } from '$lib/types';
+  import { TextType, type Country, type Keyword } from '$lib/types';
   import { onMount, onDestroy } from 'svelte';
- 
+
   export let keyword: Keyword;
   export let countries: Country[] = [];
   export let updateKeyword: (id: string, updatedFields: object) => void;
- 
-  // selectedCountry is the string country ID, not the object
-  let selectedCountry: string | null = keyword.country || null;
- 
+
+  let selectedCountry: Country | null = keyword.country || null;
+
   onMount(() => {
-    console.log(`VIEW_KEYWORDS: Component mounted for keyword: ${keyword.keyword}`);
+    console.log(`VIEW_KEYWORDS: Component mounted for keyword: ${JSON.stringify(keyword)}`);
   });
- 
+
   onDestroy(() => {
     console.log(`VIEW_KEYWORDS: Component destroyed for keyword: ${keyword.keyword}`);
   });
 
-  // Ensure selectedCountry is updated when keyword.country changes
+  // Sync selected country with the keyword's country
   $: selectedCountry = keyword.country || null;
 
-  function handleCountrySelect(event: CustomEvent<Identifiable | null>) {
-    const selectedCountry = event.detail;
-    const selectedCountryId = selectedCountry ? selectedCountry.id : null;
-    console.log(`VIEW_KEYWORDS: Country selected for keyword ${keyword.keyword}:`, selectedCountryId);
-    
-    // Update keyword.country with the selected country ID
+  function handleCountrySelect(event: CustomEvent<string | null>) {
+    const selectedCountryId = event.detail;
     updateKeyword(keyword.id, { country: selectedCountryId });
   }
- 
-  function handleKeywordChange(event: CustomEvent) {
+
+  function handleKeywordEnter(event: CustomEvent) {
     const newValue = event.detail.value;
     console.log(`VIEW_KEYWORDS: Keyword changed from "${keyword.keyword}" to "${newValue}"`);
     updateKeyword(keyword.id, { keyword: newValue });
   }
- 
-  function handleVolumeChange(event: CustomEvent, id: string) {
+
+  function handleVolumeChange(event: CustomEvent) {
     const newVolume = event.detail.value;
-    console.log(`VIEW_KEYWORDS: Volume changed for keyword ${keyword.keyword}:`, newVolume);
-    updateKeyword(id, { volume: newVolume });
+    updateKeyword(keyword.id, { volume: newVolume });
   }
- 
-  function handleDensityChange(event: CustomEvent, id: string) {
+
+  function handleDensityChange(event: CustomEvent) {
     const newDensity = event.detail.value;
-    console.log(`VIEW_KEYWORDS: Density changed for keyword ${keyword.keyword}:`, newDensity);
-    updateKeyword(id, { density: newDensity });
+    updateKeyword(keyword.id, { density: newDensity });
   }
- 
-  function handleEvergreenToggle(id: string) {
+
+  function handleEvergreenToggle() {
     const newEvergreenState = !keyword.evergreen;
-    console.log(`VIEW_KEYWORDS: Evergreen toggled for keyword ${keyword.keyword}:`, newEvergreenState);
-    updateKeyword(id, { evergreen: newEvergreenState });
+    updateKeyword(keyword.id, { evergreen: newEvergreenState });
   }
 </script>
 
-<!-- Updated Country Dropdown (Picker) -->
 <tr>
+  <!-- Text Input for Keyword -->
   <td>
     <Input
       type={TextType.Body}
       value={keyword.keyword}
       placeholder="Enter keyword"
-      on:input={(event) => handleKeywordChange(event)}
+      on:enter={handleKeywordEnter}
     />
   </td>
+
+  <!-- Checkbox for Evergreen -->
   <td>
     <input
       type="checkbox"
       checked={keyword.evergreen}
-      on:change={() => handleEvergreenToggle(keyword.id)}
+      on:change={handleEvergreenToggle}
     />
   </td>
+
+  <!-- Picker for Country Selection -->
   <td>
     <Picker
       options={countries}
-      selection={countries.find(c => c.id === selectedCountry) || null}
+      selection={selectedCountry}
       placeholder="Select a country"
       on:select={handleCountrySelect}
       maxItemsDisplayed={5}
     />
   </td>
+
+  <!-- Numeric Input for Volume -->
   <td>
-    <NumericInput value={keyword.volume} on:update={(event) => handleVolumeChange(event, keyword.id)} />
+    <NumericInput
+      value={keyword.volume} 
+      on:update={handleVolumeChange}
+    />
   </td>
+
+  <!-- Numeric Input for Density -->
   <td>
-    <NumericInput value={keyword.density} on:update={(event) => handleDensityChange(event, keyword.id)} />
+    <NumericInput
+      value={keyword.density}
+      on:update={handleDensityChange}
+    />
   </td>
 </tr>
 

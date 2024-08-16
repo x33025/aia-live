@@ -1,7 +1,7 @@
 <script lang="ts">
   import { Alignment, Direction } from "$lib/types";
 
-  export let direction: Direction = Direction.Column;
+  export let direction: Direction = Direction.Vertical;
   export let alignment: Alignment = Alignment.Start; // Unified alignment
   export let spacing: string | number = 1;
   export let className: string = '';

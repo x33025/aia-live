@@ -1,71 +1,64 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
   import Input from '../actions/+input.svelte';
-  import { NumberType } from '$lib/types';
 
   export let value: number | null = null;
-  export let numberType: NumberType = NumberType.Integer;
   export let min: number | null = null;
   export let max: number | null = null;
+  export let placeholder: number = 0; // Placeholder is now a number
 
   const dispatch = createEventDispatcher();
 
+  // Reactive input variable bound to the value prop
   let input = value !== null ? value.toString() : '';
 
   $: allowNegative = min === null || min < 0;
 
+  // Watch the prop value for changes and update input accordingly
+  $: if (value !== null && value.toString() !== input) {
+    input = value.toString();
+  }
+
   function handleInput(event: CustomEvent) {
     const inputValue = event.detail.value;
 
+    // If the input is valid, update the local input state
     if (isValidInput(inputValue)) {
       input = inputValue;
     }
   }
 
-  function handleBlur() {
-    processInput();
+  function handleEnter() {
+    processInput(); // Process the input when Enter is pressed
   }
 
   function isValidInput(inputValue: string): boolean {
+    // Only allow integer pattern
     const integerPattern = allowNegative ? /^-?\d*$/ : /^\d*$/;
-    const floatPattern = allowNegative ? /^-?\d*(\.\d*)?$/ : /^\d*(\.\d*)?$/;
-
-    if (numberType === NumberType.Float) {
-      return floatPattern.test(inputValue);
-    } else {
-      return integerPattern.test(inputValue);
-    }
+    return integerPattern.test(inputValue);
   }
 
   function processInput() {
-    let result: number | undefined;
+    let result = parseInt(input);
 
-    if (numberType === NumberType.Float) {
-      result = parseFloat(input);
-    } else {
-      result = parseInt(input);
-    }
-
+    // If the result is a valid integer, apply min/max constraints and dispatch the update
     if (!isNaN(result)) {
       if (min !== null) result = Math.max(min, result);
       if (max !== null) result = Math.min(max, result);
 
-      input = result.toString();
-      dispatch('update', { value: result });
+      input = result.toString(); // Update the input field with the processed number
+      dispatch('update', { value: result }); // Emit the update event with the new value
     } else {
-      input = value !== null ? value.toString() : ''; // Reset to the last valid value
-      alert('Invalid input format. Please enter a valid number.');
+      // Reset input to the last valid value
+      input = value !== null ? value.toString() : '';
     }
-  }
-
-  $: if (value !== null && value.toString() !== input) {
-    input = value.toString();
   }
 </script>
 
+<!-- Use a text input and restrict to numbers only through event handling -->
 <Input
   value={input}
   on:input={handleInput}
-  on:blur={handleBlur}
-  placeholder="0"
+  on:enter={handleEnter}  
+  placeholder={placeholder.toString()}
 />

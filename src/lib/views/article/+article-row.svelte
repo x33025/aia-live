@@ -1,35 +1,34 @@
-<!-- <script lang="ts">
-  import Picker from '$lib/components/actions/+dropdown-menu.svelte';
+<script lang="ts">
+  import DropdownPicker from '$lib/components/actions/+dropdown-picker.svelte'; // Updated import
   import Input from '$lib/components/actions/+input.svelte';
   import NumericInput from '$lib/components/advanced-input/+numeric-input.svelte';
   import NumericTarget from '$lib/components/advanced-input/+numeric-target.svelte';
   import Stack from '$lib/components/layout/+stack.svelte';
-  import { Direction, TextType } from '$lib/types';
+  import { Direction, TextType, type Article, type Category, type Identifiable, type Status, type User } from '$lib/types';
   import { goto } from '$app/navigation';
+  import { page } from '$app/stores';
 
-  export let article: ArticleMetadataWithRelations;
+  export let article: Article;
   export let writers: User[];
   export let categories: Category[];
   export let statuses: Status[];
 
-  $: selectedWriterId = article.author_id ?? null;
-  $: selectedCategoryId = article.category_id ?? null;
-  $: selectedStatusId = article.status_id ?? null;
+  // These now store the entire object (User, Category, Status) instead of just IDs
+  $: selectedWriter = article.author ? writers.find(writer => writer === article.author) : null;
+  $: selectedCategory = article.category ? categories.find(category => category === article.category) : null;
+  $: selectedStatus = article.status ? statuses.find(status => status === article.status) : null;
 
-  $: writerOptions = writers.map((writer) => ({ id: writer.id, name: writer.name }));
-  $: categoryOptions = categories.map((category) => ({ id: category.id, name: category.name }));
-  $: statusOptions = statuses.map((status) => ({ id: status.id, name: status.name }));
-
-  function handleWriterSelect(event: CustomEvent<Identifiable | null>) {
-    selectedWriterId = event.detail ? event.detail.id : null;
+  // Update the entire object on selection
+  function handleWriterSelect(event: CustomEvent<User | null>) {
+    selectedWriter = event.detail;
   }
 
   function handleCategorySelect(event: CustomEvent<Identifiable | null>) {
-    selectedCategoryId = event.detail ? event.detail.id : null;
+    selectedCategory = event.detail;
   }
 
   function handleStatusSelect(event: CustomEvent<Identifiable | null>) {
-    selectedStatusId = event.detail ? event.detail.id : null;
+    selectedStatus = event.detail;
   }
 
   function updateSemrushScore(value: number) {
@@ -43,46 +42,45 @@
   }
 
   function openArticle() {
-    if (article.article_id) {
-      goto(`/protected/article/${article.article_id}`);
+    if (article.id) {
+      goto(`/protected/article/${article.id}`);
     } else {
       console.warn('Article ID is missing');
     }
   }
 </script>
 
-<Stack direction={Direction.Column} spacing={0.5}>
-  <Stack direction={Direction.Row} className="direction-row" spacing={0.5}>
+<Stack spacing={0.25} className="article-row">
+  <Stack direction={Direction.Horizontal} className="direction-row" spacing={0.25}>
     <Input
-      type={TextType.Body}
       className="title"
       bind:value={article.title}
       placeholder="Title"
     />
-    <Picker 
-      options={writerOptions}
-      selection={writerOptions.find(option => option.id === selectedWriterId) || null}
+    <DropdownPicker 
+      options={$page.data.writers}
+      selection={selectedWriter}
       placeholder="Select a writer" 
       on:select={handleWriterSelect}
       maxItemsDisplayed={3}
     />
-    <Picker 
-      options={categoryOptions}
-      selection={categoryOptions.find(option => option.id === selectedCategoryId) || null}
+    <DropdownPicker 
+      options={$page.data.categories}
+      selection={selectedCategory}
       placeholder="Select a category" 
       on:select={handleCategorySelect}
       maxItemsDisplayed={3}
     />
-    <Picker 
-      options={statusOptions}
-      selection={statusOptions.find(option => option.id === selectedStatusId) || null}
+    <DropdownPicker 
+      options={$page.data.statuses}
+      selection={selectedStatus}
       placeholder="Select a status" 
       on:select={handleStatusSelect}
       maxItemsDisplayed={3}
     />
   </Stack>
 
-  <Stack direction={Direction.Row} spacing={0.5}>
+  <Stack direction={Direction.Horizontal} spacing={0.25}>
     <NumericInput
       value={article.semrush_score} 
       on:update={(event) => updateSemrushScore(event.detail.value)}
@@ -96,17 +94,42 @@
       Open Article
     </button>
   </Stack>
-  
- 
 </Stack>
 
 <style>
+  :global(.article-row) {
+    background-color: red;
+    padding: 0.25em;
+    margin-bottom: 0.5em;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
   :global(.title) {
-    background-color: #ffecb3;
+    background-color: var(--yellow);
     border-radius: 0.5em;
     padding: 0.5em;
-    flex: 1;
-    display: block;
-    width: 100%;
   }
-</style> -->
+
+  :global(.direction-row) {
+    width: 100%;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  :global(.open-article-button) {
+    background-color: #6c757d;
+    border: none;
+    color: white;
+    padding: 0.25em 0.5em;
+    border-radius: 0.5em;
+    cursor: pointer;
+  }
+
+  :global(.open-article-button:hover) {
+    background-color: #5a6268;
+  }
+</style>
