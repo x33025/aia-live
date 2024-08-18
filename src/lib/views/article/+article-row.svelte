@@ -6,23 +6,27 @@
   import Stack from '$lib/components/layout/+stack.svelte';
   import { Direction, TextType, type Article, type Category, type Identifiable, type Status, type User } from '$lib/types';
   import { goto } from '$app/navigation';
-  import { page } from '$app/stores';
-    import Button from '$lib/components/actions/+button.svelte';
+  import Button from '$lib/components/actions/+button.svelte';
 
   export let article: Article;
   export let categories: Category[];
   export let statuses: Status[];
-
+  export let writers: User[];
 
   $: selectedCategory = article.category ? categories.find(category => category === article.category) : null;
   $: selectedStatus = article.status ? statuses.find(status => status === article.status) : null;
+$:selectedWriter = article.author ? writers.find(writer => writer === article.author) : null;
 
 
-  function handleCategorySelect(event: CustomEvent<Identifiable | null>) {
+function handleWriterSelect(event: CustomEvent<User | null>) {
+    selectedWriter = event.detail;
+  }
+
+  function handleCategorySelect(event: CustomEvent<Category | null>) {
     selectedCategory = event.detail;
   }
 
-  function handleStatusSelect(event: CustomEvent<Identifiable | null>) {
+  function handleStatusSelect(event: CustomEvent<Status | null>) {
     selectedStatus = event.detail;
   }
 
@@ -46,27 +50,36 @@
 </script>
 
 
-<Stack spacing={0.5} wrap={false}>
+<Stack spacing={0.5} wrap={true}>
   <Stack direction={Direction.Horizontal} spacing={0.5}>
     <Input
-      className="title"
+      className="article-title"
       bind:value={article.title}
       placeholder="Title"
+      fullWidth={true}
     />
     <DropdownPicker 
-      options={$page.data.categories}
+    options={writers}
+    selection={selectedWriter}
+    placeholder="Select a writer" 
+    on:select={handleWriterSelect}
+    maxItemsDisplayed={3}
+  />
+    <DropdownPicker 
+      options={categories}
       selection={selectedCategory}
       placeholder="Select a category" 
       on:select={handleCategorySelect}
       maxItemsDisplayed={3}
     />
     <DropdownPicker 
-      options={$page.data.statuses}
+      options={statuses}
       selection={selectedStatus}
       placeholder="Select a status" 
       on:select={handleStatusSelect}
       maxItemsDisplayed={3}
     />
+    <Button on:click={openArticle} className="open-article-button">Open Article</Button>
   </Stack>
 
   <Stack direction={Direction.Horizontal} spacing={0.5}>
@@ -79,29 +92,24 @@
       current={0} 
       update={updateTargetWordCount}
     />
-    <Button on:click={openArticle}>Open Article</Button>
+    
   </Stack>
 </Stack>
 
 <style>
-  .article-row {
-    border: 1px solid #ddd;
-    padding: 1em;
-    border-radius: 0.5em;
-    background-color: #f9f9f9;
-  }
 
-  :global(.title) {
-    background-color: var(--yellow);
+  :global(.article-title) {
+    background-color: rgba(var(--yellow-rgb), 0.4);
     border-radius: 0.5em;
     padding: 0.5em;
-    max-width: 300px; /* Set max-width */
+    width: 100%; /* Set max-width */
   }
 
-  /* Adjust spacing */
-  .divider {
-    height: 1px;
-    background-color: #ddd;
-    margin: 1em 0;
+  :global(.open-article-button) {
+    background-color: var(--blue);
+    padding: 0.5em;
+    border-radius: 0.5em;
+  
   }
+
 </style>

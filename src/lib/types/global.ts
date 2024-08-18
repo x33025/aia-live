@@ -7,7 +7,7 @@ export interface User extends Identifiable {
   id: string;
   first_name: string; // Required field
   last_name: string; // Required field
-  author_name: string;
+  name: string;
   avatar: string; // File path, empty string if not provided
   role: Role | null; // Optional, can be null if not provided, now using Role type
 }

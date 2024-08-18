@@ -53,10 +53,10 @@
   <!-- Text Input for Keyword -->
   <td>
     <Input
-      type={TextType.Body}
       value={keyword.keyword}
       placeholder="Enter keyword"
       on:enter={handleKeywordEnter}
+      className="keyword-input"
     />
   </td>
 
@@ -98,8 +98,14 @@
 </tr>
 
 <style>
+
+  :global(.keyword-input) {
+    background-color: var(--gray-1);
+    border-radius: 0.5em;
+    padding: 0.5em;
+  }
   td {
-    padding: 8px;
+    padding: 0.3em;
     text-align: left;
     border-bottom: 1px solid #ddd;
   }

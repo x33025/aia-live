@@ -36,14 +36,13 @@ export const load: LayoutServerLoad = async ({ cookies }) => {
     expand: 'role,profile' // Adjust based on your schema
   });
 
-  // Fetch all other necessary data in parallel
-  const [statuses, categories, countries, websites, users, roles] = await Promise.all([
+  // Fetch all other necessary data in parallel, with roles expanded in users
+  const [statuses, categories, countries, websites, users] = await Promise.all([
     pb.collection('statuses').getFullList(),
     pb.collection('categories').getFullList(),
     pb.collection('countries').getFullList(),
     pb.collection('websites').getFullList(),
-    pb.collection('users').getFullList(),
-    pb.collection('roles').getFullList(),
+    pb.collection('users').getFullList({ expand: 'role' }), // Expanded roles here
   ]);
 
   console.log('PROTECTED: All additional data fetched successfully.');
@@ -55,7 +54,6 @@ export const load: LayoutServerLoad = async ({ cookies }) => {
     countries,
     websites,
     users,
-    roles,
     title: 'Dashboard',
   };
 };

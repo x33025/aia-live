@@ -13,6 +13,7 @@
       {article}
       categories={$page.data.categories}
       statuses={$page.data.statuses}
+      writers={$page.data.users}
     />
     {#if index < $page.data.articles.length - 1}
       <div class="divider"></div>
@@ -24,6 +25,6 @@
   .divider {
     height: 1px;
     background-color: #ddd;
-    margin: 1em 0;
+    margin: 0.5em 0;
   }
 </style>
