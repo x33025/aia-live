@@ -24,6 +24,11 @@
 
   function handleCountrySelect(event: CustomEvent<string | null>) {
     const selectedCountryId = event.detail;
+
+    // Find the corresponding Country object based on the selected ID
+    selectedCountry = countries.find(country => country.id === selectedCountryId) || null;
+    
+    // Update the keyword with the selected country's ID
     updateKeyword(keyword.id, { country: selectedCountryId });
   }
 
@@ -48,6 +53,7 @@
     updateKeyword(keyword.id, { evergreen: newEvergreenState });
   }
 </script>
+
 
 <tr>
   <!-- Text Input for Keyword -->
@@ -79,6 +85,7 @@
       maxItemsDisplayed={5}
     />
   </td>
+  
 
   <!-- Numeric Input for Volume -->
   <td>

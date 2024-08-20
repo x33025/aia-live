@@ -6,7 +6,8 @@
   
 <Stack spacing={1}>
    
-    <p>{$page.data.article.id}</p>
+    <p>{$page.data.article.title}</p>
+    <p>{$page.data.article.content}</p>
   
 </Stack>
   

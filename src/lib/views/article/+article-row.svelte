@@ -4,7 +4,7 @@
   import NumericInput from '$lib/components/advanced-input/+numeric-input.svelte';
   import NumericTarget from '$lib/components/advanced-input/+numeric-target.svelte';
   import Stack from '$lib/components/layout/+stack.svelte';
-  import { Direction, TextType, type Article, type Category, type Identifiable, type Status, type User } from '$lib/types';
+  import { Direction, TextType, type Article, type Category, type Identifiable, type Status, type User, type IdentifiableUser, toIdentifiableUser } from '$lib/types';
   import { goto } from '$app/navigation';
   import Button from '$lib/components/actions/+button.svelte';
 
@@ -13,12 +13,16 @@
   export let statuses: Status[];
   export let writers: User[];
 
+  // Convert writers to IdentifiableUser array
+  const identifiableWriters = writers.map(toIdentifiableUser);
+
   $: selectedCategory = article.category ? categories.find(category => category === article.category) : null;
   $: selectedStatus = article.status ? statuses.find(status => status === article.status) : null;
-$:selectedWriter = article.author ? writers.find(writer => writer === article.author) : null;
 
+  // Check if article.author is a User object and then convert to IdentifiableUser
+  $: selectedWriter = (typeof article.author === 'object' && article.author !== null) ? toIdentifiableUser(article.author) : null;
 
-function handleWriterSelect(event: CustomEvent<User | null>) {
+  function handleWriterSelect(event: CustomEvent<IdentifiableUser | null>) {
     selectedWriter = event.detail;
   }
 
@@ -59,12 +63,12 @@ function handleWriterSelect(event: CustomEvent<User | null>) {
       fullWidth={true}
     />
     <DropdownPicker 
-    options={writers}
-    selection={selectedWriter}
-    placeholder="Select a writer" 
-    on:select={handleWriterSelect}
-    maxItemsDisplayed={3}
-  />
+      options={identifiableWriters}
+      selection={selectedWriter}
+      placeholder="Select a writer" 
+      on:select={handleWriterSelect}
+      maxItemsDisplayed={3}
+    />
     <DropdownPicker 
       options={categories}
       selection={selectedCategory}
@@ -92,9 +96,9 @@ function handleWriterSelect(event: CustomEvent<User | null>) {
       current={0} 
       update={updateTargetWordCount}
     />
-    
   </Stack>
 </Stack>
+
 
 <style>
 
