@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount, tick, createEventDispatcher } from 'svelte';
-  import { openDropdownId, openDropdown, closeAllDropdowns } from '$lib/stores/+dropdown-menu';
+  import { openDropdownId, openDropdown, closeAllDropdowns } from '$lib/stores/ui/+dropdown-menu';
   import { get } from 'svelte/store'; // To read store value synchronously
   
   const dispatch = createEventDispatcher();
