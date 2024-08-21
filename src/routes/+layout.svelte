@@ -38,12 +38,13 @@
 
 <style>
   main {
+    height: 100%;
+    width: 100%;
     padding: 1em;
     background-color: var(--gray-1);
     display: flex;
     flex-direction: column;
     align-items: stretch;
-    min-height: 100vh;
-    width: 100%;
+
   }
 </style>

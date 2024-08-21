@@ -158,3 +158,13 @@ h3 {
   overflow-x: auto; /* Horizontal scrolling */
   overflow-y: hidden; /* Hide vertical scroll */
 }
+
+.label {
+  background-color: var(--gray-1);
+  padding: 0.4em 0.6em;
+  border-radius: 0.5em;
+}
+
+img {
+  border-radius: 0.35em;
+}

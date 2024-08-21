@@ -1,4 +1,5 @@
-// // src/lib/stores/+keywords.ts
-// import { writable } from 'svelte/store';
+import type { Keyword } from '$lib/types';
+import { writable } from 'svelte/store';
 
-// export const keywords = writable<KeywordWithRelations[]>([]);
+// Initialize the keywords store with an empty array or null
+export const keywords = writable<Keyword[]>([]);

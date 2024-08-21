@@ -1,3 +1,5 @@
+import type { RecordModel } from "pocketbase";
+
 // Common Identifiable interface
 export interface Identifiable {
   id: string;
@@ -47,6 +49,7 @@ export interface Article {
   description: string; // Required field
   word_count: number; // 0 if not provided
   target_word_count: number; // 0 if not provided
+  main_keyword: Keyword | null;
   keywords: Keyword[]; // Must be an array, empty if no keywords
   activity: ActivityData; // Required field
   semrush_score: number; // 0 if not provided
@@ -57,16 +60,13 @@ export interface Article {
 }
 
 // Keyword interface
-export interface Keyword {
-  id: string;
-  created: Date; // Creation timestamp
-  updated: Date; // Last update timestamp
-  keyword: string; // Empty string if not provided
-  density: number; // 0 if not provided
-  volume: number; // 0 if not provided
-  evergreen: boolean; // false if not provided
-  activity: ActivityData; // Required field
-  country: string | Country | null; // ID or Country object, optional
+export interface Keyword extends RecordModel {
+  keyword: string;
+  density: number;
+  volume: number;
+  evergreen: boolean;
+  activity: ActivityData;
+  country: string | Country | null;
 }
 
 // Identifiable-based interfaces for related entities

@@ -1,48 +1,63 @@
 <script lang="ts">
   import KeywordRow from '$lib/views/keyword/+keyword-row.svelte';
   import Stack from '$lib/components/layout/+stack.svelte';
+  import Text from '$lib/components/display/+text.svelte';
+  import { TextType } from '$lib/types';
+  import { keywords } from '$lib/stores/+keywords'; // Import the store
+  import { onMount } from 'svelte';
     import { page } from '$app/stores';
 
-  // Direct function to update keyword
+  const headers = ["Keyword", "Evergreen", "Country", "Volume", "Density"];
+
+  // Function to update a keyword and the local store
   async function updateKeyword(id: string, updatedFields: object) {
     try {
-      console.log(`KEYWORD_ROW: Updating keyword with ID ${id}`, updatedFields);
       const response = await fetch(`/protected/keywords`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ id, ...updatedFields }), // Include ID in the request body
+        body: JSON.stringify({ id, ...updatedFields }),
       });
 
       if (!response.ok) {
-        console.error('KEYWORD_ROW: Failed to update keyword with ID', id, 'Status:', response.status);
-        const errorText = await response.text();
-        console.error('KEYWORD_ROW: Error response:', errorText);
         throw new Error('Failed to update keyword');
       }
 
-      const result = await response.json();
-      console.log('KEYWORD_ROW: Keyword updated successfully:', result);
+      const updatedKeyword = await response.json();
+
+      // Update the keyword in the local store
+      keywords.update(currentKeywords => {
+        return currentKeywords.map(kw =>
+          kw.id === id ? { ...kw, ...updatedFields } : kw
+        );
+      });
+
+      console.log('Keyword updated successfully:', updatedKeyword);
     } catch (error) {
-      console.error('KEYWORD_ROW: Error updating keyword:', error);
+      console.error('Error updating keyword:', error);
     }
   }
+
+  // Set keywords in the store on component mount
+  onMount(() => {
+    keywords.set($page.data.keywords); // Populate the store with initially fetched keywords
+  });
 </script>
 
 <Stack>
   <table>
     <thead>
       <tr>
-        <th>Keyword</th>
-        <th>Evergreen</th>
-        <th>Country</th>
-        <th>Volume</th>
-        <th>Density</th>
+        {#each headers as header}
+          <th>
+            <Text type={TextType.Subheadline}>{header}</Text>
+          </th>
+        {/each}
       </tr>
     </thead>
     <tbody>
-      {#each $page.data.keywords as keyword (keyword.id)}
+      {#each $keywords as keyword (keyword.id)}
         <KeywordRow {keyword} countries={$page.data.countries} {updateKeyword} />
       {/each}
     </tbody>
