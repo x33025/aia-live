@@ -15,10 +15,10 @@
   export let form: FormData | null = null;
 </script>
 
-<Stack alignment={Alignment.Center}>
+<Stack alignment={Alignment.Center} spacing={0.5} >
   <h1>Login</h1>
 <form method="POST" action="?/login" use:enhance>
-  <Stack alignment={Alignment.Center}>
+  <Stack alignment={Alignment.Center}  spacing={1}>
       <input 
           type="email" 
           id="email" 
@@ -61,4 +61,5 @@
   h1 {
     margin-bottom: 1em;
   }
+
 </style>

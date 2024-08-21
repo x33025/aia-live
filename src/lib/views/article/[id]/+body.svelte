@@ -21,12 +21,11 @@
 </script>
 
 
-  <Stack direction={Direction.Horizontal} wrap={true}>
+    <div class="editable-content" contenteditable="true" on:input={handleInput}>
+      {@html content}
+    </div>
 
-  </Stack>
-  <div class="editable-content" contenteditable="true" on:input={handleInput}>
-    {@html content}
-  </div>
+ 
 
 
 <style>
