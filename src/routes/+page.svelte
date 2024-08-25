@@ -4,6 +4,7 @@
   import Stack from '$lib/components/layout/+stack.svelte';
   import Button from '$lib/components/actions/+button.svelte';
   import { Alignment } from '$lib/types';
+    import Layout from '$lib/components/layout/+layout.svelte';
 
 
 
@@ -13,19 +14,22 @@
   }
 </script>
 
-<Stack alignment={Alignment.End} spacing={0} style="position: relative;">
+<Layout>
+
+<Stack alignment={Alignment.End} spacing={0} style="position: relative;  padding: 1em;">
   <Button class="login-button" on:click={handleLoginClick} style="position: absolute; top: 0; right: 0;">
     Login
   </Button>
   <InteractiveText text="aia" />
 </Stack>
 
+</Layout>
+
 <style>
   :global(.login-button) {
     padding: 0.5em;
     border-radius: 0.5em;
-    border: 0.1em solid var(--gray-2);
-    box-shadow: 0 0 0 0.1em var(--gray-1), 0 0 0 0.1em var(--gray-1);
+    border: 1px solid var(--gray-1);
     font-weight: bold;
     color: var(--blue);
     margin: 0.1em;

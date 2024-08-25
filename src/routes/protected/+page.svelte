@@ -1,14 +1,24 @@
 <script lang="ts">
   import Stack from '$lib/components/layout/+stack.svelte';
-  import { page } from '$app/stores';
-  import Text from '$lib/components/display/+text.svelte';
-    import { TextType } from '$lib/types';
+  import { goto } from '$app/navigation';
+  import Button from '$lib/components/actions/+button.svelte';
+    import { page } from '$app/stores';
+    import Layout from '$lib/components/layout/+layout.svelte';
+    import { onMount } from 'svelte';
+    import { users } from '$lib/stores/+users';
+    import Users from '$lib/views/user/+users.svelte';
 
-
+    onMount(() => { users.set($page.data.users); });
 </script>
 
-<Stack>
-  <Text type={TextType.Title}>Welcome, {$page.data.user.first_name}!</Text>
-  <a href="/protected/keywords">Keywords</a>
-  <a href="/protected/articles">Articles</a>
-</Stack>
+
+
+  <Stack spacing={0.5}>
+    <Button className="label" on:click={() => goto('/protected/keywords')}>Keywords</Button>
+    <Button className="label" on:click={() => goto('/protected/articles')}>Articles</Button>
+  </Stack>
+
+
+<style>
+
+</style>

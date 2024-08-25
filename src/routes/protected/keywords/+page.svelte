@@ -2,10 +2,12 @@
   import KeywordRow from '$lib/views/keyword/+keyword-row.svelte';
   import Stack from '$lib/components/layout/+stack.svelte';
   import Text from '$lib/components/display/+text.svelte';
-  import { TextType } from '$lib/types';
+  import { Direction, TextType } from '$lib/types';
   import { keywords } from '$lib/stores/+keywords'; // Import the store
   import { onMount } from 'svelte';
     import { page } from '$app/stores';
+    import Layout from '$lib/components/layout/+layout.svelte';
+    import Input from '$lib/components/actions/+input.svelte';
 
   const headers = ["Keyword", "Evergreen", "Country", "Volume", "Density"];
 
@@ -45,7 +47,11 @@
   });
 </script>
 
-<Stack>
+<Stack spacing={"1"}>
+  <Stack direction={Direction.Horizontal} wrap={true}>
+    <Input className="search-bar" fullWidth={true} placeholder="Search Keywords"/>
+
+  </Stack>
   <table>
     <thead>
       <tr>
@@ -85,5 +91,11 @@
     border-top: 1px solid #ddd;
     border-bottom: 1px solid #ddd;
     text-align: left;
+  }
+
+  :global(.search-bar) {
+    padding: 0.5em;
+background-color: var(--gray-1);
+border-radius: 0.5em;
   }
 </style>

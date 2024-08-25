@@ -3,6 +3,7 @@
   import Stack from '$lib/components/layout/+stack.svelte';
   import Button from '$lib/components/actions/+button.svelte';
   import { Alignment, ButtonType } from '$lib/types';
+    import Layout from '$lib/components/layout/+layout.svelte';
 
 
   
@@ -15,6 +16,7 @@
   export let form: FormData | null = null;
 </script>
 
+<Layout>
 <Stack alignment={Alignment.Center} spacing={0.5} >
   <h1>Login</h1>
 <form method="POST" action="?/login" use:enhance>
@@ -43,8 +45,7 @@
   </Stack>
 </form>
 </Stack>
-
-
+</Layout>
 
 <style>
   input {

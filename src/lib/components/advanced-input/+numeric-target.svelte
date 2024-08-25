@@ -3,7 +3,7 @@
     import { Direction } from '$lib/types';
     import Stack from '../layout/+stack.svelte';
 
-  export let target: number;
+  export let target: number | null;
   export let current: number;
   export let update: (value: number) => void;
 

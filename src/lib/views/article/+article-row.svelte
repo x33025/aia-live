@@ -1,6 +1,5 @@
 <script lang="ts">
   import DropdownMenu from '$lib/components/actions/+dropdown-menu.svelte';
-  import Keywords from './+keywords.svelte';
   import Input from '$lib/components/actions/+input.svelte';
   import NumericInput from '$lib/components/advanced-input/+numeric-input.svelte';
   import NumericTarget from '$lib/components/advanced-input/+numeric-target.svelte';
@@ -8,8 +7,8 @@
   import { Direction, type Article, type Category, type Status, type User, toIdentifiableUser, type IdentifiableUser } from '$lib/types';
   import { goto } from '$app/navigation';
   import Button from '$lib/components/actions/+button.svelte';
-  import Text from '$lib/components/display/+text.svelte';
-
+    import Text from '$lib/components/display/+text.svelte';
+import { TextType } from '$lib/types';
   export let article: Article;
   export let categories: Category[];
   export let statuses: Status[];
@@ -117,8 +116,21 @@
   </Stack>
 
   <Stack direction={Direction.Horizontal} spacing={0.5}>
-    <Keywords keywords={article.keywords} mainKeyword={article.main_keyword}/>
+    {#if article.expand.main_keyword}
+    <Text className="label">{article.expand.main_keyword.keyword}</Text>
+   {/if}
+    {#if article.expand.keywords && article.expand.keywords.length > 0}
+      {#each article.expand.keywords as keyword}
+        {#if keyword.id !== article.expand.main_keyword?.id}
+          <Text className="label">{keyword.keyword}</Text>
+        {/if}
+      {/each}
+    {:else}
+      <p>No keywords available</p>
+    {/if}
+
     
+
     <NumericInput
       value={article.semrush_score} 
       on:update={(event) => updateSemrushScore(event.detail.value)}
@@ -126,7 +138,7 @@
     
     <NumericTarget
       target={article.target_word_count} 
-      current={0} 
+      current={article.word_count} 
       update={updateTargetWordCount}
     />
   </Stack>

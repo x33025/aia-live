@@ -14,7 +14,10 @@ export const load: LayoutServerLoad = async ({ params }) => {
     console.log(`ARTICLE: Fetching article with ID: ${id}`);
 
     // Fetch article by ID from PocketBase collection without expand option
-    const article = await pb.collection('articles').getOne(id);
+    const article = await pb.collection('articles').getOne(id, {
+          expand: 'keywords,activity,main_image,main_keyword'
+
+    });
 
     if (!article) {
       console.error(`ARTICLE: Article not found with ID: ${id}`);

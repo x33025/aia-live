@@ -5,7 +5,7 @@ import { redirect } from '@sveltejs/kit';
 export const load: LayoutServerLoad = async ({ cookies }) => {
   // Authenticate the user
   const storedAuthCookie = cookies.get('pb_auth');
-  
+
   if (!storedAuthCookie) {
     console.error('PROTECTED: No auth cookie found, redirecting to login');
     throw redirect(303, '/login');
@@ -33,19 +33,34 @@ export const load: LayoutServerLoad = async ({ cookies }) => {
 
   // Fetch the authenticated user with expanded relations
   const user = await pb.collection('users').getOne(userId, {
-    expand: 'role,profile' // Adjust based on your schema
+    expand: 'role' // Adjust based on your schema
   });
 
-  // Fetch all other necessary data in parallel, with roles expanded in users
-  const [statuses, categories, countries, websites, users] = await Promise.all([
-    pb.collection('statuses').getFullList(),
-    pb.collection('categories').getFullList(),
-    pb.collection('countries').getFullList(),
-    pb.collection('websites').getFullList(),
-    pb.collection('users').getFullList({ expand: 'role' }), // Expanded roles here
+  // Use the auth token from pb.authStore for further requests
+  const authToken = pb.authStore.token;
+
+  // Set the token in the request headers
+  const options = {
+    headers: {
+      'Authorization': `Bearer ${authToken}`
+    }
+  };
+
+  // Fetch other necessary data (statuses, categories, countries, websites) with the auth token
+  const [statuses, categories, countries, websites] = await Promise.all([
+    pb.collection('statuses').getFullList(200, options),
+    pb.collection('categories').getFullList(200, options),
+    pb.collection('countries').getFullList(200, options),
+    pb.collection('websites').getFullList(200, options)
   ]);
 
-  console.log('PROTECTED: All additional data fetched successfully.');
+  // Separate fetching for users with expanded roles
+  const users = await pb.collection('users').getFullList(200, {
+    ...options,
+    expand: 'role' // Expanded roles here
+  });
+
+  console.log(`PROTECTED: All additional data fetched successfully. Users: ${JSON.stringify(users, null, 2)}`);
 
   return {
     user,
@@ -54,6 +69,6 @@ export const load: LayoutServerLoad = async ({ cookies }) => {
     countries,
     websites,
     users,
-    title: 'Dashboard',
+    title: "Hello, " + user.first_name
   };
 };

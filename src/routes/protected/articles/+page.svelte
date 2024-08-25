@@ -5,6 +5,15 @@
   import { get } from 'svelte/store'; // To access the value of the store
   import ArticleRow from '$lib/views/article/+article-row.svelte';
   import Stack from '$lib/components/layout/+stack.svelte';
+  import Layout from '$lib/components/layout/+layout.svelte';
+  import { users } from '$lib/stores/+users'; // Import users store
+
+  // Function to filter users with role name "Writer"
+  function filterWriters() {
+    return get(users).filter(user => 
+      user.expand?.role?.some(role => role.name === "Writer")
+    );
+  }
 
   // Set articles when the component mounts
   onMount(() => {
@@ -19,7 +28,7 @@
       {article}
       categories={$page.data.categories}
       statuses={$page.data.statuses}
-      writers={$page.data.users}
+      writers={filterWriters()}
     />
     {#if index < $articles.length - 1}
       <div class="divider"></div>

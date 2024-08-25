@@ -7,6 +7,7 @@
   export let keyword: Keyword;
   export let countries: Country[] = [];
   export let updateKeyword: (id: string, updatedFields: object) => void;
+  export let className: string = '';
  
   $: selectedCountry = keyword.country ? countries.find(c => c.id === keyword.country) : null;
  
@@ -41,7 +42,6 @@
        value={keyword.keyword}
        placeholder="Enter keyword"
        on:enter={handleKeywordEnter}
-       className="label"
      />
    </td>
    <td>
@@ -61,7 +61,7 @@
        </span>
        <svelte:fragment slot="default" let:selectOption>
          {#each countries as country}
-           <p class="picker-item" on:click={() => { selectOption(country.id); selectCountry(country); }}>
+           <p class="menu-item" on:click={() => { selectOption(country.id); selectCountry(country); }}>
              {country.name}
            </p>
          {/each}
@@ -83,6 +83,9 @@
  </tr>
  
  <style>
+
+
+
    :global(.keyword-input) {
      background-color: var(--gray-1);
      border-radius: 0.5em;
@@ -93,12 +96,12 @@
      text-align: left;
      border-bottom: 1px solid #ddd;
    }
-   .picker-item {
+   .menu-item {
      padding: 0.5em;
      cursor: pointer;
      border-radius: 0.3em;
    }
-   .picker-item:hover {
+   .menu-item:hover {
      background-color: var(--gray-1);
    }
  </style>
