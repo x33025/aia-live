@@ -17,9 +17,9 @@
     <Stack>
       <Stack direction={Direction.Horizontal} wrap={true} style="margin-bottom: 1em;">
         {#if $title}
-          {#if $title !== 'Login'}
+    
             <h1>{$title}</h1>
-          {/if}
+
         {/if}
         
         <div style="flex-grow: 1;"></div>

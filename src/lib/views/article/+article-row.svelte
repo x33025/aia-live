@@ -9,6 +9,7 @@
   import Button from '$lib/components/actions/+button.svelte';
     import Text from '$lib/components/display/+text.svelte';
 import { TextType } from '$lib/types';
+    import Keywords from './+keywords.svelte';
   export let article: Article;
   export let categories: Category[];
   export let statuses: Status[];
@@ -116,18 +117,7 @@ import { TextType } from '$lib/types';
   </Stack>
 
   <Stack direction={Direction.Horizontal} spacing={0.5}>
-    {#if article.expand.main_keyword}
-    <Text className="label">{article.expand.main_keyword.keyword}</Text>
-   {/if}
-    {#if article.expand.keywords && article.expand.keywords.length > 0}
-      {#each article.expand.keywords as keyword}
-        {#if keyword.id !== article.expand.main_keyword?.id}
-          <Text className="label">{keyword.keyword}</Text>
-        {/if}
-      {/each}
-    {:else}
-      <p>No keywords available</p>
-    {/if}
+    <Keywords main_keyword={article.expand.main_keyword} keywords={article.expand.keywords}/>
 
     
 

@@ -3,7 +3,7 @@
 
   export let direction: Direction = Direction.Vertical;
   export let alignment: Alignment = Alignment.Start;
-  export let spacing: string | number = 0;
+  export let spacing: number = 0;
   export let className: string = '';
   export let style: string = '';
   export let wrap: boolean = false; // Control whether stack wraps content or fills space

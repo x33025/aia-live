@@ -47,7 +47,7 @@
   });
 </script>
 
-<Stack spacing={"1"}>
+<Stack spacing={1}>
   <Stack direction={Direction.Horizontal} wrap={true}>
     <Input className="search-bar" fullWidth={true} placeholder="Search Keywords"/>
 

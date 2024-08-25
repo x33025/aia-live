@@ -27,7 +27,7 @@
   });
 </script>
 
-<Stack>
+<Stack spacing={1}>
   <!-- Bind the article's title directly to the Input component -->
 
     <Input
@@ -46,7 +46,7 @@
 
 <style>
   :global(.article-title) {
-    padding: 1em;
+    padding: 0.5em;
     background-color: var(--gray-1);
     border-radius: 0.5em;
   }

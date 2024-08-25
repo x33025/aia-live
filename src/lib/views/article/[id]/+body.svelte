@@ -30,12 +30,12 @@
 
 <style>
   .editable-content {
-    border: 1px solid #ccc;
+    background-color: var(--gray-1);
     border-radius: 0.5em;
     outline: none;
     padding: 1em;
     height: 100%;
-
+    overflow: auto;
     /* Additional styles */
   }
 </style>
