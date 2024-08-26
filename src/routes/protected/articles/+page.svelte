@@ -5,7 +5,6 @@
   import { get } from 'svelte/store'; // To access the value of the store
   import ArticleRow from '$lib/views/article/+article-row.svelte';
   import Stack from '$lib/components/layout/+stack.svelte';
-  import Layout from '$lib/components/layout/+layout.svelte';
   import { users } from '$lib/stores/+users'; // Import users store
 
   // Function to filter users with role name "Writer"

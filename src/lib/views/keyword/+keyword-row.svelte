@@ -7,7 +7,6 @@
   export let keyword: Keyword;
   export let countries: Country[] = [];
   export let updateKeyword: (id: string, updatedFields: object) => void;
-  export let className: string = '';
  
   $: selectedCountry = keyword.country ? countries.find(c => c.id === keyword.country) : null;
  

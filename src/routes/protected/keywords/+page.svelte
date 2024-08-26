@@ -95,7 +95,7 @@
 
   :global(.search-bar) {
     padding: 0.5em;
-background-color: var(--gray-1);
-border-radius: 0.5em;
+    background-color: var(--gray-1);
+    border-radius: 0.5em;
   }
 </style>

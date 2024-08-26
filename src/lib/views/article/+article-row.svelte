@@ -7,9 +7,8 @@
   import { Direction, type Article, type Category, type Status, type User, toIdentifiableUser, type IdentifiableUser } from '$lib/types';
   import { goto } from '$app/navigation';
   import Button from '$lib/components/actions/+button.svelte';
-    import Text from '$lib/components/display/+text.svelte';
-import { TextType } from '$lib/types';
-    import Keywords from './+keywords.svelte';
+  import Keywords from './+keywords.svelte';
+
   export let article: Article;
   export let categories: Category[];
   export let statuses: Status[];
@@ -21,6 +20,12 @@ import { TextType } from '$lib/types';
   $: selectedCategory = article.category ? categories.find(c => c.id === article.category) : null;
   $: selectedStatus = article.status ? statuses.find(c => c.id === article.status) : null;
   $: selectedWriter = (typeof article.author === 'object' && article.author !== null) ? toIdentifiableUser(article.author) : null;
+
+
+  function handleTitleChange(event: CustomEvent<string>) {
+    const newTitle = event.detail;
+    dispatch('update', { field: 'title', value: newTitle });
+  }
 
   function handleWriterSelect(event: CustomEvent<IdentifiableUser | null>) {
     selectedWriter = event.detail;
@@ -56,8 +61,9 @@ import { TextType } from '$lib/types';
 <Stack spacing={0.5} wrap={true}>
   <Stack direction={Direction.Horizontal} spacing={0.5}>
     <Input
-      className="article-title"
-      bind:value={article.title}
+      className="article-row-title"
+      value={article.title}
+      on:input={handleTitleChange}
       placeholder="Title"
       fullWidth={true}
     />
@@ -136,7 +142,7 @@ import { TextType } from '$lib/types';
 </Stack>
 
 <style>
-  :global(.article-title) {
+  :global(.article-row-title) {
     background-color: rgba(var(--yellow-rgb), 0.4);
     border-radius: 0.5em;
     padding: 0.5em;

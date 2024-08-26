@@ -55,6 +55,15 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'Noto-Serif';
+  src: url('NotoSerifDisplay-VariableFont_wdth,wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+}
+
+
+
 /* Global Styles */
 * {
   margin: 0;
@@ -71,6 +80,8 @@ html, body {
 body {
   font-family: 'Nunito', sans-serif;
 }
+
+
 
 /* Remove default styling for text fields and inputs */
 input[type="text"],
@@ -166,3 +177,45 @@ h3 {
 img {
   border-radius: 0.35em;
 }
+
+a {
+  color: blue;
+  text-decoration: underline;
+  cursor: pointer; /* Change cursor to pointer */
+  font-weight: 600;
+}
+
+.edge-highlight {
+  border: 1.5px solid var(--gray-2);
+}
+
+  /* Styling for paragraphs */
+  .editable-content p {
+    margin-top: 0.5em ;
+    margin-bottom: 0.1em ;
+  }
+
+  /* Styling for Header 1 */
+  .editable-content h1 {
+    margin-top: 0.5em ;
+    margin-bottom: 0.5em ;
+  }
+
+  /* Styling for Header 2 */
+  .editable-content h2 {
+    margin-top: 1em ;
+    margin-bottom: 0.5em ;
+
+  }
+
+  .editable-content h3 {
+    margin-top: 1em ;
+    margin-bottom: 0.3em ;
+
+  }
+
+  /* Optional: Styling for links */
+  .editable-content a {
+    color: var(--blue);
+    text-decoration: underline;
+  }

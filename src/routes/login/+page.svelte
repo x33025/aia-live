@@ -2,8 +2,9 @@
   import { enhance } from '$app/forms';
   import Stack from '$lib/components/layout/+stack.svelte';
   import Button from '$lib/components/actions/+button.svelte';
-  import { Alignment, ButtonType } from '$lib/types';
+  import { Alignment, ButtonType, TextType } from '$lib/types';
     import Layout from '$lib/components/layout/+layout.svelte';
+    import Text from '$lib/components/display/+text.svelte';
 
 
   
@@ -18,7 +19,7 @@
 
 <Layout>
 <Stack alignment={Alignment.Center} spacing={0.5} >
-  <h1>Login</h1>
+  <Text type={TextType.Title}>Login</Text>
 <form method="POST" action="?/login" use:enhance>
   <Stack alignment={Alignment.Center}  spacing={1}>
       <input 

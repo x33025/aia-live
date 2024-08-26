@@ -4,7 +4,7 @@
   import Input from '$lib/components/actions/+input.svelte';
   import Stack from '$lib/components/layout/+stack.svelte';
   import { TextType } from '$lib/types';
-  import Body from '$lib/views/article/[id]/+body.svelte';
+  import Body from '$lib/views/article/[id]/body/+content.svelte';
   import { page } from '$app/stores';
 
   let unsubscribe: () => void; // To track the unsubscribe function
@@ -31,7 +31,7 @@
   <!-- Bind the article's title directly to the Input component -->
 
     <Input
-      className="article-title"
+      className="article-title edge-highlight"
       bind:value={$article.title}
       placeholder="Title"
       fullWidth={true}
@@ -47,7 +47,7 @@
 <style>
   :global(.article-title) {
     padding: 0.5em;
-    background-color: var(--gray-1);
+    background-color: white;
     border-radius: 0.5em;
   }
 </style>

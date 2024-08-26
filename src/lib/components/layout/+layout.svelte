@@ -14,7 +14,7 @@
   </svelte:head>
   
 
-    <Stack>
+    <Stack >
       <Stack direction={Direction.Horizontal} wrap={true} style="margin-bottom: 1em;">
         {#if $title}
     
@@ -27,7 +27,7 @@
         <slot name="navigation"></slot>
       </Stack>
       
-      <Stack className="content">
+      <Stack className="content edge-highlight">
         <!-- Main content slot -->
         <slot />
       </Stack>
