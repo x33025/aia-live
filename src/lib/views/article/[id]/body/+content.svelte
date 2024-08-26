@@ -38,6 +38,12 @@
       } else if (event.key === 'p') {
         event.preventDefault();
         document.execCommand('formatBlock', false, 'p');
+      } else if (event.key === 'b' || event.key === 'B') {
+        event.preventDefault();
+        editor.toggleBold(); // Use the Editor class to toggle bold
+      } else if (event.key === 'i' || event.key === 'I') {
+        event.preventDefault();
+        editor.toggleItalic(); // Use the Editor class to toggle italic
       }
     }
   }
@@ -86,6 +92,4 @@
     resize: vertical;
     max-height: 600px;
   }
-
-
 </style>

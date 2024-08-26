@@ -1,21 +1,31 @@
 <script lang="ts">
     import Stack from '$lib/components/layout/+stack.svelte';
     import { Direction } from '$lib/types';
-    import { Editor } from './editor'; // Import the Editor class
-    
-    export let editor: Editor; // Pass the editor instance as a prop
+    import { Editor } from './editor';
+    import { onDestroy } from 'svelte';
   
-    // Optional: You can emit events from this toolbar, e.g., for tracking actions
-    // export let onAction: (action: string) => void;
+    export let editor: Editor;
+  
+    // Smart style state
+    let smartStyleEnabled = false;
+  
+    // Subscribe to the smartStyleState store from the editor
+    const unsubscribe = editor.smartStyleState.subscribe(value => {
+      smartStyleEnabled = value;
+    });
+  
+    // Clean up when the component is destroyed
+    onDestroy(() => {
+      unsubscribe();
+    });
   </script>
   
   <Stack direction={Direction.Horizontal} wrap={true} spacing={1}>
-    <!-- Buttons for text formatting and link attachment -->
     <button class="label edge-highlight" on:click={() => editor.toggleBold()}><strong>Bold</strong></button>
     <button class="label edge-highlight" on:click={() => editor.toggleItalic()}><i>Italic</i></button>
     <button class="label edge-highlight" on:click={() => editor.attachLink()}>Attach Link</button>
     <button class="label edge-highlight" on:click={() => editor.toggleSmartStyle()}>
-      Smart Style: {editor.isSmartStyleEnabled ? 'On' : 'Off'}
+      Smart Style: {smartStyleEnabled ? 'On' : 'Off'}
     </button>
   </Stack>
   
