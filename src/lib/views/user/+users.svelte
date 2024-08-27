@@ -11,6 +11,18 @@
   </span>
 
   {#each $users as user}
-    <Text >{user.first_name} {user.last_name}</Text>
+    <Text className="dropdown-item">{user.first_name} {user.last_name}</Text>
   {/each}
 </DropdownMenu>
+
+<style>
+
+    :global(.dropdown-item) {
+        padding: 0.5em;
+        border-radius: 0.3em;
+    }
+
+    :global(.dropdown-item:hover) {
+        background-color: var(--gray-1);
+    }
+</style>

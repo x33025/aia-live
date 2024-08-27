@@ -3,7 +3,7 @@
   import { onDestroy } from 'svelte';
   import Input from '$lib/components/actions/+input.svelte';
   import Stack from '$lib/components/layout/+stack.svelte';
-  import { Direction, TextType } from '$lib/types';
+  import { Alignment, Direction, TextType } from '$lib/types';
   import Body from '$lib/views/article/[id]/body/+content.svelte';
   import { page } from '$app/stores';
 
@@ -30,9 +30,9 @@
 <Stack  spacing={1}>
   
   <!-- Bind the article's title directly to the Input component -->
-<Stack direction={Direction.Horizontal}>
-  
-  <Stack spacing={1}>
+<Stack direction={Direction.Horizontal} alignment={Alignment.Center} spacing={1}>
+
+  <Stack spacing={1} style="max-width: 700px;">
   <Input
       className="article-title edge-highlight"
       bind:value={$article.title}
@@ -45,8 +45,6 @@
 
 
     </Stack>
-    <Stack>
-    </Stack>
   </Stack>
 
 </Stack>
@@ -54,6 +52,14 @@
 <style>
   :global(.article-title) {
     padding: 0.5em;
+    background-color: white;
+    border-radius: 0.5em;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+
+  :global(.sidebar) {
+    padding: 1.5em;
     background-color: white;
     border-radius: 0.5em;
   }

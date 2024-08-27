@@ -3,6 +3,7 @@
   import Stack from "$lib/components/layout/+stack.svelte";
   import Text from "$lib/components/display/+text.svelte";
   import { type Keyword, Direction, TextType } from "$lib/types";
+    import Label from '$lib/components/display/+label.svelte';
   
   export let keywords: Keyword[] = [];
   export let main_keyword: Keyword | null = null;
@@ -12,11 +13,10 @@
   });
 </script>
 
-<Stack spacing={0.35}>
-  <Text type={TextType.Callout} className={"description"}><strong>Keywords</strong></Text>
+<Label name="Keywords">
   <Stack direction={Direction.Horizontal} spacing={0.5}>
     {#if main_keyword}
-    <Text type={TextType.Callout}  className="label main-keyword">{main_keyword.keyword}</Text>
+    <Text type={TextType.Callout}  className="label main-keyword"><strong>{main_keyword.keyword}</strong></Text>
    {/if}
     {#if keywords && keywords.length > 0}
       {#each keywords as keyword}
@@ -28,15 +28,14 @@
       <p>No keywords available</p>
     {/if}
   </Stack>
-</Stack>
+
+</Label>
+ 
 
 <style>
-:global(.description) {
-  color: rgba(0, 0, 0, 0.935);
-}
 :global(.main-keyword) {
   background-color: rgba(var(--yellow-rgb), 0.2);
-  color: rgba(var(--yellow-rgb), 1);
+
 }
   
 </style>

@@ -2,7 +2,7 @@
   import { enhance } from '$app/forms';
   import Stack from '$lib/components/layout/+stack.svelte';
   import Button from '$lib/components/actions/+button.svelte';
-  import { Alignment, ButtonType, TextType } from '$lib/types';
+  import { Alignment, ButtonType, Direction, TextType } from '$lib/types';
     import Layout from '$lib/components/layout/+layout.svelte';
     import Text from '$lib/components/display/+text.svelte';
 
@@ -18,10 +18,11 @@
 </script>
 
 <Layout>
-<Stack alignment={Alignment.Center} spacing={0.5} >
-  <Text type={TextType.Title}>Login</Text>
+<Stack direction={Direction.Horizontal} alignment={Alignment.Center} spacing={0.5}  >
+  <Stack direction={Direction.Vertical} alignment={Alignment.Center}  spacing={1} style="max-width: 300px;">
+  <Text type={TextType.Title} >Login</Text>
 <form method="POST" action="?/login" use:enhance>
-  <Stack alignment={Alignment.Center}  spacing={1}>
+ 
       <input 
           type="email" 
           id="email" 
@@ -43,25 +44,30 @@
       <Button buttonType={ButtonType.Submit}>
           Login
       </Button>
-  </Stack>
+ 
 </form>
+</Stack>
 </Stack>
 </Layout>
 
 <style>
-  input {
-      width: 100%;
-      padding: 0.7em;
-      border-radius: 0.5em;
-      border: none;
-      font-size: 1em;
-      border: 1px solid var(--gray-1);
-  }
+input {
+  width: 100%;
+  padding: 0.7em;
+  border-radius: 0.5em;
+  border: none;
+  font-size: 1em;
+  border: 1.5px solid var(--gray-1);
+  margin-bottom: 1em; /* Add spacing between inputs */
+}
+
   .error {
       color: var(--red);
   }
-  h1 {
-    margin-bottom: 1em;
+
+  :global(.login-button) {
+    background-color: var(--blue-rg);
   }
+  
 
 </style>

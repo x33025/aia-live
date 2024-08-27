@@ -85,11 +85,9 @@
     height: 100%;
     overflow: auto;
     font-family: 'Noto Serif', serif;
-    font-size: 1.2em;
     line-height: 1.6em;
     border: 1px solid #ddd;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    resize: vertical;
-    max-height: 600px;
+
   }
 </style>
