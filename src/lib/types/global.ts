@@ -11,12 +11,11 @@ export interface User {
   last_name: string; // Required field
   author_name: string | null; // Optional field
   avatar: string | null; // File path, optional
-  role: string | null; // ID or Role object, optional
+  role: string | null; // ID as string, optional
   last_active: Date | null;
 
-
   expand: {
-    role: Role[];
+    role: Role;
   }
 }
 
@@ -39,14 +38,14 @@ export interface ActivityData {
   created: Date; // Creation timestamp
   updated: Date; // Last update timestamp
   deleted: Date | null; // Can be null if not provided
-  deleted_by: string | null; // ID or User object, optional
-  created_by: string; // ID or User object, required
-  updated_by: string | null; // ID or User object, optional
+  deleted_by: string | null; // ID as string, optional
+  created_by: string; // ID as string, required
+  updated_by: string | null; // ID as string, optional
 
   expand: {
-    deleted_by:  User | null; // ID or User object, optional
-   created_by: User; // ID or User object, required
-   updated_by: User | null; // ID or User object, optional
+    deleted_by: User | null; // Expanded deleted_by user
+    created_by: User; // Expanded created_by user
+    updated_by: User | null; // Expanded updated_by user
   }
 }
 
@@ -61,24 +60,23 @@ export interface Article {
   word_count: number; // Optional, defaults to 0 if not provided
   target_word_count: number; // Optional, defaults to 0 if not provided
   semrush_score: number; // Optional, defaults to 0 if not provided
-  activity: string; // Required field
-  category: string | null; // ID or Category object, optional
-  status: string | Status | null; // ID or Status object, optional
-  website: string | Website | null; // ID or Website object, optional
-  author: string | User | null; // ID or User object, optional
-  main_image: string | null; // Optional relation to Image object
-  keywords: string[]; // Array of keyword IDs (as returned from PocketBase)
+  activity: string; // ID as string, required
+  category: string | null; // ID as string, optional
+  status: string | null; // ID as string, optional
+  website: string | null; // ID as string, optional
+  author: string | null; // ID as string, optional
+  main_image: string | null; // ID as string, optional
+  keywords: string[]; // Array of keyword IDs
   main_keyword: string | null; // ID of the main keyword
   notes: string[];
 
-  // The expand field contains the fully expanded relations
   expand: {
     activity: ActivityData;
     notes: Notes[];
     keywords: Keyword[]; // Expanded full keyword objects
     main_keyword: Keyword | null; // Expanded main keyword object
     main_image: Image | null; // Expanded main image object
-    category: Category | null;
+    category: Category | null; // Expanded category object
   };
 }
 
@@ -89,9 +87,9 @@ export interface Keyword {
   density: number | null; // Optional, defaults to 0 if not provided
   volume: number | null; // Optional, defaults to 0 if not provided
   evergreen: boolean | null; // Optional, defaults to false if not provided
-  activity: string; // Required field
-  country: string | Country | null; // Optional relation to a country
- notes: string[];
+  activity: string; // ID as string, required
+  country: string | null; // ID as string, optional
+  notes: string[];
 
   expand: {
     activity: ActivityData;
@@ -121,10 +119,9 @@ export interface Image {
   id: string;
   image: string; // File path
   description: string | null; // Optional description
-  activity: string; // Required field
+  activity: string; // ID as string, required
 
   expand: {
-    
     activity: ActivityData;
   };
 }
@@ -133,7 +130,7 @@ export interface Image {
 export interface Notes {
   id: string;
   content: string; // Editor type field
-  activity: string; // Required field
+  activity: string; // ID as string, required
 
   expand: {
     activity: ActivityData;

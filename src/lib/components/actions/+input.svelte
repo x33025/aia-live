@@ -1,7 +1,7 @@
 <script lang="ts">
   import { createEventDispatcher, onMount } from 'svelte';
   import Text from "../display/+text.svelte";
-  import { TextType, InputType } from '$lib/types/enums';
+  import { TextType, InputType } from '$lib/types/ui-enums';
 
   export let type: TextType = TextType.Body;
   export let inputType: InputType = InputType.Text;
