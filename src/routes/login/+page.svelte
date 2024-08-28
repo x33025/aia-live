@@ -3,7 +3,7 @@
   import Stack from '$lib/components/layout/+stack.svelte';
   import Button from '$lib/components/actions/+button.svelte';
   import { Alignment, ButtonType, Direction, TextType } from '$lib/types';
-    import Layout from '$lib/components/layout/+layout.svelte';
+
     import Text from '$lib/components/display/+text.svelte';
 
 
@@ -17,7 +17,7 @@
   export let form: FormData | null = null;
 </script>
 
-<Layout>
+
 <Stack direction={Direction.Horizontal} alignment={Alignment.Center} spacing={0.5}  >
   <Stack direction={Direction.Vertical} alignment={Alignment.Center}  spacing={1} style="max-width: 300px;">
   <Text type={TextType.Title} >Login</Text>
@@ -48,7 +48,6 @@
 </form>
 </Stack>
 </Stack>
-</Layout>
 
 <style>
 input {
@@ -66,7 +65,7 @@ input {
   }
 
   :global(.login-button) {
-    background-color: var(--blue-rg);
+    background-color: var(--blue);
   }
   
 

@@ -6,8 +6,7 @@
   import { keywords } from '$lib/stores/+keywords'; // Import the store
   import { onMount } from 'svelte';
     import { page } from '$app/stores';
-    import Layout from '$lib/components/layout/+layout.svelte';
-    import Input from '$lib/components/actions/+input.svelte';
+    import TextInput from '$lib/components/actions/+text-input.svelte';
 
   const headers = ["Keyword", "Evergreen", "Country", "Volume", "Density"];
 
@@ -48,8 +47,8 @@
 </script>
 
 <Stack spacing={1}>
-  <Stack direction={Direction.Horizontal} wrap={true}>
-    <Input className="search-bar" fullWidth={true} placeholder="Search Keywords"/>
+  <Stack direction={Direction.Horizontal}>
+    <TextInput className="search-bar" fullWidth={true} placeholder="Search Keywords"/>
 
   </Stack>
   <table>
@@ -57,7 +56,7 @@
       <tr>
         {#each headers as header}
           <th>
-            <Text type={TextType.Subheadline}>{header}</Text>
+            <Text type={TextType.Subheadline} style="font-weight: bold;">{header}</Text>
           </th>
         {/each}
       </tr>

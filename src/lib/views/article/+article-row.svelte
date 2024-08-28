@@ -1,6 +1,6 @@
 <script lang="ts">
   import DropdownMenu from '$lib/components/actions/+dropdown-menu.svelte';
-  import Input from '$lib/components/actions/+input.svelte';
+  import TextInput from '$lib/components/actions/+text-input.svelte';
   import NumericInput from '$lib/components/advanced-input/+numeric-input.svelte';
   import NumericTarget from '$lib/components/advanced-input/+numeric-target.svelte';
   import Stack from '$lib/components/layout/+stack.svelte';
@@ -62,7 +62,7 @@
 
 <Stack spacing={0.5} wrap={true}>
   <Stack direction={Direction.Horizontal} spacing={0.5}>
-    <Input
+    <TextInput
       className="article-row-title"
       value={article.title}
       on:input={handleTitleChange}

@@ -1,7 +1,7 @@
 <script lang="ts">
   import { article } from '$lib/stores/+article';
   import { onDestroy } from 'svelte';
-  import Input from '$lib/components/actions/+input.svelte';
+  import TextInput from '$lib/components/actions/+text-input.svelte';
   import Stack from '$lib/components/layout/+stack.svelte';
   import { Alignment, Direction, TextType } from '$lib/types';
   import Body from '$lib/views/article/[id]/body/+content.svelte';
@@ -33,7 +33,7 @@
 <Stack direction={Direction.Horizontal} alignment={Alignment.Center} spacing={1}>
 
   <Stack spacing={1} style="max-width: 700px;">
-  <Input
+  <TextInput
       className="article-title edge-highlight"
       bind:value={$article.title}
       placeholder="Title"

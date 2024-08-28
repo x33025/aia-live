@@ -1,8 +1,7 @@
 <script lang="ts">
-    import { ButtonType } from '$lib/types';
+  import { ButtonType } from '$lib/types';
   import { createEventDispatcher } from 'svelte';
 
-  export let className: string = '';
   export let buttonType: ButtonType = ButtonType.Button;
 
   const dispatch = createEventDispatcher();
@@ -12,11 +11,7 @@
   }
 </script>
 
-<style>
-  
-</style>
-
-<button class="{className}" 
+<button 
   type={buttonType} 
   on:click={handleClick}
   {...$$restProps}>

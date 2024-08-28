@@ -3,6 +3,7 @@
     import { page } from '$app/stores';
     import { derived } from 'svelte/store';
     import { Direction } from '$lib/types';
+    import Spacer from './+spacer.svelte';
   
     // Extract title from the $page store
     const title = derived(page, $page => $page.data.title);
@@ -22,13 +23,12 @@
 
         {/if}
         
-        <div style="flex-grow: 1;"></div>
-        <!-- Navigation slot -->
+        <Spacer />
+
         <slot name="navigation"></slot>
       </Stack>
       
-      <Stack className="content edge-highlight">
-        <!-- Main content slot -->
+      <Stack class="content edge-highlight">
         <slot />
       </Stack>
     </Stack>

@@ -3,10 +3,6 @@
   import InteractiveText from '$lib/views/login/+interactive-text.svelte';
   import Stack from '$lib/components/layout/+stack.svelte';
   import Button from '$lib/components/actions/+button.svelte';
-  import { Alignment } from '$lib/types';
-    import Layout from '$lib/components/layout/+layout.svelte';
-
-
 
   function handleLoginClick() {
     console.log('Login button clicked');
@@ -14,25 +10,27 @@
   }
 </script>
 
-<Layout>
 
-<Stack alignment={Alignment.End} spacing={0} style="position: relative;  padding: 1em;">
-  <Button class="login-button" on:click={handleLoginClick} style="position: absolute; top: 0; right: 0;">
+
+<Stack style="position: relative; padding: 1em;">
+  <Button on:click={handleLoginClick} class="main-login-button">
     Login
   </Button>
-  <InteractiveText text="aia" />
+  <InteractiveText text="aia"/>
 </Stack>
 
-</Layout>
+
 
 <style>
-  :global(.login-button) {
+  :global(.main-login-button) {
     padding: 0.5em;
     border-radius: 0.5em;
-    border: 1px solid var(--gray-1);
+    border: 1px solid var(--gray-2);
     font-weight: bold;
     color: var(--blue);
-    margin: 0.1em;
     z-index: 100;
+    position: absolute;
+    top: 0; 
+    right: 0;
   }
 </style>

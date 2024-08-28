@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { createEventDispatcher } from 'svelte';
+  import { createEventDispatcher, onMount } from 'svelte';
 
   export let value: number | null = null;
   export let min: number | null = null;
@@ -10,11 +10,18 @@
   const dispatch = createEventDispatcher();
 
   let input = value !== null ? value.toString() : '';
+  let spanWidth = 0;
+  let hiddenSpan: HTMLSpanElement;
 
   $: allowNegative = min === null || min < 0;
 
   $: if (value !== null && value.toString() !== input) {
     input = value.toString();
+  }
+
+  // Measure the width of the hidden span to match input width
+  $: if (hiddenSpan) {
+    spanWidth = hiddenSpan.offsetWidth;
   }
 
   function handleInput(event: Event) {
@@ -49,20 +56,29 @@
   }
 </script>
 
-<input
-  type="text"
-  bind:value={input}
-  placeholder={placeholder.toString()}
-  on:input={handleInput}
-  on:keydown={handleEnter}
-  class="numeric-input"
-  style="padding: {padding}em;" 
-/>
+<div style="display: inline-block; position: relative;">
+  <!-- Hidden span to measure input width -->
+  <span
+    bind:this={hiddenSpan}
+    style="visibility: hidden; position: absolute; white-space: pre; padding: {padding}em;"
+  >{input || placeholder}</span>
+  
+  <input
+    type="text"
+    bind:value={input}
+    placeholder={placeholder.toString()}
+    on:input={handleInput}
+    on:keydown={handleEnter}
+    class="numeric-input"
+    style="padding: {padding}em; width: {spanWidth}px;" 
+  />
+</div>
 
 <style>
 /* Global styles for input */
 .numeric-input {
   background-color: var(--gray-1);
   border-radius: 0.5em;
+  box-sizing: content-box; /* Ensure padding is included in the size */
 }
 </style>

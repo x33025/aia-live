@@ -1,7 +1,7 @@
 <script lang="ts">
   import NumericInput from '$lib/components/advanced-input/+numeric-input.svelte';
   import DropdownMenu from '$lib/components/actions/+dropdown-menu.svelte';
-  import Input from '$lib/components/actions/+input.svelte';
+  import TextInput from '$lib/components/actions/+text-input.svelte';
   import { TextType, type Country, type Keyword } from '$lib/types';
  
   export let keyword: Keyword;
@@ -37,7 +37,7 @@
  
  <tr>
    <td>
-     <Input
+     <TextInput
        value={keyword.keyword}
        placeholder="Enter keyword"
        on:enter={handleKeywordEnter}
