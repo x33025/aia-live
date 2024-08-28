@@ -16,7 +16,7 @@
 <Stack direction={Direction.Horizontal} className="numeric-target" wrap={true} spacing={0.5}>
   <span>{current}</span>
   <span>/</span>
-  <NumericInput bind:value={target} on:update={handleUpdate} />
+  <NumericInput bind:value={target} on:update={handleUpdate} padding={0} />
 </Stack>
 
 

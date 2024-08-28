@@ -7,10 +7,8 @@
   import { Direction, type Article, type Category, type Status, type User, toIdentifiableUser, type IdentifiableUser } from '$lib/types';
   import { goto } from '$app/navigation';
   import Button from '$lib/components/actions/+button.svelte';
-  import Keywords from './+keywords.svelte';
-    import Label from '$lib/components/display/+label.svelte';
-    import Spacer from '$lib/components/layout/+spacer.svelte';
-
+    import Text from '$lib/components/display/+text.svelte';
+import { TextType } from '$lib/types';
   export let article: Article;
   export let categories: Category[];
   export let statuses: Status[];
@@ -22,12 +20,6 @@
   $: selectedCategory = article.category ? categories.find(c => c.id === article.category) : null;
   $: selectedStatus = article.status ? statuses.find(c => c.id === article.status) : null;
   $: selectedWriter = (typeof article.author === 'object' && article.author !== null) ? toIdentifiableUser(article.author) : null;
-
-
-  function handleTitleChange(event: CustomEvent<string>) {
-    const newTitle = event.detail;
-    dispatch('update', { field: 'title', value: newTitle });
-  }
 
   function handleWriterSelect(event: CustomEvent<IdentifiableUser | null>) {
     selectedWriter = event.detail;
@@ -63,9 +55,8 @@
 <Stack spacing={0.5} wrap={true}>
   <Stack direction={Direction.Horizontal} spacing={0.5}>
     <Input
-      className="article-row-title"
-      value={article.title}
-      on:input={handleTitleChange}
+      className="article-title"
+      bind:value={article.title}
       placeholder="Title"
       fullWidth={true}
     />
@@ -125,29 +116,37 @@
   </Stack>
 
   <Stack direction={Direction.Horizontal} spacing={0.5}>
-    <Keywords main_keyword={article.expand.main_keyword} keywords={article.expand.keywords}/>
-<Spacer />
+    {#if article.expand.main_keyword}
+    <Text className="label">{article.expand.main_keyword.keyword}</Text>
+   {/if}
+    {#if article.expand.keywords && article.expand.keywords.length > 0}
+      {#each article.expand.keywords as keyword}
+        {#if keyword.id !== article.expand.main_keyword?.id}
+          <Text className="label">{keyword.keyword}</Text>
+        {/if}
+      {/each}
+    {:else}
+      <p>No keywords available</p>
+    {/if}
+
     
-<Label name="Semrush Score">
-  <NumericInput
+
+    <NumericInput
       value={article.semrush_score} 
       on:update={(event) => updateSemrushScore(event.detail.value)}
     />
-</Label>
-  
-    <Label name="Word Count">
+    
     <NumericTarget
       target={article.target_word_count} 
-      current={article.word_count} 
+      current={0} 
       update={updateTargetWordCount}
     />
-  </Label>
   </Stack>
-
+  
 </Stack>
 
 <style>
-  :global(.article-row-title) {
+  :global(.article-title) {
     background-color: rgba(var(--yellow-rgb), 0.4);
     border-radius: 0.5em;
     padding: 0.5em;

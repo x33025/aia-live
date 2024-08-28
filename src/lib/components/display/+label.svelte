@@ -6,7 +6,7 @@
     export let name: string = "Label"; // Make the text dynamic by exporting it as a prop
   </script>
   
-  <Stack spacing={0.35}>
+  <Stack spacing={0.35} wrap={true}>
     <Text type={TextType.Callout} className={"description"}><strong>{name}</strong></Text> <!-- Use the label prop here -->
     <Stack spacing={0.5}>
       <slot />

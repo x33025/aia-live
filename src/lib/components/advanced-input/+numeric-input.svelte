@@ -1,31 +1,34 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
-  import Input from '../actions/+input.svelte';
 
   export let value: number | null = null;
   export let min: number | null = null;
   export let max: number | null = null;
-  export let placeholder: number = 0; 
+  export let placeholder: number = 0;
+  export let padding: number = 0.5; // Default padding value
 
   const dispatch = createEventDispatcher();
 
   let input = value !== null ? value.toString() : '';
-  
+
   $: allowNegative = min === null || min < 0;
 
   $: if (value !== null && value.toString() !== input) {
     input = value.toString();
   }
 
-  function handleInput(event: CustomEvent) {
-    const inputValue = event.detail.value;
+  function handleInput(event: Event) {
+    const target = event.target as HTMLInputElement;
+    const inputValue = target.value;
     if (isValidInput(inputValue)) {
       input = inputValue;
     }
   }
 
-  function handleEnter() {
-    processInput();
+  function handleEnter(event: KeyboardEvent) {
+    if (event.key === 'Enter') {
+      processInput();
+    }
   }
 
   function isValidInput(inputValue: string): boolean {
@@ -46,24 +49,19 @@
   }
 </script>
 
-<Input
-  value={input}
-  on:input={handleInput}
-  on:enter={handleEnter}
+<input
+  type="text"
+  bind:value={input}
   placeholder={placeholder.toString()}
-  fullWidth={false}
+  on:input={handleInput}
+  on:keydown={handleEnter}
+  class="numeric-input"
+  style="padding: {padding}em;" 
 />
 
 <style>
-/* Apply padding only when this component is standalone */
-:global(.standalone) {
-  padding: 0.5em;
-  background-color: var(--gray-1);
-  border-radius: 0.5em;
-}
-
 /* Global styles for input */
-:global(.numeric-input) {
+.numeric-input {
   background-color: var(--gray-1);
   border-radius: 0.5em;
 }
