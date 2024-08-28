@@ -4,12 +4,16 @@
   export let direction: Direction = Direction.Vertical;
   export let alignment: Alignment = Alignment.Start;
   export let spacing: number = 0;
-  export let wrap: boolean = false; // Control whether stack wraps content or fills space
+  export let wrap: boolean = false;
+
+  // Extract specific props from $$restProps
+  const { class: externalClass = '', style: externalStyle = '', ...restProps } = $$restProps;
 
   const getClasses = () => [
     'stack',
     `direction-${direction}`,
-    wrap ? 'wrap-content' : 'expand', // Conditional class based on wrapping
+    wrap ? 'wrap-content' : 'expand',
+    externalClass // Add external class here
   ].join(' ');
 
   const getStyles = () => [
@@ -17,22 +21,20 @@
     direction === 'row' 
       ? `justify-content: ${alignment}; align-items: center;`
       : `justify-content: ${alignment}; align-items: stretch;`,
+    externalStyle // Add external style here
   ].join(' ');
 </script>
 
 <style>
   .stack {
     display: flex;
-    flex: 1;
   }
 
-  /* Default behavior: stack takes the size it needs */
   .wrap-content {
     width: auto;
     height: auto;
   }
 
-  /* Class for expanding stack to fill available space */
   .expand {
     width: 100%;
     height: 100%;
@@ -48,6 +50,6 @@
   }
 </style>
 
-<div class={getClasses()} style={getStyles()} {...$$restProps}>
+<div class={getClasses()} style={getStyles()} {...restProps}>
   <slot />
 </div>

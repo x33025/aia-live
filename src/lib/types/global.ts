@@ -52,8 +52,6 @@ export interface ActivityData {
 // Article interface with relationships and the new fields
 export interface Article {
   id: string;
-  created: Date; // Creation timestamp
-  updated: Date; // Last update timestamp
   title: string; // Required field
   content: string; // Required field (could be rich text in editor type)
   description: string; // Optional field

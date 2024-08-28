@@ -18,8 +18,8 @@
 </script>
 
 
-<Stack direction={Direction.Horizontal} alignment={Alignment.Center} spacing={0.5}  >
-  <Stack direction={Direction.Vertical} alignment={Alignment.Center}  spacing={1} style="max-width: 300px;">
+<Stack direction={Direction.Horizontal} alignment={Alignment.Center}   >
+  <Stack direction={Direction.Vertical} alignment={Alignment.Center}  spacing={1} style="max-width: 300px" >
   <Text type={TextType.Title} >Login</Text>
 <form method="POST" action="?/login" use:enhance>
  
@@ -41,7 +41,7 @@
       {#if form?.error}
           <p class="error">{form.error}</p>
       {/if}
-      <Button buttonType={ButtonType.Submit}>
+      <Button buttonType={ButtonType.Submit} class="login-button">
           Login
       </Button>
  
@@ -66,6 +66,9 @@ input {
 
   :global(.login-button) {
     background-color: var(--blue);
+    color: white;
+    padding: 0.5em;
+    border-radius: 0.5em;
   }
   
 

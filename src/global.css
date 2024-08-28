@@ -178,14 +178,7 @@ img {
   border-radius: 0.35em;
 }
 
-a {
-  color: blue;
-  text-decoration: underline;
-  cursor: pointer; /* Change cursor to pointer */
-  font-weight: 600;
-}
-
-.edge-highlight {
+.border-highlight {
   border: 1.5px solid var(--gray-2);
 }
 
@@ -218,4 +211,6 @@ a {
   .editable-content a {
     color: var(--blue);
     text-decoration: underline;
+    cursor: pointer; /* Change cursor to pointer */
+    font-weight: bold;
   }

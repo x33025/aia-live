@@ -13,7 +13,3 @@
     <Button className="label" on:click={() => goto('/protected/articles')}>Articles</Button>
   </Stack>
 
-
-<style>
-
-</style>
