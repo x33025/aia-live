@@ -3,6 +3,7 @@
   import InteractiveText from '$lib/views/login/+interactive-text.svelte';
   import Stack from '$lib/components/layout/+stack.svelte';
   import Button from '$lib/components/actions/+button.svelte';
+    import BaseLayout from '$lib/components/layout/+base-layout.svelte';
 
   function handleLoginClick() {
     console.log('Login button clicked');
@@ -11,14 +12,14 @@
 </script>
 
 
-
+<BaseLayout >
 <Stack style="position: relative; padding: 1em;">
   <Button on:click={handleLoginClick} class="main-login-button">
     Login
   </Button>
   <InteractiveText text="aia"/>
 </Stack>
-
+</BaseLayout >
 
 
 <style>

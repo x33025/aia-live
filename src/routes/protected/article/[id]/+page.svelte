@@ -28,13 +28,12 @@
 </script>
 
 <Stack  spacing={1}>
-  
   <!-- Bind the article's title directly to the Input component -->
 <Stack direction={Direction.Horizontal} alignment={Alignment.Center} spacing={1}>
 
   <Stack spacing={1} style="max-width: 700px;">
   <TextInput
-      className="article-title edge-highlight"
+      className="article-title border-highlight"
       bind:value={$article.title}
       placeholder="Title"
       fullWidth={true}
@@ -55,12 +54,5 @@
     background-color: white;
     border-radius: 0.5em;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  }
-
-
-  :global(.sidebar) {
-    padding: 1.5em;
-    background-color: white;
-    border-radius: 0.5em;
   }
 </style>

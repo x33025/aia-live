@@ -16,9 +16,10 @@
 </svelte:head>
 
 <BaseLayout>
+
   <Stack direction={Direction.Horizontal} wrap={true} style="margin-bottom: 1em;" slot="header">
     {#if $title}
-      <h1>{$title}</h1>
+      <h1 >{$title}</h1>
     {/if}
 
     <Spacer />

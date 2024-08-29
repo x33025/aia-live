@@ -11,12 +11,14 @@
   </script>
   
   <MainLayout>
-    <!-- Navigation content for the 'navigation' slot -->
+   
     <span slot="navigation">
       <Users />
   
     </span>
-  
+
     <slot />
   </MainLayout>
+
+ 
   

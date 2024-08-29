@@ -1,5 +1,6 @@
 <script lang="ts">
   import { enhance } from '$app/forms';
+  import BaseLayout from '$lib/components/layout/+base-layout.svelte';
   import Stack from '$lib/components/layout/+stack.svelte';
   import Button from '$lib/components/actions/+button.svelte';
   import { Alignment, ButtonType, Direction, TextType } from '$lib/types';
@@ -17,7 +18,7 @@
   export let form: FormData | null = null;
 </script>
 
-
+<BaseLayout >
 <Stack direction={Direction.Horizontal} alignment={Alignment.Center}   >
   <Stack direction={Direction.Vertical} alignment={Alignment.Center}  spacing={1} style="max-width: 300px" >
   <Text type={TextType.Title} >Login</Text>
@@ -48,6 +49,7 @@
 </form>
 </Stack>
 </Stack>
+</BaseLayout >
 
 <style>
 input {

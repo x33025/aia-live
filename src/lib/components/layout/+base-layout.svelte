@@ -4,6 +4,7 @@
 
 <Stack style="padding: 1em; background-color: var(--gray-1);">
   <slot name="header" />
+  
   <Stack class="content border-highlight">
  
     <slot />

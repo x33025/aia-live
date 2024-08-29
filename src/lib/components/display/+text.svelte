@@ -5,7 +5,7 @@
 </script>
 
 <p class="{type}" {...$$restProps}>
-  <slot></slot>
+  <slot />
 </p>
 
 <style>
