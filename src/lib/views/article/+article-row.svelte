@@ -157,13 +157,13 @@
   :global(.article-row-title) {
     background-color: rgba(var(--yellow-rgb), 0.4);
     border-radius: 0.5em;
-    padding: 0.5em;
+    padding: var(--default-padding);
     width: 100%;
   }
 
   :global(.open-article-button) {
     background-color: var(--blue);
-    padding: 0.5em;
+    padding: var(--default-padding);
     border-radius: 0.5em;
     color: white;
 

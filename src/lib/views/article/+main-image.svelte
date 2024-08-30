@@ -21,18 +21,21 @@
     .image-container {
       width: auto;
       height: 100%;
-      aspect-ratio: 3 / 2; /* Enforce 8:5 aspect ratio */
+      aspect-ratio: 3 / 2;
       display: flex;
       justify-content: center;
       align-items: center;
       overflow: hidden;
+      
     }
   
     img {
-      width: auto;
-      height: 100%;
-      object-fit: cover; /* Cover the container without overflowing */
-    }
+  width: auto;
+  height: 100%;
+  object-fit: cover; /* Cover the container without overflowing */
+  display: block; /* This removes the inline spacing */
+}
+
   
   </style>
   

@@ -11,7 +11,7 @@
 
   <Stack direction={Direction.Horizontal} spacing={1}>
     <Stack spacing={0.5}>
-      <Button class="label" on:click={() => goto('/protected/articles')}>Articles</Button>
+      <Button class="label " on:click={() => goto('/protected/articles')}>Articles</Button>
       <Button class="label" on:click={() => goto('/protected/keywords')}>Keywords</Button>
     </Stack>
 

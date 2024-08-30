@@ -24,7 +24,7 @@
 
 <style>
   :global(.main-login-button) {
-    padding: 0.5em;
+    padding: var(--default-padding);
     border-radius: 0.5em;
     border: 1px solid var(--gray-2);
     font-weight: bold;

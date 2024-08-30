@@ -6,6 +6,9 @@
   import { Alignment, Direction, TextType } from '$lib/types';
   import Body from '$lib/views/article/[id]/body/+content.svelte';
   import { page } from '$app/stores';
+    import Sidebar from '$lib/components/ui/+sidebar.svelte';
+    import NotesSidebar from '$lib/views/notes/+notes-sidebar.svelte';
+    import { openSidebar } from '$lib/stores/ui/+sidebar';
 
   let unsubscribe: () => void; // To track the unsubscribe function
 
@@ -25,9 +28,14 @@
   onDestroy(() => {
     if (unsubscribe) unsubscribe();
   });
+
+  function openAnotherSidebar() {
+        openSidebar();
+    }
 </script>
 
 <Stack  spacing={1}>
+  <button on:click={openAnotherSidebar}>Open Another Sidebar</button>
   <!-- Bind the article's title directly to the Input component -->
 <Stack direction={Direction.Horizontal} alignment={Alignment.Center} spacing={1}>
 
@@ -47,6 +55,10 @@
   </Stack>
 
 </Stack>
+
+<Sidebar>
+  <NotesSidebar propKey="Hello" />
+</Sidebar>
 
 <style>
   :global(.article-title) {

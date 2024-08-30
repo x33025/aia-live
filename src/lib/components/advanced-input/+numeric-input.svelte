@@ -1,5 +1,7 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
+    import Text from '../display/+text.svelte';
+    import { TextType } from '$lib/types';
 
   export let value: number | null = null;
   export let min: number | null = null;
@@ -49,6 +51,7 @@
   }
 </script>
 
+<Text type={TextType.Callout}>
 <input
   type="text"
   bind:value={input}
@@ -58,6 +61,7 @@
   class="numeric-input"
   style="padding: {padding}em;" 
 />
+</Text>
 
 <style>
 /* Global styles for input */

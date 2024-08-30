@@ -6,7 +6,7 @@
 </script>
   
 <DropdownMenu id="users-dropdown">
-  <span slot="button" style="background-color: white; padding: 0.5em; border-radius: 0.5em;" class="border-highlight">
+  <span slot="button" class="users-dropdown border-highlight">
     {"Active Users"}
   </span>
 
@@ -24,5 +24,11 @@
 
     :global(.dropdown-item:hover) {
         background-color: var(--gray-1);
+    }
+
+    :global(.users-dropdown) {
+      background-color: white;    
+      padding: var(--default-padding);
+      border-radius: 0.5em;
     }
 </style>

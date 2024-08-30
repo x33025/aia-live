@@ -1,7 +1,8 @@
 <script lang="ts">
   import NumericInput from '$lib/components/advanced-input/+numeric-input.svelte';
-    import { Direction } from '$lib/types';
+    import { Direction, TextType } from '$lib/types';
     import Stack from '../layout/+stack.svelte';
+    import Text from '../display/+text.svelte';
 
   export let target: number | null;
   export let current: number;
@@ -14,8 +15,10 @@
 
 
 <Stack direction={Direction.Horizontal} class="numeric-target" wrap={true} spacing={0.5}>
+  <Text type={TextType.Callout}>
   <span>{current}</span>
   <span>/</span>
+</Text>
   <NumericInput bind:value={target} on:update={handleUpdate} padding={0} />
 </Stack>
 

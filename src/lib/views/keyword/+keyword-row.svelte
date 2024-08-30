@@ -88,7 +88,7 @@
    :global(.keyword-input) {
      background-color: var(--gray-1);
      border-radius: 0.5em;
-     padding: 0.5em;
+     padding: var(--default-padding);
    }
    td {
      padding: 0.3em;
@@ -96,7 +96,7 @@
      border-bottom: 1px solid #ddd;
    }
    .menu-item {
-     padding: 0.5em;
+    padding: var(--default-padding);
      cursor: pointer;
      border-radius: 0.3em;
    }

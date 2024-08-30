@@ -48,7 +48,7 @@
 
 <Stack spacing={1}>
   <Stack direction={Direction.Horizontal}>
-    <TextInput className="search-bar" fullWidth={true} placeholder="Search Keywords"/>
+    <TextInput class="search-bar" fullWidth={true} placeholder="Search Keywords"/>
 
   </Stack>
   <table>
@@ -93,7 +93,7 @@
   }
 
   :global(.search-bar) {
-    padding: 0.5em;
+    padding: var(--default-padding);
     background-color: var(--gray-1);
     border-radius: 0.5em;
   }

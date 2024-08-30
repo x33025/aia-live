@@ -54,7 +54,7 @@
 <style>
 input {
   width: 100%;
-  padding: 0.7em;
+  padding: var(--default-padding);
   border-radius: 0.5em;
   border: none;
   font-size: 1em;
@@ -69,7 +69,7 @@ input {
   :global(.login-button) {
     background-color: var(--blue);
     color: white;
-    padding: 0.5em;
+    padding: var(--default-padding);
     border-radius: 0.5em;
   }
   
