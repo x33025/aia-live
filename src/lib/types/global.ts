@@ -115,12 +115,14 @@ export interface Website extends Identifiable {
 // Image interface for main_image in articles
 export interface Image {
   id: string;
-  image: string; // File path
+  file: string; // File path
   description: string | null; // Optional description
   activity: string; // ID as string, required
+  notes: string[];
 
   expand: {
     activity: ActivityData;
+    notes: Notes[];
   };
 }
 

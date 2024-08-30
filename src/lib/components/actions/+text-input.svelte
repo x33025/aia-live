@@ -5,7 +5,6 @@
 
   export let type: TextType = TextType.Body;
   export let inputType: InputType = InputType.Text;
-  export let className: string = '';
   export let value: string = '';
   export let placeholder: string = '';
   export let fullWidth: boolean = true;
@@ -14,6 +13,17 @@
   let dynamicWidth: string = 'auto';
 
   const dispatch = createEventDispatcher();
+
+  // Extract specific props from $$restProps
+  const { class: externalClass = '', style: externalStyle = '', ...restProps } = $$restProps;
+
+  const getClasses = () => [
+    externalClass // Add external class here
+  ].join(' ');
+
+  const getStyles = () => [
+    externalStyle // Add external style here
+  ].join(' ');
 
   // Handle input manually instead of using bind:value
   function handleInput(event: Event) {
@@ -47,7 +57,7 @@
   });
 </script>
 
-<Text {type} {className} {...$$restProps}>
+<Text {type} class="{getClasses()}" style="{getStyles()}" {...restProps}>
   <input
     bind:this={inputElement}
     type={inputType}
@@ -58,11 +68,11 @@
     on:input={handleInput}
     on:keydown={handleKeydown}
     style="width: {fullWidth ? '100%' : dynamicWidth};"
+    class="{fullWidth ? 'full-width' : ''}"
   />
 </Text>
 
 <style>
-
   input.full-width {
     width: 100%; /* If fullWidth prop is true, take up full width */
   }

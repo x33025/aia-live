@@ -6,12 +6,12 @@
 </script>
   
 <DropdownMenu id="users-dropdown">
-  <span slot="button" style="background-color: white; padding: 0.5em; border-radius: 0.5em;">
+  <span slot="button" style="background-color: white; padding: 0.5em; border-radius: 0.5em;" class="border-highlight">
     {"Active Users"}
   </span>
 
   {#each $users as user}
-    <Text className="dropdown-item">{user.first_name} {user.last_name}</Text>
+    <Text class="dropdown-item">{user.first_name} {user.last_name}</Text>
   {/each}
 </DropdownMenu>
 

@@ -6,6 +6,17 @@
 
   const dispatch = createEventDispatcher();
 
+  // Extract specific props from $$restProps
+  const { class: externalClass = '', style: externalStyle = '', ...restProps } = $$restProps;
+
+  const getClasses = () => [
+    externalClass // Add external class here
+  ].join(' ');
+
+  const getStyles = () => [
+    externalStyle // Add external style here
+  ].join(' ');
+
   function handleClick() {
     dispatch('click');
   }
@@ -13,7 +24,9 @@
 
 <button 
   type={buttonType} 
+  class="{getClasses()}"
+  style="{getStyles()}"
   on:click={handleClick}
-  {...$$restProps}>
+  {...restProps}>
   <slot></slot>
 </button>

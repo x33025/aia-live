@@ -7,7 +7,7 @@
   </script>
   
   <Stack spacing={0.35} wrap={true}>
-    <Text type={TextType.Callout} className={"description"}><strong>{name}</strong></Text> <!-- Use the label prop here -->
+    <Text type={TextType.Callout} class="description"><strong>{name}</strong></Text> <!-- Use the label prop here -->
    
       <slot />
  

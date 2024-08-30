@@ -16,12 +16,12 @@
 <Label name="Keywords">
   <Stack direction={Direction.Horizontal} spacing={0.5}>
     {#if main_keyword}
-    <Text type={TextType.Callout} className="label" style="color: var(--yellow);" ><b>{main_keyword.keyword}</b></Text>
+    <Text type={TextType.Callout} class="label" style="color: var(--yellow);" ><b>{main_keyword.keyword}</b></Text>
    {/if}
     {#if keywords && keywords.length > 0}
       {#each keywords as keyword}
         {#if keyword.id !== main_keyword?.id}
-          <Text type={TextType.Callout} className="label">{keyword.keyword}</Text>
+          <Text type={TextType.Callout} class="label">{keyword.keyword}</Text>
         {/if}
       {/each}
     {:else}

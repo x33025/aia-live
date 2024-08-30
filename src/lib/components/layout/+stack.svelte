@@ -28,6 +28,7 @@
 <style>
   .stack {
     display: flex;
+    
   }
 
   .wrap-content {

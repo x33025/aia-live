@@ -4,12 +4,13 @@
   import NumericInput from '$lib/components/advanced-input/+numeric-input.svelte';
   import NumericTarget from '$lib/components/advanced-input/+numeric-target.svelte';
   import Stack from '$lib/components/layout/+stack.svelte';
-  import { Direction, type Article, type Category, type Status, type User, toIdentifiableUser, type IdentifiableUser } from '$lib/types';
+  import { Direction, type Article, type Category, type Status, type User, toIdentifiableUser, type IdentifiableUser, Alignment } from '$lib/types';
   import { goto } from '$app/navigation';
   import Button from '$lib/components/actions/+button.svelte';
   import Keywords from './+keywords.svelte';
     import Label from '$lib/components/display/+label.svelte';
     import Spacer from '$lib/components/layout/+spacer.svelte';
+    import MainImage from './+main-image.svelte';
 
   export let article: Article;
   export let categories: Category[];
@@ -60,91 +61,97 @@
   }
 </script>
 
-<Stack spacing={0.5} wrap={true}>
+<Stack  wrap={true} spacing={0.5}>
   <Stack direction={Direction.Horizontal} spacing={0.5}>
-    <TextInput
-      className="article-row-title"
-      value={article.title}
-      on:input={handleTitleChange}
-      placeholder="Title"
-      fullWidth={true}
-    />
-    
-    <!-- Dropdown for selecting writer -->
-    <DropdownMenu 
-      id={`writer-dropdown-${article.id}`}
-      selectedOption={selectedWriter?.id}
-    >
-      <span class="label" slot="button">
-        {selectedWriter ? selectedWriter.name : 'Select a writer'}
-      </span>
-      <svelte:fragment slot="default" let:selectOption>
-        {#each identifiableWriters as writer}
-          <p class="picker-item" on:click={() => { selectOption(writer.id); handleWriterSelect(writer); }}>
-            {writer.name}
-          </p>
-        {/each}
-      </svelte:fragment>
-    </DropdownMenu>
-
-    <!-- Dropdown for selecting category -->
-    <DropdownMenu 
-      id={`category-dropdown-${article.id}`}
-      selectedOption={selectedCategory?.id}
-    >
-      <span class="label" slot="button">
-        {selectedCategory ? selectedCategory.name : 'Select a category'}
-      </span>
-      <svelte:fragment slot="default" let:selectOption>
-        {#each categories as category}
-          <p class="picker-item" on:click={() => { selectOption(category.id); handleCategorySelect(category); }}>
-            {category.name}
-          </p>
-        {/each}
-      </svelte:fragment>
-    </DropdownMenu>
-
-    <!-- Dropdown for selecting status -->
-    <DropdownMenu 
-      id={`status-dropdown-${article.id}`}
-      selectedOption={selectedStatus?.id}
-    >
-      <span class="label width" slot="button">
-        {selectedStatus ? selectedStatus.name : 'Select a status'}
-      </span>
-      <svelte:fragment slot="default" let:selectOption>
-        {#each statuses as status}
-          <p class="picker-item" on:click={() => { selectOption(status.id); handleStatusSelect(status); }}>
-            {status.name}
-          </p>
-        {/each}
-      </svelte:fragment>
-    </DropdownMenu>
-
-    <Button on:click={openArticle} className="open-article-button">Open Article</Button>
-  </Stack>
-
-  <Stack direction={Direction.Horizontal} spacing={0.5}>
-    <Keywords main_keyword={article.expand.main_keyword} keywords={article.expand.keywords}/>
-<Spacer />
-    
-<Label name="Semrush Score">
-  <NumericInput
-      value={article.semrush_score} 
-      on:update={(event) => updateSemrushScore(event.detail.value)}
-    />
-</Label>
+    <MainImage main_image={article.expand.main_image}/>
+  <Stack spacing={0.5}>
+    <Stack direction={Direction.Horizontal} spacing={0.5}>
+      <TextInput
+        class="article-row-title"
+        value={article.title}
+        on:input={handleTitleChange}
+        placeholder="Title"
+        fullWidth={true}
+      />
+      
+      <!-- Dropdown for selecting writer -->
+      <DropdownMenu 
+        id={`writer-dropdown-${article.id}`}
+        selectedOption={selectedWriter?.id}
+      >
+        <span class="label" slot="button">
+          {selectedWriter ? selectedWriter.name : 'Select a writer'}
+        </span>
+        <svelte:fragment slot="default" let:selectOption>
+          {#each identifiableWriters as writer}
+            <p class="picker-item" on:click={() => { selectOption(writer.id); handleWriterSelect(writer); }}>
+              {writer.name}
+            </p>
+          {/each}
+        </svelte:fragment>
+      </DropdownMenu>
   
-    <Label name="Word Count">
-    <NumericTarget
-      target={article.target_word_count} 
-      current={article.word_count} 
-      update={updateTargetWordCount}
-    />
+      <!-- Dropdown for selecting category -->
+      <DropdownMenu 
+        id={`category-dropdown-${article.id}`}
+        selectedOption={selectedCategory?.id}
+      >
+        <span class="label" slot="button">
+          {selectedCategory ? selectedCategory.name : 'Select a category'}
+        </span>
+        <svelte:fragment slot="default" let:selectOption>
+          {#each categories as category}
+            <p class="picker-item" on:click={() => { selectOption(category.id); handleCategorySelect(category); }}>
+              {category.name}
+            </p>
+          {/each}
+        </svelte:fragment>
+      </DropdownMenu>
+  
+      <!-- Dropdown for selecting status -->
+      <DropdownMenu 
+        id={`status-dropdown-${article.id}`}
+        selectedOption={selectedStatus?.id}
+      >
+        <span class="label width" slot="button">
+          {selectedStatus ? selectedStatus.name : 'Select a status'}
+        </span>
+        <svelte:fragment slot="default" let:selectOption>
+          {#each statuses as status}
+            <p class="picker-item" on:click={() => { selectOption(status.id); handleStatusSelect(status); }}>
+              {status.name}
+            </p>
+          {/each}
+        </svelte:fragment>
+      </DropdownMenu>
+  
+      <Button on:click={openArticle} class="open-article-button">Open Article</Button>
+    </Stack>
+  
+    <Stack direction={Direction.Horizontal} spacing={0.5}>
+      
+     
+  <Label name="Semrush Score">
+    <NumericInput
+        value={article.semrush_score} 
+        on:update={(event) => updateSemrushScore(event.detail.value)}
+      />
   </Label>
+    
+      <Label name="Word Count">
+      <NumericTarget
+        target={article.target_word_count} 
+        current={article.word_count} 
+        update={updateTargetWordCount}
+      />
+    </Label>
+    </Stack>
+  
   </Stack>
-
+  </Stack>
+  <Keywords main_keyword={article.expand.main_keyword} keywords={article.expand.keywords}/>
 </Stack>
+
 
 <style>
   :global(.article-row-title) {

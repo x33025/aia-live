@@ -13,12 +13,12 @@
 
 
 <BaseLayout >
-<Stack style="position: relative; padding: 1em;">
-  <Button on:click={handleLoginClick} class="main-login-button">
-    Login
-  </Button>
-  <InteractiveText text="aia"/>
-</Stack>
+  <Stack style="position: relative; padding: 1em;">
+    <Button on:click={handleLoginClick} class="main-login-button">
+      Login
+    </Button>
+    <InteractiveText text="aia"/>
+  </Stack>
 </BaseLayout >
 
 
