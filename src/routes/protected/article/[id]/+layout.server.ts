@@ -15,7 +15,7 @@ export const load: LayoutServerLoad = async ({ params }) => {
 
     // Fetch article by ID from PocketBase collection without expand option
     const article = await pb.collection('articles').getOne(id, {
-          expand: 'keywords,activity,main_image,main_keyword'
+          expand: 'keywords,activity.expand,main_image,main_keyword,notes'
 
     });
 

@@ -30,8 +30,3 @@
   </Stack>
 
 </Label>
- 
-
-<style>
-  
-</style>

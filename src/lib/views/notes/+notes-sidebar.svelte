@@ -1,8 +1,25 @@
-<!-- src/lib/components/AnotherComponent.svelte -->
+<!-- src/lib/components/+notes-sidebar.svelte -->
 <script lang="ts">
-    export let propKey: string;
-</script>
+    import Stack from '$lib/components/layout/+stack.svelte';
+import { Alignment, Direction, type Notes } from '$lib/types'; // Adjust the path as needed
+    import Note from './+note.svelte'; // Adjust the path as needed
+  
+    export let notes: Notes[] = [];
+  </script>
+  
+  <Stack  spacing={1} style="padding: 1em;">
+    {#if notes.length > 0}
+      {#each notes as note (note.id)}
+        <Note {note} />
+      {/each}
+    {:else}
+      <p>No notes available.</p>
+    {/if}
 
-<div>
-    <h2>{propKey}</h2>
-</div>
+        <Stack direction={Direction.Vertical}  alignment={Alignment.End}  style="max-height: 300px;">
+          
+            {"Activity Data"}
+
+
+    </Stack>
+  </Stack>

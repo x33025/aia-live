@@ -16,8 +16,10 @@
 
 <Stack direction={Direction.Horizontal} class="numeric-target" wrap={true} spacing={0.5}>
   <Text type={TextType.Callout}>
+    <Stack direction={Direction.Horizontal} wrap={true} spacing={0.5}>
   <span>{current}</span>
   <span>/</span>
+    </Stack>
 </Text>
   <NumericInput bind:value={target} on:update={handleUpdate} padding={0} />
 </Stack>

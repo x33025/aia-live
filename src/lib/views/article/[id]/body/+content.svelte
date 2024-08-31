@@ -18,17 +18,3 @@
   />
 </Stack>
 
-<style>
-  .editable-content {
-    background-color: white;
-    border-radius: 0.5em;
-    outline: none;
-    padding: 1em;
-    height: 100%;
-    overflow: auto;
-    font-family: 'Noto Serif', serif;
-    line-height: 1.6em;
-    border: 1px solid #ddd;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  }
-</style>

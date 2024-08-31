@@ -4,6 +4,9 @@
   import { editorStore } from './editor/+text-editor'; // Correct store import
   import { onDestroy } from 'svelte';
   import Text from '$lib/components/display/+text.svelte';
+    import Spacer from '$lib/components/layout/+spacer.svelte';
+    import NumericTarget from '$lib/components/advanced-input/+numeric-target.svelte';
+    import { article } from '$lib/stores/+article';
 
   
   let editor;
@@ -27,6 +30,11 @@
       unsubscribe();
     }
   });
+
+
+    function updateTargetWordCount(value: number): void {
+        throw new Error('Function not implemented.');
+    }
 </script>
 
 <Stack direction={Direction.Horizontal} wrap={true} spacing={1}>
@@ -42,6 +50,12 @@
   <button class="label border-highlight" on:click={() => editor?.toggleSmartStyle()}>
     <Text type={TextType.Callout}>Smart Style: {smartStyleEnabled ? 'On' : 'Off'}</Text>
   </button>
+  <Spacer />
+  <NumericTarget
+  target={$article.target_word_count} 
+  current={$article.word_count} 
+  update={updateTargetWordCount}
+/>
 </Stack>
 
 <style>

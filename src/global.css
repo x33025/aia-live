@@ -215,6 +215,14 @@ img {
     font-weight: bold;
   }
 
+  .editable-content img {
+    width: 100%;
+    height: auto; /* Maintain aspect ratio */
+    display: block; /* Remove inline spacing */
+    object-fit: cover; /* Ensure the image covers the container fully */
+    max-width: 100%; /* Ensure the image does not exceed the container's width */
+  }
+  
 
   :root {
     --default-padding: 0.5em 0.7em;

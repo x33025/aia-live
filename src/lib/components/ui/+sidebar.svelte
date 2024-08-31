@@ -22,7 +22,7 @@
     <!-- Optional: If you want to keep the click-to-close functionality, but without a visible backdrop -->
     <div class="sidebar-backdrop" on:click={closeSidebar}></div>
     
-    <div class="sidebar" transition:fly|local={{ x: 1000, duration: 300 }}>
+    <div class="sidebar" transition:fly|local={{ x: 1000, duration: 420 }}>
         <slot />
     </div>
 {/if}
@@ -35,7 +35,7 @@
         left: 0;
         width: 100%;
         height: 100%;
-        z-index: 999;
+        z-index: 500;
         /* No background color, so it will be invisible */
     }
 
@@ -45,10 +45,10 @@
         right: 0;
         width: 25%; /* Set to 1/4th of the screen width */
         height: 100%;
-        z-index: 1000;
+        z-index: 750;
         overflow-y: auto;
         box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
-        backdrop-filter: blur(10px); /* Apply blur only to the sidebar */
-        background-color: rgba(255, 255, 255, 0.6); /* Optional: translucent color */
+        backdrop-filter: blur(0.30em); /* Apply blur only to the sidebar */
+        background-color: rgba(187, 187, 187, 0.061); /* Optional: translucent color */
     }
 </style>
