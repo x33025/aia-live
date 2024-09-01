@@ -11,6 +11,9 @@
     import Label from '$lib/components/display/+label.svelte';
     import Spacer from '$lib/components/layout/+spacer.svelte';
     import MainImage from './+main-image.svelte';
+    import Sidebar from '$lib/components/ui/+sidebar.svelte';
+    import NotesSidebar from '../notes/+notes-sidebar.svelte';
+    import { openSidebar } from '$lib/stores/ui/+sidebar';
 
   export let article: Article;
   export let categories: Category[];
@@ -145,12 +148,14 @@
         update={updateTargetWordCount}
       />
     </Label>
+    <button on:click={openSidebar}>Open Another Sidebar</button>
     </Stack>
   
   </Stack>
   </Stack>
   <Keywords main_keyword={article.expand.main_keyword} keywords={article.expand.keywords}/>
 </Stack>
+
 
 
 <style>

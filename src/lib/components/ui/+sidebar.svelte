@@ -3,10 +3,11 @@
     import { onMount } from 'svelte';
     import { fade, fly } from 'svelte/transition';
 
+    export let SidebarComponent;  // The specific sidebar component to render
+    export let sidebarProps = {}; // Props to pass to the sidebar component
+
     $: visible = $sidebarVisible;
 
-    // Handle body overflow based on sidebar visibility
-    // Run only in the browser
     onMount(() => {
         $: {
             if (visible) {
@@ -19,11 +20,9 @@
 </script>
 
 {#if visible}
-    <!-- Optional: If you want to keep the click-to-close functionality, but without a visible backdrop -->
     <div class="sidebar-backdrop" on:click={closeSidebar}></div>
-    
     <div class="sidebar" transition:fly|local={{ x: 1000, duration: 420 }}>
-        <slot />
+        <svelte:component this={SidebarComponent} {...sidebarProps} />
     </div>
 {/if}
 

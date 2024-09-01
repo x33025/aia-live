@@ -9,6 +9,7 @@
   import Sidebar from '$lib/components/ui/+sidebar.svelte';
   import NotesSidebar from '$lib/views/notes/+notes-sidebar.svelte';
   import { openSidebar } from '$lib/stores/ui/+sidebar';
+    import Spacer from '$lib/components/layout/+spacer.svelte';
 
 
   let unsubscribe: () => void; // To track the unsubscribe function
@@ -30,19 +31,15 @@
     if (unsubscribe) unsubscribe();
   });
 
-  function openAnotherSidebar() {
-        openSidebar();
-    }
 </script>
 
 
  
   <!-- Bind the article's title directly to the Input component -->
-<Stack direction={Direction.Horizontal} alignment={Alignment.Center} spacing={1} style="padding: 1em">
+<Stack direction={Direction.Horizontal} alignment={Alignment.Start} spacing={1} style="padding: 1em">
+<Spacer />
 
-<Stack>
-</Stack>
-  <Stack spacing={1} style="max-width: 700px;">
+  <Stack spacing={1} style="width: 825px;">
   <TextInput
       class="article-title border-highlight"
       bind:value={$article.title}
@@ -57,7 +54,7 @@
     </Stack>
     <Stack>
 
-      <button on:click={openAnotherSidebar}>Open Another Sidebar</button>
+      <button on:click={openSidebar}>Open Another Sidebar</button>
     </Stack>
   </Stack>
 

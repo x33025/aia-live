@@ -13,7 +13,7 @@ export const load: LayoutServerLoad = async ({ locals, url }) => {
  
     // Expand the 'keywords' field to include the full keyword details rather than just IDs
     const articlesResult = await pb.collection('articles').getList(page, PAGE_SIZE, {
-      expand: 'keywords,main_keyword,main_image',
+      expand: 'keywords,main_keyword,main_image,activity_data,notes',
     });
     
     console.log('Fetched Articles with Expanded Data:', JSON.stringify(articlesResult.items, null, 2));
@@ -28,8 +28,8 @@ export const load: LayoutServerLoad = async ({ locals, url }) => {
     const totalArticles = articlesResult.totalItems;
 
     // Stringify the articles for debugging or logging purposes
-    console.log(`FETCH_DATA: Retrieved articles`);
-    console.log(`FETCH_DATA: Total number of articles: ${totalArticles}`);
+    // console.log(`FETCH_DATA: Retrieved articles`);
+    // console.log(`FETCH_DATA: Total number of articles: ${totalArticles}`);
 
     // Return the fetched articles data including expanded keywords
     return {
