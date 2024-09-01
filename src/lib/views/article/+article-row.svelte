@@ -62,6 +62,12 @@
       console.warn('Article ID is missing');
     }
   }
+
+  function openNotesSidebar() {
+    const notes = article.expand.notes || [];  // Default to an empty array if notes are undefined
+    openSidebar(NotesSidebar, { notes });
+}
+
 </script>
 
 <Stack  wrap={true} spacing={0.5}>
@@ -148,7 +154,7 @@
         update={updateTargetWordCount}
       />
     </Label>
-    <button on:click={openSidebar}>Open Another Sidebar</button>
+    <button on:click={openNotesSidebar}>Open Notes Sidebar</button>
     </Stack>
   
   </Stack>

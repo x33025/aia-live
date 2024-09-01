@@ -6,11 +6,10 @@
   import { Alignment, Direction, TextType } from '$lib/types';
   import Body from '$lib/views/article/[id]/body/+content.svelte';
   import { page } from '$app/stores';
-  import Sidebar from '$lib/components/ui/+sidebar.svelte';
   import NotesSidebar from '$lib/views/notes/+notes-sidebar.svelte';
   import { openSidebar } from '$lib/stores/ui/+sidebar';
-    import Spacer from '$lib/components/layout/+spacer.svelte';
-
+  import Spacer from '$lib/components/layout/+spacer.svelte';
+  import type { SvelteComponent } from 'svelte';
 
   let unsubscribe: () => void; // To track the unsubscribe function
 
@@ -31,16 +30,18 @@
     if (unsubscribe) unsubscribe();
   });
 
+  function openNotesSidebar() {
+    // Cast NotesSidebar to typeof SvelteComponent to match the expected type
+    openSidebar(NotesSidebar, { notes: $article.expand.notes });
+  }
 </script>
 
-
- 
-  <!-- Bind the article's title directly to the Input component -->
+<!-- Layout with the open sidebar button -->
 <Stack direction={Direction.Horizontal} alignment={Alignment.Start} spacing={1} style="padding: 1em">
-<Spacer />
+  <Spacer />
 
   <Stack spacing={1} style="width: 825px;">
-  <TextInput
+    <TextInput
       class="article-title border-highlight"
       bind:value={$article.title}
       placeholder="Title"
@@ -49,19 +50,13 @@
     />
     <!-- Pass down the article content to the Body component -->
     <Body content={$article.content} onPublishUpdate={publishUpdate} />
-
-
-    </Stack>
-    <Stack>
-
-      <button on:click={openSidebar}>Open Another Sidebar</button>
-    </Stack>
   </Stack>
 
-
-<Sidebar>
-  <NotesSidebar notes={$article.expand.notes} />
-</Sidebar>
+  <Stack>
+    <!-- Button to open the notes sidebar -->
+    <button on:click={openNotesSidebar}>Open Notes Sidebar</button>
+  </Stack>
+</Stack>
 
 <style>
   :global(.article-title) {

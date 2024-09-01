@@ -8,7 +8,7 @@
     import { page } from '$app/stores';
     import TextInput from '$lib/components/actions/+text-input.svelte';
 
-  const headers = ["Keyword", "Evergreen", "Country", "Volume", "Density"];
+    const headers = ["Keyword", "Evergreen", "Country", "Volume", "Density", "Notes"];
 
   // Function to update a keyword and the local store
   async function updateKeyword(id: string, updatedFields: object) {

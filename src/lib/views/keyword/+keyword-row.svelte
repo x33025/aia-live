@@ -3,6 +3,8 @@
   import DropdownMenu from '$lib/components/actions/+dropdown-menu.svelte';
   import TextInput from '$lib/components/actions/+text-input.svelte';
   import { TextType, type Country, type Keyword } from '$lib/types';
+  import { openSidebar } from '$lib/stores/ui/+sidebar';
+  import NotesSidebar from '../notes/+notes-sidebar.svelte';
  
   export let keyword: Keyword;
   export let countries: Country[] = [];
@@ -33,6 +35,13 @@
     const newEvergreenState = !keyword.evergreen;
     updateKeyword(keyword.id, { evergreen: newEvergreenState });
   }
+
+  function openNotesSidebar() {
+    const notes = keyword.expand.notes || []; // Fallback to an empty array if notes are undefined
+    openSidebar(NotesSidebar, { notes });
+}
+
+
  </script>
  
  <tr>
@@ -79,6 +88,9 @@
        on:update={handleDensityChange}
      />
    </td>
+   <td>
+    <button on:click={openNotesSidebar}>Open Notes</button> <!-- "Open Notes" Button -->
+  </td>
  </tr>
  
  <style>
