@@ -1,5 +1,6 @@
 import type { LayoutServerLoad } from './$types';
 import { pb } from '$lib/config/pocketbase';
+import type { Article } from '$lib/types';
 
 const PAGE_SIZE = 20;
 
@@ -12,7 +13,7 @@ export const load: LayoutServerLoad = async ({ locals, url }) => {
     console.log(`FETCH_DATA: Fetching articles page ${page} with page size ${PAGE_SIZE}`);
  
     // Expand the 'keywords' field to include the full keyword details rather than just IDs
-    const articlesResult = await pb.collection('articles').getList(page, PAGE_SIZE, {
+    const articlesResult = await pb.collection('articles').getList<Article>(page, PAGE_SIZE, {
       expand: 'keywords,main_keyword,main_image,activity_data,notes',
     });
     

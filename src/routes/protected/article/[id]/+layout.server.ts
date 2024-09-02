@@ -1,6 +1,7 @@
 import { error } from '@sveltejs/kit';
 import { pb } from '$lib/config/pocketbase'; // Assuming you've set up PocketBase client instance as `pb`
 import type { LayoutServerLoad } from './$types';
+import type { Article } from '$lib/types';
 
 export const load: LayoutServerLoad = async ({ params }) => {
   const { id } = params;
@@ -14,7 +15,7 @@ export const load: LayoutServerLoad = async ({ params }) => {
     console.log(`ARTICLE: Fetching article with ID: ${id}`);
 
     // Fetch article by ID from PocketBase collection without expand option
-    const article = await pb.collection('articles').getOne(id, {
+    const article = await pb.collection('articles').getOne<Article>(id, {
           expand: 'keywords,activity.expand,main_image,main_keyword,notes'
 
     });

@@ -1,5 +1,6 @@
 import type { LayoutServerLoad } from './$types';
 import { pb } from '$lib/config/pocketbase';
+import type { Keyword } from '$lib/types';
 
 const PAGE_SIZE = 20;
 
@@ -10,7 +11,7 @@ export const load: LayoutServerLoad = async ({ locals, url }) => {
     const page = Number(url.searchParams.get('page')) || 1;  // Start page from 1
     console.log(`FETCH_KEYWORDS: Fetching page ${page} with page size ${PAGE_SIZE}`);
 
-    const result = await pb.collection('keywords').getList(page, PAGE_SIZE, {
+    const result = await pb.collection('keywords').getList<Keyword>(page, PAGE_SIZE, {
       expand: 'activity,country,notes'
     }); // Correct page indexing
     console.log('FETCH_KEYWORDS: Fetch request completed');

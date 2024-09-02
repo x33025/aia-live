@@ -1,6 +1,7 @@
 import type { LayoutServerLoad } from './$types';
 import { pb } from '$lib/config/pocketbase';
 import { redirect } from '@sveltejs/kit';
+import type { Category, Country, Status, User, Website } from '$lib/types';
 
 export const load: LayoutServerLoad = async ({ cookies }) => {
   // Authenticate the user
@@ -32,7 +33,7 @@ export const load: LayoutServerLoad = async ({ cookies }) => {
   }
 
   // Fetch the authenticated user with expanded relations
-  const user = await pb.collection('users').getOne(userId, {
+  const user = await pb.collection('users').getOne<User>(userId, {
     expand: 'role' // Adjust based on your schema
   });
 
@@ -48,14 +49,14 @@ export const load: LayoutServerLoad = async ({ cookies }) => {
 
   // Fetch other necessary data (statuses, categories, countries, websites) with the auth token
   const [statuses, categories, countries, websites] = await Promise.all([
-    pb.collection('statuses').getFullList(200, options),
-    pb.collection('categories').getFullList(200, options),
-    pb.collection('countries').getFullList(200, options),
-    pb.collection('websites').getFullList(200, options)
+    pb.collection('statuses').getFullList<Status>(200, options),
+    pb.collection('categories').getFullList<Category>(200, options),
+    pb.collection('countries').getFullList<Country>(200, options),
+    pb.collection('websites').getFullList<Website>(200, options)
   ]);
 
   // Separate fetching for users with expanded roles
-  const users = await pb.collection('users').getFullList(200, {
+  const users = await pb.collection('users').getFullList<User>(200, {
     ...options,
     expand: 'role' // Expanded roles here
   });

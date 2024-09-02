@@ -9,8 +9,8 @@
 
   async function fetchImages() {
     try {
-      const resultList = await pb.collection('images').getList(page, perPage);
-      images.set(resultList.items as unknown as Image[]);
+      const resultList = await pb.collection('images').getList<Image>(page, perPage);
+      images.set(resultList.items);
     } catch (error) {
       console.error('Error fetching images:', error);
     }
