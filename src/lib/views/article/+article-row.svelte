@@ -10,8 +10,7 @@
   import Keywords from './+keywords.svelte';
     import Label from '$lib/components/display/+label.svelte';
     import Spacer from '$lib/components/layout/+spacer.svelte';
-    import MainImage from './+main-image.svelte';
-    import Sidebar from '$lib/components/ui/+sidebar.svelte';
+    import MainImage from '../images/+main-image.svelte';
     import NotesSidebar from '../notes/+notes-sidebar.svelte';
     import { openSidebar } from '$lib/stores/ui/+sidebar';
 

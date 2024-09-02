@@ -9,7 +9,9 @@
   import NotesSidebar from '$lib/views/notes/+notes-sidebar.svelte';
   import { openSidebar } from '$lib/stores/ui/+sidebar';
   import Spacer from '$lib/components/layout/+spacer.svelte';
-  import type { SvelteComponent } from 'svelte';
+  import { openModal } from '$lib/stores/ui/+modal';
+import ImageGrid from '$lib/views/images/+image-grid.svelte';
+
 
   let unsubscribe: () => void; // To track the unsubscribe function
 
@@ -34,6 +36,11 @@
     // Cast NotesSidebar to typeof SvelteComponent to match the expected type
     openSidebar(NotesSidebar, { notes: $article.expand.notes });
   }
+
+  function openImageModal() {
+    console.log("Opening Image Modal for page: ", 1, "with perPage:", 50);
+    openModal(ImageGrid);
+  }
 </script>
 
 <!-- Layout with the open sidebar button -->
@@ -55,6 +62,7 @@
   <Stack>
     <!-- Button to open the notes sidebar -->
     <button on:click={openNotesSidebar}>Open Notes Sidebar</button>
+    <button on:click={openImageModal}>View Images</button>
   </Stack>
 </Stack>
 

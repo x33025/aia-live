@@ -1,12 +1,15 @@
 <script lang="ts">
-    import { sidebarVisible } from '$lib/stores/ui/+sidebar';
-    import type { ComponentType } from 'svelte';
+    import { sidebarVisible, sidebarContent } from '$lib/stores/ui/+sidebar';
     import { fly } from 'svelte/transition';
 
-    export let SidebarComponent: ComponentType;
-    export let sidebarProps: Record<string, any> = {};
-
+    // Directly use the global store values
     $: visible = $sidebarVisible;
+    $: SidebarComponent = $sidebarContent?.component || null;
+    $: sidebarProps = $sidebarContent?.props || {};
+
+    console.log("SidebarComponent:", SidebarComponent);
+    console.log("sidebarProps:", sidebarProps);
+    console.log("Sidebar visibility status:", visible);
 </script>
 
 {#if visible && SidebarComponent}
@@ -23,7 +26,7 @@
         left: 0;
         width: 100%;
         height: 100%;
-        z-index: 750;
+        z-index: 500;
     }
 
     .sidebar {
@@ -32,7 +35,7 @@
         right: 0;
         width: 25%;
         height: 100%;
-        z-index: 500;
+        z-index: 700;
         overflow-y: auto;
         box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
         backdrop-filter: blur(0.30em);

@@ -4,14 +4,13 @@
   import { onMount } from 'svelte';
   import { users } from '$lib/stores/+users';
   import Users from '$lib/views/user/+users.svelte';
-  import Sidebar from '$lib/components/ui/+sidebar.svelte'; // Updated import
-  import { sidebarContent, sidebarVisible } from '$lib/stores/ui/+sidebar';
+  import Sidebar from '$lib/components/ui/+sidebar.svelte';
+  import Modal from '$lib/components/ui/+modal.svelte';
 
-  $: SidebarComponent = $sidebarContent?.component || null;
-  $: sidebarProps = $sidebarContent?.props || {};
 
+  // Set users on mount
   onMount(() => {
-      users.set($page.data.users);
+    users.set($page.data.users);
   });
 </script>
 
@@ -23,8 +22,10 @@
   <!-- Render the main content -->
   <slot />
 
-  <!-- Render the sidebar only if there is a SidebarComponent -->
-  {#if SidebarComponent}
-    <Sidebar {SidebarComponent} {sidebarProps} />
-  {/if}
+    <Sidebar />
+
+
+
+    <Modal />
+
 </MainLayout>

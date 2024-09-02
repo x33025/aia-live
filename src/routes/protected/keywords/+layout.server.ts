@@ -11,7 +11,7 @@ export const load: LayoutServerLoad = async ({ locals, url }) => {
     console.log(`FETCH_KEYWORDS: Fetching page ${page} with page size ${PAGE_SIZE}`);
 
     const result = await pb.collection('keywords').getList(page, PAGE_SIZE, {
-      expand: 'activity,country'
+      expand: 'activity,country,notes'
     }); // Correct page indexing
     console.log('FETCH_KEYWORDS: Fetch request completed');
 
