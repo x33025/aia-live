@@ -20,8 +20,7 @@
   });
 </script>
 
-<Stack spacing={0.5}>
-
+<Stack spacing={0.5} class="scrollable-stack">
   {#each $articles as article, index (article.id)}
     <ArticleRow 
       {article}
@@ -33,7 +32,6 @@
       <div class="divider"></div>
     {/if}
   {/each}
-
 </Stack>
 
 <style>
@@ -41,5 +39,12 @@
     height: 1px;
     background-color: #ddd;
     margin: 0.5em 0;
+  }
+
+  /* Make the stack scrollable */
+  .scrollable-stack {
+    max-height: 400px; /* Adjust the height as needed */
+    overflow-y: auto;
+    padding-right: 10px; /* Add padding for scrollbar space */
   }
 </style>

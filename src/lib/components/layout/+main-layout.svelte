@@ -17,13 +17,15 @@
 
 <BaseLayout>
 
-  <Stack direction={Direction.Horizontal} wrap={true} style="margin-bottom: 1em;" slot="header">
+  <Stack direction={Direction.Horizontal} wrap={true} style="margin-bottom: 1em; position: relative;" slot="header">
     {#if $title}
       <h1 >{$title}</h1>
     {/if}
 
     <Spacer />
     <slot name="navigation"></slot>
+    <Spacer />
+    <slot name="navigation-trailing"></slot>
   </Stack>
 
   

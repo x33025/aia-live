@@ -96,7 +96,14 @@ export interface Keyword {
 }
 
 // Category interface
-export interface Category extends Identifiable {}
+export interface Category extends Identifiable {
+  subcategories: string[]; // Array of subcategory IDs
+  
+  expand: {
+    subcategories: Category[]; // Expands subcategory IDs into full Category objects
+  };
+
+}
 
 // Country interface
 export interface Country extends Identifiable {}

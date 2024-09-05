@@ -29,11 +29,7 @@
 {#if $images.length > 0}
   {#each $images as image}
     <div class="image-container">
-      {#if image.file}
         <img src={constructImageUrl(image)} alt={image.description || 'No description'} />
-      {:else}
-        <p>No image available</p>
-      {/if}
     </div>
   {/each}
 {:else}

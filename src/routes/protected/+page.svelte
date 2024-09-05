@@ -13,6 +13,7 @@
     <Stack spacing={0.5}>
       <Button class="label " on:click={() => goto('/protected/articles')}>Articles</Button>
       <Button class="label" on:click={() => goto('/protected/keywords')}>Keywords</Button>
+      <Button class="label " on:click={() => goto('/protected/stream')}>Stream</Button>
     </Stack>
 
     <Stack spacing={0.5}>
