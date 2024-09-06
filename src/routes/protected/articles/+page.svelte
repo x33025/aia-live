@@ -20,31 +20,42 @@
   });
 </script>
 
-<Stack spacing={0.5} class="scrollable-stack">
-  {#each $articles as article, index (article.id)}
-    <ArticleRow 
-      {article}
-      categories={$page.data.categories}
-      statuses={$page.data.statuses}
-      writers={filterWriters()}
-    />
-    {#if index < $articles.length - 1}
-      <div class="divider"></div>
-    {/if}
-  {/each}
-</Stack>
+<div class="parent-container">
+  <Stack spacing={0.5} class="scrollable-stack">
+    {#each $articles as article, index (article.id)}
+      <ArticleRow 
+        {article}
+        categories={$page.data.categories}
+        statuses={$page.data.statuses}
+        writers={filterWriters()}
+      />
+      {#if index < $articles.length - 1}
+        <div class="divider"></div>
+      {/if}
+    {/each}
+  </Stack>
+</div>
 
 <style>
+  /* Ensure the parent uses flexbox to control child sizes */
+  .parent-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%; /* Ensure it takes up all available height */
+  }
+
+  /* Divider style */
   .divider {
     height: 1px;
     background-color: #ddd;
     margin: 0.5em 0;
   }
 
-  /* Make the stack scrollable */
-  .scrollable-stack {
-    max-height: 400px; /* Adjust the height as needed */
-    overflow-y: auto;
-    padding-right: 10px; /* Add padding for scrollbar space */
+  /* Make the stack scrollable and fit into the parent */
+  :global(.scrollable-stack) {
+    flex-grow: 1; /* Grow to fill available space */
+    overflow-y: auto; /* Enable scrolling */
+    padding: 0; /* Ignore parent paddings */
+    margin: 0;
   }
 </style>

@@ -15,13 +15,14 @@
     }
   </script>
   
-  <Stack spacing={1}>
+  <Stack spacing={1} wrap={true}   style="background-color: var(--gray-1); padding: 0.55em 0.75em; border-radius: 0.5em;">
     <TextInput 
       value={value} 
       placeholder={placeholder} 
       fullWidth={fullWidth} 
       type={type} 
       on:input={handleSearchInput}
+    
     />
   </Stack>
   
