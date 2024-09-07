@@ -4,18 +4,23 @@
   import { onMount } from 'svelte';
   import { users } from '$lib/stores/+users';
   import Users from '$lib/views/user/+users.svelte';
+    import { derived } from 'svelte/store';
 
 
   // Set users on mount
   onMount(() => {
     users.set($page.data.users);
   });
+
+  const title = derived(page, $page => $page.data.title);
 </script>
 
 <MainLayout>
-  <span slot="navigation">
+
+
+  <svelte:fragment slot="navigation-trailing">
       <Users />
-  </span>
+</svelte:fragment>
 
   <!-- Render the main content -->
   <slot />

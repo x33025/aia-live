@@ -1,12 +1,19 @@
 <script lang="ts">
-
     import Stack from "$lib/components/layout/+stack.svelte";
+    import { news as newsStore } from "$lib/stores/+news"; // Import the news store
+    import type { News } from "$lib/types"; // Import your News type
+    import NewsArticle from "./news-article/+news-article.svelte";
+
+    export let newsItems: News[] = [];
+
+    // Subscribe to the news store
+    newsStore.subscribe(value => {
+        newsItems = value;
+    });
 </script>
 
-
-<Stack class="border-highlight" style="border-radius: 0.5em; box-shadow: 8px rgba(0, 0, 0, 0.1);">
-
-
-
-    
+<Stack spacing={1}>
+    {#each newsItems as newsItem}
+         <NewsArticle news={newsItem}/>
+    {/each}
 </Stack>

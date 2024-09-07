@@ -56,7 +56,7 @@ import ImageGrid from '$lib/views/images/+image-grid.svelte';
       type={TextType.Headline}
     />
     <!-- Pass down the article content to the Body component -->
-    <Body content={$article.content} onPublishUpdate={publishUpdate} />
+   
   </Stack>
 
   <Stack>

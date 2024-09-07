@@ -10,7 +10,7 @@
 
 
 <MainLayout>
-<Stack direction={Direction.Horizontal} wrap={true} slot="navigation">
+<Stack direction={Direction.Horizontal} wrap={true} slot="navigation-trailing">
 <StreamControl />
 
 </Stack>

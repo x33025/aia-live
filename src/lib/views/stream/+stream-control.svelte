@@ -1,57 +1,44 @@
 <script lang="ts">
-    let isStreaming: boolean = false;
+    import Stack from "$lib/components/layout/+stack.svelte";
+    import { Direction } from "$lib/types";
+    import { timer, startTimer, stopTimer } from "$lib/stores/logic/+timer"; // Import timer store and functions
+    import { onDestroy } from "svelte";
+
     let elapsedTime: number = 0;
-    let intervalId: NodeJS.Timeout | null = null;
-  
+    let isStreaming: boolean = false;
+
+    // Subscribe to the timer store to update values
+    const unsubscribe = timer.subscribe(value => {
+        elapsedTime = value.elapsedTime;
+        isStreaming = value.isStreaming;
+    });
+
     function toggleStream(): void {
-      isStreaming = !isStreaming;
-      
-      if (isStreaming) {
-        startTimer();
-      } else {
-        stopTimer();
-      }
+        if (!isStreaming) {
+            startTimer(); // Start the timer
+        } else {
+            stopTimer(); // Stop the timer
+        }
     }
-  
-    function startTimer(): void {
-      elapsedTime = 0; // Reset timer when stream starts
-      intervalId = setInterval(() => {
-        elapsedTime += 1; // Increment by 1 second
-      }, 1000);
-    }
-  
-    function stopTimer(): void {
-      if (intervalId) {
-        clearInterval(intervalId); // Clear the interval when the stream is paused
-        intervalId = null;
-      }
-    }
-  </script>
-  
-  <style>
-    .timer-view {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
-    }
-  
-    .timer-display {
-      font-size: 24px;
-      font-weight: bold;
-    }
-  
+
+    // Clean up subscription on destroy to avoid memory leaks
+    onDestroy(() => {
+        unsubscribe();
+        stopTimer(); // Ensure timer is stopped when component is destroyed
+    });
+</script>
+
+<style>
     button {
-      padding: 10px 20px;
-      font-size: 16px;
-      cursor: pointer;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
     }
-  </style>
-  
-  <div class="timer-view">
-    <div class="timer-display">{elapsedTime} seconds</div>
+</style>
+
+<Stack direction={Direction.Horizontal}>
+    <div class="timer-display">{elapsedTime}s</div>
     <button on:click={toggleStream}>
-      {isStreaming ? 'Pause' : 'Start'}
+        {isStreaming ? 'Pause' : 'Start'}
     </button>
-  </div>
-  
+</Stack>

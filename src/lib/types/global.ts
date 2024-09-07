@@ -143,9 +143,9 @@ export interface News {
   notes: string[];
   activity: string; // ID as string, required
 
-  expand: {
-    activity: ActivityData;
-    notes: Notes[];
+  expand?: {
+    activity?: ActivityData;
+    notes?: Notes[];
   };
 }
 
