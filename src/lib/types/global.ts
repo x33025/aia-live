@@ -29,10 +29,10 @@ export interface ActivityData {
   created_by: string; // ID as string, required
   updated_by: string | null; // ID as string, optional
 
-  expand: {
-    deleted_by: User | null; // Expanded deleted_by user
-    created_by: User; // Expanded created_by user
-    updated_by: User | null; // Expanded updated_by user
+  expand?: {
+    deleted_by?: User | null; // Expanded deleted_by user
+    created_by?: User; // Expanded created_by user
+    updated_by?: User | null; // Expanded updated_by user
   };
 }
 

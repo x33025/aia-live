@@ -1,11 +1,11 @@
 <script lang="ts">
     import Stack from "$lib/components/layout/+stack.svelte";
     import { Direction } from "$lib/types";
-    import { timer, startTimer, stopTimer } from "$lib/stores/logic/+timer"; // Import timer store and functions
-    import { onDestroy } from "svelte";
+    import { timer, startTimer, stopTimer } from "$lib/stores/logic/+timer";
+    import { onDestroy } from 'svelte';
 
-    let elapsedTime: number = 0;
-    let isStreaming: boolean = false;
+    let elapsedTime = 0;
+    let isStreaming = false;
 
     // Subscribe to the timer store to update values
     const unsubscribe = timer.subscribe(value => {

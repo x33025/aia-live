@@ -13,7 +13,11 @@
 </script>
 
 <Stack spacing={1}>
-    {#each newsItems as newsItem}
-         <NewsArticle news={newsItem}/>
-    {/each}
+    {#if newsItems.length === 0}
+        <p>No news available</p>
+    {:else}
+        {#each newsItems as newsItem}
+            <NewsArticle news={newsItem}/>
+        {/each}
+    {/if}
 </Stack>

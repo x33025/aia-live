@@ -8,7 +8,7 @@ export const timer = writable({
 
 let intervalId: NodeJS.Timeout | null = null;
 
-// Function to start the timer and return the interval ID
+// Function to start the timer
 export function startTimer() {
     if (!intervalId) {
         timer.update(t => {
@@ -19,20 +19,20 @@ export function startTimer() {
 
         intervalId = setInterval(() => {
             timer.update(t => {
-                t.elapsedTime += 1;
+                t.elapsedTime += 1; // Increment the elapsed time every second
                 return t;
             });
-        }, 1000);
+        }, 1000); // Run every 1 second
     }
 }
 
-// Function to stop the timer and clear the interval
+// Function to stop the timer
 export function stopTimer() {
     if (intervalId) {
         clearInterval(intervalId);
         intervalId = null;
         timer.update(t => {
-            t.isStreaming = false;
+            t.isStreaming = false; // Stop streaming
             return t;
         });
     }
@@ -41,8 +41,8 @@ export function stopTimer() {
 // Optional: A function to reset the timer state if needed
 export function resetTimer() {
     timer.update(t => {
-        t.elapsedTime = 0;
-        t.isStreaming = false;
+        t.elapsedTime = 0; // Reset elapsed time
+        t.isStreaming = false; // Stop streaming
         return t;
     });
 }
