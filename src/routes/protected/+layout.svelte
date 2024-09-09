@@ -19,6 +19,8 @@
 
 
   <svelte:fragment slot="navigation-trailing">
+
+  {$page.data.user.avatar}
       <Users />
 </svelte:fragment>
 

@@ -47,15 +47,10 @@ export const load: LayoutServerLoad = async ({ cookies }) => {
     }
   };
 
-  // Fetch categories with expanded subcategories (down to 3 levels)
-  const categories = await pb.collection('categories').getFullList<Category>(200, {
-    ...options,
-    expand: 'subcategories.subcategories.subcategories' // Expanding 3 levels of subcategories
-  });
-
-  // Fetch other necessary data (statuses, countries, websites) with the auth token
-  const [statuses, countries, websites] = await Promise.all([
+  // Fetch other necessary data (statuses, categories, countries, websites) with the auth token
+  const [statuses, categories, countries, websites] = await Promise.all([
     pb.collection('statuses').getFullList<Status>(200, options),
+    pb.collection('categories').getFullList<Category>(200, options),
     pb.collection('countries').getFullList<Country>(200, options),
     pb.collection('websites').getFullList<Website>(200, options)
   ]);
@@ -66,12 +61,12 @@ export const load: LayoutServerLoad = async ({ cookies }) => {
     expand: 'role' // Expanded roles here
   });
 
-  console.log(`PROTECTED: All additional data fetched successfully. Users: ${JSON.stringify(users, null, 2)}`);
+  //console.log(`PROTECTED: All additional data fetched successfully. Users: ${JSON.stringify(users, null, 2)}`);
 
   return {
     user,
     statuses,
-    categories, // Now includes expanded subcategories down 3 levels
+    categories,
     countries,
     websites,
     users,

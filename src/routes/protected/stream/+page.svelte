@@ -5,15 +5,25 @@
     import NewsStream from "$lib/views/stream/+news-stream.svelte";
     import { timer } from "$lib/stores/logic/+timer";
     import { news } from "$lib/stores/+news"; // News store
+    import { page } from '$app/stores'; // To access the user from $page.data.user
     import { onMount, onDestroy } from 'svelte';
+    import { get } from 'svelte/store';
 
     let elapsedTime = 0;
     let isFetching = false; // Prevent multiple fetches simultaneously
+    let user = get(page).data.user; // Retrieve user from $page.data
 
     // Function to fetch and process streaming news
     async function fetchBingNews() {
         try {
-            const response = await fetch(`/protected/stream?q=Latest%20News`);
+            const response = await fetch(`/protected/stream?q=Latest%20News`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${user?.id}` // Pass the user ID in the Authorization header
+                }
+            });
+
             console.log('API Response:', response); // Log the raw response
 
             if (!response.ok) {
@@ -104,12 +114,10 @@
     });
 </script>
 
-<Stack direction={Direction.Horizontal} alignment={Alignment.Start} spacing={1}>
-    <Spacer />
+<Stack direction={Direction.Horizontal} wrap={true}  alignment={Alignment.Center} spacing={1}>
   
-    <Stack spacing={1} style="width: 1200px;">
+  
+    <Stack spacing={1}  style="max-width: 800px;">
         <NewsStream />
     </Stack>
-    
-    <Spacer />
 </Stack>

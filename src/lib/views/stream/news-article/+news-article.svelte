@@ -9,11 +9,11 @@ import Stack from "$lib/components/layout/+stack.svelte";
 </script>
 
 
-<Stack direction={Direction.Horizontal} wrap={true} class="border-highlight" style="border-radius: 0.5em; box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);">
+<Stack direction={Direction.Horizontal} wrap={true} style="border-radius: 0.8em; box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1); border: 1px solid var(--gray-2);">
 
 
  
-        <Text type={TextType.Headline} style="padding: 0.75em">{news.url}</Text>
+        <Text type={TextType.Headline} style="padding: 0.75em">{news.title}</Text>
     
 
     
