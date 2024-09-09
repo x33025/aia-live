@@ -1,6 +1,6 @@
 <script lang="ts">
   import { article } from '$lib/stores/+article';
-  import { onDestroy } from 'svelte';
+  import { onMount, onDestroy } from 'svelte';
   import TextInput from '$lib/components/actions/+text-input.svelte';
   import Stack from '$lib/components/layout/+stack.svelte';
   import { Alignment, Direction, TextType } from '$lib/types';
@@ -10,8 +10,7 @@
   import { openSidebar } from '$lib/stores/ui/+sidebar';
   import Spacer from '$lib/components/layout/+spacer.svelte';
   import { openModal } from '$lib/stores/ui/+modal';
-import ImageGrid from '$lib/views/images/+image-grid.svelte';
-
+  import ImageGrid from '$lib/views/images/+image-grid.svelte';
 
   let unsubscribe: () => void; // To track the unsubscribe function
 
@@ -20,11 +19,13 @@ import ImageGrid from '$lib/views/images/+image-grid.svelte';
     console.log("Publishing update:", updatedContent);
   }
 
-  // Subscribe to $page data and set the article store when it changes
-  unsubscribe = page.subscribe(($page) => {
-    if ($page.data.article) {
-      article.set($page.data.article); // Set article from $page.data
-    }
+  // Subscribe to $page data when the component mounts
+  onMount(() => {
+    unsubscribe = page.subscribe(($page) => {
+      if ($page.data.article) {
+        article.set($page.data.article); // Set article from $page.data
+      }
+    });
   });
 
   // Cleanup subscription when the component is destroyed
@@ -56,7 +57,6 @@ import ImageGrid from '$lib/views/images/+image-grid.svelte';
       type={TextType.Headline}
     />
     <!-- Pass down the article content to the Body component -->
-   
   </Stack>
 
   <Stack>

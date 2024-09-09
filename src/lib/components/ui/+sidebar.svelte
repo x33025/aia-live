@@ -39,6 +39,7 @@
         overflow-y: auto;
         box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
         backdrop-filter: blur(0.30em);
-        background-color: rgba(187, 187, 187, 0.061);
+        background-color: rgba(145, 145, 145, 0.127);
+       
     }
 </style>

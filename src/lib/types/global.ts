@@ -14,8 +14,8 @@ export interface User {
   role: string | null; // Role ID, optional
   last_active: Date | null;
 
-  expand: {
-    role: Role;
+  expand?: {
+    role?: Role | null;
   };
 }
 
@@ -137,6 +137,7 @@ export interface News {
   id: string;
   url: string;
   title: string;
+  description: string;
   content: string | null; // Optional
   rewritten_title: string | null; // Optional
   rewritten_content: string | null; // Optional

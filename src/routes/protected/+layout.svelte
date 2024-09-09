@@ -5,6 +5,9 @@
   import { users } from '$lib/stores/+users';
   import Users from '$lib/views/user/+users.svelte';
     import { derived } from 'svelte/store';
+    import ProfileMenu from '$lib/views/user/+profile-menu.svelte';
+    import Stack from '$lib/components/layout/+stack.svelte';
+    import { Direction } from '$lib/types';
 
 
   // Set users on mount
@@ -18,10 +21,14 @@
 <MainLayout>
 
 
-  <svelte:fragment slot="navigation-trailing">
+  <svelte:fragment slot="navigation-trailing" >
+<Stack direction={Direction.Horizontal} wrap={true} spacing={1}>
 
-  {$page.data.user.avatar}
-      <Users />
+  <Users />
+  <ProfileMenu  />
+</Stack>
+  
+  
 </svelte:fragment>
 
   <!-- Render the main content -->

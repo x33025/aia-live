@@ -49,12 +49,12 @@ color: var(--blue);
 </svelte:head>
 
 <BaseLayout>
-  <Stack direction={Direction.Horizontal} wrap={true} style="margin-bottom: 0.5em; position: relative;" slot="header">
+  <Stack direction={Direction.Horizontal} wrap={true} style="margin-bottom: 0.9em; position: relative;" slot="header">
     
     <!-- Leading Navigation -->
     <slot name="navigation-leading">
       {#if $title}
-        <Stack direction={Direction.Horizontal} wrap={true} spacing={0.5} align="center" class="navigation-container">
+        <Stack direction={Direction.Horizontal} wrap={true} spacing={0.5}  class="navigation-container">
           <span class="title-wrapper">
             <h1>{$title}</h1>
             <h1 class="back-button" on:click={goBack}>Back</h1>

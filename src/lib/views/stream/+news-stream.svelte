@@ -1,6 +1,6 @@
 <script lang="ts">
     import Text from "$lib/components/display/+text.svelte";
-import Stack from "$lib/components/layout/+stack.svelte";
+    import Stack from "$lib/components/layout/+stack.svelte";
     import { news as newsStore } from "$lib/stores/+news"; // Import the news store
     import { TextType, type News } from "$lib/types"; // Import your News type
     import NewsArticle from "./news-article/+news-article.svelte";
@@ -13,15 +13,23 @@ import Stack from "$lib/components/layout/+stack.svelte";
     });
 </script>
 
-<Stack spacing={1}>
-    {#if newsItems.length === 0}
-    <Text type={TextType.Subheadline} style="color: var(--gray-5); font-weight: bold;">No News Available</Text>
-    {:else}
+<style>
+    :global(.scrollable-container) {
+     
+        overflow-y: auto;
+    }
+</style>
 
-    <Text type={TextType.Subheadline} style="color: var(--gray-5); font-weight: bold;">News Streaming</Text>
-         
-        {#each newsItems as newsItem}
-            <NewsArticle news={newsItem}/>
-        {/each}
+<Stack class="scrollable-container" spacing={1}>
+    {#if newsItems.length === 0}
+        <Text type={TextType.Subheadline} style="color: var(--gray-5); font-weight: bold;">No News Available</Text>
+    {:else}
+        <Text type={TextType.Subheadline} style="color: var(--gray-5); font-weight: bold;">News Streaming</Text>
+
+       
+            {#each newsItems as newsItem}
+                <NewsArticle news={newsItem}/>
+            {/each}
+     
     {/if}
 </Stack>

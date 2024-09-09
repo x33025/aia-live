@@ -1,30 +1,22 @@
 <script lang="ts">
-    import Spacer from "$lib/components/layout/+spacer.svelte";
     import Stack from "$lib/components/layout/+stack.svelte";
-    import { Alignment, Direction } from "$lib/types";
-    import NewsStream from "$lib/views/stream/+news-stream.svelte";
-    import { timer } from "$lib/stores/logic/+timer";
     import { news } from "$lib/stores/+news"; // News store
-    import { page } from '$app/stores'; // To access the user from $page.data.user
-    import { onMount, onDestroy } from 'svelte';
-    import { get } from 'svelte/store';
-
-    let elapsedTime = 0;
-    let isFetching = false; // Prevent multiple fetches simultaneously
-    let user = get(page).data.user; // Retrieve user from $page.data
+    import { Alignment, Direction, TextType, type News } from '$lib/types';
+    import SearchBar from "$lib/views/search/+search-bar.svelte";
+    import NewsStream from "$lib/views/stream/+news-stream.svelte";
+    
+    let isFetching = false; // Flag to prevent multiple fetches at the same time
 
     // Function to fetch and process streaming news
-    async function fetchBingNews() {
+    async function getNews() {
         try {
+            isFetching = true; // Indicate that the fetch is in progress
             const response = await fetch(`/protected/stream?q=Latest%20News`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${user?.id}` // Pass the user ID in the Authorization header
                 }
             });
-
-            console.log('API Response:', response); // Log the raw response
 
             if (!response.ok) {
                 throw new Error('Failed to fetch news');
@@ -33,11 +25,10 @@
             const reader = response.body?.getReader();
             if (!reader) {
                 console.error('No readable stream available');
-                return [];
+                return;
             }
 
             const decoder = new TextDecoder();
-            let newsItems: any[] = [];
             let buffer = '';
 
             while (true) {
@@ -53,7 +44,12 @@
                     try {
                         const parsedChunk = JSON.parse(parts[i]);
                         if (parsedChunk.news) {
-                            newsItems.push(parsedChunk.news);
+                            const newsItem: News = parsedChunk.news;
+
+                            // Update the news store with each new news item
+                            news.update(items => [...items, newsItem]);
+
+                            // Also handle other actions like updating local state if needed
                         }
                     } catch (error) {
                         console.error('Error parsing JSON chunk:', error);
@@ -61,63 +57,32 @@
                 }
                 buffer = parts[parts.length - 1]; // Keep the remainder in the buffer
             }
-
-            return newsItems;
         } catch (error) {
             console.error('Error fetching or processing news stream:', error);
-            return [];
+        } finally {
+            isFetching = false; // Reset fetching flag
         }
     }
 
-    async function createNewsInterface() {
-        // Prevent multiple simultaneous fetches
-        if (isFetching) return;
-        isFetching = true;
-
-        // Fetch news articles from the backend API
-        const fetchedNews = await fetchBingNews();
-
-        // Log the fetched news
-        console.log('Fetched news:', fetchedNews);
-
-        // Update the news store with fetched articles
-        if (Array.isArray(fetchedNews) && fetchedNews.length > 0) {
-            news.update(items => [...items, ...fetchedNews]);
+    // Trigger the fetch when the user clicks the button
+    async function handleFetchNews() {
+        if (!isFetching) {
+            await getNews();
         }
-
-        console.log('News interface updated with new articles');
-        isFetching = false; // Reset the flag after fetch is complete
     }
-
-    // Set up news fetching logic on mount
-    onMount(() => {
-        createNewsInterface(); // Initial fetch
-
-        // Subscribe to the news store and log its content whenever it updates
-        const unsubscribeNews = news.subscribe((newsItems) => {
-            console.log('News store updated:', newsItems);
-        });
-
-        // Subscribe to the timer store and trigger fetch every 5 minutes
-        const unsubscribeTimer = timer.subscribe(value => {
-            elapsedTime = value.elapsedTime;
-            if (elapsedTime % 300 === 0 && elapsedTime > 0 && !isFetching) {
-                createNewsInterface(); // Fetch news every 5 minutes
-            }
-        });
-
-        // Cleanup on destroy
-        onDestroy(() => {
-            unsubscribeNews(); // Unsubscribe from the news store
-            unsubscribeTimer(); // Unsubscribe from the timer store
-        });
-    });
 </script>
 
-<Stack direction={Direction.Horizontal} wrap={true}  alignment={Alignment.Center} spacing={1}>
-  
-  
-    <Stack spacing={1}  style="max-width: 800px;">
+<!-- UI -->
+<Stack direction={Direction.Horizontal} alignment={Alignment.Center} >
+
+    <Stack direction={Direction.Vertical} style="max-width: 550px;" spacing={1}>
+        <button on:click={handleFetchNews} disabled={isFetching}>
+            {isFetching ? 'Fetching...' : 'Fetch News'}
+        </button>
+    <SearchBar type={TextType.Headline} />
+        <!-- Displaying the streamed news -->
         <NewsStream />
     </Stack>
+
+
 </Stack>
