@@ -79,7 +79,7 @@
         <button on:click={handleFetchNews} disabled={isFetching}>
             {isFetching ? 'Fetching...' : 'Fetch News'}
         </button>
-    <SearchBar type={TextType.Headline} />
+        <SearchBar type={TextType.Headline} onSearch={(value) => console.log(value)} />
         <!-- Displaying the streamed news -->
         <NewsStream />
     </Stack>

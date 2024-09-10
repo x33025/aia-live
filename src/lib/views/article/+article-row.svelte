@@ -92,11 +92,11 @@
             {selectedWriter ? selectedWriter.name : 'Select a writer'}
           </span>
           <svelte:fragment slot="default" let:selectOption>
-            {#each identifiableWriters as writer}
+            <!-- {#each identifiableWriters as writer}
               <p class="picker-item" on:click={() => { selectOption(writer.id); handleWriterSelect(writer); }}>
                 {writer.name}
               </p>
-            {/each}
+            {/each} -->
           </svelte:fragment>
         </DropdownMenu>
     

@@ -29,8 +29,7 @@ export const load: LayoutServerLoad = async ({ params }) => {
     console.log('ARTICLE: Returning article to the page:', { article, title: null });
 
     return {
-      article,
-      title: null // Title is handled by higher layout
+      article
     };
   } catch (err) {
     console.error(`ARTICLE: Error fetching article with ID: ${id} - ${err}`);

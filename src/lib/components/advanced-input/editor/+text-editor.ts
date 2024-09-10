@@ -1,4 +1,4 @@
 import { writable } from 'svelte/store';
-import { Editor } from '../editor';
+import { Editor } from '.';
 
 export const editorStore = writable<Editor | null>(null);

@@ -45,18 +45,24 @@
 </script>
 
 <!-- Layout with the open sidebar button -->
-<Stack direction={Direction.Horizontal} alignment={Alignment.Start} spacing={1} style="padding: 1em">
+<Stack direction={Direction.Horizontal} alignment={Alignment.Start} spacing={1} style="padding: 1em;">
   <Spacer />
 
   <Stack spacing={1} style="width: 825px;">
-    <TextInput
-      class="article-title border-highlight"
-      bind:value={$article.title}
-      placeholder="Title"
-      fullWidth={true}
-      type={TextType.Headline}
-    />
-    <!-- Pass down the article content to the Body component -->
+    {#if $article}
+      <TextInput
+        class="article-title border-highlight"
+        value={$article.title}
+        placeholder="Title"
+        fullWidth={true}
+        type={TextType.Headline}
+      />
+      <Body 
+        content={$article.content} 
+        onPublishUpdate={publishUpdate} 
+        onSelectionChange={(selection) => console.log("Selection changed:", selection)} 
+      />
+    {/if}
   </Stack>
 
   <Stack>

@@ -1,7 +1,7 @@
 <script lang="ts">
   import Stack from '$lib/components/layout/+stack.svelte';
   import { Direction, TextType } from '$lib/types';
-  import { editorStore } from './editor/+text-editor'; // Correct store import
+  import { editorStore } from '$lib/components/advanced-input/editor/+text-editor'; // Correct store import
   import { onDestroy } from 'svelte';
   import Text from '$lib/components/display/+text.svelte';
     import Spacer from '$lib/components/layout/+spacer.svelte';
