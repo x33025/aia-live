@@ -11,6 +11,7 @@
   import Spacer from '$lib/components/layout/+spacer.svelte';
   import { openModal } from '$lib/stores/ui/+modal';
   import ImageGrid from '$lib/views/images/+image-grid.svelte';
+  import DataView from '$lib/views/article/[id]/data/+data-view.svelte';
 
   let unsubscribe: () => void; // To track the unsubscribe function
 
@@ -34,9 +35,12 @@
   });
 
   function openNotesSidebar() {
-    // Cast NotesSidebar to typeof SvelteComponent to match the expected type
+  if ($article?.expand?.notes) {
     openSidebar(NotesSidebar, { notes: $article.expand.notes });
+  } else {
+    console.error("Notes are not available.");
   }
+}
 
   function openImageModal() {
     console.log("Opening Image Modal for page: ", 1, "with perPage:", 50);
@@ -46,7 +50,13 @@
 
 <!-- Layout with the open sidebar button -->
 <Stack direction={Direction.Horizontal} alignment={Alignment.Start} spacing={1} style="padding: 1em;">
-  <Spacer />
+  <Stack >
+<DataView>
+
+
+</DataView>
+    
+  </Stack>
 
   <Stack spacing={1} style="width: 825px;">
     {#if $article}

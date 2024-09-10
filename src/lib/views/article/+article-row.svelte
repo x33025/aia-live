@@ -8,7 +8,7 @@
   import { Direction, type Article, type Category, type Status, type User, toIdentifiableUser, type IdentifiableUser, Alignment } from '$lib/types';
   import { goto } from '$app/navigation';
   import Button from '$lib/components/actions/+button.svelte';
-  import Keywords from './+keywords.svelte';
+  import Keywords from '../keyword/+keywords.svelte';
   import Label from '$lib/components/display/+label.svelte';
   import Spacer from '$lib/components/layout/+spacer.svelte';
   import MainImage from '../images/+main-image.svelte';

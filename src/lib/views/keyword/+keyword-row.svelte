@@ -37,10 +37,9 @@
   }
 
   function openNotesSidebar() {
-    const notes = keyword.expand.notes || []; // Fallback to an empty array if notes are undefined
+    const notes = keyword.expand?.notes || []; // Fallback to an empty array if notes are undefined
     openSidebar(NotesSidebar, { notes });
-}
-
+  }
 
  </script>
  

@@ -54,14 +54,16 @@ export interface Article {
   keywords: string[]; // Array of keyword IDs
   main_keyword: string | null; // ID of the main keyword
   notes: string[];
+  raw_data: string[]
 
-  expand: {
-    activity: ActivityData;
-    notes: Notes[];
-    keywords: Keyword[]; // Expanded keyword objects
-    main_keyword: Keyword | null; // Expanded main keyword object
-    main_image: Image | null; // Expanded main image object
-    category: Category | null; // Expanded category object
+  expand?: {
+    activity?: ActivityData;
+    notes?: Notes[];
+    keywords?: Keyword[]; // Expanded keyword objects
+    main_keyword?: Keyword | null; // Expanded main keyword object
+    main_image?: Image | null; // Expanded main image object
+    category?: Category | null; // Expanded category object
+    raw_data?: RawData[]; // Expanded raw data objects
   };
 }
 
@@ -76,9 +78,9 @@ export interface Keyword {
   country: string | null; // ID as string, optional
   notes: string[];
 
-  expand: {
-    activity: ActivityData;
-    notes: Notes[];
+  expand?: {
+    activity?: ActivityData;
+    notes?: Notes[];
   };
 }
 
@@ -86,8 +88,8 @@ export interface Keyword {
 export interface Category extends Identifiable {
   subcategories: string[]; // Array of subcategory IDs
 
-  expand: {
-    subcategories: Category[]; // Expanded subcategory objects
+  expand?: {
+    subcategories?: Category[]; // Expanded subcategory objects
   };
 }
 
@@ -113,9 +115,9 @@ export interface Image {
   activity: string; // ID as string, required
   notes: string[];
 
-  expand: {
-    activity: ActivityData;
-    notes: Notes[];
+  expand?: {
+    activity?: ActivityData;
+    notes?: Notes[];
   };
 }
 
@@ -125,8 +127,8 @@ export interface Notes {
   content: string; // Editor field
   activity: string; // ID as string, required
 
-  expand: {
-    activity: ActivityData;
+  expand?: {
+    activity?: ActivityData;
   };
 }
 
@@ -156,8 +158,8 @@ export interface Prompts {
   prompt: string; // Optional field
   activity: string; // ID as string, required
 
-  expand: {
-    activity: ActivityData;
+  expand?: {
+    activity?: ActivityData;
   };
 }
 
@@ -170,9 +172,9 @@ export interface RawData {
   activity: string; // ID as string, required
   notes: string[];
 
-  expand: {
-    activity: ActivityData;
-    notes: Notes[];
+  expand?: {
+    activity?: ActivityData;
+    notes?: Notes[];
   };
 }
 
