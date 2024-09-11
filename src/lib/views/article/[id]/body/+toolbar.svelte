@@ -1,12 +1,12 @@
 <script lang="ts">
   import Stack from '$lib/components/layout/+stack.svelte';
   import { Direction, TextType } from '$lib/types';
-  import { editorStore } from '$lib/components/advanced-input/editor/+text-editor'; // Correct store import
+  import { editorStore } from '$lib/components/advanced-input/editor/+store'; // Correct store import
   import { onDestroy } from 'svelte';
   import Text from '$lib/components/display/+text.svelte';
-    import Spacer from '$lib/components/layout/+spacer.svelte';
-    import NumericTarget from '$lib/components/advanced-input/+numeric-target.svelte';
-    import { article } from '$lib/stores/+article';
+  import Spacer from '$lib/components/layout/+spacer.svelte';
+  import NumericTarget from '$lib/components/advanced-input/+numeric-target.svelte';
+  import { article } from '$lib/stores/+article';
 
   
   let editor;
@@ -38,13 +38,13 @@
 </script>
 
 <Stack direction={Direction.Horizontal} wrap={true} spacing={1}>
-  <button class="label border-highlight" on:click={() => editor?.toggleBold()}>
+  <button class="label border-highlight" on:click={() => editor?.textFormatter.toggleBold()}>
     <Text type={TextType.Callout}><strong>Bold</strong></Text>
   </button>
-  <button class="label border-highlight" on:click={() => editor?.toggleItalic()}>
+  <button class="label border-highlight" on:click={() => editor?.textFormatter.toggleItalic()}>
     <Text type={TextType.Callout}><i>Italic</i></Text>
   </button>
-  <button class="label border-highlight" on:click={() => editor?.attachLink()}>
+  <button class="label border-highlight" on:click={() => editor?.linkHandler.attachLink()}>
     <Text type={TextType.Callout}>Attach Link</Text>
   </button>
   <button class="label border-highlight" on:click={() => editor?.toggleSmartStyle()}>

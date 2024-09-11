@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { editorStore } from './+text-editor'; // Import the editor store
+  import { editorStore } from './+store'; // Import the editor store
   import { debounce } from 'lodash-es';
   import { Editor } from './editor'; // Import the Editor class
   import { onDestroy } from 'svelte';
@@ -36,22 +36,18 @@
   }
 
   function handleKeydown(event: KeyboardEvent) {
+    console.log('Keydown event triggered'); // Debugging statement
     if (event.ctrlKey || event.metaKey) {
-      if (event.key === '1') {
+      if (event.key === 'h' || event.key === 'H') {
         event.preventDefault();
-        document.execCommand('formatBlock', false, 'h1');
-      } else if (event.key === '2') {
-        event.preventDefault();
-        document.execCommand('formatBlock', false, 'h2');
-      } else if (event.key === 'p') {
-        event.preventDefault();
-        document.execCommand('formatBlock', false, 'p');
+        console.log('Heading change triggered'); // Debugging statement
+        editor.textFormatter.cycleHeading();
       } else if (event.key === 'b' || event.key === 'B') {
         event.preventDefault();
-        editor.toggleBold(); // Use the Editor class to toggle bold
+        editor.textFormatter.toggleBold();
       } else if (event.key === 'i' || event.key === 'I') {
         event.preventDefault();
-        editor.toggleItalic(); // Use the Editor class to toggle italic
+        editor.textFormatter.toggleItalic();
       }
     }
   }
@@ -74,7 +70,7 @@
   on:input={handleInput} 
   on:selectionchange={handleSelectionChange} 
   on:keydown={handleKeydown} 
-  on:paste={(event) => editor.handlePaste(event)}
+  on:paste={(event) => editor.linkHandler.handlePaste(event)}
   on:click={handleLinkClick} 
   placeholder={placeholder} 
   role="textbox" 
@@ -87,7 +83,7 @@
   .editable-content {
     background-color: white;
     border-radius: 0.5em;
-    outline: none;
+    outline: none; 
     padding: 1em;
     height: 100%;
     overflow: auto;

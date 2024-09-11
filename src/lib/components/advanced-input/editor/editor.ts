@@ -6,9 +6,9 @@ import { LinkHandler } from './modules/link-handler';
 export class Editor {
     public smartStyleState: Writable<boolean>;
 
-    private smartStyle: SmartStyle;
-    private textFormatter: TextFormatter;
-    private linkHandler: LinkHandler;
+    public smartStyle: SmartStyle; // Made public
+    public textFormatter: TextFormatter; // Made public
+    public linkHandler: LinkHandler; // Made public
 
     constructor(smartStyleEnabled: boolean = true) {
         this.smartStyle = new SmartStyle(smartStyleEnabled);
@@ -25,35 +25,5 @@ export class Editor {
     toggleSmartStyle() {
         this.smartStyle.toggleSmartStyle();
         this.smartStyleState.set(this.smartStyle.isSmartStyleEnabled);
-    }
-
-    toggleBold() {
-        const selection = window.getSelection();
-        if (selection && selection.rangeCount > 0) {
-            const range = selection.getRangeAt(0);
-            if (this.smartStyle.isSmartStyleEnabled) {
-                this.smartStyle.expandSelectionToWordBoundary(range); // Expand selection for smart style
-            }
-            this.textFormatter.toggleBold();
-        }
-    }
-
-    toggleItalic() {
-        const selection = window.getSelection();
-        if (selection && selection.rangeCount > 0) {
-            const range = selection.getRangeAt(0);
-            if (this.smartStyle.isSmartStyleEnabled) {
-                this.smartStyle.expandSelectionToWordBoundary(range); // Expand selection for smart style
-            }
-            this.textFormatter.toggleItalic();
-        }
-    }
-
-    attachLink() {
-        this.linkHandler.attachLink();
-    }
-
-    handlePaste(event: ClipboardEvent) {
-        this.linkHandler.handlePaste(event);
     }
 }
