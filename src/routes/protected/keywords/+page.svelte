@@ -46,27 +46,28 @@
   });
 </script>
 
-<Stack spacing={1}>
-  <Stack direction={Direction.Horizontal}>
-    <TextInput class="search-bar" fullWidth={true} placeholder="Search Keywords"/>
-
+<Stack spacing={1} class="table-container">
+  <Stack direction={Direction.Horizontal} wrap={true}>
+    <TextInput class="search-bar"  fullWidth={true} placeholder="Search Keywords"/>
   </Stack>
-  <table>
-    <thead>
-      <tr>
-        {#each headers as header}
-          <th>
-            <Text type={TextType.Subheadline} style="font-weight: bold;">{header}</Text>
-          </th>
+  
+    <table>
+      <thead>
+        <tr>
+          {#each headers as header}
+            <th>
+              <Text type={TextType.Subheadline} style="font-weight: bold;">{header}</Text>
+            </th>
+          {/each}
+        </tr>
+      </thead>
+      <tbody>
+        {#each $keywords as keyword (keyword.id)}
+          <KeywordRow {keyword} countries={$page.data.countries} {updateKeyword} />
         {/each}
-      </tr>
-    </thead>
-    <tbody>
-      {#each $keywords as keyword (keyword.id)}
-        <KeywordRow {keyword} countries={$page.data.countries} {updateKeyword} />
-      {/each}
-    </tbody>
-  </table>
+      </tbody>
+    </table>
+
 </Stack>
 
 <style>
@@ -90,6 +91,13 @@
     border-top: 1px solid #ddd;
     border-bottom: 1px solid #ddd;
     text-align: left;
+    padding: 0.5em;
+  }
+
+  :global(.table-container) {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: auto; /* Add horizontal scroll if needed */
   }
 
   :global(.search-bar) {

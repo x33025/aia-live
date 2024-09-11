@@ -63,7 +63,7 @@
        id={`country-dropdown-${keyword.id}`}
        selectedOption={selectedCountry?.id}
      >
-       <span class="label" slot="button">
+       <span slot="button">
          {selectedCountry ? selectedCountry.name : 'Select a country'}
        </span>
        <svelte:fragment slot="default" let:selectOption>
@@ -97,12 +97,10 @@
 
 
    :global(.keyword-input) {
-     background-color: var(--gray-1);
-     border-radius: 0.5em;
      padding: var(--default-padding);
    }
    td {
-     padding: 0.3em;
+     padding: 0.5em;
      text-align: left;
      border-bottom: 1px solid #ddd;
    }
@@ -114,4 +112,8 @@
    .menu-item:hover {
      background-color: var(--gray-1);
    }
+
+   tr:nth-child(even) {
+    background-color: var(--gray-1); /* Light gray background for even rows */
+  }
  </style>

@@ -1,7 +1,7 @@
 import { writable, type Writable } from 'svelte/store';
-import { SmartStyle } from './smart-style';
-import { TextFormatter } from './text-formatter';
-import { LinkHandler } from './link-handler';
+import { SmartStyle } from './modules/smart-style';
+import { TextFormatter } from './modules/text-formatter';
+import { LinkHandler } from './modules/link-handler';
 
 export class Editor {
     public smartStyleState: Writable<boolean>;

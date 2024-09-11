@@ -51,7 +51,7 @@
   }
 </script>
 
-<Text type={TextType.Callout}>
+<Text >
 <input
   type="text"
   bind:value={input}
@@ -66,8 +66,6 @@
 <style>
 /* Global styles for input */
 .numeric-input {
-  background-color: var(--gray-1);
-  border-radius: 0.5em;
   box-sizing: border-box; /* Ensure padding is included in the size */
   display: inline-block; /* The input will only take up the space needed */
 }
