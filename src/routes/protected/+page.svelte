@@ -21,11 +21,12 @@
     <Button class="label " on:click={() => goto('/protected/articles')}>Articles</Button>
     <Button class="label" on:click={() => goto('/protected/keywords')}>Keywords</Button>
     <Button class="label " on:click={() => goto('/protected/stream')}>Stream</Button>
+    <Button class="label " on:click={() => goto('/protected/ai-detector')}>AI Detector</Button>
   </Stack>
 
   <Stack spacing={0.5}>
     <Stack direction={Direction.Horizontal} spacing={0.5}>
-      <Stack style="background-color: white; border-radius: 0.75em;  border: 1px solid var(--gray-2);" >
+      <Stack style="background-color: white; border-radius: 0.5em;  border: 1px solid var(--gray-2);" >
         <Text type={TextType.Subheadline} style=" padding: 0.5em; border-bottom: 1px solid var(--gray-2)">Articles This Week</Text>
         
         <Stack spacing={0.3} style="padding: 0.3em;">

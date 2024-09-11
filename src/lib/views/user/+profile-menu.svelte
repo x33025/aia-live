@@ -5,6 +5,7 @@
     import DropdownMenu from "$lib/components/actions/+dropdown-menu.svelte"; // Import the DropdownMenu component
     import Stack from '$lib/components/layout/+stack.svelte';
     import { wrap } from 'lodash-es';
+    import Avatar from './+avatar.svelte';
   
     // Construct the avatar URL immediately since we have the user available
     let avatarUrl = `http://localhost:8090/api/files/users/${$page.data.user.id}/${$page.data.user.avatar}`;
@@ -32,10 +33,9 @@
 </style>
 
 <DropdownMenu id="profile-menu" placeholder="Menu">
-    <div slot="button" class="avatar-wrapper border-highlight">
-        <!-- Use the new +image.svelte component for the avatar -->
-        <ImageComponent image_url={avatarUrl} alt_text="User Avatar" width="2.25em" height="2.25em" style="border-radius: 50%;" />
-    </div>
+    <svelte:fragment slot="button">
+       <Avatar avatarUrl={avatarUrl} />
+    </svelte:fragment>
     <Stack wrap={true} spacing={0.5} style="padding: 0.5em;">
         <!-- <a href="/profile">Profile</a> -->
         <button on:click={logout}>Log out</button>

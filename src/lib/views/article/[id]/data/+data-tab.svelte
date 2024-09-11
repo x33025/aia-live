@@ -4,7 +4,7 @@
   import { article } from '$lib/stores/+article';
 
   import TabView from '$lib/components/display/+tab-view.svelte'; // Import the TabView component
-    import Keywords from '../../../keyword/+keywords.svelte';
+  import Keywords from '$lib/views/keyword/+keywords.svelte';
 
   let activeTab = writable('keywords');
   let rawDataCount = 0;
@@ -25,7 +25,7 @@
 </script>
 
 <TabView defaultTab={$activeTab}>
-  <div slot="header">
+  <svelte:fragment slot="header">
     <button class="tab-button" class:selected={$activeTab === 'keywords'} on:click={() => activeTab.set('keywords')}>Keywords</button>
     <button class="tab-button" class:selected={$activeTab === 'extracted'} on:click={() => activeTab.set('extracted')}>
       Extracted Data
@@ -34,16 +34,18 @@
       {/if}
     </button>
     <button class="tab-button" class:selected={$activeTab === 'magic'} on:click={() => activeTab.set('magic')}>Magic Data</button>
-  </div>
-  <div slot="content">
+  </svelte:fragment>
+  <svelte:fragment slot="content">
     {#if $activeTab === 'keywords'}
-     <Keywords keywords={$article.expand?.keywords} main_keyword={$article.expand?.main_keyword} />
+      {#if $article && $article.expand}
+        <Keywords keywords={$article.expand.keywords} main_keyword={$article.expand.main_keyword} />
+      {/if}
     {:else if $activeTab === 'extracted'}
-    {"Extracted Data"}
+      {"Extracted Data"}
     {:else if $activeTab === 'magic'}
-    {"Magic Data"}
+      {"Magic Data"}
     {/if}
-  </div>
+  </svelte:fragment>
 </TabView>
 
 <style>

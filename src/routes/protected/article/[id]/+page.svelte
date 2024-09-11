@@ -11,7 +11,7 @@
   import Spacer from '$lib/components/layout/+spacer.svelte';
   import { openModal } from '$lib/stores/ui/+modal';
   import ImageGrid from '$lib/views/images/+image-grid.svelte';
-  import DataView from '$lib/views/article/[id]/data/+data-view.svelte';
+  import DataView from '$lib/views/article/[id]/data/+data-tab.svelte';
 
   let unsubscribe: () => void; // To track the unsubscribe function
 
@@ -50,13 +50,13 @@
 
 <!-- Layout with the open sidebar button -->
 <Stack direction={Direction.Horizontal} alignment={Alignment.Start} spacing={1} style="padding: 1em;">
-  <Stack >
+
 <DataView>
 
 
 </DataView>
     
-  </Stack>
+
 
   <Stack spacing={1} style="width: 825px;">
     {#if $article}

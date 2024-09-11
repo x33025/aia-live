@@ -65,14 +65,14 @@
   }
 
   function openNotesSidebar() {
-    const notes = article.expand.notes || [];  // Default to an empty array if notes are undefined
+    const notes = article.expand?.notes || [];  // Default to an empty array if notes are undefined
     openSidebar(NotesSidebar, { notes });
   }
 </script>
 
 <Stack wrap={true} spacing={0.5}>
   <Stack direction={Direction.Horizontal} spacing={0.5}>
-    <MainImage main_image={article.expand.main_image} />
+    <MainImage main_image={article.expand?.main_image} />
     <Stack spacing={0.5}>
       <Stack direction={Direction.Horizontal} spacing={0.5}>
         <TextInput
@@ -157,7 +157,9 @@
     
     </Stack>
   </Stack>
-  <Keywords main_keyword={article.expand.main_keyword} keywords={article.expand.keywords} />
+  <Label name="Keywords">
+    <Keywords main_keyword={article.expand?.main_keyword} keywords={article.expand?.keywords} />
+  </Label>
 </Stack>
 
 <style>

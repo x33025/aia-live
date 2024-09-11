@@ -1,4 +1,4 @@
-<script lang="ts">
+<!-- <script lang="ts">
   import { selectedDataPoints, toggleDataPointSelection } from '$lib/stores/+data-point';
   import type { DataPoint } from '$lib/utils/interfaces/+article';
 
@@ -124,4 +124,4 @@
     list-style-type: none;
     padding-left: 0.5em;
   }
-</style>
+</style> -->

@@ -17,12 +17,12 @@
   </script>
   
   <Stack direction={Direction.Vertical}>
-    <Stack wrap={true} direction={Direction.Horizontal}  >
+    <Stack wrap={true} direction={Direction.Horizontal} spacing={0.5} style="margin-bottom: 0.5em;" >
         <slot name="header"></slot>
      
     </Stack>
      
-     <Stack style="border: 1px solid var(--gray-2); padding: 1em; border-radius: 0.5em;" >
+     <Stack style="border: 1px solid var(--gray-2); padding: 1em; border-radius: 0.5em; " >
         <slot name="content"></slot>
       </Stack>
 
@@ -31,21 +31,5 @@
   
   <style>
   
-    .tab-header {
-      display: flex;
-      justify-content: flex-start;
-      gap: 0.5em;
-      padding: 0.5em;
-      margin-bottom: 1em;
-      background-color: white;
-      border-radius: 1em;
-    }
-  
-    .tab-content {
-      flex: 1;
-      overflow: hidden;
-      border-radius: 1em;
-      background-color: white;
-      margin-bottom: 1em;
-    }
+
   </style>
