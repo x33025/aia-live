@@ -15,7 +15,6 @@
     users.set($page.data.users);
   });
 
-  const title = derived(page, $page => $page.data.title);
 </script>
 
 <MainLayout>

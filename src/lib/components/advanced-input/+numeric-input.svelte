@@ -63,10 +63,3 @@
 />
 </Text>
 
-<style>
-/* Global styles for input */
-.numeric-input {
-  box-sizing: border-box; /* Ensure padding is included in the size */
-  display: inline-block; /* The input will only take up the space needed */
-}
-</style>

@@ -14,8 +14,8 @@
 </script>
 
 
-<Stack direction={Direction.Horizontal} class="numeric-target" wrap={true} spacing={0.5}>
-  <Text type={TextType.Callout}>
+<Stack direction={Direction.Horizontal} wrap={true} spacing={0.5}>
+  <Text>
     <Stack direction={Direction.Horizontal} wrap={true} spacing={0.5}>
   <span>{current}</span>
   <span>/</span>
@@ -26,11 +26,3 @@
 
 
 
-<style>
-
-:global(.numeric-target){
-    padding: 0.5em;
-background-color: var(--gray-1);
-border-radius: 0.5em;
-  }
-</style>

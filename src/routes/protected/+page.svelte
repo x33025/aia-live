@@ -1,10 +1,9 @@
 <script lang="ts">
   import Stack from '$lib/components/layout/+stack.svelte';
-  import { goto } from '$app/navigation';
-  import Button from '$lib/components/actions/+button.svelte';
-  import { Direction, TextType } from '$lib/types';
+  import { Alignment, Direction, TextType } from '$lib/types';
   import { page } from '$app/stores'; // Import page to access $page.data
     import Text from '$lib/components/display/+text.svelte';
+    import RouteNavigation from '$lib/views/dashboard/+route-navigation.svelte';
 
   // Access articlesByWeek from $page.data
   let articlesByWeek: Record<number, any[]>;
@@ -16,15 +15,17 @@
   }
 </script>
 
-<Stack direction={Direction.Horizontal} spacing={1}>
-  <Stack spacing={0.5}>
-    <Button class="label " on:click={() => goto('/protected/articles')}>Articles</Button>
-    <Button class="label" on:click={() => goto('/protected/keywords')}>Keywords</Button>
-    <Button class="label " on:click={() => goto('/protected/stream')}>Stream</Button>
-    <Button class="label " on:click={() => goto('/protected/ai-detector')}>AI Detector</Button>
+<Stack direction={Direction.Vertical} spacing={1}>
+  <Stack direction={Direction.Horizontal}  spacing={1} wrap={true} >
+ 
+    <RouteNavigation route="/protected/articles" emojis={["📰", "📄", "🖋️", "📚"]} text="Articles" />
+    <RouteNavigation route="/protected/keywords" emojis={["🔑", "📊", "🔍", "📝"]} text="Keywords" />
+    <RouteNavigation route="/protected/stream" emojis={["📡", "📺", "🎥"]} text="Stream" />
+    <RouteNavigation route="/protected/ai-detector" emojis={["🤖", "🧠", "🔍"]} text={"AI Detector {WIP}"} />
+   
   </Stack>
 
-  <Stack spacing={0.5}>
+
     <Stack direction={Direction.Horizontal} spacing={0.5}>
       <Stack style="background-color: white; border-radius: 0.5em;  border: 1px solid var(--gray-2);" >
         <Text type={TextType.Subheadline} style=" padding: 0.5em; border-bottom: 1px solid var(--gray-2)">Articles This Week</Text>
@@ -40,11 +41,11 @@
      
       </Stack>
 
-     
+      <Stack style="background-color: white; border-radius: 0.75em;">
+        <!-- You can use this Stack for other content -->
+      </Stack>
     </Stack>
 
-    <Stack style="background-color: white; border-radius: 0.75em;">
-      <!-- You can use this Stack for other content -->
-    </Stack>
-  </Stack>
+
+
 </Stack>

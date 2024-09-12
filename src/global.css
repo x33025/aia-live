@@ -168,12 +168,6 @@ h3 {
   overflow-y: hidden; /* Hide vertical scroll */
 }
 
-.label {
-  background-color: var(--gray-1);
-  padding: var(--default-padding);
-  border-radius: 0.5em;
-}
-
 img {
   border-radius: 0.35em;
 }
@@ -226,4 +220,54 @@ img {
 
   :root {
     --default-padding: 0.5em 0.7em;
+}
+
+
+
+
+
+
+
+/* Define the custom property */
+@property --a {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+
+/* Glowing effect style */
+.glowing-effect {
+  position: relative;
+  z-index: 1;  /* Ensures the content is above the glow */
+  background-color: white; /* Add a solid background */
+  border-radius: 0.5em;
+  padding: 2em;
+  overflow: hidden;  /* Ensures the gradient doesn’t overflow */
+}
+
+.glowing-effect::before {
+  content: '';
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  right: -4px;
+  bottom: -4px;
+  background: repeating-conic-gradient(
+    from var(--a),
+    #00ffff, #00ffff 25%, #ff00ff 25%, #ff00ff 50%,
+    #ff0000 50%, #ff0000 75%, #00ffff 75%, #00ffff
+  );
+  border-radius: inherit;
+  z-index: -1; /* Places the glow behind the content */
+  padding: 5px;
+  animation: rotate 3s linear infinite;
+}
+
+@keyframes rotate {
+  0% {
+    --a: 0deg;
+  }
+  100% {
+    --a: 360deg;
+  }
 }

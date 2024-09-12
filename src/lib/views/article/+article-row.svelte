@@ -138,7 +138,7 @@
       </Stack>
     
       <Stack direction={Direction.Horizontal} spacing={0.5}>
-        <Label name="Semrush Score">
+        <Label name="Semrush Score" class="border-highlight">
           <NumericInput
             value={article.semrush_score} 
             on:update={(event) => updateSemrushScore(event.detail.value)}
