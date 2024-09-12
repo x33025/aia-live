@@ -13,8 +13,12 @@
 </script>
 
 {#if visible && ModalComponent}
-    <div class="modal-backdrop" on:click={() => modalVisible.set(false)}></div>
-    <div class="modal" >
+    <button class="modal-backdrop" 
+            on:click={() => modalVisible.set(false)} 
+            on:keydown={(e) => e.key === 'Escape' && modalVisible.set(false)} 
+            aria-label="Close modal">
+    </button>
+    <div class="modal">
         <svelte:component this={ModalComponent} {...modalProps} />
     </div>
 {/if}
@@ -27,8 +31,9 @@
         width: 100%;
         height: 100%;
         background-color: rgba(0, 0, 0, 0.5); /* Dim background */
-    
         z-index: 500;
+        border: none; /* Remove default button border */
+        padding: 0; /* Remove default button padding */
     }
 
     .modal {

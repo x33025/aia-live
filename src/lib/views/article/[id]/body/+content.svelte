@@ -15,6 +15,7 @@
     {content} 
     onPublishUpdate={onPublishUpdate} 
     onSelectionChange={onSelectionChange} 
+    placeholder="Start writing..."
   />
 </Stack>
 

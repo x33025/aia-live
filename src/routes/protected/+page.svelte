@@ -16,14 +16,7 @@
 </script>
 
 <Stack direction={Direction.Vertical} spacing={1}>
-  <Stack direction={Direction.Horizontal}  spacing={1} wrap={true} >
- 
-    <RouteNavigation route="/protected/articles" emojis={["📰", "📄", "🖋️", "📚"]} text="Articles" />
-    <RouteNavigation route="/protected/keywords" emojis={["🔑", "📊", "🔍", "📝"]} text="Keywords" />
-    <RouteNavigation route="/protected/stream" emojis={["📡", "📺", "🎥"]} text="Stream" />
-    <RouteNavigation route="/protected/ai-detector" emojis={["🤖", "🧠", "🔍"]} text={"AI Detector {WIP}"} />
-   
-  </Stack>
+ <RouteNavigation />
 
 
     <Stack direction={Direction.Horizontal} spacing={0.5}>

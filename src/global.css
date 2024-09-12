@@ -220,6 +220,7 @@ img {
 
   :root {
     --default-padding: 0.5em 0.7em;
+    --large-padding: 1.5em 2em;
 }
 
 

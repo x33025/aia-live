@@ -4,52 +4,53 @@
   import Stack from '$lib/components/layout/+stack.svelte';
   import Button from '$lib/components/actions/+button.svelte';
   import { Alignment, ButtonType, Direction, TextType } from '$lib/types';
+  import Text from '$lib/components/display/+text.svelte';
 
-    import Text from '$lib/components/display/+text.svelte';
-
-
-  
   interface FormData {
       email: string;
       password: string;
       error: string | null;
   }
 
-  export let form: FormData | null = null;
+  // Initialize the form with default values
+  export let form: FormData = {
+      email: '',
+      password: '',
+      error: null
+  };
 </script>
 
-<BaseLayout >
-<Stack direction={Direction.Horizontal} alignment={Alignment.Center}   >
-  <Stack direction={Direction.Vertical} alignment={Alignment.Center}  spacing={1} style="max-width: 300px" >
-  <Text type={TextType.Title} >Login</Text>
-<form method="POST" action="?/login" use:enhance>
- 
-      <input 
+<BaseLayout>
+  <Stack direction={Direction.Horizontal} alignment={Alignment.Center}>
+    <Stack direction={Direction.Vertical} alignment={Alignment.Center} spacing={1} style="max-width: 300px">
+      <Text type={TextType.Title}>Login</Text>
+      <form method="POST" action="?/login" use:enhance>
+        <input 
           type="email" 
           id="email" 
           name="email" 
-          value={form?.email ?? ''} 
+          value={form?.email || ''} 
           placeholder="Email" 
           required 
-      />
-      <input 
+        />
+        <input 
           type="password" 
           id="password" 
           name="password" 
+          value={form?.password || ''} 
           placeholder="Password" 
           required 
-      />
-      {#if form?.error}
+        />
+        {#if form?.error}
           <p class="error">{form.error}</p>
-      {/if}
-      <Button buttonType={ButtonType.Submit} class="login-button">
+        {/if}
+        <Button buttonType={ButtonType.Submit} class="login-button">
           Login
-      </Button>
- 
-</form>
-</Stack>
-</Stack>
-</BaseLayout >
+        </Button>
+      </form>
+    </Stack>
+  </Stack>
+</BaseLayout>
 
 <style>
 input {
@@ -62,16 +63,14 @@ input {
   margin-bottom: 1em; /* Add spacing between inputs */
 }
 
-  .error {
-      color: var(--red);
-  }
+.error {
+  color: var(--red);
+}
 
-  :global(.login-button) {
-    background-color: var(--blue);
-    color: white;
-    padding: var(--default-padding);
-    border-radius: 0.5em;
-  }
-  
-
+:global(.login-button) {
+  background-color: var(--blue);
+  color: white;
+  padding: var(--default-padding);
+  border-radius: 0.5em;
+}
 </style>
