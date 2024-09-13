@@ -27,12 +27,12 @@ export interface ActivityData {
   deleted: Date | null; // Can be null if not provided
   deleted_by: string | null; // ID as string, optional
   created_by: string; // ID as string, required
-  updated_by: string | null; // ID as string, optional
+  updated_by: string[]; // ID as string, optional
 
   expand?: {
     deleted_by?: User | null; // Expanded deleted_by user
     created_by?: User; // Expanded created_by user
-    updated_by?: User | null; // Expanded updated_by user
+    updated_by?: User[]; // Expanded updated_by user
   };
 }
 

@@ -4,17 +4,21 @@
 import Spacer from '$lib/components/layout/+spacer.svelte';
 import Stack from '$lib/components/layout/+stack.svelte';
 import { Alignment, Direction, TextType, type Notes } from '$lib/types'; // Adjust the path as needed
-    import Note from './+note.svelte'; // Adjust the path as needed
-  
-    export let notes: Notes[] = [];
+    import NoteView from './+note-view.svelte'; // Adjust the path as needed
+    import ActivityDataView from '$lib/views/activity/+activity-data.svelte';
+    import type { ActivityData } from '$lib/types';
+
+
+    export let notes: Notes[];
+    export let activity: ActivityData;
   </script>
   
   <Stack  spacing={1} style="padding: 1em;">
     <Text type={TextType.Title}>Notes</Text>
-    <Stack>
+    <Stack spacing={1}>
       {#if notes.length > 0}
       {#each notes as note (note.id)}
-        <Note {note} />
+        <NoteView {note} />
       {/each}
     {:else}
       <p>No notes available.</p>
@@ -22,10 +26,10 @@ import { Alignment, Direction, TextType, type Notes } from '$lib/types'; // Adju
 
     </Stack>
 
-        <Stack direction={Direction.Vertical}  alignment={Alignment.End}  style="height: 320px;">
+        <Stack direction={Direction.Vertical} wrap={true}   style="height: 320px;" spacing={0.75}>
           
-            {"Activity Data"}
+            <Text type={TextType.Subheadline} style="font-weight: bold;">Activity Data</Text>
 
-
+            <ActivityDataView {activity} />
     </Stack>
   </Stack>

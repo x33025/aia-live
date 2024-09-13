@@ -38,7 +38,9 @@
 
   function openNotesSidebar() {
     const notes = keyword.expand?.notes || []; // Fallback to an empty array if notes are undefined
-    openSidebar(NotesSidebar, { notes });
+    const activity = keyword.expand?.activity; // Define activity with a fallback
+    console.log('Opening Notes Sidebar with:', { notes, activity });
+    openSidebar(NotesSidebar, { notes, activity });
   }
 
  </script>
@@ -87,14 +89,25 @@
        on:update={handleDensityChange}
      />
    </td>
-   <td>
-    <button on:click={openNotesSidebar}>Open Notes</button> <!-- "Open Notes" Button -->
+   <td on:click={openNotesSidebar} class="clickable-cell">
+    {#if keyword.expand?.notes?.length}
+      {keyword.expand.notes[0].content}
+    {:else}
+      No notes
+    {/if}
   </td>
  </tr>
  
  <style>
 
 
+.clickable-cell {
+    cursor: pointer;
+  }
+
+  .clickable-cell:hover {
+    background-color: var(--gray-1);
+  }
 
    :global(.keyword-input) {
      padding: var(--default-padding);

@@ -1,21 +1,30 @@
 <script lang="ts">
     import type { Notes } from '$lib/types';
-  
+    import Text from '$lib/components/display/+text.svelte';
+    import { TextType } from '$lib/types';
+    import { onMount } from 'svelte';
+
     export let note: Notes;
+
+
+    
 </script>
 
-<div contenteditable="true">
-    {@html note.content}
-</div>
+<Text type={TextType.Subheadline}>
+    <div contenteditable="true">
+        {@html note.content}
+    </div>
+</Text>
+
 
 <style>
 div[contenteditable="true"] {
-    padding: 0.5em;
-    border: 1px solid #ccc;
-    border-radius: 0.7em;
+    padding: 1em;
+   
+    border-radius: 1em;
     min-height: 125px;
     outline: none;
-    background-color: #ebebebde; /* Transparent background */
+    background-color: var(--gray-1); /* Transparent background */
     z-index: 1000; /* Ensure it is above other elements */
     font-size: smaller;
 }

@@ -10,7 +10,7 @@
   import { openSidebar } from '$lib/stores/ui/+sidebar';
   import Spacer from '$lib/components/layout/+spacer.svelte';
   import { openModal } from '$lib/stores/ui/+modal';
-  import ImageGrid from '$lib/views/images/+image-grid.svelte';
+  import ImageChooser from '$lib/views/images/+image-chooser.svelte';
   import DataView from '$lib/views/article/[id]/data/+data-tab.svelte';
 
   let unsubscribe: () => void; // To track the unsubscribe function
@@ -44,7 +44,7 @@
 
   function openImageModal() {
     console.log("Opening Image Modal for page: ", 1, "with perPage:", 50);
-    openModal(ImageGrid);
+    openModal(ImageChooser);
   }
 </script>
 

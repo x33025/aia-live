@@ -46,29 +46,33 @@
   });
 </script>
 
-<Stack spacing={1} class="table-container">
+<Stack direction={Direction.Vertical} spacing={1}>
   <Stack direction={Direction.Horizontal} wrap={true}>
     <TextInput class="search-bar"  fullWidth={true} placeholder="Search Keywords"/>
   </Stack>
+  <Stack spacing={1} class="table-container">
   
-    <table>
-      <thead>
-        <tr>
-          {#each headers as header}
-            <th>
-              <Text type={TextType.Subheadline} style="font-weight: bold;">{header}</Text>
-            </th>
+    
+      <table>
+        <thead>
+          <tr>
+            {#each headers as header}
+              <th>
+                <Text type={TextType.Subheadline} style="font-weight: bold;">{header}</Text>
+              </th>
+            {/each}
+          </tr>
+        </thead>
+        <tbody>
+          {#each $keywords as keyword (keyword.id)}
+            <KeywordRow {keyword} countries={$page.data.countries} {updateKeyword} />
           {/each}
-        </tr>
-      </thead>
-      <tbody>
-        {#each $keywords as keyword (keyword.id)}
-          <KeywordRow {keyword} countries={$page.data.countries} {updateKeyword} />
-        {/each}
-      </tbody>
-    </table>
-
+        </tbody>
+      </table>
+  
+  </Stack>
 </Stack>
+
 
 <style>
   table {
@@ -104,5 +108,6 @@
     padding: var(--default-padding);
     background-color: var(--gray-1);
     border-radius: 0.5em;
+    position: sticky;
   }
 </style>

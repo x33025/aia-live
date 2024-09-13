@@ -20,10 +20,10 @@
 
     let styles: string[] = []; // Emoji styles for positioning
 
-    // Function to get random non-overlapping styles with margins
+    // Function to get random non-overlapping styles within the text container
     function getNonOverlappingStyles(count: number) {
-        const minPosition = -25;  // Minimum percentage for top and left
-        const maxPosition = 125;  // Maximum percentage for top and left
+        const minPosition = -50;  // Minimum percentage for top and left
+        const maxPosition = 100;  // Maximum percentage for top and left
         const minDistance = 50;   // Minimum distance between emojis to avoid overlap
 
         const positions: Position[]  = [];
@@ -42,8 +42,8 @@
 
             // Generate random positions until no overlap is found
             do {
-                x = Math.random() * (maxPosition - minPosition) + minPosition; // Random x between -25% and 125%
-                y = Math.random() * (maxPosition - minPosition) + minPosition; // Random y between -25% and 125%
+                x = Math.random() * (maxPosition - minPosition) + minPosition; // Random x between 0% and 100%
+                y = Math.random() * (maxPosition - minPosition) + minPosition; // Random y between 0% and 100%
             } while (isOverlapping(x, y)); // Retry if overlapping
 
             // Save the position to prevent future overlaps
@@ -95,6 +95,8 @@
 
   .text-container {
     z-index: 1; /* Ensure the text is on top of the emojis */
+    position: relative; /* Ensure text-container is the reference for absolute positioning */
+    width: 100%;
   }
 </style>
 

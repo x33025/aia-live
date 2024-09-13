@@ -1,15 +1,15 @@
 <script lang="ts">
     import { modalVisible, modalContent } from '$lib/stores/ui/+modal';
     import { fly } from 'svelte/transition';
+    import Text from '$lib/components/display/+text.svelte';
+    import { TextType } from '$lib/types';
 
     // Directly use the global store values
     $: visible = $modalVisible;
     $: ModalComponent = $modalContent?.component || null;
     $: modalProps = $modalContent?.props || {};
+    $: modalHeader = $modalContent?.header || ''; // New header property
 
-    console.log("ModalComponent:", ModalComponent);
-    console.log("modalProps:", modalProps);
-    console.log("Modal visibility status:", visible);
 </script>
 
 {#if visible && ModalComponent}
@@ -19,6 +19,7 @@
             aria-label="Close modal">
     </button>
     <div class="modal">
+        <Text type={TextType.Title} style="margin-bottom: 0.5em;">{modalHeader}</Text> 
         <svelte:component this={ModalComponent} {...modalProps} />
     </div>
 {/if}

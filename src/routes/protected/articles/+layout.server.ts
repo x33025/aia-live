@@ -17,7 +17,7 @@ export const load: LayoutServerLoad = async ({ locals, url }) => {
       expand: 'keywords,main_keyword,main_image,activity_data,notes',
     });
     
-    console.log('Fetched Articles with Expanded Data:', JSON.stringify(articlesResult.items, null, 2));
+    console.log('Fetched Articles with Expanded Data:', articlesResult.items);
     
 
     if (!articlesResult) {
