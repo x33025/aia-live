@@ -12,6 +12,7 @@
   import { openModal } from '$lib/stores/ui/+modal';
   import ImageChooser from '$lib/views/images/+image-chooser.svelte';
   import DataView from '$lib/views/article/[id]/data/+data-tab.svelte';
+    import MainImage from '$lib/views/images/+main-image.svelte';
 
   let unsubscribe: () => void; // To track the unsubscribe function
 
@@ -44,7 +45,7 @@
 
   function openImageModal() {
     console.log("Opening Image Modal for page: ", 1, "with perPage:", 50);
-    openModal(ImageChooser);
+    openModal(ImageChooser, "Images", { page: 1, perPage: 50 });
   }
 </script>
 
@@ -79,7 +80,10 @@
   <Stack>
     <!-- Button to open the notes sidebar -->
     <button on:click={openNotesSidebar}>Open Notes Sidebar</button>
-    <button on:click={openImageModal}>View Images</button>
+    <button on:click={openImageModal}>
+      <MainImage main_image={$article?.expand?.main_image} />
+
+    </button>
   </Stack>
 </Stack>
 

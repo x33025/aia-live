@@ -3,11 +3,15 @@
     import { images } from '$lib/stores/+images';
     import { onMount } from 'svelte';
     import { pb } from '$lib/config/pocketbase';
-    import { Direction, type Image } from '$lib/types';
+    import { Alignment, Direction, type Image } from '$lib/types';
     import Stack from '$lib/components/layout/+stack.svelte';
     import ActivityData from '../activity/+activity-data.svelte';
     import ImageSelection from './+image-description.svelte'; // Import the ImageSelection component
     import Button from '$lib/components/actions/+button.svelte';
+    import Spacer from '$lib/components/layout/+spacer.svelte';
+    import { createEventDispatcher } from 'svelte';
+
+    const dispatch = createEventDispatcher();
 
     let searchQuery = '';
     export let page = 1;
@@ -58,31 +62,34 @@
       {/if}
     </div>
   </Stack>
-  <Stack direction={Direction.Vertical} spacing={1} style="width: 300px;">
-    {#if main_image}
-      <ImageSelection image={main_image} /> <!-- Pass the selected image -->
-      <Stack direction={Direction.Horizontal} wrap={true}>
-        <Button text="Cancel" />
-        <Button text="Save" />
+
+  <Stack direction={Direction.Vertical}  spacing={1} style="max-width: 300px; border-left: 1px solid #e0e0e0; padding: 0em 1em;">
+  
+      {#if main_image}
+        <ImageSelection image={main_image} /> <!-- Pass the selected image -->
+      {/if}
+      <Spacer />
+      <Stack direction={Direction.Horizontal} alignment={Alignment.Center} wrap={true} spacing={1}>
+        <Button on:click={() => dispatch('cancel')} style=" background-color: var(--gray-2); padding: 0.5em 1em; border-radius: 0.5em;">Cancel</Button>
+        <Button  on:click={() => dispatch('save')} style=" background-color: var(--blue); color: white; padding: 0.5em 1em; border-radius: 0.5em;">Save</Button>
     </Stack>
-    {:else}
-      <p>No image selected.</p>
-    {/if}
+
   </Stack>
+
+
 </Stack>
 
 <style>
 .image-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  gap: 10px;
-  padding: 1em;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 0.3fr));
+  gap: 1em;
 }
 
 .image-container {
   position: relative;
   overflow: hidden;
-  border-radius: 8px;
+  border-radius: 0.5em;
 }
 
 .image-container img {
