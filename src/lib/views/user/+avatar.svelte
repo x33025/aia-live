@@ -14,7 +14,7 @@
 
     // Check if user avatar exists
     const hasAvatar = user && user.avatar;
-    const avatarUrl = hasAvatar ? `http://localhost:8090/api/files/users/${user.id}/${user.avatar}` : '';
+    const avatarUrl = hasAvatar ? `${import.meta.env.POCKETBASE_URL}/api/files/users/${user.id}/${user.avatar}` : '';
 
     // Function to get user initials
     const getUserInitials = (user: User) => {

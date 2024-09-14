@@ -8,7 +8,7 @@
     import Avatar from './+avatar.svelte';
   
     // Construct the avatar URL immediately since we have the user available
-    let avatarUrl = `http://localhost:8090/api/files/users/${$page.data.user.id}/${$page.data.user.avatar}`;
+    let avatarUrl = `${import.meta.env.POCKETBASE_URL}/api/files/users/${$page.data.user.id}/${$page.data.user.avatar}`;
   
     function logout() {
         pb.authStore.clear(); // Clear PocketBase authentication

@@ -1,19 +1,18 @@
-// Winston API Key (replace with your actual API token)
-const WINSTON_API_KEY = 'FNzckuq9Lwb8V5SZoACVPLOkWFuh7PRMncViIxs42f8e985c';
+
 
 export async function callWinstonAPI(textToCheck: string) {
     const apiUrl = 'https://api.gowinston.ai/v2/ai-content-detection';
     console.log('WINSTON: Preparing to call Winston AI API');
     console.log(`WINSTON: API URL - ${apiUrl}`);
     console.log(`WINSTON: Text to check - ${textToCheck}`);
-    console.log(`WINSTON: API Key - ${WINSTON_API_KEY}`);
+    console.log(`WINSTON: API Key - ${import.meta.env.WINSTON_API_KEY}`);
 
     try {
         const response = await fetch(apiUrl, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${WINSTON_API_KEY}`
+                'Authorization': `Bearer ${import.meta.env.WINSTON_API_KEY}`
             },
             body: JSON.stringify({
                 text: textToCheck,  // Send the text to Winston AI for analysis

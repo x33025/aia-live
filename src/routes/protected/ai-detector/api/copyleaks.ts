@@ -1,7 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
 
-// Copyleaks API Key (replace with your actual API token)
-const COPYLEAKS_API_KEY = 'cd789ff6-3479-40de-91e1-287927f2acea';
 
 export async function callCopyleaksAPI(textToCheck: string) {
     const scanId = uuidv4();  // Generate a unique scan ID for this request
@@ -11,7 +9,7 @@ export async function callCopyleaksAPI(textToCheck: string) {
     console.log(`COPYLEAKS: Generated scan ID - ${scanId}`);
     console.log(`COPYLEAKS: API URL - ${apiUrl}`);
     console.log(`COPYLEAKS: Text to check - ${textToCheck}`);
-    console.log(`COPYLEAKS: API Key - ${COPYLEAKS_API_KEY}`);
+    console.log(`COPYLEAKS: API Key - ${import.meta.env.COPYLEAKS_API_KEY}`);
 
     const requestBody = {
         text: textToCheck,  // Send the text to Copyleaks for analysis
@@ -26,7 +24,7 @@ export async function callCopyleaksAPI(textToCheck: string) {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${COPYLEAKS_API_KEY}`
+                'Authorization': `Bearer ${import.meta.env.COPYLEAKS_API_KEY}`  // Use the API key from environment variables
             },
             body: JSON.stringify(requestBody)
         });

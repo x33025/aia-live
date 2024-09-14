@@ -1,7 +1,8 @@
 import PocketBase from 'pocketbase';
 
+
 // Initialize the PocketBase client
-export const pb = new PocketBase('http://127.0.0.1:8090');
+export const pb = new PocketBase(import.meta.env.POCKETBASE_URL);
 
 // Optional: Persist authentication in cookies for client-side
 if (typeof window !== 'undefined') {

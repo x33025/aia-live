@@ -6,7 +6,12 @@ const config = {
   preprocess: vitePreprocess(),
 
   kit: {
-    adapter: adapter()
+    adapter: adapter(),
+
+    // Access environment variables here, for example, conditional base path
+    paths: {
+      base: process.env.BASE_PATH || '',
+    }
   }
 };
 
