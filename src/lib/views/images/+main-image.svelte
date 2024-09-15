@@ -8,7 +8,7 @@
   
   // Construct the image URL
   const image_url = main_image 
-    ? `${import.meta.env.POCKETBASE_URL}/api/files/images/${main_image.id}/${main_image.file}`
+    ? `${import.meta.env.VITE_POCKETBASE_URL}/api/files/images/${main_image.id}/${main_image.file}`
     : '';
 
     function openImageModal() {
