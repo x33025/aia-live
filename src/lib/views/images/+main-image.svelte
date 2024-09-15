@@ -17,24 +17,15 @@
   }
 </script>
 
-<div class="image-container border-highlight" style="border-radius: 0.5em;" on:click={openImageModal}>
-  {#if main_image}
-    <!-- Use the new +image.svelte component -->
-    <ImageComponent image_url={image_url} alt_text={main_image.description || 'No description'} />
-  {:else}
-    <p>No image</p>
-  {/if}
+
+<div class="image-container" on:click={openImageModal}>
+  <ImageComponent image_url={image_url} alt_text={main_image?.description || 'No description'} maskShape="square" aspect_ratio={ 4 / 3}  />
+
 </div>
+  
 
 <style>
   .image-container {
-    width: auto;
-    height: 100%;
-    aspect-ratio: 3 / 2;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
     cursor: pointer;
   }
 </style>

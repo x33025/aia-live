@@ -5,10 +5,12 @@
     import Label from '$lib/components/display/+label.svelte';
     import Spacer from '$lib/components/layout/+spacer.svelte';
     import Stack from '$lib/components/layout/+stack.svelte';
-import { Direction, type Image as ImageType } from '$lib/types';
-import ActivityDataView from '$lib/views/activity/+activity-data.svelte';
+    import { Alignment, Direction, type Image as ImageType } from '$lib/types';
+    import ActivityDataView from '$lib/views/activity/+activity-data.svelte';
+    import { createEventDispatcher } from 'svelte';
 
     export let image: ImageType;
+    const dispatch = createEventDispatcher();
 
     function constructImageUrl(image: ImageType): string {
       return `http://localhost:8090/api/files/images/${image.id}/${image.file}`;
@@ -16,22 +18,23 @@ import ActivityDataView from '$lib/views/activity/+activity-data.svelte';
 </script>
 
 <Stack direction={Direction.Vertical} spacing={1.5}>
-    <Stack direction={Direction.Horizontal} wrap={true}>
+    <Stack direction={Direction.Horizontal}>
         <Spacer />
-        <Image image_url={constructImageUrl(image)} alt_text={image.description || 'No description provided'} style="box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);" />
+        <Image image_url={constructImageUrl(image)} alt_text={image.description || 'No description provided'} style="box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);" aspect_ratio={4 / 3} />
         <Spacer />
     </Stack>
-    <Stack direction={Direction.Vertical} >
-        <Label name="Description" >
-        <TextInput label="Description" value={image.description || 'No description provided'} />
+    <Stack direction={Direction.Vertical}>
+        <Label name="Description">
+            <TextInput style="background-color: var(--gray-1); padding: 0.5em;" label="Description" value={image.description || 'No description provided'} />
         </Label>
         <Spacer />
-        <!-- <ActivityDataView activity={image.expand?.activity} /> -->
+        {#if image.expand?.activity}
+            <ActivityDataView activity={image.expand.activity} />
+        {/if}
+        <Spacer />
+        <Stack direction={Direction.Horizontal} alignment={Alignment.Center} wrap={true} spacing={1}>
+            <Button on:click={() => dispatch('cancel')} style="background-color: var(--gray-2); padding: 0.5em 1em; border-radius: 0.5em;">Cancel</Button>
+            <Button on:click={() => dispatch('save')} style="background-color: var(--blue); color: white; padding: 0.5em 1em; border-radius: 0.5em;">Save</Button>
+        </Stack>
     </Stack>
-
 </Stack>
-
-<style>
-
-
-</style>

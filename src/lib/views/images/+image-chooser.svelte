@@ -47,7 +47,8 @@
     }
 </script>
   
-<Stack direction={Direction.Horizontal} spacing={0.5}>
+<Stack direction={Direction.Horizontal}  spacing={1}>
+
   <Stack direction={Direction.Vertical} spacing={0.5}>
     <SearchBar placeholder="Search images..." onSearch={handleSearch} />
     <div class="image-grid">
@@ -65,16 +66,11 @@
 
   <Stack direction={Direction.Vertical}  spacing={1} style="max-width: 300px; border-left: 1px solid #e0e0e0; padding: 0em 1em;">
   
-      {#if main_image}
-        <ImageSelection image={main_image} /> <!-- Pass the selected image -->
-      {/if}
-      <Spacer />
-      <Stack direction={Direction.Horizontal} alignment={Alignment.Center} wrap={true} spacing={1}>
-        <Button on:click={() => dispatch('cancel')} style=" background-color: var(--gray-2); padding: 0.5em 1em; border-radius: 0.5em;">Cancel</Button>
-        <Button  on:click={() => dispatch('save')} style=" background-color: var(--blue); color: white; padding: 0.5em 1em; border-radius: 0.5em;">Save</Button>
-    </Stack>
+    {#if main_image}
+      <ImageSelection image={main_image} /> <!-- Pass the selected image -->
+    {/if}
 
-  </Stack>
+</Stack>
 
 
 </Stack>

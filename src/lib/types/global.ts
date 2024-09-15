@@ -116,7 +116,7 @@ export interface Image {
   notes: string[];
 
   expand?: {
-    activity?: ActivityData;
+    activity: ActivityData;
     notes?: Notes[];
   };
 }

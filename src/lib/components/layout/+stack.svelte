@@ -28,7 +28,9 @@
 <style>
   .stack {
     display: flex;
-    
+    flex-direction: inherit; /* Inherit flex-direction */
+    justify-content: inherit; /* Inherit justify-content */
+    align-items: inherit; /* Inherit align-items */
   }
 
   .wrap-content {
