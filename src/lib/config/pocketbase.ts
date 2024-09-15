@@ -2,7 +2,7 @@ import PocketBase from 'pocketbase';
 
 
 // Initialize the PocketBase client
-export const pb = new PocketBase(import.meta.env.POCKETBASE_URL);
+export const pb = new PocketBase(import.meta.env.VITE_POCKETBASE_URL);
 
 // Optional: Persist authentication in cookies for client-side
 if (typeof window !== 'undefined') {

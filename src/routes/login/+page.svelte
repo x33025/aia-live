@@ -5,12 +5,6 @@
   import Button from '$lib/components/actions/+button.svelte';
   import { Alignment, ButtonType, Direction, TextType } from '$lib/types';
   import Text from '$lib/components/display/+text.svelte';
-  import { onMount } from 'svelte';
-
-
-  onMount(() => {
-    console.log(import.meta.env.POCKETBASE_URL); // Log the public environment variable
-  });
 
   interface FormData {
       email: string;

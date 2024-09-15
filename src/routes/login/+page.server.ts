@@ -4,11 +4,9 @@ import { fail, redirect } from '@sveltejs/kit';
 
 export const actions: Actions = {
   login: async ({ request, cookies, fetch }) => {
-    console.log('LOGIN: Received login request');
+   
 
-    // Set the PocketBase URL from the environment variable
-    pb.baseUrl = import.meta.env.POCKETBASE_URL;
-
+    console.log(import.meta.env.VITE_POCKETBASE_URL);
     const formData = await request.formData();
     const email = formData.get('email') as string;
     const password = formData.get('password') as string;
