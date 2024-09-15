@@ -5,8 +5,6 @@ import { fail, redirect } from '@sveltejs/kit';
 export const actions: Actions = {
   login: async ({ request, cookies, fetch }) => {
    
-
-    console.log(import.meta.env.VITE_POCKETBASE_URL);
     const formData = await request.formData();
     const email = formData.get('email') as string;
     const password = formData.get('password') as string;
@@ -23,6 +21,11 @@ export const actions: Actions = {
     try {
       const authData = await pb.collection('users').authWithPassword(email, password, { fetch });
       console.log('LOGIN: Authentication successful', { authData });
+
+      // Update user's last_active field
+      const userId = authData.record.id;
+      await pb.collection('users').update(userId, { last_active: new Date().toISOString() });
+      console.log('LOGIN: Updated user last_active', { userId });
 
       // Store the entire auth store state in the cookie
       const authCookie = pb.authStore.exportToCookie();

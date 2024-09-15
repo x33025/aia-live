@@ -10,8 +10,12 @@
 	  "sourceMap": true,
 	  "strict": true,
 	  "moduleResolution": "bundler",
-	  "typeRoots": ["./node_modules/@types", "./src/types"] // Add this line
+	  "typeRoots": ["./node_modules/@types", "./src/types"]
 	},
-	"include": ["src/**/*"] // Add this line if needed
+	"include": [
+	  "src/**/*",
+	  ".svelte-kit/ambient.d.ts"  // Ensure ambient types are included
+	],
+	"exclude": ["node_modules"]
   }
   

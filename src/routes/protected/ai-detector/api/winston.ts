@@ -1,18 +1,18 @@
-
+import { env } from '$env/dynamic/private';
 
 export async function callWinstonAPI(textToCheck: string) {
     const apiUrl = 'https://api.gowinston.ai/v2/ai-content-detection';
     console.log('WINSTON: Preparing to call Winston AI API');
     console.log(`WINSTON: API URL - ${apiUrl}`);
     console.log(`WINSTON: Text to check - ${textToCheck}`);
-    console.log(`WINSTON: API Key - ${import.meta.env.WINSTON_API_KEY}`);
+    console.log(`WINSTON: API Key - ${env.WINSTON_API_KEY}`);
 
     try {
         const response = await fetch(apiUrl, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${import.meta.env.WINSTON_API_KEY}`
+                'Authorization': `Bearer ${env.WINSTON_API_KEY}`
             },
             body: JSON.stringify({
                 text: textToCheck,  // Send the text to Winston AI for analysis

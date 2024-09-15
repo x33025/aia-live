@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
-
+import { env } from '$env/dynamic/private';
 
 export async function callCopyleaksAPI(textToCheck: string) {
     const scanId = uuidv4();  // Generate a unique scan ID for this request
@@ -9,7 +9,7 @@ export async function callCopyleaksAPI(textToCheck: string) {
     console.log(`COPYLEAKS: Generated scan ID - ${scanId}`);
     console.log(`COPYLEAKS: API URL - ${apiUrl}`);
     console.log(`COPYLEAKS: Text to check - ${textToCheck}`);
-    console.log(`COPYLEAKS: API Key - ${import.meta.env.COPYLEAKS_API_KEY}`);
+    console.log(`COPYLEAKS: API Key - ${env.COPYLEAKS_API_KEY}`);
 
     const requestBody = {
         text: textToCheck,  // Send the text to Copyleaks for analysis
@@ -24,7 +24,7 @@ export async function callCopyleaksAPI(textToCheck: string) {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${import.meta.env.COPYLEAKS_API_KEY}`  // Use the API key from environment variables
+                'Authorization': `Bearer ${env.COPYLEAKS_API_KEY}`  // Use the API key from environment variables
             },
             body: JSON.stringify(requestBody)
         });

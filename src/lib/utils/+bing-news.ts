@@ -1,7 +1,13 @@
+import { env } from '$env/dynamic/private';
+
 export function fetchBingNews(fetch: typeof globalThis.fetch, searchQuery: string = 'Latest News'): Promise<any> {
     return new Promise(async (resolve, reject) => {
-        const subscriptionKey = import.meta.env.BING_NEWS_API_KEY; // Get the Bing API key from the .env file
+      
+      
+        const subscriptionKey = env.BING_NEWS_API_KEY; // Get the Bing API key from the .env file
+       
         const endpoint = 'https://api.bing.microsoft.com/v7.0/news/search'; // Bing News Search API endpoint
+       
         const queryParams = `?q=${encodeURIComponent(searchQuery)}&count=5&mkt=en-US&setLang=EN`; // Customize the query as needed
 
         try {
