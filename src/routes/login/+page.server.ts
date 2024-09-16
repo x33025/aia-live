@@ -24,8 +24,8 @@ export const actions: Actions = {
 
       // Update user's last_active field
       const userId = authData.record.id;
-      await pb.collection('users').update(userId, { last_active: new Date().toISOString() });
-      console.log('LOGIN: Updated user last_active', { userId });
+      await pb.collection('users').update(userId, { last_login: new Date().toISOString() });
+      console.log('LOGIN: Updated user last_login', { userId });
 
       // Store the entire auth store state in the cookie
       const authCookie = pb.authStore.exportToCookie();
