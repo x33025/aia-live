@@ -6,18 +6,25 @@
   import ArticleRow from '$lib/views/article/+article-row.svelte';
   import Stack from '$lib/components/layout/+stack.svelte';
   import { writers } from '$lib/stores/+users'; // Import users store
+    import SearchBar from '$lib/views/search/+search-bar.svelte';
 
   // Set articles when the component mounts
   onMount(() => {
     articles.set($page.data.articles); // Set articles from $page.data
   });
+
+  const handleSearch = (searchTerm: string) => {
+    console.log('Searching for:', searchTerm);
+  };
 </script>
 
-<div class="parent-container">
+<Stack spacing={1}>
+  <SearchBar onSearch={handleSearch} />
   <Stack spacing={0.5} class="scrollable-stack">
     {#each $articles as article, index (article.id)}
       <ArticleRow 
         {article}
+        websites={$page.data.websites}
         categories={$page.data.categories}
         statuses={$page.data.statuses}
         writers={$writers}
@@ -27,15 +34,11 @@
       {/if}
     {/each}
   </Stack>
-</div>
+
+</Stack>
+
 
 <style>
-  /* Ensure the parent uses flexbox to control child sizes */
-  .parent-container {
-    display: flex;
-    flex-direction: column;
-    height: 100%; /* Ensure it takes up all available height */
-  }
 
   /* Divider style */
   .divider {

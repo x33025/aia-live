@@ -5,7 +5,7 @@
   import NumericInput from '$lib/components/advanced-input/+numeric-input.svelte';
   import NumericTarget from '$lib/components/advanced-input/+numeric-target.svelte';
   import Stack from '$lib/components/layout/+stack.svelte';
-  import { Direction, type Article, type Category, type Status, type User, toIdentifiableUser, type IdentifiableUser, Alignment } from '$lib/types';
+  import { Direction, type Article, type Category, type Status, type User, toIdentifiableUser, type IdentifiableUser, Alignment, type Website } from '$lib/types';
   import { goto } from '$app/navigation';
   import Button from '$lib/components/actions/+button.svelte';
   import Keywords from '../keyword/+keywords.svelte';
@@ -19,6 +19,7 @@
   export let categories: Category[];
   export let statuses: Status[];
   export let writers: User[];
+  export let websites: Website[];
 
   // Convert writers to IdentifiableUser array
   const identifiableWriters = writers.map(toIdentifiableUser);
@@ -28,6 +29,7 @@
   $: selectedCategory = article.category ? categories.find(c => c.id === article.category) : null;
   $: selectedStatus = article.status ? statuses.find(c => c.id === article.status) : null;
   $: selectedWriter = (typeof article.author === 'object' && article.author !== null) ? toIdentifiableUser(article.author) : null;
+  $: selectedWebsite = article.website ? websites.find(c => c.id === article.website) : null;
 
   function handleTitleChange(event: CustomEvent<string>) {
     const newTitle = event.detail;
@@ -46,6 +48,10 @@
     selectedStatus = status;
   }
 
+  function handleWebsiteSelect(website: Website | null) {
+    selectedWebsite = website;
+  }
+
   function updateSemrushScore(value: number) {
     console.log(`Updating semrush_score to ${value}`);
     // Implement actual update logic here, e.g., making a request to your backend.
@@ -55,6 +61,8 @@
     console.log(`Updating target_word_count to ${value}`);
     // Implement actual update logic here, e.g., making a request to your backend.
   }
+
+
 
   function openArticle() {
     if (article.id) {
@@ -82,6 +90,22 @@
           placeholder="Title"
           fullWidth={true}
         />
+        
+        <DropdownMenu 
+        id={`website-dropdown-${article.id}`}
+        selectedOption={selectedWebsite?.id}
+    >
+        <span class="label" slot="button">
+            {selectedWebsite ? selectedWebsite.name : 'Select a website'}
+        </span>
+        <svelte:fragment slot="default" let:selectOption>
+            {#each websites as website}
+                <p class="picker-item" on:click={() => { selectOption(website.id); handleWebsiteSelect(website); }}>
+                    {website.name}
+                </p>
+            {/each}
+        </svelte:fragment>
+    </DropdownMenu>
 
         <!-- Dropdown for selecting writer -->
         <DropdownMenu 

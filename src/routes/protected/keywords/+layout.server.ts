@@ -12,7 +12,8 @@ export const load: LayoutServerLoad = async ({ locals, url }) => {
     console.log(`FETCH_KEYWORDS: Fetching page ${page} with page size ${PAGE_SIZE}`);
 
     const result = await pb.collection('keywords').getList<Keyword>(page, PAGE_SIZE, {
-      expand: 'activity,country,notes'
+      expand: 'activity,country,notes',
+      sort: '-created'
     }); // Correct page indexing
     console.log('FETCH_KEYWORDS: Fetch request completed');
 
@@ -27,7 +28,7 @@ export const load: LayoutServerLoad = async ({ locals, url }) => {
     console.log(`FETCH_KEYWORDS: Retrieved ${keywords.length} keywords out of ${total} total items`);
 
     // Log the full keywords array as a JSON string
-    console.log(`FETCH_KEYWORDS: Keywords data: ${JSON.stringify(keywords, null, 2)}`);
+    // console.log(`FETCH_KEYWORDS: Keywords data: ${JSON.stringify(keywords, null, 2)}`);
 
     return {
       keywords,
