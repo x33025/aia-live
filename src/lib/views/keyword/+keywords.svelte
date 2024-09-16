@@ -9,9 +9,6 @@
   export let keywords: Keyword[] = [];
   export let main_keyword: Keyword | null = null;
 
-  onMount(() => {
-    console.log("Keywords:", JSON.stringify(keywords));
-  });
 </script>
 
 <style>

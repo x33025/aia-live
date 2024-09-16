@@ -1,6 +1,8 @@
 <script lang="ts">
     import Text from "$lib/components/display/+text.svelte";
     import { TextType } from "$lib/types";
+
+    
   export let image_url: string | null = null; // Accept the image URL as input
   
   // Customizable size in em units

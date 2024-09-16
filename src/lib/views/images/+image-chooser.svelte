@@ -43,7 +43,7 @@
     });
 
     function constructImageUrl(image: Image): string {
-      return `http://localhost:8090/api/files/images/${image.id}/${image.file}`;
+      return `${import.meta.env.VITE_POCKETBASE_URL}/api/files/images/${image.id}/${image.file}`;
     }
 </script>
   
@@ -54,7 +54,7 @@
     <div class="image-grid">
       {#if $images.length > 0}
         {#each $images as image}
-          <div class="image-container" on:click={() => handleImageSelect(image)}> <!-- Add click event -->
+          <div class="image-container" on:click={() => handleImageSelect(image)}> 
             <img src={constructImageUrl(image)} alt={image.description || 'No description'} />
           </div>
         {/each}

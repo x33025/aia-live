@@ -6,5 +6,5 @@ export const users = writable<User[]>([]);
 
 // Derived store for users with role "Writer"
 export const writers = derived(users, $users => 
-  $users.filter(user => user.expand?.role?.name === "Writer")
+  $users.filter(user => user.expand?.role?.some(role => role.name === "Writer"))
 );

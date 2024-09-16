@@ -19,7 +19,7 @@
 
 
 <div class="image-container" on:click={openImageModal}>
-  <ImageComponent image_url={image_url} alt_text={main_image?.description || 'No description'} maskShape="square" aspect_ratio={ 4 / 3}  />
+  <ImageComponent image_url={image_url} alt_text={main_image?.description || 'No description'} maskShape="square" aspect_ratio={3 / 2}  />
 
 </div>
   

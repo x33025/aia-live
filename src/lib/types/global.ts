@@ -11,11 +11,11 @@ export interface User {
   last_name: string; // Required field
   author_name: string | null; // Optional field
   avatar: string | null; // File path, optional
-  role: string | null; // Role ID, optional
+  role: string[]; // Role ID, optional
   last_active: Date | null;
 
   expand?: {
-    role?: Role | null;
+    role?: Role[];
   };
 }
 
@@ -86,10 +86,10 @@ export interface Keyword {
 
 // Category interface
 export interface Category extends Identifiable {
-  subcategories: string[]; // Array of subcategory IDs
+  parent: string | null;
 
   expand?: {
-    subcategories?: Category[]; // Expanded subcategory objects
+    parent?: Category | null; // Expanded parent category object
   };
 }
 
