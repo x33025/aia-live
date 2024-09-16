@@ -1,6 +1,36 @@
 import { json, error } from '@sveltejs/kit';
 import { pb } from '$lib/config/pocketbase';
 import type { RequestHandler } from './$types';
+import { SortOptions } from '$lib/types'; // Import your SortOptions enum
+
+export const GET: RequestHandler = async ({ url }) => {
+  try {
+    const sortParam = url.searchParams.get('sort') || SortOptions.DateCreatedAsc;
+
+    // Validate the sortParam by checking if it exists in SortOptions
+    if (!Object.values(SortOptions).includes(sortParam as SortOptions)) {
+      throw error(400, 'Invalid sort option');
+    }
+
+    // Fetch keywords from PocketBase, applying the sort
+    const records = await pb.collection('keywords').getFullList({
+      sort: sortParam as string, // PocketBase expects a string for sorting
+    });
+
+    return json(records);
+  } catch (err) {
+    console.error('Error fetching keywords:', err);
+
+    // Handle specific errors with status
+    if (err instanceof Error && 'status' in err) {
+      const statusErr = err as { status: number; message?: string };
+      throw error(statusErr.status, statusErr.message || 'Error occurred');
+    }
+
+    throw error(500, 'Failed to fetch keywords');
+  }
+};
+
 
 export const PATCH: RequestHandler = async ({ request }) => {
   try {

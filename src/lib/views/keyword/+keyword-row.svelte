@@ -5,6 +5,7 @@
   import { TextType, type Country, type Keyword } from '$lib/types';
   import { openSidebar } from '$lib/stores/ui/+sidebar';
   import NotesSidebar from '../notes/+notes-sidebar.svelte';
+    import NotesButton from '../notes/+notes-button.svelte';
  
   export let keyword: Keyword;
   export let countries: Country[] = [];
@@ -65,9 +66,11 @@
        id={`country-dropdown-${keyword.id}`}
        selectedOption={selectedCountry?.id}
      >
-       <span slot="button">
+       <svelte:fragment slot="button">
          {selectedCountry ? selectedCountry.name : 'Select a country'}
-       </span>
+       </svelte:fragment>
+
+
        <svelte:fragment slot="default" let:selectOption>
          {#each countries as country}
            <p class="menu-item" on:click={() => { selectOption(country.id); selectCountry(country); }}>
@@ -89,25 +92,18 @@
        on:update={handleDensityChange}
      />
    </td>
-   <td on:click={openNotesSidebar} class="clickable-cell">
-    {#if keyword.expand?.notes?.length}
-      {keyword.expand.notes[0].content}
-    {:else}
-      No notes
-    {/if}
-  </td>
+   <td>
+    <NotesButton
+        notes={keyword.expand?.notes}
+        activity={keyword.expand?.activity}
+    />
+   </td>
  </tr>
  
  <style>
 
 
-.clickable-cell {
-    cursor: pointer;
-  }
 
-  .clickable-cell:hover {
-    background-color: var(--gray-1);
-  }
 
    :global(.keyword-input) {
      padding: var(--default-padding);

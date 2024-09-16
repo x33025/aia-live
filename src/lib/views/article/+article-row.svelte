@@ -14,6 +14,7 @@
   import MainImage from '../images/+main-image.svelte';
   import NotesSidebar from '../notes/+notes-sidebar.svelte';
   import { openSidebar } from '$lib/stores/ui/+sidebar';
+    import NotesButton from '../notes/+notes-button.svelte';
 
   export let article: Article;
   export let categories: Category[];
@@ -176,7 +177,13 @@
             update={updateTargetWordCount}
           />
         </Label>
-        <button on:click={openNotesSidebar}>Open Notes Sidebar</button>
+        <Label name="Notes">
+          <NotesButton
+            notes={article.expand?.notes}
+          activity={article.expand?.activity}
+      />
+        </Label>
+       
       </Stack>
     
     </Stack>
