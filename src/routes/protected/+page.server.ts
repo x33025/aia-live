@@ -5,33 +5,22 @@ import { pb } from '$lib/config/pocketbase'; // Ensure this is your PocketBase c
 export const load: PageServerLoad = async () => {
     const now = new Date();
 
-    // Get the start of the current month
+    // Get the start of the current month (e.g., September)
     const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
     startOfMonth.setHours(0, 0, 0, 0);
-    
-    // Get the date one month ago
-    const oneMonthAgo = new Date(now);
-    oneMonthAgo.setMonth(now.getMonth() - 1);
 
-    // Fetch articles from the past month, sorted by `created` (descending)
+    // Get the end of the current month
+    const endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+    endOfMonth.setHours(23, 59, 59, 999);
+
+    // Fetch articles created within the current month, expand the `activity` relation (activity_data)
     const draftedThisMonth = await pb.collection('articles').getList(1, 100, {
-        filter: `created >= "${oneMonthAgo.toISOString()}"`,
-        sort: '-created'
+        filter: `created >= "${startOfMonth.toISOString()}" && created <= "${endOfMonth.toISOString()}"`,
+        sort: '-created',
+        expand: 'activity' // Expands the activity_data relation within articles
     });
 
-    const articlesByWeek = draftedThisMonth.items.reduce((acc: Record<number, any[]>, article) => {
-        const createdDate = new Date(article.created);
-        const weekNumber = Math.ceil((createdDate.getDate() - 1) / 7); // Determine the week number of the month
-
-        if (!acc[weekNumber]) {
-            acc[weekNumber] = [];
-        }
-        acc[weekNumber].push(article);
-
-        return acc;
-    }, {});
-
     return {
-        articlesByWeek
+        articles: draftedThisMonth
     };
 };

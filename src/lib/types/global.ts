@@ -1,12 +1,17 @@
-// Common Identifiable interface
-export interface Identifiable {
+// Base interface for common fields (ID, created, updated)
+export interface BaseModel {
   id: string;
+  created: Date; // Creation timestamp
+  updated: Date; // Last update timestamp
+}
+
+// Base interface for identifiable models with a name
+export interface Identifiable extends BaseModel {
   name: string; // For dropdowns and other components
 }
 
 // User interface based on PocketBase schema
-export interface User {
-  id: string;
+export interface User extends BaseModel {
   first_name: string; // Required field
   last_name: string; // Required field
   author_name: string | null; // Optional field
@@ -21,10 +26,7 @@ export interface User {
 }
 
 // ActivityData with relationships
-export interface ActivityData {
-  id: string;
-  created: Date; // Creation timestamp
-  updated: Date; // Last update timestamp
+export interface ActivityData extends BaseModel {
   deleted: Date | null; // Can be null if not provided
   deleted_by: string | null; // ID as string, optional
   created_by: string; // ID as string, required
@@ -38,8 +40,7 @@ export interface ActivityData {
 }
 
 // Article interface with relationships and new fields
-export interface Article {
-  id: string;
+export interface Article extends BaseModel {
   title: string; // Required field
   content: string; // Required field
   description: string; // Optional field
@@ -55,7 +56,7 @@ export interface Article {
   keywords: string[]; // Array of keyword IDs
   main_keyword: string | null; // ID of the main keyword
   notes: string[];
-  raw_data: string[]
+  raw_data: string[];
 
   expand?: {
     activity?: ActivityData;
@@ -69,8 +70,7 @@ export interface Article {
 }
 
 // Keyword interface
-export interface Keyword {
-  id: string;
+export interface Keyword extends BaseModel {
   keyword: string;
   density: number | null; // Optional, defaults to 0
   volume: number | null; // Optional, defaults to 0
@@ -88,6 +88,7 @@ export interface Keyword {
 // Category interface
 export interface Category extends Identifiable {
   parent: string | null;
+  children: string[];
 
   expand?: {
     parent?: Category | null; // Expanded parent category object
@@ -109,8 +110,7 @@ export interface Website extends Identifiable {
 }
 
 // Image interface
-export interface Image {
-  id: string;
+export interface Image extends BaseModel {
   file: string; // File path
   description: string | null; // Optional description
   activity: string; // ID as string, required
@@ -123,8 +123,7 @@ export interface Image {
 }
 
 // Notes interface
-export interface Notes {
-  id: string;
+export interface Notes extends BaseModel {
   content: string; // Editor field
   activity: string; // ID as string, required
 
@@ -133,11 +132,8 @@ export interface Notes {
   };
 }
 
-// New Collection Interfaces
-
 // News interface
-export interface News {
-  id: string;
+export interface News extends BaseModel {
   url: string;
   title: string;
   description: string;
@@ -154,8 +150,7 @@ export interface News {
 }
 
 // Prompts interface
-export interface Prompts {
-  id: string;
+export interface Prompts extends BaseModel {
   prompt: string; // Optional field
   activity: string; // ID as string, required
 
@@ -165,8 +160,7 @@ export interface Prompts {
 }
 
 // Raw Data interface
-export interface RawData {
-  id: string;
+export interface RawData extends BaseModel {
   name: string; // Required field
   source: string; // Editor type field
   extracted_data: Record<string, any> | null; // Optional JSON
