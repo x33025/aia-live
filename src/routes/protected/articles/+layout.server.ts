@@ -15,6 +15,7 @@ export const load: LayoutServerLoad = async ({ locals, url }) => {
     // Expand the 'keywords' field to include the full keyword details rather than just IDs
     const articlesResult = await pb.collection('articles').getList<Article>(page, PAGE_SIZE, {
       expand: 'keywords,main_keyword,main_image,activity_data,notes',
+      sort: '-created'
     });
     
     console.log('Fetched Articles with Expanded Data:', articlesResult.items);

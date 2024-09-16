@@ -5,6 +5,10 @@
   import Text from '$lib/components/display/+text.svelte';
   import RouteNavigation from '$lib/views/dashboard/+route-navigation.svelte';
   import DashboardArticles from '$lib/views/dashboard/+dashboard-articles.svelte'; // Import the new component
+
+  let draftedThisMonth = $page.data.draftedThisMonth;
+
+  // $: console.log(draftedThisMonth);
 </script>
 
 <Stack direction={Direction.Vertical} spacing={1}>
