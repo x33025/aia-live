@@ -13,6 +13,7 @@ export interface User {
   avatar: string | null; // File path, optional
   role: string[]; // Role ID, optional
   last_active: Date | null;
+  last_login: Date | null;
 
   expand?: {
     role?: Role[];
