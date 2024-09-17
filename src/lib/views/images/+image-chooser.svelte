@@ -47,10 +47,13 @@
     }
 </script>
   
+<Stack direction={Direction.Vertical} spacing={1}>
+
+  <SearchBar placeholder="Search images..." onSearch={handleSearch} />
 <Stack direction={Direction.Horizontal}  spacing={1}>
 
   <Stack direction={Direction.Vertical} spacing={0.5}>
-    <SearchBar placeholder="Search images..." onSearch={handleSearch} />
+
     <div class="image-grid">
       {#if $images.length > 0}
         {#each $images as image}
@@ -64,15 +67,19 @@
     </div>
   </Stack>
 
-  <Stack direction={Direction.Vertical}  spacing={1} style="max-width: 300px; border-left: 1px solid #e0e0e0; padding: 0em 1em;">
-  
-    {#if main_image}
-      <ImageSelection image={main_image} /> <!-- Pass the selected image -->
-    {/if}
+
+
 
 </Stack>
+{#if main_image}
+<Stack direction={Direction.Horizontal} wrap={true}  spacing={1} style="border-top: 1px solid var(--gray-2); padding-top: 1em;">
+  
+
+    <ImageSelection image={main_image} /> <!-- Pass the selected image -->
 
 
+</Stack>
+{/if}
 </Stack>
 
 <style>

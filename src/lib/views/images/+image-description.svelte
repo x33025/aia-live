@@ -17,12 +17,10 @@
     }
 </script>
 
-<Stack direction={Direction.Vertical} spacing={1.5}>
-    <Stack direction={Direction.Horizontal}>
-        <Spacer />
-        <Image image_url={constructImageUrl(image)} alt_text={image.description || 'No description provided'} style="box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);" aspect_ratio={3 / 2} />
-        <Spacer />
-    </Stack>
+<Stack direction={Direction.Horizontal} spacing={1.5}>
+ 
+    <Image image_url={constructImageUrl(image)} size={20} alt_text={image.description || 'No description provided'} style="box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);" aspect_ratio={3 / 2} />
+
     <Stack direction={Direction.Vertical}>
         <Label name="Description">
             <TextInput style="background-color: var(--gray-1); padding: 0.5em;" label="Description" value={image.description || 'No description provided'} />
@@ -32,9 +30,6 @@
             <ActivityDataView activity={image.expand.activity} />
         {/if}
         <Spacer />
-        <Stack direction={Direction.Horizontal} alignment={Alignment.Center} wrap={true} spacing={1}>
-            <Button on:click={() => dispatch('cancel')} style="background-color: var(--gray-2); padding: 0.5em 1em; border-radius: 0.5em;">Cancel</Button>
-            <Button on:click={() => dispatch('save')} style="background-color: var(--blue); color: white; padding: 0.5em 1em; border-radius: 0.5em;">Save</Button>
-        </Stack>
+     
     </Stack>
 </Stack>

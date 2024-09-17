@@ -117,7 +117,7 @@ export interface Image extends BaseModel {
   notes: string[];
 
   expand?: {
-    activity: ActivityData;
+    activity?: ActivityData;
     notes?: Notes[];
   };
 }
