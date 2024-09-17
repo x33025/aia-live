@@ -5,6 +5,7 @@
   import Text from '$lib/components/display/+text.svelte';
   import RouteNavigation from '$lib/views/dashboard/+route-navigation.svelte';
   import DashboardArticles from '$lib/views/dashboard/+dashboard-articles.svelte'; // Import the new component
+  import DashboardCalendar from '$lib/views/dashboard/+dashboard-calendar.svelte';
 
   let draftedThisMonth = $page.data.draftedThisMonth;
 
@@ -14,11 +15,13 @@
 <Stack direction={Direction.Vertical} spacing={1}>
   <RouteNavigation />
 
-  <Stack direction={Direction.Horizontal} spacing={0.5}>
-    <DashboardArticles {draftedThisMonth} /> <!-- Use the new component -->
+  <Stack direction={Direction.Horizontal} spacing={1} style="border-top: 1px solid var(--gray-1); padding-top: 1em;">
 
-    <Stack style="background-color: white; border-radius: 0.75em;">
-      <!-- You can use this Stack for other content -->
-    </Stack>
+    <DashboardCalendar />
+   
+    <DashboardArticles {draftedThisMonth} /> 
+
+  
+   
   </Stack>
 </Stack>

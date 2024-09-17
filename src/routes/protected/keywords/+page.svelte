@@ -46,7 +46,16 @@
 
   // Set initial keywords in the store
   onMount(() => {
-    keywords.set($page.data.keywords);
+    const unsubscribe = page.subscribe(($page) => {
+      if ($page.data.keywords) {
+        keywords.set($page.data.keywords);
+      }
+    });
+
+    // Optional: unsubscribe when the component is destroyed
+    return () => {
+      unsubscribe();
+    };
   });
 
   function handleSearch(value: string) {

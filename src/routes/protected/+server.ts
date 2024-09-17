@@ -2,6 +2,7 @@
 
 import { json } from '@sveltejs/kit';
 import { pb } from '$lib/config/pocketbase';
+import type { User } from '$lib/types';
 
 export async function POST({ request }: { request: Request }) {
   const { userId } = await request.json();
@@ -12,7 +13,7 @@ export async function POST({ request }: { request: Request }) {
 
   try {
     // Fetch the user by ID
-    const user = await pb.collection('users').getOne(userId);
+    const user = await pb.collection('users').getOne<User>(userId);
 
     if (!user) {
       return json({ error: 'User not found' }, { status: 404 });

@@ -13,7 +13,8 @@
   $: console.log(articles);
 </script>
 
-<Stack style="background-color: white; border-radius: 0.5em; border: 1px solid var(--gray-2);">
+
+<Stack style="background-color: white;">
   <Text type={TextType.Subheadline} style="padding: 0.5em; border-bottom: 1px solid var(--gray-2)">
     Articles This Week
   </Text>
