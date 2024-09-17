@@ -10,62 +10,51 @@
   import { keywords } from '$lib/stores/+keywords';
   import { Direction, SortOptions, type Keyword } from '$lib/types';
 
+  
   const headers = ["Keyword", "Evergreen", "Country", "Volume", "Density", "Notes"];
 
-  // Default sort option
-  let selectedSortOption: SortOptions = SortOptions.DateCreatedDesc;
+  let selectedSortOption: SortOptions = SortOptions.DateCreatedDesc; // Default to DateCreated Descending
 
-  // Function to log sorting updates
-  function logSorting(action: string, details: any = null) {
-    console.log(`🔄 [Sort Log] ${action}`, details ? JSON.stringify(details, null, 2) : '');
+  // Function to toggle the sort option
+  function toggleSortOption(option: SortOptions) {
+    if (selectedSortOption === option) {
+      selectedSortOption = option.includes('Asc') ? (option.replace('Asc', 'Desc') as SortOptions) : (option.replace('Desc', 'Asc') as SortOptions);
+    } else {
+      selectedSortOption = option;
+    }
+    console.log("Selected sort option:", selectedSortOption);
+    updateKeywordList();
   }
 
-  // Function to fetch the sorted list of keywords
+  // Handle sorting option change from DropdownMenu
+  function handleSortChange(event: CustomEvent<{ selectedOption: SortOptions }>) {
+    toggleSortOption(event.detail.selectedOption);
+  }
+
+  // Fetch the sorted list of keywords
   async function updateKeywordList() {
-    logSorting('Updating keyword list', { selectedSortOption });
-
     try {
-      const fetchUrl = `/protected/keywords?sort=${selectedSortOption}`;
-      logSorting('Fetch URL', { fetchUrl });
-
-      const response = await fetch(fetchUrl);
+      console.log('updateKeywordList called with sort option:', selectedSortOption);
+      const response = await fetch(`/protected/keywords?sort=${selectedSortOption}`);
       const sortedKeywords = await response.json();
-
-      logSorting('Fetched keywords', { sortedKeywords });
-
+      console.log('updateKeywordList response:', sortedKeywords);
       keywords.set(sortedKeywords); // Update the store with sorted keywords
-
-      logSorting('Keyword store updated');
     } catch (error) {
-      console.error('❌ [Sort Log] Failed to fetch sorted keywords:', error);
+      console.error('Failed to fetch sorted keywords:', error);
     }
   }
 
-  // Use onMount to ensure this only runs on the client
+  // Set initial keywords in the store
   onMount(() => {
-    logSorting('Component mounted, fetching initial keywords');
-    updateKeywordList();
+    keywords.set($page.data.keywords);
   });
 
-  // Handle sorting option change from the dropdown
-  function handleSortChange(option: SortOptions) {
-    logSorting('Sort option selected', { option });
-
-    // Update selectedSortOption and fetch sorted data
-    selectedSortOption = option;
-    logSorting('Selected sort option updated', { selectedSortOption });
-
-    updateKeywordList();
-  }
-
-  // Handle search input changes
   function handleSearch(value: string) {
-    logSorting('Search input', { searchValue: value });
+    console.log('Search value:', value);
   }
 
-  // Handle keyword updates
   function updateKeyword(id: string, updatedFields: object) {
-    logSorting('Keyword updated', { id, updatedFields });
+    console.log('Keyword updated:', id, updatedFields);
   }
 </script>
 
@@ -74,18 +63,18 @@
     <SearchBar onSearch={handleSearch} />
 
     <!-- Dropdown for Sorting -->
-    <DropdownMenu id="sort" placeholder="Sort by">
+    <DropdownMenu id="sort" placeholder="Sort by" on:select={handleSortChange}>
       <svelte:fragment slot="button">{selectedSortOption}</svelte:fragment>
-
-      <!-- Sorting Options -->
-      <div>
-        {#each Object.entries(SortOptions) as [key, option]}
-          <div on:click={() => handleSortChange(option)}>
-            {key}
-          </div>
-        {/each}
+    
+      <div on:click={() => toggleSortOption(SortOptions.DateCreatedAsc)}>
+        Date Created
       </div>
+      <div on:click={() => toggleSortOption(SortOptions.DateUpdatedAsc)}>
+        Date Updated
+      </div>
+    
     </DropdownMenu>
+    
   </Stack>
 
   <!-- Table for Displaying Keywords -->
@@ -108,8 +97,6 @@
     </table>
   </Stack>
 </Stack>
-
-
 
 <style>
   table {

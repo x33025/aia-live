@@ -1,5 +1,5 @@
 import type { LayoutServerLoad } from './$types';
-import { pb } from '$lib/config/pocketbase';
+import { keywordService } from '$lib/services/+keyword-service';
 import type { Keyword } from '$lib/types';
 
 const PAGE_SIZE = 20;
@@ -7,31 +7,32 @@ const PAGE_SIZE = 20;
 export const load: LayoutServerLoad = async ({ locals, url }) => {
   try {
     console.log('FETCH_KEYWORDS: Starting load function');
-    
+
     const page = Number(url.searchParams.get('page')) || 1;  // Start page from 1
     console.log(`FETCH_KEYWORDS: Fetching page ${page} with page size ${PAGE_SIZE}`);
 
-    const result = await pb.collection('keywords').getList<Keyword>(page, PAGE_SIZE, {
+    // Fetch keywords from the keyword service
+    const keywords = await keywordService.getList({
+      page,
+      pageSize: PAGE_SIZE,
       expand: 'activity,country,notes',
       sort: '-created'
-    }); // Correct page indexing
+    });
+
     console.log('FETCH_KEYWORDS: Fetch request completed');
 
-    if (!result) {
+    if (!keywords) {
       console.error('FETCH_KEYWORDS: No result found, throwing an error');
       throw new Error("Collection not found or no data returned");
     }
 
-    const keywords = result.items;
-    const total = result.totalItems;
+    const items = keywords.items as Keyword[];
+    const total = keywords.totalItems;
 
-    console.log(`FETCH_KEYWORDS: Retrieved ${keywords.length} keywords out of ${total} total items`);
-
-    // Log the full keywords array as a JSON string
-    // console.log(`FETCH_KEYWORDS: Keywords data: ${JSON.stringify(keywords, null, 2)}`);
+    console.log(`FETCH_KEYWORDS: Retrieved ${items.length} keywords out of ${total} total items`);
 
     return {
-      keywords,
+      keywords: items,
       total,
       page,
       title: "Keywords",
