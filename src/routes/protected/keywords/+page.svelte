@@ -58,10 +58,6 @@
     };
   });
 
-  function handleSearch(value: string) {
-    console.log('Search value:', value);
-  }
-
   function updateKeyword(id: string, updatedFields: object) {
     console.log('Keyword updated:', id, updatedFields);
   }
@@ -69,7 +65,7 @@
 
 <Stack direction={Direction.Vertical} spacing={1}>
   <Stack direction={Direction.Horizontal} wrap={true}>
-    <SearchBar onSearch={handleSearch} />
+
 
     <!-- Dropdown for Sorting -->
     <DropdownMenu id="sort" placeholder="Sort by" on:select={handleSortChange}>

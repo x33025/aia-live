@@ -1,0 +1,17 @@
+<script lang="ts">
+    import { page } from '$app/stores';
+    import { derived } from 'svelte/store';
+
+    const title = derived(page, $page => $page.data.title);
+</script>
+
+<style>
+  h1 {
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+</style>
+
+<h1>{$title}</h1>

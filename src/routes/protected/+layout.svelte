@@ -1,6 +1,6 @@
   <script lang="ts">
     import { page } from '$app/stores';
-    import MainLayout from '$lib/components/layout/+main-layout.svelte';
+    import MainPage from '$lib/components/layout/+main-page.svelte';
     import { onMount, onDestroy } from 'svelte';
     import { users } from '$lib/stores/+users';
     import Users from '$lib/views/user/+users.svelte';
@@ -8,6 +8,8 @@
     import Stack from '$lib/components/layout/+stack.svelte';
     import { Direction, TextType } from '$lib/types';
     import SearchBar from '$lib/views/search/+search-bar.svelte';
+    import Spacer from '$lib/components/layout/+spacer.svelte';
+    import PageTitle from '$lib/components/layout/+page-title.svelte';
 
     let intervalId: number;
 
@@ -55,9 +57,17 @@
 
   </script>
 
-  <MainLayout>
-    <svelte:fragment slot="navigation-center">
-<SearchBar type={TextType.Headline} onSearch={(value) => console.log(value)} />
+  <MainPage>
+    <svelte:fragment slot="navigation-leading">
+  
+
+      <PageTitle /> 
+      <div style="border-left: 1px solid var(--gray-3); height: 80%; margin: 0 1em;" />
+      <SearchBar type={TextType.Headline} onSearch={(value) => console.log(value)} placeholder="I'm looking for..." />
+  
+ 
+
+
 
     </svelte:fragment>
     <svelte:fragment slot="navigation-trailing">
@@ -69,4 +79,4 @@
 
     <!-- Render the main content -->
     <slot />
-  </MainLayout>
+  </MainPage>

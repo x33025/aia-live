@@ -48,8 +48,6 @@
 </script>
   
 <Stack direction={Direction.Vertical} spacing={1}>
-
-  <SearchBar placeholder="Search images..." onSearch={handleSearch} />
 <Stack direction={Direction.Horizontal}  spacing={1}>
 
   <Stack direction={Direction.Vertical} spacing={0.5}>

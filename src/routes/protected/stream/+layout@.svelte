@@ -1,20 +1,27 @@
 <script>
 
-    import MainLayout from "$lib/components/layout/+main-layout.svelte";
+    import MainLayout from "$lib/components/layout/+main-page.svelte";
     import Spacer from "$lib/components/layout/+spacer.svelte";
     import Stack from "$lib/components/layout/+stack.svelte";
-    import { Direction } from "$lib/types";
+    import { Direction, TextType } from "$lib/types";
+    import SearchBar from "$lib/views/search/+search-bar.svelte";
     import StreamControl from "$lib/views/stream/+stream-control.svelte";
-
+    import PageTitle from "$lib/components/layout/+page-title.svelte";
 </script>
 
 
 <MainLayout>
-<Stack direction={Direction.Horizontal} wrap={true} slot="navigation-trailing">
-<StreamControl />
+  
+<svelte:fragment slot="navigation-leading">
+  <PageTitle />
+</svelte:fragment>
 
-</Stack>
 
+<svelte:fragment slot="navigation-center">
+
+<SearchBar type={TextType.Headline} onSearch={(value) => console.log(value)} placeholder="Search news here..." />
+  <StreamControl />
+</svelte:fragment>
   <slot />
 </MainLayout>
 
