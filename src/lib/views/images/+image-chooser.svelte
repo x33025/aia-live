@@ -72,7 +72,7 @@
 
 </Stack>
 {#if main_image}
-<Stack direction={Direction.Horizontal} wrap={true}  spacing={1} style="border-top: 1px solid var(--gray-2); padding-top: 1em;">
+<Stack direction={Direction.Horizontal} wrap={true}  spacing={1} style="border-top: 1px solid var(--gray-2); padding-top: 2em;">
   
 
     <ImageSelection image={main_image} /> <!-- Pass the selected image -->
