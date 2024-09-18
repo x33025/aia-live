@@ -39,6 +39,20 @@ export interface ActivityData extends BaseModel {
   };
 }
 
+
+export interface Schedule extends BaseModel {
+  article_id: string; // Foreign key to the Article
+  status: string | null; // Enum for status
+  website: string | null; // Foreign key to website
+  schedule_date: Date; // Initially planned schedule date
+
+  expand?: {
+    article?: Article;
+    website?: Website;
+  };
+}
+
+
 // Article interface with relationships and new fields
 export interface Article extends BaseModel {
   title: string; // Required field
@@ -49,14 +63,13 @@ export interface Article extends BaseModel {
   semrush_score: number; // Optional, defaults to 0
   activity: string; // ID as string, required
   category: string | null; // ID as string, optional
-  status: string | null; // ID as string, optional
-  website: string | null; // ID as string, optional
   author: string | null; // ID as string, optional
   main_image: string | null; // ID as string, optional
   keywords: string[]; // Array of keyword IDs
   main_keyword: string | null; // ID of the main keyword
   notes: string[];
   raw_data: string[];
+  schedule: string[];
 
   expand?: {
     activity?: ActivityData;
@@ -66,6 +79,7 @@ export interface Article extends BaseModel {
     main_image?: Image | null; // Expanded main image object
     category?: Category | null; // Expanded category object
     raw_data?: RawData[]; // Expanded raw data objects
+    schedule?: Schedule[]; // Expanded schedule objects
   };
 }
 

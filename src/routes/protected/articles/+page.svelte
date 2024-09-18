@@ -24,9 +24,7 @@
     {#each $articles as article, index (article.id)}
       <ArticleRow 
         {article}
-        websites={$page.data.websites}
         categories={$page.data.categories}
-        statuses={$page.data.statuses}
         writers={$writers}
       />
       {#if index < $articles.length - 1}
