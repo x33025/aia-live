@@ -8,7 +8,7 @@
   export let onSelectionChange: (selection: { text: string, start: number, end: number } | null) => void;
 </script>
 
-<Stack spacing={1}>
+<Stack spacing={0.5}>
   <Toolbar />
 
   <TextEditor 

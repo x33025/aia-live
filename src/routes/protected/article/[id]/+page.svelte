@@ -13,6 +13,7 @@
   import ImageChooser from '$lib/views/images/+image-chooser.svelte';
   import DataView from '$lib/views/article/[id]/data/+data-tab.svelte';
     import MainImage from '$lib/views/images/+main-image.svelte';
+    import GoBack from '$lib/views/navigation/+go-back.svelte';
 
   let unsubscribe: () => void; // To track the unsubscribe function
 
@@ -49,43 +50,51 @@
   }
 </script>
 
-<!-- Layout with the open sidebar button -->
-<Stack direction={Direction.Horizontal} alignment={Alignment.Start} spacing={1} style="padding: 1em;">
+<Stack direction={Direction.Vertical}  spacing={1} style="padding: 1em;">
 
-  
-<DataView>
+<Stack direction={Direction.Horizontal} wrap={true} align={Alignment.Start} spacing={1} style="padding-bottom: 1em; border-bottom: 1px solid var(--gray-3);">
 
 
-</DataView>
+  <MainImage main_image={$article?.expand?.main_image} on:click={openImageModal}/>
+
+
+
+  <TextInput
+    class="article-title border-highlight"
+    value={$article.title}
+    placeholder="Title"
+    fullWidth={true}
+    type={TextType.Headline}
+  />
+
+
+
+
+</Stack>
+
     
 
 
-  <Stack spacing={1} style="width: 825px;">
-    {#if $article}
-      <TextInput
-        class="article-title border-highlight"
-        value={$article.title}
-        placeholder="Title"
-        fullWidth={true}
-        type={TextType.Headline}
-      />
-      <Body 
-        content={$article.content} 
-        onPublishUpdate={publishUpdate} 
-        onSelectionChange={(selection) => console.log("Selection changed:", selection)} 
-      />
-    {/if}
-  </Stack>
-
-  <Stack>
-    <!-- Button to open the notes sidebar -->
-    <button on:click={openNotesSidebar}>Open Notes Sidebar</button>
-    <button on:click={openImageModal}>
-      <MainImage main_image={$article?.expand?.main_image} />
-
-    </button>
-  </Stack>
+  <Stack direction={Direction.Horizontal} spacing={1} >
+ <DataView />
+<Stack direction={Direction.Vertical} spacing={1} >
+  {#if $article}
+ 
+  <Body 
+    content={$article.content} 
+    onPublishUpdate={publishUpdate} 
+    onSelectionChange={(selection) => console.log("Selection changed:", selection)} 
+  />
+{/if}
 </Stack>
+<Spacer />
+
+  </Stack>
+
+  
+
+</Stack>
+
 
 <style>
   :global(.article-title) {

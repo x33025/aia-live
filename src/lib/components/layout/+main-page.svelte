@@ -14,10 +14,6 @@
   const title = derived(page, $page => $page.data.title);
   const headTitle = derived(title, $title => $title || 'aia');
 
-  // Function to handle the go back action
-  const goBack = () => {
-    history.back();
-  }
 </script>
 
 <svelte:head>
@@ -29,10 +25,10 @@
     
     <!-- Leading Navigation -->
     <slot name="navigation-leading">
-      <button on:click={goBack}>Go Back</button>
+  
       <Stack direction={Direction.Horizontal} spacing={1}>
         <!-- Go Back Button -->
-      
+     
         <PageTitle />
       </Stack>
     </slot>

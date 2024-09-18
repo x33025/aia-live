@@ -11,13 +11,6 @@
 
 </script>
 
-<style>
-  :global(.scrollable-stack) {
-    overflow-y: auto;
-
-  }
-</style>
-
 <Stack wrap={true} direction={Direction.Horizontal} spacing={0.5} class="scrollable-stack">
   {#if main_keyword}
     <Text type={TextType.Callout} class="label" style="color: var(--yellow);"><b>{main_keyword.keyword}</b></Text>
@@ -28,7 +21,20 @@
         <Text type={TextType.Callout} class="label">{keyword.keyword}</Text>
       {/if}
     {/each}
-  {:else}
+  {/if}
+  {#if !main_keyword && (!keywords || keywords.length === 0)}
     <p>No keywords available</p>
   {/if}
 </Stack>
+
+<style>
+  :global(.label) {
+    border-radius: 0.5em;
+    background-color: var(--gray-1);
+    padding: 0.5em;
+  }
+
+  :global(.scrollable-stack) {
+    overflow-y: auto;
+  }
+</style>

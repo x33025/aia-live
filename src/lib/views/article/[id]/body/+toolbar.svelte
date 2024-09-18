@@ -37,17 +37,17 @@
     }
 </script>
 
-<Stack direction={Direction.Horizontal} wrap={true} spacing={1}>
-  <button class="label border-highlight" on:click={() => editor?.textFormatter.toggleBold()}>
+<Stack direction={Direction.Horizontal} wrap={true} spacing={0.5}>
+  <button class="label" on:click={() => editor?.textFormatter.toggleBold()}>
     <Text type={TextType.Callout}><strong>Bold</strong></Text>
   </button>
-  <button class="label border-highlight" on:click={() => editor?.textFormatter.toggleItalic()}>
+  <button class="label" on:click={() => editor?.textFormatter.toggleItalic()}>
     <Text type={TextType.Callout}><i>Italic</i></Text>
   </button>
-  <button class="label border-highlight" on:click={() => editor?.linkHandler.attachLink()}>
+  <button class="label" on:click={() => editor?.linkHandler.attachLink()}>
     <Text type={TextType.Callout}>Attach Link</Text>
   </button>
-  <button class="label border-highlight" on:click={() => editor?.toggleSmartStyle()}>
+  <button class="label" on:click={() => editor?.toggleSmartStyle()}>
     <Text type={TextType.Callout}>Smart Style: {smartStyleEnabled ? 'On' : 'Off'}</Text>
   </button>
   <Spacer />
@@ -62,5 +62,7 @@
   .label {
     border-radius: 0.5em;
     background-color: white;
+    padding: 0.25em 0.5em;
+    border: 1px solid var(--gray-3);
   }
 </style>
