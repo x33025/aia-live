@@ -6,20 +6,14 @@
   import ArticleRow from '$lib/views/article/+article-row.svelte';
   import Stack from '$lib/components/layout/+stack.svelte';
   import { writers } from '$lib/stores/+users'; // Import users store
-    import SearchBar from '$lib/views/search/+search-bar.svelte';
-
   // Set articles when the component mounts
   onMount(() => {
     articles.set($page.data.articles); // Set articles from $page.data
   });
 
-  const handleSearch = (searchTerm: string) => {
-    console.log('Searching for:', searchTerm);
-  };
 </script>
 
 <Stack spacing={1}>
-  <SearchBar onSearch={handleSearch} />
   <Stack spacing={0.5} class="scrollable-stack">
     {#each $articles as article, index (article.id)}
       <ArticleRow 

@@ -6,7 +6,8 @@
     import Users from '$lib/views/user/+users.svelte';
     import ProfileMenu from '$lib/views/user/+profile-menu.svelte';
     import Stack from '$lib/components/layout/+stack.svelte';
-    import { Direction } from '$lib/types';
+    import { Direction, TextType } from '$lib/types';
+    import SearchBar from '$lib/views/search/+search-bar.svelte';
 
     let intervalId: number;
 
@@ -55,6 +56,10 @@
   </script>
 
   <MainLayout>
+    <svelte:fragment slot="navigation-center">
+<SearchBar type={TextType.Headline} onSearch={(value) => console.log(value)} />
+
+    </svelte:fragment>
     <svelte:fragment slot="navigation-trailing">
       <Stack direction={Direction.Horizontal} wrap={true} spacing={0.75}>
         <Users />

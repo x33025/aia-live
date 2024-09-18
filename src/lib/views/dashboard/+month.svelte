@@ -1,131 +1,129 @@
 <script lang="ts">
-    export let selectedDay: Date = new Date();
-    export let currentMonth: number = selectedDay.getMonth();
-    export let currentYear: number = selectedDay.getFullYear();
-    export let data: { [key: string]: string } = {};
-    export let onDaySelect: (day: Date) => void = () => {};
-
-    let daysInMonth: (Date | null)[] = [];
-    let dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-    let today = new Date();
-
-    // Generate days in month on component mount
-    $: generateDaysInMonth(currentYear, currentMonth);
-
-    function generateDaysInMonth(year: number, month: number) {
+    import { onMount } from 'svelte';
+  
+    export let selectedDay: Date = new Date(); // The currently selected day
+    export let onDaySelect: (day: Date) => void = () => {}; // Callback when a day is selected
+  
+    let currentYear: number;
+    let currentMonth: number;
+    let daysInMonth: Date[] = [];
+  
+    // Initialize currentYear and currentMonth based on selectedDay
+    onMount(() => {
+      currentYear = selectedDay.getFullYear();
+      currentMonth = selectedDay.getMonth();
+      generateCalendarDays();
+    });
+  
+    // Generate days whenever currentMonth or currentYear changes
+    $: generateCalendarDays();
+  
+    function generateCalendarDays() {
       daysInMonth = [];
-      let date = new Date(year, month, 1);
-      let firstDayOfWeek = date.getDay();
-
-      // Add nulls for days before the first day of the month
-      for (let i = 0; i < firstDayOfWeek; i++) {
-        daysInMonth.push(null);
-      }
-
-      // Fill days of the current month
-      while (date.getMonth() === month) {
-        daysInMonth.push(new Date(date));
-        date.setDate(date.getDate() + 1);
+  
+      // Get the total days in the current month
+      let totalDaysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+  
+      // Add days from the current month
+      for (let i = 1; i <= totalDaysInMonth; i++) {
+        daysInMonth.push(new Date(currentYear, currentMonth, i));
       }
     }
-
-    function getDayColor(date: Date) {
-      let dateString = date.toISOString().split('T')[0];
-
-      // If today, return red
-      if (isToday(date)) {
-        return 'var(--red)';
-      }
-
-      // Return color from data, or transparent by default
-      return data[dateString] || 'transparent';
-    }
-
-    function isWeekend(date: Date) {
-      let dayOfWeek = date.getDay();
-      return dayOfWeek === 0 || dayOfWeek === 6; // Sunday or Saturday
-    }
-
+  
     function selectDay(day: Date) {
+      selectedDay = day;
       onDaySelect(day);
     }
-
-    function isToday(date: Date) {
-      const today = new Date();
+  
+    function isSelected(day: Date) {
       return (
-        date.getDate() === today.getDate() &&
-        date.getMonth() === today.getMonth() &&
-        date.getFullYear() === today.getFullYear()
+        day.getDate() === selectedDay.getDate() &&
+        day.getMonth() === selectedDay.getMonth() &&
+        day.getFullYear() === selectedDay.getFullYear()
       );
     }
-</script>
+  
+    function isToday(day: Date) {
+      const today = new Date();
+      return (
+        day.getDate() === today.getDate() &&
+        day.getMonth() === today.getMonth() &&
+        day.getFullYear() === today.getFullYear()
+      );
+    }
+  
+    function getDayClass(day: Date) {
+      let classes = ['day'];
+      if (isToday(day)) {
+        classes.push('today');
+      }
+      if (isSelected(day)) {
+        classes.push('selected');
+      }
+      return classes.join(' ');
+    }
+  
 
-<style>
-  .calendar {
-    display: grid;
-    grid-template-columns: repeat(7, 2.5em);
-    gap: 5px;
-  }
-  .day-name,
-  .day {
-    width: 2em;
-    height: 2em;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-  }
-  .day-name {
-    font-weight: bold;
-    border-bottom: 1px solid #ccc;
-  }
-  .day {
-    transition: background-color 0.3s ease;
-  }
-  .day.empty {
-    border: none;
-    background-color: transparent;
-    cursor: default;
-  }
-  .day.weekend {
-    background-color: #f0f0f0;
-  }
-  .day.selected {
-    border: none;
-    background-color: var(--blue);
-    color: white;
-    border-radius: 50%;  /* Circular shape */
-    width: 2em;
-    height: 2em;
-    line-height: 2.5em;
-    text-align: center;
-  }
-  .day.today {
-    background-color: var(--red);
-    color: white;
-    border-radius: 50%;
-  }
-</style>
-
-<div class="calendar">
-  <!-- Render day names -->
-  {#each dayNames as dayName}
-    <div class="day-name">{dayName}</div>
-  {/each}
-
-  <!-- Render days in the month -->
-  {#each daysInMonth as day}
-    {#if day}
-      <div
-        class="day {isWeekend(day) ? 'weekend' : ''} {day.getTime() === selectedDay.getTime() ? 'selected' : ''} {isToday(day) ? 'today' : ''}"
-        style="background-color: {getDayColor(day)}"
-        on:click={() => selectDay(day)}
-      >
-        {day.getDate()}
-      </div>
-    {:else}
-      <!-- Empty day slots -->
-      <div class="day empty"></div>
-    {/if}
-  {/each}
-</div>
+  </script>
+  
+  <style>
+    .calendar {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .calendar-header {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      margin-bottom: 1rem;
+    }
+  
+    .month-year {
+      font-weight: bold;
+      font-size: 1.2em;
+    }
+  
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 2.5em);
+      gap: 5px;
+      align-items: center;
+      justify-items: center;
+    }
+  
+    .day {
+      width: 2.5em;
+      height: 2.5em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+  
+    .day.today {
+      background-color: #e74c3c;
+      color: white;
+      border-radius: 50%;
+    }
+  
+    .day.selected {
+      background-color: var(--blue);
+      color: white;
+      border-radius: 50%;
+    }
+  
+  </style>
+  
+  <div class="calendar"> 
+    <!-- Days -->
+    <div class="calendar-grid">
+      {#each daysInMonth as day}
+        <div class={getDayClass(day)} on:click={() => selectDay(day)}>
+          {day.getDate()}
+        </div>
+      {/each}
+    </div>
+  </div>

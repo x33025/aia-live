@@ -75,13 +75,14 @@
     <DropdownMenu id="sort" placeholder="Sort by" on:select={handleSortChange}>
       <svelte:fragment slot="button">{selectedSortOption}</svelte:fragment>
     
-      <div on:click={() => toggleSortOption(SortOptions.DateCreatedAsc)}>
-        Date Created
+      <svelte:fragment slot="default">
+        <div on:click={() => toggleSortOption(SortOptions.DateCreatedAsc)}>
+          Date Created
       </div>
       <div on:click={() => toggleSortOption(SortOptions.DateUpdatedAsc)}>
-        Date Updated
-      </div>
-    
+          Date Updated
+        </div>
+      </svelte:fragment>
     </DropdownMenu>
     
   </Stack>

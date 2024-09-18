@@ -2,7 +2,6 @@
     import Stack from "$lib/components/layout/+stack.svelte";
     import { news } from "$lib/stores/+news"; // News store
     import { Alignment, Direction, TextType, type News } from '$lib/types';
-    import SearchBar from "$lib/views/search/+search-bar.svelte";
     import NewsStream from "$lib/views/stream/+news-stream.svelte";
     
     let isFetching = false; // Flag to prevent multiple fetches at the same time
@@ -46,7 +45,6 @@
         <button on:click={handleFetchNews} disabled={isFetching}>
             {isFetching ? 'Fetching...' : 'Fetch News'}
         </button>
-        <SearchBar type={TextType.Headline} onSearch={(value) => console.log(value)} />
         <!-- Displaying the streamed news -->
         <NewsStream />
     </Stack>

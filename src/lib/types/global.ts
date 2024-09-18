@@ -80,6 +80,7 @@ export interface Article extends BaseModel {
     category?: Category | null; // Expanded category object
     raw_data?: RawData[]; // Expanded raw data objects
     schedule?: Schedule[]; // Expanded schedule objects
+    author?: User | null; // Expanded author object
   };
 }
 
