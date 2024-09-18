@@ -52,7 +52,7 @@
 
 <Stack direction={Direction.Vertical}  spacing={1} style="padding: 1em;">
 
-<Stack direction={Direction.Horizontal} wrap={true} align={Alignment.Start} spacing={1} style="padding-bottom: 1em; border-bottom: 1px solid var(--gray-3);">
+<Stack direction={Direction.Horizontal} wrap={true}  spacing={1} style="padding-bottom: 1em; border-bottom: 1px solid var(--gray-3);">
 
 
   <MainImage main_image={$article?.expand?.main_image} on:click={openImageModal}/>
@@ -61,7 +61,7 @@
 
   <TextInput
     class="article-title border-highlight"
-    value={$article.title}
+    value={$article?.title}
     placeholder="Title"
     fullWidth={true}
     type={TextType.Headline}
