@@ -1,10 +1,10 @@
 <script lang="ts">
-    import type { Notes } from '$lib/types';
+    import type { Note } from '$lib/types';
     import Text from '$lib/core/display/+text.svelte';
     import { TextType } from '$lib/types';
     import { onMount } from 'svelte';
 
-    export let note: Notes;
+    export let note: Note;
 
 
     

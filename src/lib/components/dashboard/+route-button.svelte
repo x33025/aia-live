@@ -57,13 +57,19 @@
 
     // Gradual loading of emoji positions
     function loadEmojiStyles() {
-        styles = []; // Clear existing styles
-        emojis.forEach((emoji, i) => {
-            setTimeout(() => {
-                styles = [...styles, getNonOverlappingStyles(emojis.length)[i]];
-            }, i * 150); // Add a delay for each emoji
-        });
-    }
+    styles = []; // Clear existing styles
+    if (!emojis || emojis.length === 0) return; // Ensure emojis is not null or empty
+
+    emojis.forEach((emoji, i) => {
+        setTimeout(() => {
+            const newStyle = getNonOverlappingStyles(emojis.length)[i];
+            if (newStyle) {
+                styles = [...styles, newStyle];  // Only add valid styles
+            }
+        }, i * 150); // Add a delay for each emoji
+    });
+}
+
 
     // Trigger the loading of styles when component mounts
     loadEmojiStyles();
@@ -101,11 +107,12 @@
 </style>
 
 <!-- Stack is now clickable, no need for a Button -->
-<button class="visual-container" on:click={() => goto(route)} on:keydown={(e) => e.key === 'Enter' && goto(route)}>
-    {#each emojis as emoji, i}
-        <div class="emoji-bg" style="{styles[i]}" class:show={styles[i]}>{emoji}</div>
-    {/each}
-    <div class="text-container">
+<a class="visual-container" href={route} on:keydown={(e) => e.key === 'Enter' && goto(route)}>
+  {#each emojis as emoji, i}
+      <div class="emoji-bg" style="{styles[i]}" class:show={styles[i]}>{emoji}</div>
+  {/each}
+  <div class="text-container">
       <Text type={TextType.Title}>{text}</Text>
-    </div>
-</button>
+  </div>
+</a>
+

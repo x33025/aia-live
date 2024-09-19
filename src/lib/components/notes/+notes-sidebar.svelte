@@ -3,12 +3,12 @@
     import Text from '$lib/core/display/+text.svelte';
 import Spacer from '$lib/core/layout/+spacer.svelte';
 import Stack from '$lib/core/layout/+stack.svelte';
-import { Alignment, Direction, TextType, type Notes } from '$lib/types'; // Adjust the path as needed
+import { Alignment, Direction, TextType, type Note } from '$lib/types'; // Adjust the path as needed
     import NoteView from './+note-view.svelte'; // Adjust the path as needed
       import ActivityDataView from '$lib/components/activity/+activity-data.svelte';
     import type { ActivityData } from '$lib/types';
 
-    export let notes: Notes[];
+    export let notes: Note[];
     export let activity: ActivityData;
 
     // Sort notes by created date in descending order

@@ -73,7 +73,7 @@ export interface Article extends BaseModel {
 
   expand?: {
     activity?: ActivityData;
-    notes?: Notes[];
+    notes?: Note[];
     keywords?: Keyword[]; // Expanded keyword objects
     main_keyword?: Keyword | null; // Expanded main keyword object
     main_image?: Image | null; // Expanded main image object
@@ -96,7 +96,7 @@ export interface Keyword extends BaseModel {
 
   expand?: {
     activity?: ActivityData;
-    notes?: Notes[];
+    notes?: Note[];
   };
 }
 
@@ -133,12 +133,12 @@ export interface Image extends BaseModel {
 
   expand?: {
     activity?: ActivityData;
-    notes?: Notes[];
+    notes?: Note[];
   };
 }
 
 // Notes interface
-export interface Notes extends BaseModel {
+export interface Note extends BaseModel {
   content: string; // Editor field
   activity: string; // ID as string, required
 
@@ -160,7 +160,7 @@ export interface News extends BaseModel {
 
   expand?: {
     activity?: ActivityData;
-    notes?: Notes[];
+    notes?: Note[];
   };
 }
 
@@ -184,7 +184,7 @@ export interface RawData extends BaseModel {
 
   expand?: {
     activity?: ActivityData;
-    notes?: Notes[];
+    notes?: Note[];
   };
 }
 

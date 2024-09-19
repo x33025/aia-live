@@ -2,6 +2,7 @@
     import TextInput from '$lib/core/actions/+text-input.svelte';
     import Stack from '$lib/core/layout/+stack.svelte';
     import { TextType } from '$lib/types';
+    import { search } from '$lib/stores/ui/+search';
   
     export let placeholder: string = "Search...";
     export let fullWidth: boolean = true;

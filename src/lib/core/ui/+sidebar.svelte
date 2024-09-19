@@ -16,7 +16,8 @@
          aria-label="Close sidebar">
     </button>
     <div class="sidebar" transition:fly="{{ x: 1000, duration: 400 }}">
-        <svelte:component this={SidebarComponent} {...sidebarProps} />
+        <svelte:component this={SidebarComponent} {...(sidebarProps || {})} />
+
     </div>
 {/if}
 

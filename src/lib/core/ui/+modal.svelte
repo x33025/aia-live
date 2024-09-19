@@ -20,7 +20,8 @@
     </button>
     <div class="modal">
         <Text type={TextType.Title} style="margin-bottom: 0.5em;">{modalHeader}</Text> 
-        <svelte:component this={ModalComponent} {...modalProps} />
+        <svelte:component this={ModalComponent} {...(modalProps || {})} />
+
     </div>
 {/if}
 

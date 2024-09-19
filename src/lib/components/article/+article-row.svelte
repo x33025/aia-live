@@ -117,13 +117,16 @@
         </DropdownMenu>
     
         <Button on:click={openArticle} class="open-article-button">Open Article</Button>
+
+
       </Stack>
     
       <Stack direction={Direction.Horizontal} spacing={0.5}>
-        <Label name="Semrush Score" class="border-highlight">
+        <Label name="Semrush Score">
           <NumericInput
             value={article.semrush_score} 
             on:update={(event) => updateSemrushScore(event.detail.value)}
+            padding={0}
           />
         </Label>
         
@@ -144,6 +147,7 @@
       </Stack>
     
     </Stack>
+    
   </Stack>
   <Label name="Keywords">
     <Keywords main_keyword={article.expand?.main_keyword} keywords={article.expand?.keywords} />
