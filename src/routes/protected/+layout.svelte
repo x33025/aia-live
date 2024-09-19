@@ -10,6 +10,7 @@
   import SearchBar from '$lib/views/search/+search-bar.svelte';
   import PageTitle from '$lib/components/layout/+page-title.svelte';
   import { user as userStore } from '$lib/stores/data/+user';
+    import Icon from '$lib/components/display/+icon.svelte';
 
   let intervalId: number;
 
@@ -64,7 +65,7 @@
 <MainPage>
   <svelte:fragment slot="navigation-leading">
     {#if $page.url.pathname !== '/protected'}
-      <button on:click={goBack}>Go Back</button>
+      <button on:click={goBack}><Icon /></button>
     {/if}
 
     <PageTitle /> 
