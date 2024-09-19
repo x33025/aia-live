@@ -1,24 +1,20 @@
 <script lang="ts">
-    import SearchBar from '../search/+search-bar.svelte';
     import { images } from '$lib/stores/+images';
     import { onMount } from 'svelte';
     import { pb } from '$lib/config/pocketbase';
-    import { Alignment, Direction, type Image } from '$lib/types';
+    import { Direction, type Image } from '$lib/types';
     import Stack from '$lib/core/layout/+stack.svelte';
-    import ActivityData from '../activity/+activity-data.svelte';
     import ImageSelection from './+image-description.svelte'; // Import the ImageSelection component
-    import Button from '$lib/core/actions/+button.svelte';
-    import Spacer from '$lib/core/layout/+spacer.svelte';
     import { createEventDispatcher } from 'svelte';
+    import ImageComponent from '$lib/core/display/+image.svelte';
 
-    const dispatch = createEventDispatcher();
 
     let searchQuery = '';
     export let page = 1;
     export let perPage = 50;
 
 
-    let main_image: Image | null = null; // Add selected image state
+   export let main_image: Image | null = null; // Ensure main_image is typed correctly
 
     async function fetchImages(query: string = '') {
       try {
@@ -42,9 +38,14 @@
       fetchImages();
     });
 
+    const image_url = main_image 
+    ? `${import.meta.env.VITE_POCKETBASE_URL}/api/files/images/${main_image.id}/${main_image.file}`
+    : '';
+
     function constructImageUrl(image: Image): string {
       return `${import.meta.env.VITE_POCKETBASE_URL}/api/files/images/${image.id}/${image.file}`;
     }
+    
 </script>
   
 <Stack direction={Direction.Vertical} spacing={1}>
@@ -55,9 +56,8 @@
     <div class="image-grid">
       {#if $images.length > 0}
         {#each $images as image}
-          <div class="image-container" on:click={() => handleImageSelect(image)}> 
-            <img src={constructImageUrl(image)} alt={image.description || 'No description'} />
-          </div>
+        <ImageComponent image_url={constructImageUrl(image)} alt_text={image.description || 'No description'} maskShape="square" aspect_ratio={3 / 2}  />
+
         {/each}
       {:else}
         <p>No images found.</p>

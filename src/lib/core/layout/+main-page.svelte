@@ -6,8 +6,6 @@
   import { Direction } from '$lib/types';
   import Spacer from './+spacer.svelte';
   import { goto } from '$app/navigation';
-  import Text from '$lib/core/display/+text.svelte';
-  import { TextType } from '$lib/types';
   import PageTitle from './+page-title.svelte';
 
   // Extract title from the $page store
@@ -21,7 +19,7 @@
 </svelte:head>
 
 <BaseLayout>
-  <Stack direction={Direction.Horizontal} wrap={true} style="margin-bottom: 0.9em; position: relative;" slot="header">
+  <Stack direction={Direction.Horizontal} wrap={true} style="margin-bottom: 0.8em; position: relative;" slot="header">
     
     <!-- Leading Navigation -->
     <slot name="navigation-leading">

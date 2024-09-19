@@ -10,7 +10,7 @@
   import { openSidebar } from '$lib/stores/ui/+sidebar';
   import Spacer from '$lib/core/layout/+spacer.svelte';
   import { openModal } from '$lib/stores/ui/+modal';
-  import ImageChooser from '$lib/components/images/+image-chooser.svelte';
+  import ImageChooser from '$lib/components/images/+gallery.svelte';
     import DataView from '$lib/components/article/[id]/data/+data-tab.svelte';
     import MainImage from '$lib/components/images/+main-image.svelte';
     import GoBack from '$lib/components/navigation/+go-back.svelte';

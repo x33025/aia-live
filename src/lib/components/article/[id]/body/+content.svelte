@@ -1,7 +1,7 @@
 <script lang="ts">
-  import Stack from '$lib/components/layout/+stack.svelte';
+  import Stack from '$lib/core/layout/+stack.svelte';
   import Toolbar from './+toolbar.svelte'; // Import the toolbar component
-  import TextEditor from '$lib/components/advanced-input/editor/+text-editor.svelte'; // Import the TextEditor component
+  import TextEditor from '$lib/core/advanced-input/editor/+text-editor.svelte'; // Import the TextEditor component
 
   export let content: string;
   export let onPublishUpdate: (updatedContent: string) => void;

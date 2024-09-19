@@ -3,9 +3,6 @@
   import { page } from '$app/stores';
   import Stack from '$lib/core/layout/+stack.svelte';
   import Text from '$lib/core/display/+text.svelte';
-  import TextInput from '$lib/core/actions/+text-input.svelte';
-  import SearchBar from '$lib/components/search/+search-bar.svelte';
-  import DropdownMenu from '$lib/core/actions/+dropdown-menu.svelte';
   import KeywordRow from '$lib/components/keyword/+keyword-row.svelte';
   import { keywords } from '$lib/stores/+keywords';
   import { Direction, SortOptions, type Keyword } from '$lib/types';
@@ -68,7 +65,7 @@
 
 
     <!-- Dropdown for Sorting -->
-    <DropdownMenu id="sort" placeholder="Sort by" on:select={handleSortChange}>
+    <!-- <DropdownMenu id="sort" placeholder="Sort by" on:select={handleSortChange}>
       <svelte:fragment slot="button">{selectedSortOption}</svelte:fragment>
     
       <svelte:fragment slot="default">
@@ -79,7 +76,7 @@
           Date Updated
         </div>
       </svelte:fragment>
-    </DropdownMenu>
+    </DropdownMenu> -->
     
   </Stack>
 

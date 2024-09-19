@@ -4,7 +4,7 @@
       // Import the new image component
     import type { Image } from "$lib/types";
   export let main_image: Image | null = null; // Accept the image data as `main_image`
-  import ImageChooser from "$lib/components/images/+image-chooser.svelte";
+  import ImageChooser from "$lib/components/images/+gallery.svelte";
   
   // Construct the image URL
   const image_url = main_image 
