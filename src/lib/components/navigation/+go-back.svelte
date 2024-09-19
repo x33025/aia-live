@@ -1,8 +1,8 @@
 <script lang="ts">
-    
+    import { goto } from '$app/navigation';
     // Function to handle the go back action
     const goBack = () => {
-      history.back();
+      goto('/protected');
     }
   </script>
   

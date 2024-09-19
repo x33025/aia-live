@@ -1,7 +1,7 @@
 <script lang="ts">
     import { modalVisible, modalContent } from '$lib/stores/ui/+modal';
     import { fly } from 'svelte/transition';
-    import Text from '$lib/components/display/+text.svelte';
+    import Text from '$lib/core/display/+text.svelte';
     import { TextType } from '$lib/types';
 
     // Directly use the global store values

@@ -1,6 +1,6 @@
 <script lang="ts">
-    import TextInput from '$lib/components/actions/+text-input.svelte';
-    import Stack from '$lib/components/layout/+stack.svelte';
+    import TextInput from '$lib/core/actions/+text-input.svelte';
+    import Stack from '$lib/core/layout/+stack.svelte';
     import { TextType } from '$lib/types';
   
     export let placeholder: string = "Search...";

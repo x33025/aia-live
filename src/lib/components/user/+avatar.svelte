@@ -1,9 +1,9 @@
 <script lang="ts">
-  import Text from "$lib/components/display/+text.svelte";
+  import Text from "$lib/core/display/+text.svelte";
   import { TextType } from "$lib/types";
   import { page } from '$app/stores';
   import { get } from 'svelte/store';
-  import ImageComponent from '$lib/components/display/+image.svelte';
+  import ImageComponent from '$lib/core/display/+image.svelte';
   import type { User } from '$lib/types';
 
   export let userId: string;

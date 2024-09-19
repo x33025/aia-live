@@ -1,5 +1,5 @@
 <script lang="ts">
-  import NumericInput from '$lib/components/advanced-input/+numeric-input.svelte';
+  import NumericInput from '$lib/core/advanced-input/+numeric-input.svelte';
     import { Direction, TextType } from '$lib/types';
     import Stack from '../layout/+stack.svelte';
     import Text from '../display/+text.svelte';

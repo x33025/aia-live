@@ -1,12 +1,12 @@
 <script lang="ts">
-    import Button from '$lib/components/actions/+button.svelte';
-    import TextInput from '$lib/components/actions/+text-input.svelte';
-    import Image from '$lib/components/display/+image.svelte';
-    import Label from '$lib/components/display/+label.svelte';
-    import Spacer from '$lib/components/layout/+spacer.svelte';
-    import Stack from '$lib/components/layout/+stack.svelte';
+    import Button from '$lib/core/actions/+button.svelte';
+    import TextInput from '$lib/core/actions/+text-input.svelte';
+    import Image from '$lib/core/display/+image.svelte';
+    import Label from '$lib/core/display/+label.svelte';
+    import Spacer from '$lib/core/layout/+spacer.svelte';
+    import Stack from '$lib/core/layout/+stack.svelte';
     import { Alignment, Direction, type Image as ImageType } from '$lib/types';
-    import ActivityDataView from '$lib/views/activity/+activity-data.svelte';
+    import ActivityDataView from '$lib/components/activity/+activity-data.svelte';
     import { createEventDispatcher } from 'svelte';
 
     export let image: ImageType;

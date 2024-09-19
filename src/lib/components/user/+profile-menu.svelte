@@ -1,9 +1,9 @@
 <script lang="ts">
     import { page } from '$app/stores';
     import { pb } from '$lib/config/pocketbase';
-    import ImageComponent from "$lib/components/display/+image.svelte"; // Import the new image component
-    import DropdownMenu from "$lib/components/actions/+dropdown-menu.svelte"; // Import the DropdownMenu component
-    import Stack from '$lib/components/layout/+stack.svelte';
+    import ImageComponent from "$lib/core/display/+image.svelte"; // Import the new image component
+    import DropdownMenu from "$lib/core/actions/+dropdown-menu.svelte"; // Import the DropdownMenu component
+    import Stack from '$lib/core/layout/+stack.svelte';
     import Avatar from './+avatar.svelte';
   
     function logout() {

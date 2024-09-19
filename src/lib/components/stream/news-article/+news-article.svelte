@@ -1,7 +1,7 @@
 <script lang="ts">
 
-    import Text from "$lib/components/display/+text.svelte";
-import Stack from "$lib/components/layout/+stack.svelte";
+    import Text from "$lib/core/display/+text.svelte";
+import Stack from "$lib/core/layout/+stack.svelte";
     import { Direction, TextType, type News } from "$lib/types";
 
 

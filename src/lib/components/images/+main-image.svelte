@@ -1,10 +1,10 @@
 <script lang="ts">
-  import ImageComponent from "$lib/components/display/+image.svelte"; // Import the new image component
+  import ImageComponent from "$lib/core/display/+image.svelte"; // Import the new image component
     import { openModal } from "$lib/stores/ui/+modal";
       // Import the new image component
     import type { Image } from "$lib/types";
   export let main_image: Image | null = null; // Accept the image data as `main_image`
-  import ImageChooser from "$lib/views/images/+image-chooser.svelte";
+  import ImageChooser from "$lib/components/images/+image-chooser.svelte";
   
   // Construct the image URL
   const image_url = main_image 

@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import Stack from "$lib/components/layout/+stack.svelte";
-  import Text from "$lib/components/display/+text.svelte";
+  import Stack from "$lib/core/layout/+stack.svelte";
+  import Text from "$lib/core/display/+text.svelte";
   import { type Keyword, Direction, TextType } from "$lib/types";
   // Removed Label import
   // import Label from '$lib/components/display/+label.svelte';

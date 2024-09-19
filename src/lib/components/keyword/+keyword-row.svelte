@@ -1,7 +1,7 @@
 <script lang="ts">
-  import NumericInput from '$lib/components/advanced-input/+numeric-input.svelte';
-  import DropdownMenu from '$lib/components/actions/+dropdown-menu.svelte';
-  import TextInput from '$lib/components/actions/+text-input.svelte';
+  import NumericInput from '$lib/core/advanced-input/+numeric-input.svelte';
+  import DropdownMenu from '$lib/core/actions/+dropdown-menu.svelte';
+  import TextInput from '$lib/core/actions/+text-input.svelte';
   import { TextType, type Country, type Keyword } from '$lib/types';
   import { openSidebar } from '$lib/stores/ui/+sidebar';
   import NotesSidebar from '../notes/+notes-sidebar.svelte';

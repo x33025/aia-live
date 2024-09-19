@@ -3,8 +3,8 @@
   import { writable } from 'svelte/store';
   import { article } from '$lib/stores/+article';
 
-  import TabView from '$lib/components/display/+tab-view.svelte'; // Import the TabView component
-  import Keywords from '$lib/views/keyword/+keywords.svelte';
+  import TabView from '$lib/core/display/+tab-view.svelte'; // Import the TabView component
+  import Keywords from '$lib/components/keyword/+keywords.svelte';
 
   let activeTab = writable('keywords');
   let rawDataCount = 0;

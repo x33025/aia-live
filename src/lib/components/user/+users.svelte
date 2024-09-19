@@ -1,9 +1,9 @@
 <script lang="ts">
     import { users } from '$lib/stores/+users';
-    import DropdownMenu from '$lib/components/actions/+dropdown-menu.svelte';
-    import Text from '$lib/components/display/+text.svelte';
+    import DropdownMenu from '$lib/core/actions/+dropdown-menu.svelte';
+    import Text from '$lib/core/display/+text.svelte';
     import Avatar from './+avatar.svelte';
-    import Stack from '$lib/components/layout/+stack.svelte';
+    import Stack from '$lib/core/layout/+stack.svelte';
     import { Direction } from '$lib/types';
   
     // Sort users by last_active

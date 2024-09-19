@@ -4,11 +4,11 @@
     import { onMount } from 'svelte';
     import { pb } from '$lib/config/pocketbase';
     import { Alignment, Direction, type Image } from '$lib/types';
-    import Stack from '$lib/components/layout/+stack.svelte';
+    import Stack from '$lib/core/layout/+stack.svelte';
     import ActivityData from '../activity/+activity-data.svelte';
     import ImageSelection from './+image-description.svelte'; // Import the ImageSelection component
-    import Button from '$lib/components/actions/+button.svelte';
-    import Spacer from '$lib/components/layout/+spacer.svelte';
+    import Button from '$lib/core/actions/+button.svelte';
+    import Spacer from '$lib/core/layout/+spacer.svelte';
     import { createEventDispatcher } from 'svelte';
 
     const dispatch = createEventDispatcher();

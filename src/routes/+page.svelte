@@ -1,9 +1,9 @@
 <script lang="ts">
   import { goto } from '$app/navigation';
-  import InteractiveText from '$lib/views/login/+interactive-text.svelte';
-  import Stack from '$lib/components/layout/+stack.svelte';
-  import Button from '$lib/components/actions/+button.svelte';
-    import BaseLayout from '$lib/components/layout/+base-layout.svelte';
+  import InteractiveText from '$lib/components/login/+interactive-text.svelte';
+  import Stack from '$lib/core/layout/+stack.svelte';
+  import Button from '$lib/core/actions/+button.svelte';
+    import BaseLayout from '$lib/core/layout/+base-layout.svelte';
 
   function handleLoginClick() {
     console.log('Login button clicked');

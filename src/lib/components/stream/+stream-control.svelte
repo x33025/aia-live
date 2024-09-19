@@ -1,5 +1,5 @@
 <script lang="ts">
-    import Stack from "$lib/components/layout/+stack.svelte";
+    import Stack from "$lib/core/layout/+stack.svelte";
     import { Direction } from "$lib/types";
     import { timer, startTimer, stopTimer } from "$lib/stores/logic/+timer";
     import { onDestroy } from 'svelte';

@@ -1,6 +1,6 @@
 <script lang="ts">
-  import Stack from "$lib/components/layout/+stack.svelte";
-  import Text from "$lib/components/display/+text.svelte";
+  import Stack from "$lib/core/layout/+stack.svelte";
+  import Text from "$lib/core/display/+text.svelte";
   import { TextType } from "$lib/types";
 
   export let name: string = "Label"; // Make the text dynamic by exporting it as a prop

@@ -1,16 +1,16 @@
 <script lang="ts">
   import { createEventDispatcher, onDestroy } from 'svelte';
-  import DropdownMenu from '$lib/core-components/actions/+dropdown-menu.svelte';
-  import TextInput from '$lib/core-components/actions/+text-input.svelte';
-  import NumericInput from '$lib/core-components/advanced-input/+numeric-input.svelte';
-  import NumericTarget from '$lib/core-components/advanced-input/+numeric-target.svelte';
-  import Stack from '$lib/core-components/layout/+stack.svelte';
+  import DropdownMenu from '$lib/core/actions/+dropdown-menu.svelte';
+  import TextInput from '$lib/core/actions/+text-input.svelte';
+  import NumericInput from '$lib/core/advanced-input/+numeric-input.svelte';
+  import NumericTarget from '$lib/core/advanced-input/+numeric-target.svelte';
+  import Stack from '$lib/core/layout/+stack.svelte';
   import { Direction, type Article, type Category, type Status, type User, toIdentifiableUser, type IdentifiableUser, Alignment, type Website } from '$lib/types';
   import { goto } from '$app/navigation';
-  import Button from '$lib/core-components/actions/+button.svelte';
+  import Button from '$lib/core/actions/+button.svelte';
   import Keywords from '../keyword/+keywords.svelte';
-  import Label from '$lib/core-components/display/+label.svelte';
-  import Spacer from '$lib/core-components/layout/+spacer.svelte';
+  import Label from '$lib/core/display/+label.svelte';
+  import Spacer from '$lib/core/layout/+spacer.svelte';
   import MainImage from '../images/+main-image.svelte';
   import NotesSidebar from '../notes/+notes-sidebar.svelte';
   import { openSidebar } from '$lib/stores/ui/+sidebar';

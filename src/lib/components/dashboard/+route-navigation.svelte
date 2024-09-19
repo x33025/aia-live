@@ -1,7 +1,7 @@
 <script lang="ts">
 
     import RouteButton from "./+route-button.svelte";
-    import Stack from "$lib/core-components/layout/+stack.svelte";
+    import Stack from "$lib/core/layout/+stack.svelte";
     import { Direction } from "$lib/types";
 </script>
 
