@@ -12,6 +12,6 @@
     <RouteButton route="/protected/keywords" emojis={["🔑", "📊", "🏷️"]} text="Keywords" />
     <RouteButton route="/protected/images" emojis={["📸", "🌉", "📹"]} text="Images" />
     <RouteButton route="/protected/stream" emojis={["📡", "📺", "🎥"]} text="Stream" />
-    <RouteButton route="/protected/ai-detector" emojis={["🤖", "🧠", "🔍"]} text={"AI Detector {WIP}"} />
+    <RouteButton route="/protected" emojis={["🤖", "🧠", "🔍", "🚧"]} text={"Coming Soon"} />
    
   </Stack>
