@@ -4,10 +4,11 @@
     import { pb } from '$lib/config/pocketbase';
     import { Direction, type Image } from '$lib/types';
     import Stack from '$lib/core/layout/+stack.svelte';
-    import ImageSelection from './+image-description.svelte'; // Import the ImageSelection component
+    import ImageDescription from './+image-description.svelte'; // Import the ImageSelection component
     import { createEventDispatcher } from 'svelte';
     import ImageComponent from '$lib/core/display/+image.svelte';
 
+    const dispatch = createEventDispatcher();
 
     let searchQuery = '';
     export let page = 1;
@@ -56,8 +57,9 @@
     <div class="image-grid">
       {#if $images.length > 0}
         {#each $images as image}
-        <ImageComponent image_url={constructImageUrl(image)} alt_text={image.description || 'No description'} maskShape="square" aspect_ratio={3 / 2}  />
-
+        <div class="image-container" on:click={() => handleImageSelect(image)}>
+        <ImageComponent image_url={constructImageUrl(image)} alt_text={image.description || 'No description'} maskShape="square" aspect_ratio={3 / 2} />
+        </div>
         {/each}
       {:else}
         <p>No images found.</p>
@@ -69,15 +71,15 @@
 
 
 </Stack>
-{#if main_image}
+
 <Stack direction={Direction.Horizontal} wrap={true}  spacing={1} style="border-top: 1px solid var(--gray-2); padding-top: 2em;">
   
 
-    <ImageSelection image={main_image} /> <!-- Pass the selected image -->
+    <ImageDescription image={main_image} /> <!-- Pass the selected image -->
 
 
 </Stack>
-{/if}
+
 </Stack>
 
 <style>
@@ -93,14 +95,14 @@
   border-radius: 0.5em;
 }
 
-.image-container img {
+.image-container {
   width: 100%;
   height: 100%;
   object-fit: cover;
   transition: transform 0.3s ease;
 }
 
-.image-container img:hover {
+.image-container:hover {
   transform: scale(1.1);
 }
 </style>

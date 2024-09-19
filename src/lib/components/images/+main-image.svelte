@@ -3,6 +3,8 @@
     import { openModal } from "$lib/stores/ui/+modal";
       // Import the new image component
     import type { Image } from "$lib/types";
+
+    
   export let main_image: Image | null = null; // Accept the image data as `main_image`
   import ImageChooser from "$lib/components/images/+gallery.svelte";
   
