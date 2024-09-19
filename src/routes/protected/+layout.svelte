@@ -1,16 +1,16 @@
 <script lang="ts">
   import { page } from '$app/stores';
-  import MainPage from '$lib/components/layout/+main-page.svelte';
+  import MainPage from '$lib/core/layout/+main-page.svelte';
   import { onMount, onDestroy } from 'svelte';
   import { users } from '$lib/stores/+users';
-  import Users from '$lib/views/user/+users.svelte';
-  import ProfileMenu from '$lib/views/user/+profile-menu.svelte';
-  import Stack from '$lib/components/layout/+stack.svelte';
+  import Users from '$lib/components/user/+users.svelte';
+  import ProfileMenu from '$lib/components/user/+profile-menu.svelte';
+  import Stack from '$lib/core/layout/+stack.svelte';
   import { Direction, TextType } from '$lib/types';
-  import SearchBar from '$lib/views/search/+search-bar.svelte';
-  import PageTitle from '$lib/components/layout/+page-title.svelte';
+  import SearchBar from '$lib/components/search/+search-bar.svelte';
+  import PageTitle from '$lib/core/layout/+page-title.svelte';
   import { user as userStore } from '$lib/stores/data/+user';
-    import Icon from '$lib/components/display/+icon.svelte';
+    import Icon from '$lib/core/display/+icon.svelte';
 
   let intervalId: number;
 

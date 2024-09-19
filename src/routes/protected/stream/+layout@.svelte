@@ -1,12 +1,12 @@
 <script>
 
-    import MainLayout from "$lib/components/layout/+main-page.svelte";
-    import Spacer from "$lib/components/layout/+spacer.svelte";
-    import Stack from "$lib/components/layout/+stack.svelte";
+    import MainLayout from "$lib/core/layout/+main-page.svelte";
+    import Spacer from "$lib/core/layout/+spacer.svelte";
+    import Stack from "$lib/core/layout/+stack.svelte";
     import { Direction, TextType } from "$lib/types";
-    import SearchBar from "$lib/views/search/+search-bar.svelte";
-    import StreamControl from "$lib/views/stream/+stream-control.svelte";
-    import PageTitle from "$lib/components/layout/+page-title.svelte";
+    import SearchBar from "$lib/components/search/+search-bar.svelte";
+    import StreamControl from "$lib/components/stream/+stream-control.svelte";
+    import PageTitle from "$lib/core/layout/+page-title.svelte";
 </script>
 
 

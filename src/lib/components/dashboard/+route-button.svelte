@@ -1,6 +1,6 @@
 <script lang="ts">
     import * as d3 from 'd3';
-    import Text from '$lib/components/display/+text.svelte';
+    import Text from '$lib/core-components/display/+text.svelte';
     import { goto } from '$app/navigation';
     import { TextType } from '$lib/types';
     import { tweened } from 'svelte/motion';

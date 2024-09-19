@@ -1,12 +1,12 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import { page } from '$app/stores';
-  import Stack from '$lib/components/layout/+stack.svelte';
-  import Text from '$lib/components/display/+text.svelte';
-  import TextInput from '$lib/components/actions/+text-input.svelte';
-  import SearchBar from '$lib/views/search/+search-bar.svelte';
-  import DropdownMenu from '$lib/components/actions/+dropdown-menu.svelte';
-  import KeywordRow from '$lib/views/keyword/+keyword-row.svelte';
+  import Stack from '$lib/core/layout/+stack.svelte';
+  import Text from '$lib/core/display/+text.svelte';
+  import TextInput from '$lib/core/actions/+text-input.svelte';
+  import SearchBar from '$lib/components/search/+search-bar.svelte';
+  import DropdownMenu from '$lib/core/actions/+dropdown-menu.svelte';
+  import KeywordRow from '$lib/components/keyword/+keyword-row.svelte';
   import { keywords } from '$lib/stores/+keywords';
   import { Direction, SortOptions, type Keyword } from '$lib/types';
 

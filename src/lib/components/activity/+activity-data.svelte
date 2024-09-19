@@ -1,8 +1,8 @@
 <script lang="ts">
-    import Stack from '$lib/components/layout/+stack.svelte';
+    import Stack from '$lib/core/layout/+stack.svelte';
     import { Direction, type ActivityData } from '$lib/types';
     import Avatar from '../user/+avatar.svelte';
-    import Text from '$lib/components/display/+text.svelte';
+    import Text from '$lib/core/display/+text.svelte';
     import { TextType } from '$lib/types';
 
     export let activity: ActivityData;

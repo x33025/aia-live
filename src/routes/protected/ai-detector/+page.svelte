@@ -1,6 +1,6 @@
 <script lang="ts">
-    import TextEditor from '$lib/components/advanced-input/editor/+text-editor.svelte';
-    import Stack from '$lib/components/layout/+stack.svelte';
+    import TextEditor from '$lib/core/advanced-input/editor/+text-editor.svelte';
+    import Stack from '$lib/core/layout/+stack.svelte';
     import { Direction } from '$lib/types';
     import { v4 as uuidv4 } from 'uuid'; // Import the uuid generator
     let inputText = '';

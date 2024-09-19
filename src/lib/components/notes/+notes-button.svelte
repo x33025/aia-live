@@ -1,6 +1,6 @@
 <script lang="ts">
     import { openSidebar } from '$lib/stores/ui/+sidebar';
-    import NotesSidebar from '../notes/+notes-sidebar.svelte';
+    import NotesSidebar from './+notes-sidebar.svelte';
     import type { ActivityData, Notes } from '$lib/types';
   
     export let notes: Notes[] = [];

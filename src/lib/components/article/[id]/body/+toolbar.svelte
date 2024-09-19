@@ -3,9 +3,9 @@
   import { Direction, TextType } from '$lib/types';
   import { editorStore } from '$lib/components/advanced-input/editor/+store'; // Correct store import
   import { onDestroy } from 'svelte';
-  import Text from '$lib/components/display/+text.svelte';
-  import Spacer from '$lib/components/layout/+spacer.svelte';
-  import NumericTarget from '$lib/components/advanced-input/+numeric-target.svelte';
+  import Text from '$lib/core/display/+text.svelte';
+  import Spacer from '$lib/core/layout/+spacer.svelte';
+  import NumericTarget from '$lib/core/advanced-input/+numeric-target.svelte';
   import { article } from '$lib/stores/+article';
 
   

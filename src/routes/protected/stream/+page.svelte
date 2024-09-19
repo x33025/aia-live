@@ -1,8 +1,8 @@
 <script lang="ts">
-    import Stack from "$lib/components/layout/+stack.svelte";
+    import Stack from "$lib/core/layout/+stack.svelte";
     import { news } from "$lib/stores/+news"; // News store
     import { Alignment, Direction, TextType, type News } from '$lib/types';
-    import NewsStream from "$lib/views/stream/+news-stream.svelte";
+    import NewsStream from "$lib/components/stream/+news-stream.svelte";
     
     let isFetching = false; // Flag to prevent multiple fetches at the same time
 

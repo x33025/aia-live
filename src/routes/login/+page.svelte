@@ -1,10 +1,10 @@
 <script lang="ts">
   import { enhance } from '$app/forms';
-  import BaseLayout from '$lib/components/layout/+base-layout.svelte';
-  import Stack from '$lib/components/layout/+stack.svelte';
-  import Button from '$lib/components/actions/+button.svelte';
+  import BaseLayout from '$lib/core/layout/+base-layout.svelte';
+  import Stack from '$lib/core/layout/+stack.svelte';
+  import Button from '$lib/core/actions/+button.svelte';
   import { Alignment, ButtonType, Direction, TextType } from '$lib/types';
-  import Text from '$lib/components/display/+text.svelte';
+  import Text from '$lib/core/display/+text.svelte';
 
   interface FormData {
       email: string;

@@ -1,19 +1,19 @@
 <script lang="ts">
   import { article } from '$lib/stores/+article';
   import { onMount, onDestroy } from 'svelte';
-  import TextInput from '$lib/components/actions/+text-input.svelte';
-  import Stack from '$lib/components/layout/+stack.svelte';
+  import TextInput from '$lib/core/actions/+text-input.svelte';
+  import Stack from '$lib/core/layout/+stack.svelte';
   import { Alignment, Direction, TextType } from '$lib/types';
-  import Body from '$lib/views/article/[id]/body/+content.svelte';
+  import Body from '$lib/components/article/[id]/body/+content.svelte';
   import { page } from '$app/stores';
-  import NotesSidebar from '$lib/views/notes/+notes-sidebar.svelte';
+  import NotesSidebar from '$lib/components/notes/+notes-sidebar.svelte';
   import { openSidebar } from '$lib/stores/ui/+sidebar';
-  import Spacer from '$lib/components/layout/+spacer.svelte';
+  import Spacer from '$lib/core/layout/+spacer.svelte';
   import { openModal } from '$lib/stores/ui/+modal';
-  import ImageChooser from '$lib/views/images/+image-chooser.svelte';
-  import DataView from '$lib/views/article/[id]/data/+data-tab.svelte';
-    import MainImage from '$lib/views/images/+main-image.svelte';
-    import GoBack from '$lib/views/navigation/+go-back.svelte';
+  import ImageChooser from '$lib/components/images/+image-chooser.svelte';
+    import DataView from '$lib/components/article/[id]/data/+data-tab.svelte';
+    import MainImage from '$lib/components/images/+main-image.svelte';
+    import GoBack from '$lib/components/navigation/+go-back.svelte';
 
   let unsubscribe: () => void; // To track the unsubscribe function
 

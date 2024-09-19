@@ -1,11 +1,11 @@
 <script lang="ts">
-  import Stack from '$lib/components/layout/+stack.svelte';
+  import Stack from '$lib/core/layout/+stack.svelte';
   import { Direction, TextType } from '$lib/types';
-  import PageTitle from '$lib/components/layout/+page-title.svelte';
-  import SearchBar from '$lib/views/search/+search-bar.svelte';
-  import Spacer from '$lib/components/layout/+spacer.svelte';
+  import PageTitle from '$lib/core/layout/+page-title.svelte';
+  import SearchBar from '$lib/components/search/+search-bar.svelte';
+  import Spacer from '$lib/core/layout/+spacer.svelte';
 
-    import Avatar from '$lib/views/user/+avatar.svelte';
+    import Avatar from '$lib/components/user/+avatar.svelte';
     import { page } from '$app/stores';
 
 

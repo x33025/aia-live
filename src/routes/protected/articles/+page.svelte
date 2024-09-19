@@ -3,8 +3,8 @@
   import { page } from '$app/stores'; // To access $page.data
   import { articles } from '$lib/stores/+articles'; // Global articles store
   import { get } from 'svelte/store'; // To access the value of the store
-  import ArticleRow from '$lib/views/article/+article-row.svelte';
-  import Stack from '$lib/components/layout/+stack.svelte';
+  import ArticleRow from '$lib/components/article/+article-row.svelte';
+  import Stack from '$lib/core/layout/+stack.svelte';
   import { writers } from '$lib/stores/+users'; // Import users store
   // Set articles when the component mounts
   onMount(() => {

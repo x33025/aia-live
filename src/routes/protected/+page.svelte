@@ -1,11 +1,11 @@
 <script lang="ts">
-  import Stack from '$lib/components/layout/+stack.svelte';
+  import Stack from '$lib/core/layout/+stack.svelte';
   import { Alignment, Direction, TextType } from '$lib/types';
   import { page } from '$app/stores'; // Import page to access $page.data
-  import Text from '$lib/components/display/+text.svelte';
-  import RouteNavigation from '$lib/views/dashboard/+route-navigation.svelte';
-  import DashboardArticles from '$lib/views/dashboard/+dashboard-articles.svelte'; // Import the new component
-  import DashboardCalendar from '$lib/views/dashboard/+dashboard-calendar.svelte';
+  import Text from '$lib/core/display/+text.svelte';
+  import RouteNavigation from '$lib/components/dashboard/+route-navigation.svelte';
+  import DashboardArticles from '$lib/components/dashboard/+dashboard-articles.svelte'; // Import the new component
+  import DashboardCalendar from '$lib/components/dashboard/+dashboard-calendar.svelte';
 
   let draftedThisMonth = $page.data.draftedThisMonth;
 

@@ -1,10 +1,10 @@
 <script lang="ts">
   import { Direction, TextType } from '$lib/types';
-  import Text from '$lib/components/display/+text.svelte';
-  import Stack from '$lib/components/layout/+stack.svelte';
+  import Text from '$lib/core-components/display/+text.svelte';
+  import Stack from '$lib/core-components/layout/+stack.svelte';
   import type { Article } from '$lib/types'; 
     import Avatar from '../user/+avatar.svelte';
-    import Spacer from '$lib/components/layout/+spacer.svelte';
+    import Spacer from '$lib/core-components/layout/+spacer.svelte';
   import { get } from 'svelte/store';
   import { users } from '$lib/stores/+users';
 

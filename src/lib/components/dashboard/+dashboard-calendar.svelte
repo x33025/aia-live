@@ -2,9 +2,9 @@
     import { selectedDay, year, month } from '$lib/stores/util/+calendar';
     import { get } from 'svelte/store';
     import Calendar from './+calendar.svelte';
-    import Stack from '$lib/components/layout/+stack.svelte';
-    import Text from '$lib/components/display/+text.svelte';
-    import Spacer from '$lib/components/layout/+spacer.svelte';
+    import Stack from '$lib/core-components/layout/+stack.svelte';
+    import Text from '$lib/core-components/display/+text.svelte';
+    import Spacer from '$lib/core-components/layout/+spacer.svelte';
     import { TextType, Direction } from '$lib/types';
 
 </script>

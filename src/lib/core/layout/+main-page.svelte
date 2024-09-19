@@ -6,7 +6,7 @@
   import { Direction } from '$lib/types';
   import Spacer from './+spacer.svelte';
   import { goto } from '$app/navigation';
-  import Text from '$lib/components/display/+text.svelte';
+  import Text from '$lib/core-components/display/+text.svelte';
   import { TextType } from '$lib/types';
   import PageTitle from './+page-title.svelte';
 
