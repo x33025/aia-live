@@ -7,36 +7,31 @@
     let currentYear: number;
     let currentMonth: number;
 
-    // Initialize currentYear and currentMonth based on selectedDay
     onMount(() => {
-        currentYear = get(selectedDay).getFullYear();
-        currentMonth = get(selectedDay).getMonth();
+        const initialDay = get(selectedDay);
+        currentYear = initialDay.getFullYear();
+        currentMonth = initialDay.getMonth();
     });
 
-    // Callback when a day is selected
     function onDaySelect(day: Date) {
         selectedDay.set(day);
         year.set(day.getFullYear());
         month.set(day.getMonth() + 1);
     }
 
-    // Helper function to get the date for a given month offset
     function getMonthOffset(year: number, month: number, offset: number) {
-        let newMonth = month + offset;
+        const newMonth = month + offset;
         let newYear = year;
-
         if (newMonth > 11) {
-            newMonth = 0;
             newYear += 1;
+            return new Date(newYear, 0, 1);
         } else if (newMonth < 0) {
-            newMonth = 11;
             newYear -= 1;
+            return new Date(newYear, 11, 1);
         }
-
         return new Date(newYear, newMonth, 1);
     }
 
-    // Functions to handle switching between months
     function goToPreviousMonth() {
         currentMonth -= 1;
         if (currentMonth < 0) {
@@ -60,42 +55,35 @@
         flex-direction: row;
         justify-content: space-between;
         align-items: flex-start;
-    }
-  
-    .calendar-header {
-        display: flex;
-        justify-content: space-between;
-        width: 100%;
-        margin-bottom: 1rem;
-    }
-  
-    .month-year {
-        font-weight: bold;
-        font-size: 1.2em;
-    }
-  
-    .month-container {
-        width: 30%;
+        gap: 1rem;
     }
 
-    .month-container.clickable {
+    .month-container {
+        width: 30%;
         cursor: pointer;
+    }
+
+    @media (max-width: 768px) {
+        .calendar-view {
+            flex-direction: column;
+        }
+
+        .month-container {
+            width: 100%;
+        }
     }
 </style>
 
 <div class="calendar-view">
-    <!-- Previous Month -->
-    <div class="month-container clickable" on:click={goToPreviousMonth}>
+    <div class="month-container" on:click={goToPreviousMonth}>
         <Month selectedDay={getMonthOffset(currentYear, currentMonth, -1)} onDaySelect={onDaySelect} />
     </div>
 
-    <!-- Current Month -->
-    <div class="month-container clickable" on:click={goToPreviousMonth}>
+    <div class="month-container">
         <Month selectedDay={new Date(currentYear, currentMonth)} onDaySelect={onDaySelect} />
     </div>
 
-    <!-- Next Month (non-clickable) -->
-    <div class="month-container">
+    <div class="month-container" on:click={goToNextMonth}>
         <Month selectedDay={getMonthOffset(currentYear, currentMonth, 1)} onDaySelect={onDaySelect} />
     </div>
 </div>

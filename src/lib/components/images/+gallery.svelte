@@ -78,7 +78,7 @@
  .image-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  gap: 1em;
+  gap: 1.5em;
 }
 
 .image-container {
