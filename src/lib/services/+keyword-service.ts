@@ -1,8 +1,9 @@
 // $lib/services/+keyword-service.ts
 import { BaseService } from '$lib/services/+base-service';
 import { activityDataService } from '$lib/services/+activity-data-service';
+import type { Keyword } from '$lib/types';
 
-class KeywordService extends BaseService {
+class KeywordService extends BaseService<Keyword> {
     constructor() {
         super('keywords'); // Assuming 'keywords' is the name of your collection
     }
@@ -26,10 +27,6 @@ class KeywordService extends BaseService {
         // Now create the keyword
         const keyword = await this.create(keywordData);
 
-        // Optionally, you can update the activity with the newly created keyword ID
-        await activityDataService.update(activity.id, {
-            entity_id: keyword.id
-        });
 
         return keyword;
     }

@@ -1,7 +1,8 @@
 // $lib/services/+article-service.ts
 import { BaseService } from '$lib/services/+base-service';
-
-class ArticleService extends BaseService {
+import type { Article } from '$lib/types';
+        
+class ArticleService extends BaseService<Article> {
     constructor() {
         super('articles'); // Assuming 'keywords' is the name of your collection
     }

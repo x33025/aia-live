@@ -1,9 +1,10 @@
 // $lib/services/+activity-data-service.ts
 import { BaseService } from '$lib/services/+base-service';
+import type { ActivityData } from '$lib/types';
 
-class ActivityDataService extends BaseService {
+class ActivityDataService extends BaseService<ActivityData> {
     constructor() {
-        super('activity-data'); // Assuming 'keywords' is the name of your collection
+        super('activity_data');
     }
 
     // You can add any additional methods specific to the keywords collection if needed.

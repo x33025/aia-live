@@ -1,7 +1,8 @@
 // $lib/services/+category-service.ts
 import { BaseService } from '$lib/services/+base-service';
+import type { Category } from '$lib/types';
 
-class CategoryService extends BaseService {
+class CategoryService extends BaseService<Category> {
     constructor() {
         super('categories'); // Assuming 'keywords' is the name of your collection
     }
