@@ -8,7 +8,7 @@
   </script>
   
 
-<button on:click={goBack}><ChevronLeft /></button>
+<button on:click={goBack}><ChevronLeft size={1.25} /></button>
 
 <style>
     button {
