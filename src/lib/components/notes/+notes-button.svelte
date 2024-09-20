@@ -18,7 +18,8 @@
     }
 
     // Sort notes by created date in descending order
-    $: sortedNotes = [...notes].sort((a, b) => new Date(b.created).getTime() - new Date(a.created).getTime());
+    $: sortedNotes = [...(notes || [])].sort((a, b) => new Date(b.created).getTime() - new Date(a.created).getTime());
+
   </script>
   
   <div on:click={openNotesSidebar} class="clickable-cell">

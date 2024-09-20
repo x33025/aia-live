@@ -4,7 +4,7 @@
   import Stack from '$lib/core/layout/+stack.svelte';
   import Text from '$lib/core/display/+text.svelte';
   import KeywordRow from '$lib/components/keyword/+keyword-row.svelte';
-  import { keywords } from '$lib/stores/+keywords';
+  import { keywords } from '$lib/stores/data/+keywords';
   import { Direction, SortOptions, type Keyword } from '$lib/types';
 
   
@@ -43,16 +43,9 @@
 
   // Set initial keywords in the store
   onMount(() => {
-    const unsubscribe = page.subscribe(($page) => {
-      if ($page.data.keywords) {
-        keywords.set($page.data.keywords);
-      }
-    });
 
-    // Optional: unsubscribe when the component is destroyed
-    return () => {
-      unsubscribe();
-    };
+      keywords.set($page.data.keywords);
+ 
   });
 
   function updateKeyword(id: string, updatedFields: object) {

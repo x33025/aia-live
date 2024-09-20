@@ -96,12 +96,12 @@
   }
 
   .emoji-bg.show {
-    opacity: 0.2; /* Set opacity to 0.2 when emoji is shown */
+    opacity: 0.2; 
   }
 
   .text-container {
-    z-index: 1; /* Ensure the text is on top of the emojis */
-    position: relative; /* Ensure text-container is the reference for absolute positioning */
+    z-index: 1; 
+    position: relative; 
     width: 100%;
   }
 </style>

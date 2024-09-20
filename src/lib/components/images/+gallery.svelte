@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { images } from '$lib/stores/+images';
+  import { images } from '$lib/stores/data/+images';
   import { onMount } from 'svelte';
   import { pb } from '$lib/config/pocketbase';
   import { Direction, type Image } from '$lib/types';

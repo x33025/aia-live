@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import { page } from '$app/stores'; // To access $page.data
-  import { articles } from '$lib/stores/+articles'; // Global articles store
+  import { articles } from '$lib/stores/data/+articles'; // Global articles store
   import { get } from 'svelte/store'; // To access the value of the store
   import ArticleRow from '$lib/components/article/+article-row.svelte';
   import Stack from '$lib/core/layout/+stack.svelte';
@@ -13,8 +13,8 @@
 
 </script>
 
-<Stack spacing={1}>
-  <Stack spacing={0.5} class="scrollable-stack">
+<Stack spacing={1} class="scrollable-stack">
+
     {#each $articles as article, index (article.id)}
       <ArticleRow 
         {article}
@@ -25,7 +25,7 @@
         <div class="divider"></div>
       {/if}
     {/each}
-  </Stack>
+
 
 </Stack>
 
