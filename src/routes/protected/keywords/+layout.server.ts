@@ -26,8 +26,8 @@ export const load: LayoutServerLoad = async ({ locals, url }) => {
       throw new Error("Collection not found or no data returned");
     }
 
-    const items = keywords.items as Keyword[];
-    const total = keywords.totalItems;
+    const items = keywords as Keyword[];
+    const total = keywords.length;
 
     console.log(`FETCH_KEYWORDS: Retrieved ${items.length} keywords out of ${total} total items`);
 
