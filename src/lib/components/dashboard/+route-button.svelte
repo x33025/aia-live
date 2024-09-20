@@ -9,6 +9,7 @@
     export let route: string;
     export let emojis: string[];
     export let text: string;
+    export let underConstruction: boolean = false; // New boolean prop
 
     interface Position {
         x: number;
@@ -83,8 +84,20 @@
     background-color: var(--gray-1);
     border-radius: 0.5em;
     padding: var(--large-padding);
-    overflow: hidden;
+    overflow: hidden; /* Keep other emojis within the container */
     cursor: pointer;
+  }
+
+  .visual-container.construction {
+    overflow: hidden; /* Keep other emojis within the container */
+  }
+
+  .visual-container.construction .construction-emoji {
+    overflow: visible; /* Allow overflow for construction emoji */
+  }
+
+  .visual-container.construction .emoji-bg {
+    overflow: hidden; /* Keep other emojis within the container */
   }
 
   .emoji-bg {
@@ -104,15 +117,31 @@
     position: relative; 
     width: 100%;
   }
+
+  .construction-emoji {
+    position: absolute;
+    top: 0px;
+    right: 5px;
+    font-size: 1.5em;
+    z-index: 1000; /* Ensure it's above everything */
+  }
+
+  .visual-container.construction .emoji-bg {
+    display: none;
+  }
+
 </style>
 
 <!-- Stack is now clickable, no need for a Button -->
-<a class="visual-container" href={route} on:keydown={(e) => e.key === 'Enter' && goto(route)}>
+<a class="visual-container {underConstruction ? 'construction' : ''}" href={route} on:keydown={(e) => e.key === 'Enter' && goto(route)}>
   {#each emojis as emoji, i}
       <div class="emoji-bg" style="{styles[i]}" class:show={styles[i]}>{emoji}</div>
   {/each}
   <div class="text-container">
       <Text type={TextType.Title}>{text}</Text>
   </div>
+  {#if underConstruction}
+      <div class="construction-emoji">🚧</div> <!-- Construction emoji -->
+  {/if}
 </a>
 
