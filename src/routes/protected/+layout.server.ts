@@ -1,7 +1,12 @@
 import type { LayoutServerLoad } from './$types';
 import { pb } from '$lib/config/pocketbase';
 import { redirect } from '@sveltejs/kit';
-import type { Category, Country, Status, User, Website } from '$lib/types';
+import { articleService } from '$lib/services/+article-service';
+import { countryService } from '$lib/services/+country-service';
+import { categoryService } from '$lib/services/+category-service';
+import { statusService } from '$lib/services/+status-service';
+import { websiteService } from '$lib/services/+website-service';
+import type { User } from '$lib/types';
 
 export const load: LayoutServerLoad = async ({ cookies }) => {
   // Authenticate the user
@@ -32,36 +37,20 @@ export const load: LayoutServerLoad = async ({ cookies }) => {
     throw redirect(303, '/login');
   }
 
-  // Fetch the authenticated user with expanded relations
   const user = await pb.collection('users').getOne<User>(userId, {
-    expand: 'role' // Adjust based on your schema
+    expand: 'role'
   });
 
-  // Use the auth token from pb.authStore for further requests
-  const authToken = pb.authStore.token;
-
-  // Set the token in the request headers
-  const options = {
-    headers: {
-      'Authorization': `Bearer ${authToken}`
-    }
-  };
-
-  // Fetch other necessary data (statuses, categories, countries, websites) with the auth token
   const [statuses, categories, countries, websites] = await Promise.all([
-    pb.collection('statuses').getFullList<Status>(200, options),
-    pb.collection('categories').getFullList<Category>(200, options),
-    pb.collection('countries').getFullList<Country>(200, options),
-    pb.collection('websites').getFullList<Website>(200, options)
+    statusService.getList(),
+    categoryService.getList(),
+    countryService.getList(),
+    websiteService.getList()
   ]);
 
-  // Separate fetching for users with expanded roles
-  const users = await pb.collection('users').getFullList<User>(200, {
-    ...options,
-    expand: 'role' // Expanded roles here
+  const users = await pb.collection('users').getFullList<User>({
+    expand: 'role'
   });
-
-  //console.log(`PROTECTED: All additional data fetched successfully. Users: ${JSON.stringify(users, null, 2)}`);
 
   return {
     user,

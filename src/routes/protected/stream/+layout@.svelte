@@ -28,7 +28,9 @@
 <SearchBar type={TextType.Headline} onSearch={(value) => console.log(value)} placeholder="Search news here..." />
   <StreamControl />
 </svelte:fragment>
+
   <slot />
+  
 </MainLayout>
 
   

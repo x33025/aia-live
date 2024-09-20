@@ -1,7 +1,7 @@
 <script lang="ts">
     import Text from "$lib/core/display/+text.svelte";
     import Stack from "$lib/core/layout/+stack.svelte";
-    import { news as newsStore } from "$lib/stores/+news"; // Import the news store
+    import { news as newsStore } from "$lib/stores/data/+news"; // Import the news store
     import { TextType, type News } from "$lib/types"; // Import your News type
     import NewsArticle from "./news-article/+news-article.svelte";
 

@@ -19,7 +19,7 @@ export const GET: RequestHandler = async ({ url }) => {
       sort: sortParam as string, // PocketBase expects a string for sorting
     });
 
-    return json(keywords.items); // Return the list of keywords
+    return json(keywords); // Return the list of keywords
   } catch (err) {
     console.error('Error fetching keywords:', err);
 

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { article } from '$lib/stores/+article';
+  import { article } from '$lib/stores/data/+article';
   import { onMount, onDestroy } from 'svelte';
   import TextInput from '$lib/core/actions/+text-input.svelte';
   import Stack from '$lib/core/layout/+stack.svelte';

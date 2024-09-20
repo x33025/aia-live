@@ -6,7 +6,7 @@
     import Avatar from '../user/+avatar.svelte';
     import Spacer from '$lib/core/layout/+spacer.svelte';
   import { get } from 'svelte/store';
-  import { users } from '$lib/stores/+users';
+  import { users } from '$lib/stores/data/+users';
 
   // Accept the draftedThisMonth prop
   export let draftedThisMonth: { items: Article[] } = { items: [] };

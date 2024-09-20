@@ -1,6 +1,6 @@
 <script lang="ts">
     import Stack from "$lib/core/layout/+stack.svelte";
-    import { news } from "$lib/stores/+news"; // News store
+    import { news } from "$lib/stores/data/+news"; // News store
     import { Alignment, Direction, TextType, type News } from '$lib/types';
     import NewsStream from "$lib/components/stream/+news-stream.svelte";
     

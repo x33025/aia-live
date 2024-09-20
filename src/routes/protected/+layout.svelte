@@ -2,7 +2,7 @@
   import { page } from '$app/stores';
   import MainPage from '$lib/core/layout/+main-page.svelte';
   import { onMount, onDestroy } from 'svelte';
-  import { users } from '$lib/stores/+users';
+  import { users } from '$lib/stores/data/+users';
   import Users from '$lib/components/user/+users.svelte';
   import ProfileMenu from '$lib/components/user/+profile-menu.svelte';
   import Stack from '$lib/core/layout/+stack.svelte';

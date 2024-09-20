@@ -9,7 +9,6 @@
 
   let draftedThisMonth = $page.data.draftedThisMonth;
 
-  // $: console.log(draftedThisMonth);
 </script>
 
 <Stack direction={Direction.Vertical} spacing={1}>

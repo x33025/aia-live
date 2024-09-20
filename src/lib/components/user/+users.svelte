@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { users } from '$lib/stores/+users';
+    import { users } from '$lib/stores/data/+users';
     import DropdownMenu from '$lib/core/actions/+dropdown-menu.svelte';
     import Text from '$lib/core/display/+text.svelte';
     import Avatar from './+avatar.svelte';

@@ -5,7 +5,7 @@
   import { get } from 'svelte/store'; // To access the value of the store
   import ArticleRow from '$lib/components/article/+article-row.svelte';
   import Stack from '$lib/core/layout/+stack.svelte';
-  import { writers } from '$lib/stores/+users'; // Import users store
+  import { writers } from '$lib/stores/data/+users'; // Import users store
   // Set articles when the component mounts
   onMount(() => {
     articles.set($page.data.articles); // Set articles from $page.data

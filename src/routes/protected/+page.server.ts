@@ -6,7 +6,6 @@ import { getStartAndEndOfMonth } from '$lib/utils/misc/+date';
 
 
 export const load: PageServerLoad = async () => {
-    const now = new Date();
 
     const { startOfMonth, endOfMonth } = getStartAndEndOfMonth();
 
