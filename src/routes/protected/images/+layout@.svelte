@@ -9,6 +9,7 @@
     import { page } from '$app/stores';
 
     import GoBackButton from '$lib/components/navigation/+go-back.svelte';
+    import Plus from '$lib/core/ui/icons/+plus.svelte';
 
 </script>
 
@@ -21,9 +22,19 @@
     <PageTitle />
     <div style="border-left: 1px solid var(--gray-3); height: 80%; width: 1px;" />
     <SearchBar type={TextType.Headline} onSearch={(value) => console.log(value)} placeholder="Show me images of..." />
+  <Spacer />
+  <button class="add-image-button"><Plus color="white" size={1.25} /></button>
   
   </Stack>
 
   <slot />
 </Stack>
+
+<style>
+  .add-image-button {
+    background-color: var(--blue);
+    border-radius: 0.5em;
+    padding: 0.5em;
+  }
+</style>
   

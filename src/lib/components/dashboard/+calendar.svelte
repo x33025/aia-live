@@ -52,7 +52,7 @@
 <style>
     .calendar-view {
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         justify-content: space-between;
         align-items: flex-start;
         gap: 1rem;
@@ -76,7 +76,7 @@
 
 <div class="calendar-view">
     <div class="month-container" on:click={goToPreviousMonth}>
-        <Month selectedDay={getMonthOffset(currentYear, currentMonth, -1)} onDaySelect={onDaySelect} />
+        {getMonthOffset(currentYear, currentMonth, -1)} 
     </div>
 
     <div class="month-container">
@@ -84,6 +84,7 @@
     </div>
 
     <div class="month-container" on:click={goToNextMonth}>
-        <Month selectedDay={getMonthOffset(currentYear, currentMonth, 1)} onDaySelect={onDaySelect} />
+        {getMonthOffset(currentYear, currentMonth, 1)} 
     </div>
+
 </div>
