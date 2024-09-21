@@ -15,7 +15,7 @@
 
   async function fetchImages(query: string = '') {
     try {
-      const resultList = await pb.collection('images').getList<Image>(page, perPage, { filter: query });
+      const resultList = await pb.collection('images').getList<Image>(page, perPage, { filter: query, expand: 'activity,notes' });
       images.set(resultList.items);
     } catch (error) {
       console.error('Error fetching images:', error);

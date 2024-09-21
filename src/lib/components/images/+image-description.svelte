@@ -31,10 +31,12 @@
         />
       </Label>
       <Spacer />
-      {#if image?.expand?.activity}
-        <ActivityDataView activity={image.expand.activity} />
-      {/if}
-      <Spacer />
+      <Label name="Activity">
+        {#if image?.expand?.activity}
+          <ActivityDataView activity={image.expand.activity} />
+        {/if}
+        <Spacer />
+      </Label>
     </Stack>
   </Stack>
   

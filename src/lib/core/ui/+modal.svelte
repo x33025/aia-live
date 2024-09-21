@@ -48,7 +48,7 @@
         background-color: white;
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
         border-radius: 1em;
-        /* overflow-y: auto; */ /* Removed to prevent scrolling */
+        overflow-y: auto; /* Re-enabled to allow scrolling */
         padding: 1em;
     }
 </style>
