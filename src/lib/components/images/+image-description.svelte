@@ -14,7 +14,8 @@
       : '';
   </script>
   
-  <Stack direction={Direction.Horizontal} spacing={1.5}>
+
+  <Stack direction={Direction.Horizontal}  spacing={1.5} style="border-top: 1px solid var(--gray-2); padding-top: 1em;">
     <ImageComponent
       image_url={image_url}
       size={20}

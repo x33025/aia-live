@@ -1,6 +1,7 @@
 import { writable, derived } from 'svelte/store';
 import type { User } from '$lib/types'; // Adjust the type path as necessary
 
+export const current_user = writable<User>();
 // Writable store for users
 export const users = writable<User[]>([]);
 

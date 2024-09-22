@@ -9,7 +9,7 @@
   import { Direction, TextType } from '$lib/types';
   import SearchBar from '$lib/components/search/+search-bar.svelte';
   import PageTitle from '$lib/core/layout/+page-title.svelte';
-  import { user as userStore } from '$lib/stores/data/+user';
+  import { current_user } from '$lib/stores/data/+users';
   import GoBackButton from '$lib/components/navigation/+go-back.svelte';
   let intervalId: number;
 
@@ -34,8 +34,10 @@
 
   // Set users and update presence
   onMount(() => {
+    console.log($page.data.users);
+    console.log($page.data.user);
     users.set($page.data.users);
-    userStore.set($page.data.user);
+    current_user.set($page.data.user);
 
     // Set up the interval for updating last_active
     intervalId = window.setInterval(() => {

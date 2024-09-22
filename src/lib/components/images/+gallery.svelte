@@ -6,12 +6,12 @@
   import Stack from '$lib/core/layout/+stack.svelte';
   import ImageDescription from './+image-description.svelte';
   import ImageComponent from '$lib/core/display/+image.svelte';
-
+  import { selected_image } from '$lib/stores/data/+images';
   let searchQuery = '';
   export let page = 1;
   export let perPage = 50;
 
-  let main_image: Image | null = null;
+
 
   async function fetchImages(query: string = '') {
     try {
@@ -23,15 +23,15 @@
   }
 
   function handleImageSelect(image: Image) {
-    main_image = image;
-  }
+        selected_image.set(image);
+      }
 
   onMount(() => {
     fetchImages();
   });
 
-  $: image_url = main_image 
-    ? `${import.meta.env.VITE_POCKETBASE_URL}/api/files/images/${main_image.id}/${main_image.file}`
+  $: image_url = $selected_image 
+    ? `${import.meta.env.VITE_POCKETBASE_URL}/api/files/images/${$selected_image.id}/${$selected_image.file}`
     : '';
 
   function constructImageUrl(image: Image): string {
@@ -39,15 +39,14 @@
   }
 </script>
 
-<Stack direction={Direction.Vertical} spacing={1}>
-  <Stack direction={Direction.Horizontal} spacing={1}>
+
     <Stack direction={Direction.Vertical} spacing={0.5}>
       <div class="image-grid">
         {#if $images.length > 0}
           {#each $images as image}
             <div
               on:click={() => handleImageSelect(image)}
-              class="image-container {image.id === main_image?.id ? 'selected' : ''}"
+              class="image-container {image.id === $selected_image?.id ? 'selected' : ''}"
             >
               <ImageComponent
                 image_url={constructImageUrl(image)}
@@ -62,17 +61,9 @@
         {/if}
       </div>
     </Stack>
-  </Stack>
 
-  <Stack
-    direction={Direction.Horizontal}
-    wrap={true}
-    spacing={1}
-    style="border-top: 1px solid var(--gray-2); padding-top: 2em;"
-  >
-    <ImageDescription image={main_image} />
-  </Stack>
-</Stack>
+
+
 
 <style>
  .image-grid {

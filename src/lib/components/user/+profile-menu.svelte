@@ -5,7 +5,11 @@
     import DropdownMenu from "$lib/core/actions/+dropdown-menu.svelte"; // Import the DropdownMenu component
     import Stack from '$lib/core/layout/+stack.svelte';
     import Avatar from './+avatar.svelte';
-  
+    import { current_user } from '$lib/stores/data/+users';
+
+
+
+
     function logout() {
         pb.authStore.clear(); // Clear PocketBase authentication
         window.location.href = '/login'; // Redirect to login page
@@ -14,7 +18,7 @@
 
 <DropdownMenu id="profile-menu" placeholder="Menu">
     <svelte:fragment slot="button">
-       <Avatar userId={$page.data.user?.id}  />
+       <Avatar size={2.3} userId={$page.data.user.id} />
     </svelte:fragment>
     <Stack wrap={true} spacing={0.5} style="padding: 0.5em;">
         <!-- <a href="/profile">Profile</a> -->

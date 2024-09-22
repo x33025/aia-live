@@ -1,14 +1,9 @@
 <script lang="ts">  
 
-import ImageChooser from '$lib/components/images/+gallery.svelte';
-
-
+import ImagePicker from '$lib/components/images/+image-picker.svelte';
 
 </script>
 
 
 
-
-   
- <ImageChooser />
-  
+<ImagePicker />

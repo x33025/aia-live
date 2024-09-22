@@ -9,8 +9,19 @@
   import Plus from '$lib/core/ui/icons/+plus.svelte';
   import UploadImageModal from '$lib/components/images/+upload-image-modal.svelte';
   import { openModal } from '$lib/stores/ui/+modal';
+  import { page } from '$app/stores';
+  import { users, current_user } from '$lib/stores/data/+users';
+  import { onMount } from 'svelte';
+    import ProfileMenu from '$lib/components/user/+profile-menu.svelte';
+
 
   let fileInput: HTMLInputElement;
+  onMount(() => {
+
+    console.log($users);
+
+  });
+
 
   function handleFileSelection() {
     fileInput.click();  // Programmatically trigger the file input
@@ -35,6 +46,7 @@
       <Plus color="white" size={1.25} />
     </button>
     <input type="file" accept="image/*" bind:this={fileInput} style="display:none" on:change={handleFileChange} />
+    <ProfileMenu />
   </Stack>
   <slot />
 </Stack>
