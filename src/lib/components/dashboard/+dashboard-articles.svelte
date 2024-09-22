@@ -30,7 +30,7 @@
           <Stack direction={Direction.Horizontal} wrap={true} spacing={0.5}>
           {article.title} 
           <Spacer />
-          <!-- <Avatar userId={article.author ?? 'defaultUserId'} size={1.75} />  -->
+        <Avatar userId={article.author ?? 'defaultUserId'} size={1.75} />  
         </Stack>
         </Text>
 

@@ -46,7 +46,7 @@
       <Plus color="white" size={1.25} />
     </button>
     <input type="file" accept="image/*" bind:this={fileInput} style="display:none" on:change={handleFileChange} />
-    <ProfileMenu />
+   
   </Stack>
   <slot />
 </Stack>

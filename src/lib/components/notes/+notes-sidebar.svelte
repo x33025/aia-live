@@ -8,11 +8,13 @@ import { Alignment, Direction, TextType, type Note } from '$lib/types'; // Adjus
       import ActivityDataView from '$lib/components/activity/+activity-data.svelte';
     import type { ActivityData } from '$lib/types';
 
-    export let notes: Note[];
+    export let notes: Note[] = [];
     export let activity: ActivityData;
 
-    // Sort notes by created date in descending order
-    notes = notes.sort((a, b) => new Date(b.created).getTime() - new Date(a.created).getTime());
+    // Ensure notes is defined before sorting
+    if (notes) {
+        notes = notes.sort((a, b) => new Date(b.created).getTime() - new Date(a.created).getTime());
+    }
 </script>
   
   <Stack  spacing={1} style="padding: 1em;">

@@ -10,7 +10,7 @@
  
     <RouteButton route="/protected/articles" emojis={["📰", "📄", "🖋️"]} text="Articles"  underConstruction={true} />
     <RouteButton route="/protected/keywords" emojis={["🔑", "📊", "🏷️"]} text="Keywords"  underConstruction={true} />
-    <RouteButton route="/protected/images" emojis={["📸", "🌉", "📹"]} text="Images"  underConstruction={true} />
+    <RouteButton route="/protected/images" emojis={["📸", "🌉", "📹"]} text="Images" />
     <RouteButton route="/protected/stream" emojis={["📡", "📺", "🎥"]} text="Stream"  underConstruction={true} />
     <!-- <RouteButton route="/protected" emojis={["🤖", "🧠", "🔍", "🚧"]} text={"Coming Soon"} /> -->
    
