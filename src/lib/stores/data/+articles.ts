@@ -3,3 +3,6 @@ import type { Article } from '$lib/types'; // Adjust the type path as necessary
 
 // Writable store for articles
 export const articles = writable<Article[]>([]);
+
+// Writable store for article
+export const article = writable<Article>();

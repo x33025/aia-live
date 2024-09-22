@@ -22,13 +22,16 @@
   }
 
   function selectDay(day: Date) {
+      selectedDay = day; // Update the selected day
       onDaySelect(day);
   }
 
   function isSelected(day: Date) {
       return day.getDate() === selectedDay.getDate() &&
           day.getMonth() === selectedDay.getMonth() &&
-          day.getFullYear() === selectedDay.getFullYear();
+          day.getFullYear() === selectedDay.getFullYear() &&
+          day.getMonth() === currentMonth && // Ensure the day is in the current month
+          day.getFullYear() === currentYear; // Ensure the day is in the current year
   }
 
   function isToday(day: Date) {
@@ -61,19 +64,17 @@
       justify-content: center;
       cursor: pointer;
       transition: background-color 0.3s ease;
+      border-radius: 50%; /* Ensure border-radius is applied to all days */
   }
 
   .day.today {
       background-color: var(--red);
       color: white;
-      border-radius: 50%;
-      padding: 1em;
   }
 
   .day.selected {
       background-color: var(--blue);
       color: white;
-      border-radius: 50%;
   }
 </style>
 

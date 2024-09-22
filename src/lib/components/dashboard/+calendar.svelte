@@ -46,29 +46,34 @@
 </script>
 
 
-<Stack direction={Direction.Vertical} spacing={1} wrap={true}>
-    <button  on:click={goToPreviousMonth}>
-        <Text type={TextType.Subheadline}>{getMonthName(currentYear, currentMonth - 1 < 0 ? 11 : currentMonth - 1)}</Text>
-  
-    </button>
+<Stack direction={Direction.Horizontal} spacing={1} wrap={true}>
+
+
     <Stack direction={Direction.Horizontal}  spacing={1}>
    
-        <Text type={TextType.Subheadline}>{getMonthName(currentYear, currentMonth)}</Text>
-      
- 
+     
 
   
     <Month selectedDay={new Date(currentYear, currentMonth)} onDaySelect={onDaySelect} />
  
-
+ 
+ 
 
         
     </Stack>
+    <Stack direction={Direction.Vertical} spacing={2}>
 
-    <button on:click={goToNextMonth}>
+        <button  on:click={goToPreviousMonth} style="color: var(--gray-6);">
+        <Text type={TextType.Subheadline}>{getMonthName(currentYear, currentMonth - 1 < 0 ? 11 : currentMonth - 1)}</Text>
+  
+    </button>
+
+    <Text type={TextType.Subheadline} style="position: relative; top: 0; left: 0;">{getMonthName(currentYear, currentMonth)}</Text>
+      
+    <button on:click={goToNextMonth} style="color: var(--gray-6);">
         <Text type={TextType.Subheadline}>{getMonthName(currentYear, currentMonth + 1 > 11 ? 0 : currentMonth + 1)}</Text>
         </button>
-
+    </Stack>
 
  
 </Stack>

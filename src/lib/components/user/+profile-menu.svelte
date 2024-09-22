@@ -5,7 +5,7 @@
     import DropdownMenu from "$lib/core/actions/+dropdown-menu.svelte"; // Import the DropdownMenu component
     import Stack from '$lib/core/layout/+stack.svelte';
     import Avatar from './+avatar.svelte';
-    import { current_user } from '$lib/stores/data/+users';
+
 
 
 

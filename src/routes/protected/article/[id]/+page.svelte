@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import { page } from '$app/stores';
-  import { article } from '$lib/stores/data/+article';
+  import { article } from '$lib/stores/data/+articles';
 
   import Stack from '$lib/core/layout/+stack.svelte';
   import Spacer from '$lib/core/layout/+spacer.svelte';

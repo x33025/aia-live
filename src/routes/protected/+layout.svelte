@@ -2,14 +2,13 @@
   import { page } from '$app/stores';
   import MainPage from '$lib/core/layout/+main-page.svelte';
   import { onMount, onDestroy } from 'svelte';
-  import { users } from '$lib/stores/data/+users';
+  import { users, current_user } from '$lib/stores/data/+users';
   import Users from '$lib/components/user/+users.svelte';
   import ProfileMenu from '$lib/components/user/+profile-menu.svelte';
   import Stack from '$lib/core/layout/+stack.svelte';
   import { Direction, TextType } from '$lib/types';
   import SearchBar from '$lib/components/search/+search-bar.svelte';
   import PageTitle from '$lib/core/layout/+page-title.svelte';
-  import { current_user } from '$lib/stores/data/+users';
   import GoBackButton from '$lib/components/navigation/+go-back.svelte';
   let intervalId: number;
 
@@ -34,14 +33,13 @@
 
   // Set users and update presence
   onMount(() => {
-    console.log($page.data.users);
-    console.log($page.data.user);
+
     users.set($page.data.users);
     current_user.set($page.data.user);
 
     // Set up the interval for updating last_active
     intervalId = window.setInterval(() => {
-      updateLastActive($page.data.user?.id);
+      updateLastActive($current_user.id);
     }, 5 * 60 * 1000); // 5 minutes
 
     // Clean up the interval on component destroy

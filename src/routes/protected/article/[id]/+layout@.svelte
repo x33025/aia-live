@@ -4,7 +4,7 @@
   import  TextInput from '$lib/core/actions/+text-input.svelte';
   import { TextType } from '$lib/types';
   import MainImage  from '$lib/components/images/+main-image.svelte';
-  import { article } from '$lib/stores/data/+article';
+  import { article } from '$lib/stores/data/+articles';
   import { openModal } from '$lib/stores/ui/+modal';
   import { openSidebar } from '$lib/stores/ui/+sidebar';
   import  NotesSidebar  from '$lib/components/notes/+notes-sidebar.svelte';

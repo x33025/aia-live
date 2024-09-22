@@ -54,6 +54,7 @@
 		"openai": "^4.53.2",
 		"pica": "^9.0.1",
 		"pocketbase": "^0.21.4",
+		"svelte-easy-crop": "^3.0.0",
 		"svelte-infinite-loading": "^1.4.0",
 		"svelte-tiny-virtual-list": "^2.1.2",
 		"uuid": "^10.0.0"
