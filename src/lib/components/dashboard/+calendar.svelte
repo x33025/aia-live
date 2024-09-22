@@ -3,6 +3,11 @@
     import { onMount } from 'svelte';
     import { get } from 'svelte/store';
     import Month from './+month.svelte';
+    import Text from '$lib/core/display/+text.svelte';
+    import { TextType } from '$lib/types';
+    import Stack from '$lib/core/layout/+stack.svelte';
+    import { Direction, Alignment } from '$lib/types'; 
+    import Spacer from '$lib/core/layout/+spacer.svelte';
 
     let currentYear: number;
     let currentMonth: number;
@@ -19,17 +24,8 @@
         month.set(day.getMonth() + 1);
     }
 
-    function getMonthOffset(year: number, month: number, offset: number) {
-        const newMonth = month + offset;
-        let newYear = year;
-        if (newMonth > 11) {
-            newYear += 1;
-            return new Date(newYear, 0, 1);
-        } else if (newMonth < 0) {
-            newYear -= 1;
-            return new Date(newYear, 11, 1);
-        }
-        return new Date(newYear, newMonth, 1);
+    function getMonthName(year: number, month: number) {
+        return new Date(year, month).toLocaleString('default', { month: 'long' });
     }
 
     function goToPreviousMonth() {
@@ -49,42 +45,30 @@
     }
 </script>
 
-<style>
-    .calendar-view {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        align-items: flex-start;
-        gap: 1rem;
-    }
 
-    .month-container {
-        width: 30%;
-        cursor: pointer;
-    }
+<Stack direction={Direction.Vertical} spacing={1} wrap={true}>
+    <button  on:click={goToPreviousMonth}>
+        <Text type={TextType.Subheadline}>{getMonthName(currentYear, currentMonth - 1 < 0 ? 11 : currentMonth - 1)}</Text>
+  
+    </button>
+    <Stack direction={Direction.Horizontal}  spacing={1}>
+   
+        <Text type={TextType.Subheadline}>{getMonthName(currentYear, currentMonth)}</Text>
+      
+ 
 
-    @media (max-width: 768px) {
-        .calendar-view {
-            flex-direction: column;
-        }
+  
+    <Month selectedDay={new Date(currentYear, currentMonth)} onDaySelect={onDaySelect} />
+ 
 
-        .month-container {
-            width: 100%;
-        }
-    }
-</style>
 
-<div class="calendar-view">
-    <div class="month-container" on:click={goToPreviousMonth}>
-        {getMonthOffset(currentYear, currentMonth, -1)} 
-    </div>
+        
+    </Stack>
 
-    <div class="month-container">
-        <Month selectedDay={new Date(currentYear, currentMonth)} onDaySelect={onDaySelect} />
-    </div>
+    <button on:click={goToNextMonth}>
+        <Text type={TextType.Subheadline}>{getMonthName(currentYear, currentMonth + 1 > 11 ? 0 : currentMonth + 1)}</Text>
+        </button>
 
-    <div class="month-container" on:click={goToNextMonth}>
-        {getMonthOffset(currentYear, currentMonth, 1)} 
-    </div>
 
-</div>
+ 
+</Stack>

@@ -64,9 +64,10 @@
   }
 
   .day.today {
-      background-color: #e74c3c;
+      background-color: var(--red);
       color: white;
       border-radius: 50%;
+      padding: 1em;
   }
 
   .day.selected {
