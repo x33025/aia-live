@@ -3,7 +3,7 @@
     import ChevronLeft from '$lib/core/ui/icons/+chevron-left.svelte';
     // Function to handle the go back action
     const goBack = () => {
-      history.back();
+     goto('/protected')
     }
   </script>
   
