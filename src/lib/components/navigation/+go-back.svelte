@@ -2,8 +2,10 @@
     import { goto } from '$app/navigation';
     import ChevronLeft from '$lib/core/ui/icons/+chevron-left.svelte';
     // Function to handle the go back action
+
+    export let path: string = '/protected';
     const goBack = () => {
-     goto('/protected')
+     goto(path)
     }
   </script>
   

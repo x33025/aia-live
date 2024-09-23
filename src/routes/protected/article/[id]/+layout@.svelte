@@ -11,7 +11,7 @@
   import  ImagePicker  from '$lib/components/images/+image-picker.svelte';
   import Keywords from '$lib/components/keyword/+keywords.svelte';
   import Label from '$lib/core/display/+label.svelte'; // Add this import
-
+  import GoBackButton from '$lib/components/navigation/+go-back.svelte';
   
   function openNotesSidebar() {
     if ($article?.expand?.notes) {
@@ -32,6 +32,7 @@
   
 <Stack direction={Direction.Horizontal} wrap={true}  spacing={1} style="padding-bottom: 1em; border-bottom: 1px solid var(--gray-3);">
 
+  <GoBackButton path="/protected/article" />
 
   <MainImage main_image={$article?.expand?.main_image} on:click={openImageModal}/>
 

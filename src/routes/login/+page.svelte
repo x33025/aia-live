@@ -6,6 +6,9 @@
   import { Alignment, ButtonType, Direction, TextType } from '$lib/types';
   import Text from '$lib/core/display/+text.svelte';
 
+  import GoBackButton from '$lib/components/navigation/+go-back.svelte';
+    import Spacer from '$lib/core/layout/+spacer.svelte';
+
   interface FormData {
       email: string;
       password: string;
@@ -21,9 +24,17 @@
 </script>
 
 <BaseLayout>
+  
   <Stack direction={Direction.Horizontal} alignment={Alignment.Center}>
-    <Stack direction={Direction.Vertical} alignment={Alignment.Center} spacing={1} style="max-width: 300px">
-      <Text type={TextType.Title}>Login</Text>
+    
+    <Stack direction={Direction.Vertical} alignment={Alignment.Center} spacing={1} style="max-width: 300px" >
+     
+      <Stack direction={Direction.Horizontal} alignment={Alignment.Center} spacing={1} wrap={true}>
+        <GoBackButton path="/"/>
+        <Text type={TextType.Title}>Sign In</Text>
+        <Spacer/>
+      </Stack>
+   
       <form method="POST" action="?/login" use:enhance>
         <input 
           type="email" 
@@ -44,8 +55,8 @@
         {#if form?.error}
           <p class="error">{form.error}</p>
         {/if}
-        <Button buttonType={ButtonType.Submit} class="login-button">
-          Login
+        <Button buttonType={ButtonType.Submit} class="login-button" style="width: 100%;">
+          Sign In
         </Button>
       </form>
     </Stack>
@@ -72,5 +83,8 @@ input {
   color: white;
   padding: var(--default-padding);
   border-radius: 0.5em;
+  display: flex; /* Add flex display */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
 }
 </style>

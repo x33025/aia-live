@@ -1,9 +1,9 @@
 <script lang="ts">
   import { goto } from '$app/navigation';
-  import InteractiveText from '$lib/components/login/+interactive-text.svelte';
   import Stack from '$lib/core/layout/+stack.svelte';
   import Button from '$lib/core/actions/+button.svelte';
-    import BaseLayout from '$lib/core/layout/+base-layout.svelte';
+  import BaseLayout from '$lib/core/layout/+base-layout.svelte';
+  import { Direction, Alignment } from '$lib/types';
 
   function handleLoginClick() {
     console.log('Login button clicked');
@@ -11,27 +11,53 @@
   }
 </script>
 
-
-<BaseLayout >
-  <Stack style="position: relative; padding: 1em;">
-    <Button on:click={handleLoginClick} class="main-login-button">
-      Login
-    </Button>
-    <InteractiveText text="aia"/>
+<BaseLayout>
+  <Stack direction={Direction.Vertical} style=" padding: 1em;">
+    <pre class="ascii-art">
+      ___                       ___     
+     /\  \          ___        /\  \    
+    /::\  \        /\  \      /::\  \   
+   /:/\:\  \       \:\  \    /:/\:\  \  
+  /::\~\:\  \      /::\__\  /::\~\:\  \ 
+ /:/\:\ \:\__\  __/:/\/__/ /:/\:\ \:\__\
+ \/__\:\/:/  / /\/:/  /    \/__\:\/:/  /
+      \::/  /  \::/__/          \::/  / 
+      /:/  /    \:\__\          /:/  /  
+     /:/  /      \/__/         /:/  /   
+     \/__/                     \/__/    
+    </pre>
+    <button on:click={handleLoginClick} class="main-login-button">
+      Sign In
+    </button>
   </Stack>
-</BaseLayout >
-
+</BaseLayout>
 
 <style>
   :global(.main-login-button) {
     padding: var(--default-padding);
-    border-radius: 0.5em;
-    border: 1px solid var(--gray-2);
+    border-radius: 3em;
+   
     font-weight: bold;
-    color: var(--blue);
+    color: white;
+    background-color: black;
     z-index: 100;
     position: absolute;
-    top: 0; 
-    right: 0;
+    top: 68%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  
+
+  }
+
+  .ascii-art {
+    font-family: monospace;
+    white-space: pre;
+    font-size: 1.75em;
+    font-weight: bold;
+    color: black;
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
 </style>

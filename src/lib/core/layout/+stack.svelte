@@ -19,8 +19,8 @@
   const getStyles = () => [
     `gap: ${spacing}em;`,
     direction === 'row' 
-      ? `justify-content: ${alignment}; align-items: center;`
-      : `justify-content: ${alignment}; align-items: stretch;`,
+      ? `justify-content: ${alignment} !important; align-items: center !important;`
+      : `justify-content: ${alignment} !important; align-items: stretch !important;`,
     externalStyle // Add external style here
   ].join(' ');
 </script>
