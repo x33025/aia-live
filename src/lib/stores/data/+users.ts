@@ -13,17 +13,15 @@ export const sortedUsers = derived(users, $users =>
   })
 );
 
-const ACTIVE_TIME = 10 * 60 * 1000; // 5 minutes in milliseconds
+const ACTIVE_TIME = 10 * 60 * 1000; // 10 minutes in milliseconds
 
 
 export const activeUsers = derived(users, $users => 
   $users.filter(user => {
     if (!user.last_active) {
-      console.log(`User ${user.id} skipped: last_active is null`);
       return false; // Skip users with null last_active
     }
     const isActive = Date.now() - new Date(user.last_active).getTime() < ACTIVE_TIME;
-    console.log(`User ${user.id} is ${isActive ? 'active' : 'inactive'}`);
     return isActive;
   })
 );

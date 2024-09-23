@@ -37,6 +37,7 @@
     users.set($page.data.users);
     current_user.set($page.data.user);
 
+    updateLastActive($current_user.id);
     // Set up the interval for updating last_active
     intervalId = window.setInterval(() => {
       updateLastActive($current_user.id);
