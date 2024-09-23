@@ -27,10 +27,12 @@
 
   // Handle input manually instead of using bind:value
   function handleInput(event: Event) {
-    const inputValue = (event.target as HTMLInputElement).value;
-    dispatch('input', { value: inputValue });
-    updateInputWidth();
-  }
+  const inputValue = (event.target as HTMLInputElement).value;
+  value = inputValue; // Set internal value
+  dispatch('input', inputValue); // Dispatch only the input value directly
+  updateInputWidth();
+}
+
 
   function handleKeydown(event: KeyboardEvent) {
     if (event.key === 'Enter') {
@@ -61,7 +63,7 @@
   <input
     bind:this={inputElement}
     type={inputType}
-    value={value}
+    value={value} 
     placeholder={placeholder}
     autocomplete="off"
     autocorrect="off"

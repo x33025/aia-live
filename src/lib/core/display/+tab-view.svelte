@@ -22,7 +22,7 @@
      
     </Stack>
      
-     <Stack style="border: 1px solid var(--gray-2); padding: 1em; border-radius: 0.5em; " >
+     <Stack style="padding: 1em; " >
         <slot name="content"></slot>
       </Stack>
 

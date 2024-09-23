@@ -23,7 +23,7 @@
 </script>
 
   <Stack direction={Direction.Horizontal} spacing={1}>
-    <DataView />
+  <Spacer />
     <Stack direction={Direction.Vertical} spacing={1}>
       {#if $article}
         <Body 

@@ -59,3 +59,31 @@ export async function DELETE({ request }) {
         throw error(500, 'Failed to delete image');
     }
 }
+
+// Handle image update (PUT request)
+export async function PUT({ request }) {
+    try {
+        const { image_id, data } = await request.json();
+
+        console.log('Received PUT request for image update:', { image_id, data });
+
+        if (!image_id) {
+            console.error('Image ID is missing in the request');
+            throw error(400, 'Image ID is required');
+        }
+
+        if (!data || typeof data !== 'object') {
+            console.error('Data to update is missing or invalid');
+            throw error(400, 'Data to update is required');
+        }
+
+        // Update the image using the ImagesService
+        const updatedImage = await imagesService.update(image_id, data);
+
+        console.log('Image updated successfully:', updatedImage);
+        return json(updatedImage);
+    } catch (err) {
+        console.error('Error in image update:', err);
+        throw error(500, 'Failed to update image');
+    }
+}

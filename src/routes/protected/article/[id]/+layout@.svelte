@@ -9,14 +9,17 @@
   import { openSidebar } from '$lib/stores/ui/+sidebar';
   import  NotesSidebar  from '$lib/components/notes/+notes-sidebar.svelte';
   import  ImagePicker  from '$lib/components/images/+image-picker.svelte';
+  import Keywords from '$lib/components/keyword/+keywords.svelte';
+  import Label from '$lib/core/display/+label.svelte'; // Add this import
 
+  
   function openNotesSidebar() {
-  if ($article?.expand?.notes) {
-    openSidebar(NotesSidebar, { notes: $article.expand.notes });
-  } else {
-    console.error("Notes are not available.");
+    if ($article?.expand?.notes) {
+      openSidebar(NotesSidebar, { notes: $article.expand.notes });
+    } else {
+      console.error("Notes are not available.");
+    }
   }
-}
 
   function openImageModal() {
     console.log("Opening Image Modal for page: ", 1, "with perPage:", 50);
@@ -33,6 +36,7 @@
   <MainImage main_image={$article?.expand?.main_image} on:click={openImageModal}/>
 
 
+<Stack direction={Direction.Vertical} spacing={1}>
 
   <TextInput
     class="article-title border-highlight"
@@ -42,10 +46,10 @@
     type={TextType.Headline}
   />
 
-
-
-
+<Label name="Keywords" >
+  <Keywords />
+  </Label>
+</Stack>
 </Stack>
   <slot />
 </Stack>
-  

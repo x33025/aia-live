@@ -56,7 +56,7 @@
     background: none;
     border-radius: 0.5em;
     cursor: pointer;
-    transition: background-color 0.2s ease;
+    background-color: var(--gray-1);
     font-size: 1em;
     display: flex;
     align-items: center;
@@ -66,9 +66,7 @@
     background-color: var(--gray-2);
   }
 
-  .tab-button:hover {
-    background-color: var(--gray-1);
-  }
+
 
   .data-count-circle {
     display: inline-flex;
