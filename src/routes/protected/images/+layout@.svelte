@@ -12,8 +12,12 @@
 
   let fileInput: HTMLInputElement;
 
+
+
   onMount(() => {
-    console.log($users);
+
+    users.set($page.data.users);
+    current_user.set($page.data.user);
   });
 
   function handleFileSelection() {
@@ -23,21 +27,25 @@
   async function handleFileChange(event: Event) {
     const file = (event.target as HTMLInputElement)?.files?.[0];
     if (file) {
-      // Directly upload the selected file instead of opening the modal
+      console.log('File selected:', file.name);  // Log the selected file name
       const formData = new FormData();
       formData.append('file', file);
+      formData.append('user_id', $page.data.user.id);
       
       try {
+        console.log('Uploading file...');  // Log before uploading
         const response = await fetch('/protected/images', {
           method: 'POST',
           body: formData
         });
 
         const result = await response.json();
-        console.log('Image uploaded successfully:', result);
+        console.log('Image uploaded successfully:', result);  // Log success response
       } catch (error) {
-        console.error('Error uploading image:', error);
+        console.error('Error uploading image:', error);  // Log error
       }
+    } else {
+      console.log('No file selected');  // Log if no file is selected
     }
   }
 </script>

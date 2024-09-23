@@ -7,7 +7,7 @@ class ActivityDataService extends BaseService<ActivityData> {
         super('activity_data');
     }
 
-    // You can add any additional methods specific to the keywords collection if needed.
+  
 }
 
 export const activityDataService = new ActivityDataService();
