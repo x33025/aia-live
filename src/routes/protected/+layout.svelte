@@ -10,6 +10,9 @@
   import SearchBar from '$lib/components/search/+search-bar.svelte';
   import PageTitle from '$lib/core/layout/+page-title.svelte';
   import GoBackButton from '$lib/components/navigation/+go-back.svelte';
+  import { pb } from '$lib/config/pocketbase';  // Import PocketBase client from config
+  import type { BaseModel } from 'pocketbase';
+
   let intervalId: number;
 
   // Function to update the last_active status
@@ -33,25 +36,24 @@
 
   // Set users and update presence
   onMount(() => {
-
     users.set($page.data.users);
     current_user.set($page.data.user);
 
     updateLastActive($current_user.id);
-    // Set up the interval for updating last_active
+
     intervalId = window.setInterval(() => {
       updateLastActive($current_user.id);
-    }, 5 * 60 * 1000); // 5 minutes
+    }, 5 * 60 * 1000);  // 5 minutes
 
-    // Clean up the interval on component destroy
-    return () => clearInterval(intervalId);
+    return () => clearInterval(intervalId);  // Cleanup interval on component destroy
   });
 
-  // Clean up interval on destroy
   onDestroy(() => {
     clearInterval(intervalId);
   });
 </script>
+
+
 
 <MainPage>
   <Stack direction={Direction.Horizontal} spacing={1} slot="navigation-leading" style="min-width: 50%;">

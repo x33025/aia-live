@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onDestroy } from 'svelte';
   import { writable } from 'svelte/store';
-  import { article } from '$lib/stores/data/+article';
+  import { article } from '$lib/stores/data/+articles';
 
   import TabView from '$lib/core/display/+tab-view.svelte'; // Import the TabView component
   import Keywords from '$lib/components/keyword/+keywords.svelte';

@@ -6,7 +6,7 @@
   import Text from '$lib/core/display/+text.svelte';
   import Spacer from '$lib/core/layout/+spacer.svelte';
   import NumericTarget from '$lib/core/advanced-input/+numeric-target.svelte';
-  import { article } from '$lib/stores/data/+article';
+  import { article } from '$lib/stores/data/+articles';
 
   
   let editor;
