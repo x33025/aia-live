@@ -75,7 +75,7 @@
   <Spacer />
   <Stack direction={Direction.Horizontal} wrap={true}>
     <Spacer />
-    <button on:click={deleteImage}>Delete</button>
+    <button style="background-color: var(--red); color: white; padding: 0.5em 0.75em; border-radius: 0.5em;" on:click={deleteImage}>Delete</button>
   </Stack>
 </Stack>
 </Stack>
