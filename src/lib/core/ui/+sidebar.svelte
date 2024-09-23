@@ -1,6 +1,6 @@
 <script lang="ts">
     import { sidebarVisible, sidebarContent } from '$lib/stores/ui/+sidebar';
-    import { fly } from 'svelte/transition';
+    import { fly, fade } from 'svelte/transition';
 
     // Directly use the global store values
     $: visible = $sidebarVisible;
@@ -13,7 +13,8 @@
     <button class="sidebar-backdrop" 
          on:click={() => sidebarVisible.set(false)} 
          on:keydown={(e) => e.key === 'Enter' && sidebarVisible.set(false)}
-         aria-label="Close sidebar">
+         aria-label="Close sidebar"
+         transition:fade>
     </button>
     <div class="sidebar" transition:fly="{{ x: 1000, duration: 400 }}">
         <svelte:component this={SidebarComponent} {...(sidebarProps || {})} />
@@ -29,6 +30,7 @@
         width: 100%;
         height: 100%;
         z-index: 500;
+        background-color: rgba(0, 0, 0, 0.5);
     }
 
     .sidebar {
