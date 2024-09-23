@@ -1,9 +1,9 @@
-// src/routes/api/images/+server.ts
 import { json, error } from '@sveltejs/kit';
 import { ImagesService } from '$lib/services/+image-service';
 
 const imagesService = new ImagesService();
 
+// Handle image upload (POST request)
 export async function POST({ request }) {
     try {
         console.log('Received POST request for image upload');
@@ -33,5 +33,29 @@ export async function POST({ request }) {
     } catch (err) {
         console.error('Error in image upload:', err);
         throw error(500, 'Failed to upload image');
+    }
+}
+
+// Handle image deletion (DELETE request)
+export async function DELETE({ request }) {
+    try {
+        const { image_id } = await request.json();
+
+        console.log('Received DELETE request for image:', { image_id });
+
+        if (!image_id) {
+            console.error('Image ID is missing in the request');
+            throw error(400, 'Image ID is required');
+        }
+
+        // Delete the image using the ImagesService
+        console.log('Attempting to delete image record with activity data');
+        const deletedImage = await imagesService.delete(image_id);
+
+        console.log('Image deleted successfully:', deletedImage);
+        return json({ message: 'Image deleted successfully', deletedImage });
+    } catch (err) {
+        console.error('Error in image deletion:', err);
+        throw error(500, 'Failed to delete image');
     }
 }
