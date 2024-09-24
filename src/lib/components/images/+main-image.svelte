@@ -1,12 +1,12 @@
 <script lang="ts">
   import ImageComponent from "$lib/core/display/+image.svelte"; // Import the new image component
     import { openModal } from "$lib/stores/ui/+modal";
-      // Import the new image component
+    import ImagePicker from "$lib/components/images/+image-picker.svelte";
     import type { Image } from "$lib/types";
 
     
   export let main_image: Image | null = null; // Accept the image data as `main_image`
-  import ImageChooser from "$lib/components/images/+gallery.svelte";
+
   
   // Construct the image URL
   const image_url = main_image 
@@ -14,8 +14,7 @@
     : '';
 
     function openImageModal() {
-    console.log("Opening Image Modal for page: ", 1, "with perPage:", 50);
-    openModal(ImageChooser, "Images", { main_image });
+    openModal(ImagePicker, "Images", { main_image });
   }
 </script>
 

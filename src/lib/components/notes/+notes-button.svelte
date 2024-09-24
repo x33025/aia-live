@@ -17,21 +17,19 @@
         return div.textContent || '';
     }
 
-    // Sort notes by created date in descending order
-    $: sortedNotes = [...(notes || [])].sort((a, b) => new Date(b.created).getTime() - new Date(a.created).getTime());
-
-  </script>
+    // Removed notes sorting
+</script>
   
-  <div on:click={openNotesSidebar} class="clickable-cell">
-    {#if sortedNotes.length}
-      {sanitizeHTML(sortedNotes[0].content)}
-    {:else}
-      No notes
-    {/if}
-  </div>
+<div on:click={openNotesSidebar} class="clickable-cell">
+  {#if notes.length}
+    {sanitizeHTML(notes[0].content)}
+  {:else}
+    No notes
+  {/if}
+</div>
   
-  <style>
-    .clickable-cell {
-      cursor: pointer;
-    }
-  </style>
+<style>
+  .clickable-cell {
+    cursor: pointer;
+  }
+</style>

@@ -8,7 +8,7 @@
   import ActivityDataView from '$lib/components/activity/+activity-data.svelte';
   import NotesButton from '../notes/+notes-button.svelte';
   import { debounce } from 'lodash-es';  // Import lodash debounce
-
+  import ActivityDate from '$lib/core/advanced-display/+activity-date.svelte';
   export let image: Image;
 
   let description = image.description || '';
@@ -93,7 +93,7 @@
         alt_text={image.description || 'No description provided'}
         aspect_ratio={3 / 2}
       />
-
+        <ActivityDate created={image.created} updated={image.updated} />
       <Label name="Activity">
         {#if image.expand?.activity}
           <ActivityDataView activity={image.expand.activity} />

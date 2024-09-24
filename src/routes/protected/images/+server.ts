@@ -93,7 +93,7 @@ export async function GET() {
         console.log('Received GET request for image list');
 
         // Fetch the list of images using the ImagesService
-        const images = await imageService.getList();
+        const images = await imageService.getList({expand: 'activity,notes'});
 
         console.log('Image list retrieved successfully:', images);
         return json(images);
