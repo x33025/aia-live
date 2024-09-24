@@ -46,8 +46,9 @@
     }
   }, 500);  // 500ms debounce delay
 
-  function handleDescriptionChange(event: CustomEvent<string>) {
-    const newValue = event.detail; 
+  function handleDescriptionChange(event: Event) {
+    const textarea = event.target as HTMLTextAreaElement;
+    const newValue = textarea.value; 
     if (newValue !== undefined) {
       description = newValue;
       updateDescription(description);
@@ -89,7 +90,7 @@
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ imageUrl: image_url, question: 'What’s in this image?' })
+      body: JSON.stringify({ imageUrl: image_url})
     });
 
     if (response.ok) {
@@ -159,13 +160,13 @@
 
   <Stack direction={Direction.Vertical}>
     <Label name="Description">
-      <TextInput
-        style="background-color: var(--gray-1); padding: 0.5em; border-radius: 0.5em;"
-        label="Description"
+      <textarea
+        style="background-color: var(--gray-1); padding: 0.5em; border-radius: 0.5em; width: 100%;"
+        rows="4"
         value={image.description || ''}
         on:input={handleDescriptionChange}
         placeholder="Add a description"
-      />
+      ></textarea>
     </Label>
     <Spacer />
     <Label name="Notes">

@@ -6,21 +6,18 @@ const imageAnnotator = new ImageAnnotator();
 
 export const POST = async ({ request }: RequestEvent) => {
     try {
-        const { imageUrl, question } = await request.json();
+        const { imageUrl } = await request.json();
 
-        console.log('Received request for image analysis:', { imageUrl, question });
+        console.log('Received request for image analysis:', { imageUrl });
 
         if (!imageUrl) {
             console.error('Image URL is missing in the request');
             throw error(400, 'Image URL is required');
         }
 
-        // Default question if not provided
-        const query = question || "What’s in this image?";
-
         // Call GPT to analyze the image
         console.log('Calling GPT to analyze the image');
-        const gptResponse = await imageAnnotator.analyzeImage(imageUrl, query);
+        const gptResponse = await imageAnnotator.analyzeImage(imageUrl);
 
         console.log('GPT analysis completed:', gptResponse);
 
