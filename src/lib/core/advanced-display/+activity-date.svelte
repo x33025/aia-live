@@ -17,7 +17,7 @@
     }
   </script>
   
-  <div on:click={toggleTime}>
+  <button on:click={toggleTime}>
     <Text type={TextType.Callout} style="color: var(--gray-6);">
       {#if showUpdated}
         <strong>Updated:</strong> {formatDate(updated)}
@@ -25,12 +25,7 @@
         <strong>Created:</strong> {formatDate(created)}
       {/if}
     </Text>
-  </div>
+  </button>
   
-  <style>
-    div {
-      cursor: pointer;
-      user-select: none;
-    }
-  </style>
+
   

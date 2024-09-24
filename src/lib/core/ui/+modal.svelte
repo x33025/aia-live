@@ -2,8 +2,10 @@
     import { modalVisible, modalContent } from '$lib/stores/ui/+modal';
     import { fly } from 'svelte/transition';
     import Text from '$lib/core/display/+text.svelte';
-    import { TextType } from '$lib/types';
-
+    import { Direction, TextType } from '$lib/types';
+    import Stack from '$lib/core/layout/+stack.svelte';
+    import Spacer from '$lib/core/layout/+spacer.svelte';
+    import XMark from '$lib/core/ui/icons/+x-mark.svelte';
     // Directly use the global store values
     $: visible = $modalVisible;
     $: ModalComponent = $modalContent?.component || null;
@@ -18,11 +20,24 @@
             on:keydown={(e) => e.key === 'Escape' && modalVisible.set(false)} 
             aria-label="Close modal">
     </button>
-    <div class="modal">
-        <Text type={TextType.Title} style="margin-bottom: 0.5em;">{modalHeader}</Text> 
-        <svelte:component this={ModalComponent} {...(modalProps || {})} />
+   
+      
+        <div class="modal">
+     <Stack direction={Direction.Vertical}  wrap={true}>
 
-    </div>
+    
+            <Stack direction={Direction.Horizontal}  wrap={true}>
+                <Text type={TextType.Title}>{modalHeader}</Text> 
+                <Spacer />
+                <button on:click={() => modalVisible.set(false)}>
+                   <XMark size={1} />
+                </button>
+            </Stack>
+            <svelte:component this={ModalComponent} {...(modalProps || {})} />
+        </Stack>
+        </div>
+  
+ 
 {/if}
 
 <style>
@@ -49,6 +64,8 @@
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
         border-radius: 1em;
         overflow-y: auto; /* Re-enabled to allow scrolling */
-        padding: 1em;
+       padding: 1em;
     }
+
+
 </style>

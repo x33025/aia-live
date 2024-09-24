@@ -1,9 +1,9 @@
 import { json, error } from '@sveltejs/kit';
 import imageService from '$lib/services/+image-service';
-
+import type { RequestHandler } from './$types';
 
 // Handle image upload (POST request)
-export async function POST({ request }) {
+export const POST: RequestHandler = async ({ request }) => {
     try {
         console.log('Received POST request for image upload');
 
@@ -33,10 +33,10 @@ export async function POST({ request }) {
         console.error('Error in image upload:', err);
         throw error(500, 'Failed to upload image');
     }
-}
+};
 
 // Handle image deletion (DELETE request)
-export async function DELETE({ request }) {
+export const DELETE: RequestHandler = async ({ request }) => {
     try {
         const { image_id } = await request.json();
 
@@ -57,10 +57,10 @@ export async function DELETE({ request }) {
         console.error('Error in image deletion:', err);
         throw error(500, 'Failed to delete image');
     }
-}
+};
 
 // Handle image update (PUT request)
-export async function PUT({ request }) {
+export const PUT: RequestHandler = async ({ request }) => {
     try {
         const { image_id, data } = await request.json();
 
@@ -85,10 +85,10 @@ export async function PUT({ request }) {
         console.error('Error in image update:', err);
         throw error(500, 'Failed to update image');
     }
-}
+};
 
 // Handle image list retrieval (GET request)
-export async function GET() {
+export const GET: RequestHandler = async () => {
     try {
         console.log('Received GET request for image list');
 
@@ -101,4 +101,4 @@ export async function GET() {
         console.error('Error in retrieving image list:', err);
         throw error(500, 'Failed to retrieve image list');
     }
-}
+};

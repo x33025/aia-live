@@ -9,6 +9,7 @@
   import NotesButton from '../notes/+notes-button.svelte';
   import { debounce } from 'lodash-es';  // Import lodash debounce
   import ActivityDate from '$lib/core/advanced-display/+activity-date.svelte';
+  import ObserveIcon from '$lib/core/ui/icons/+observe.svelte';  // Import ObserveIcon
   export let image: Image;
 
   let description = image.description || '';
@@ -46,7 +47,7 @@
   }, 500);  // 500ms debounce delay
 
   function handleDescriptionChange(event: CustomEvent<string>) {
-    const newValue = event.detail; // Now, event.detail is just the input value (string)
+    const newValue = event.detail; 
     if (newValue !== undefined) {
       description = newValue;
       updateDescription(description);
@@ -73,7 +74,6 @@
 
       if (response.ok) {
         console.log('Image deleted successfully');
-        // Perform any additional actions after successful deletion
       } else {
         const errorResponse = await response.json();
         console.error('Failed to delete image:', errorResponse);
@@ -82,44 +82,99 @@
       console.error('Error deleting image:', err);
     }
   }
+  async function observeImage() {
+  try {
+    const response = await fetch('/api/gpt/analyse-image', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ imageUrl: image_url, question: 'What’s in this image?' })
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      console.log('GPT Analysis:', data.gptAnalysis);
+
+      // Update the description with the GPT analysis content
+      const newDescription = data.gptAnalysis.message.content;
+      image.description = newDescription;
+
+      // Call the debounced function to save the description to the database
+      updateDescription(newDescription);
+    } else {
+      const errorResponse = await response.json();
+      console.error('Failed to analyze image:', errorResponse);
+    }
+  } catch (err) {
+    console.error('Error analyzing image:', err);
+  }
+}
+
+
+
+
 </script>
 
+<style>
+  .overlay-button {
+    position: absolute;
+    bottom: 0.5em;
+    right: 0.5em;
+    background-color: var(--gray-1);
+    border: none;
+    color: white;
+    padding: 0.5em;
+    border-radius: 0.5em;
+    cursor: pointer;
+  }
 
-  <Stack direction={Direction.Horizontal} spacing={1.5} style="border-top: 1px solid var(--gray-2); padding-top: 1em;">
-    <Stack direction={Direction.Vertical} wrap={true} spacing={1}>  
+  .image-container {
+    position: relative;
+    display: inline-block;
+  }
+</style>
+
+<Stack direction={Direction.Horizontal} spacing={1.5} style="border-top: 1px solid var(--gray-2); padding-top: 1em;">
+  <Stack direction={Direction.Vertical} wrap={true} spacing={1}>
+    <div class="image-container">
       <ImageComponent
         image_url={image_url}
         size={20}
         alt_text={image.description || 'No description provided'}
         aspect_ratio={3 / 2}
       />
-        <ActivityDate created={image.created} updated={image.updated} />
-      <Label name="Activity">
-        {#if image.expand?.activity}
-          <ActivityDataView activity={image.expand.activity} />
-        {/if}
-        <Spacer />
-      </Label>
-    </Stack>
+      <button class="overlay-button" on:click={observeImage}>
+        <ObserveIcon size={1.25} />
+      </button>
+    </div>
+    <ActivityDate created={image.created} updated={image.updated} />
+    <Label name="Activity">
+      {#if image.expand?.activity}
+        <ActivityDataView activity={image.expand.activity} />
+      {/if}
+      <Spacer />
+    </Label>
+  </Stack>
 
-    <Stack direction={Direction.Vertical}>
-      <Label name="Description">
-        <TextInput
-          style="background-color: var(--gray-1); padding: 0.5em; border-radius: 0.5em;"
-          label="Description"
-          value={image.description || ''}
-          on:input={handleDescriptionChange}
-          placeholder="Add a description"
-        />
-      </Label>
+  <Stack direction={Direction.Vertical}>
+    <Label name="Description">
+      <TextInput
+        style="background-color: var(--gray-1); padding: 0.5em; border-radius: 0.5em;"
+        label="Description"
+        value={image.description || ''}
+        on:input={handleDescriptionChange}
+        placeholder="Add a description"
+      />
+    </Label>
+    <Spacer />
+    <Label name="Notes">
+      <NotesButton />
+    </Label>
+    <Spacer />
+    <Stack direction={Direction.Horizontal} wrap={true}>
       <Spacer />
-      <Label name="Notes">
-        <NotesButton />
-      </Label>
-      <Spacer />
-      <Stack direction={Direction.Horizontal} wrap={true}>
-        <Spacer />
-        <button style="background-color: var(--red); color: white; padding: 0.5em 0.75em; border-radius: 0.5em;" on:click={deleteImage}>Delete</button>
-      </Stack>
+      <button style="background-color: var(--red); color: white; padding: 0.5em 0.75em; border-radius: 0.5em;" on:click={deleteImage}>Delete</button>
     </Stack>
   </Stack>
+</Stack>

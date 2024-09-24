@@ -12,7 +12,9 @@
 </script>
 
 <BaseLayout>
+ 
   <Stack direction={Direction.Vertical} style=" padding: 1em;">
+  
     <pre class="ascii-art">
       ___                       ___     
      /\  \          ___        /\  \    
@@ -28,11 +30,14 @@
     </pre>
     <button on:click={handleLoginClick} class="main-login-button">
       Sign In
+      
     </button>
   </Stack>
 </BaseLayout>
 
 <style>
+
+
   :global(.main-login-button) {
     padding: var(--default-padding);
     border-radius: 3em;
