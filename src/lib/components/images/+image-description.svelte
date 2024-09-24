@@ -10,9 +10,11 @@
   import { debounce } from 'lodash-es';  // Import lodash debounce
   import ActivityDate from '$lib/core/advanced-display/+activity-date.svelte';
   import ObserveIcon from '$lib/core/ui/icons/+observe.svelte';  // Import ObserveIcon
+  import Spinner from '$lib/core/display/+spinner.svelte';  // Import the Spinner component
   export let image: Image;
 
   let description = image.description || '';
+  let observePromise: Promise<any> | null = null;  // Track the observe image promise
 
   // Generate image URL
   $: image_url = image 
@@ -44,11 +46,11 @@
     } catch (err) {
       console.error('Error updating description:', err);
     }
-  }, 500);  // 500ms debounce delay
+  }, 500);
 
   function handleDescriptionChange(event: Event) {
     const textarea = event.target as HTMLTextAreaElement;
-    const newValue = textarea.value; 
+    const newValue = textarea.value;
     if (newValue !== undefined) {
       description = newValue;
       updateDescription(description);
@@ -83,58 +85,50 @@
       console.error('Error deleting image:', err);
     }
   }
+  
+  // Observe image function
   async function observeImage() {
-  try {
-    const response = await fetch('/api/gpt/analyse-image', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ imageUrl: image_url})
+    observePromise = new Promise(async (resolve, reject) => {
+      try {
+        const response = await fetch('/api/gpt/analyse-image', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ imageUrl: image_url })
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          console.log('GPT Analysis:', data.gptAnalysis);
+
+          const newDescription = data.gptAnalysis.message.content;
+          image.description = newDescription;
+
+          // Save the description to the database
+          updateDescription(newDescription);
+
+          // Update the description in the UI
+          description = newDescription;  // Update the description variable
+          
+          resolve(data.gptAnalysis);
+        } else {
+          const errorResponse = await response.json();
+          console.error('Failed to analyze image:', errorResponse);
+          reject(errorResponse);
+        }
+      } catch (err) {
+        console.error('Error analyzing image:', err);
+        reject(err);
+      } finally {
+        observePromise = null;  // Clear the promise once complete
+      }
     });
-
-    if (response.ok) {
-      const data = await response.json();
-      console.log('GPT Analysis:', data.gptAnalysis);
-
-      // Update the description with the GPT analysis content
-      const newDescription = data.gptAnalysis.message.content;
-      image.description = newDescription;
-
-      // Call the debounced function to save the description to the database
-      updateDescription(newDescription);
-    } else {
-      const errorResponse = await response.json();
-      console.error('Failed to analyze image:', errorResponse);
-    }
-  } catch (err) {
-    console.error('Error analyzing image:', err);
   }
-}
-
-
-
 
 </script>
 
-<style>
-  .overlay-button {
-    position: absolute;
-    bottom: 0.5em;
-    right: 0.5em;
-    background-color: var(--gray-1);
-    border: none;
-    color: white;
-    padding: 0.5em;
-    border-radius: 0.5em;
-    cursor: pointer;
-  }
 
-  .image-container {
-    position: relative;
-    display: inline-block;
-  }
-</style>
 
 <Stack direction={Direction.Horizontal} spacing={1.5} style="border-top: 1px solid var(--gray-2); padding-top: 1em;">
   <Stack direction={Direction.Vertical} wrap={true} spacing={1}>
@@ -160,13 +154,17 @@
 
   <Stack direction={Direction.Vertical}>
     <Label name="Description">
-      <textarea
-        style="background-color: var(--gray-1); padding: 0.5em; border-radius: 0.5em; width: 100%;"
-        rows="4"
-        value={image.description || ''}
-        on:input={handleDescriptionChange}
-        placeholder="Add a description"
-      ></textarea>
+      {#if observePromise}
+        <Spinner promise={observePromise} />
+      {:else}
+        <textarea
+          style="background-color: var(--gray-1); padding: 0.5em; border-radius: 0.5em; width: 100%;"
+          rows="4"
+          value={description}  
+          on:input={handleDescriptionChange}
+          placeholder="Add a description"
+        ></textarea>
+      {/if}
     </Label>
     <Spacer />
     <Label name="Notes">
@@ -179,3 +177,24 @@
     </Stack>
   </Stack>
 </Stack>
+
+
+
+<style>
+  .overlay-button {
+    position: absolute;
+    bottom: 0.5em;
+    right: 0.5em;
+    background-color: var(--gray-1);
+    border: none;
+    color: white;
+    padding: 0.5em;
+    border-radius: 0.5em;
+    cursor: pointer;
+  }
+
+  .image-container {
+    position: relative;
+    display: inline-block;
+  }
+</style>
