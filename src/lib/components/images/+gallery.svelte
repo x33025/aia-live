@@ -1,32 +1,31 @@
 <script lang="ts">
   import { images } from '$lib/stores/data/+images';
   import { onMount } from 'svelte';
-  import { pb } from '$lib/config/pocketbase';
   import { Direction, type Image } from '$lib/types';
   import Stack from '$lib/core/layout/+stack.svelte';
-  import ImageDescription from './+image-description.svelte';
+
   import ImageComponent from '$lib/core/display/+image.svelte';
   import { selected_image } from '$lib/stores/data/+images';
   
-  let searchQuery = '';
-  export let page = 1;
-  export let perPage = 50;
 
 
-
-  async function fetchImages(query: string = '') {
+  async function fetchImages() {
     try {
-      const resultList = await pb.collection('images').getList<Image>(page, perPage, { filter: query, expand: 'activity,notes' });
-      images.set(resultList.items);
+      const response = await fetch('/protected/images');
+      if (!response.ok) {
+        throw new Error('Failed to fetch images');
+      }
+      const resultList = await response.json();
+      images.set(resultList);
     } catch (error) {
       console.error('Error fetching images:', error);
     }
   }
 
   function handleImageSelect(image: Image) {
-        selected_image.set(image);
-        console.log('Image selected:', image);
-      }
+    selected_image.set(image);
+    console.log('Image selected:', image);
+  }
 
   onMount(() => {
     fetchImages();
@@ -36,7 +35,6 @@
     return `${import.meta.env.VITE_POCKETBASE_URL}/api/files/images/${image.id}/${image.file}`;
   }
 </script>
-
 
     <Stack direction={Direction.Vertical} spacing={0.5}>
       <div class="image-grid">

@@ -86,3 +86,19 @@ export async function PUT({ request }) {
         throw error(500, 'Failed to update image');
     }
 }
+
+// Handle image list retrieval (GET request)
+export async function GET() {
+    try {
+        console.log('Received GET request for image list');
+
+        // Fetch the list of images using the ImagesService
+        const images = await imageService.getList();
+
+        console.log('Image list retrieved successfully:', images);
+        return json(images);
+    } catch (err) {
+        console.error('Error in retrieving image list:', err);
+        throw error(500, 'Failed to retrieve image list');
+    }
+}
