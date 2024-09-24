@@ -7,7 +7,7 @@
     import { selected_image } from '$lib/stores/data/+images';
     
     
-    </script>
+</script>
     
     
     
@@ -15,9 +15,7 @@
     
        
      <Gallery />
-      
-    
-     <ImageDescription image={$selected_image} />
+   {"TEST"}
     
     
     </Stack>

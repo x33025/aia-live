@@ -13,9 +13,9 @@
 </style>
 
 <Stack direction={Direction.Vertical} spacing={0.5}>
-    {#if activity}
+  
 
-    <Text type={TextType.Callout}> <strong>Created:</strong> {new Date(activity.created).toLocaleString()}</Text>
+    <Text type={TextType.Callout} style="color: var(--gray-6);"> <strong>Created:</strong> {new Date(activity.created).toLocaleString()}</Text>
    
     <Avatar userId={activity.created_by ?? ''} size={2.3}/>
       {#if activity.updated !== activity.created}
@@ -32,6 +32,6 @@
             <Avatar userId={activity.deleted_by ?? ''} size={2.3}/>
         {/if}
       {/if}
-    {/if}
+ 
     
 </Stack>

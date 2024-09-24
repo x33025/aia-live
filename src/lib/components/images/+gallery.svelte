@@ -7,6 +7,7 @@
   import ImageDescription from './+image-description.svelte';
   import ImageComponent from '$lib/core/display/+image.svelte';
   import { selected_image } from '$lib/stores/data/+images';
+  
   let searchQuery = '';
   export let page = 1;
   export let perPage = 50;
@@ -24,15 +25,12 @@
 
   function handleImageSelect(image: Image) {
         selected_image.set(image);
+        console.log('Image selected:', image);
       }
 
   onMount(() => {
     fetchImages();
   });
-
-  $: image_url = $selected_image 
-    ? `${import.meta.env.VITE_POCKETBASE_URL}/api/files/images/${$selected_image.id}/${$selected_image.file}`
-    : '';
 
   function constructImageUrl(image: Image): string {
     return `${import.meta.env.VITE_POCKETBASE_URL}/api/files/images/${image.id}/${image.file}`;

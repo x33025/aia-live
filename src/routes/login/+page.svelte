@@ -6,7 +6,7 @@
   import { Alignment, ButtonType, Direction, TextType } from '$lib/types';
   import Text from '$lib/core/display/+text.svelte';
 
-  import GoBackButton from '$lib/components/navigation/+go-back.svelte';
+  import GoBackButton from '$lib/core/navigation/+go-back.svelte';
     import Spacer from '$lib/core/layout/+spacer.svelte';
 
   interface FormData {

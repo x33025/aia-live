@@ -3,7 +3,7 @@ import { BaseService } from '$lib/services/+base-service';
 import { activityDataService } from '$lib/services/+activity-data-service';
 import type { Image } from '$lib/types';
 
-export class ImagesService extends BaseService<Image> {
+export class ImageService extends BaseService<Image> {
     constructor() {
         super('images'); // images collection
     }
@@ -44,3 +44,9 @@ export class ImagesService extends BaseService<Image> {
         }
     }
 }
+
+
+const imageService = new ImageService();
+
+
+export default imageService;

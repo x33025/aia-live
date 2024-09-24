@@ -4,7 +4,7 @@
   import PageTitle from '$lib/core/layout/+page-title.svelte';
   import SearchBar from '$lib/components/search/+search-bar.svelte';
   import Spacer from '$lib/core/layout/+spacer.svelte';
-  import GoBackButton from '$lib/components/navigation/+go-back.svelte';
+  import GoBackButton from '$lib/core/navigation/+go-back.svelte';
   import Plus from '$lib/core/ui/icons/+plus.svelte';
   import { page } from '$app/stores';
   import { users, current_user } from '$lib/stores/data/+users';
@@ -27,14 +27,17 @@
       // Update the images store based on the action type
       if (e.action === 'create') {
         images.update((currentImages) => [...currentImages, e.record as unknown as Image]);
+        console.log('Image uploaded successfully:', e.record);
       } else if (e.action === 'update') {
         images.update((currentImages) =>
           currentImages.map((image) => image.id === e.record.id ? e.record as unknown as Image : image)
         );
+        console.log('Image updated successfully:', e.record);
       } else if (e.action === 'delete') {
         images.update((currentImages) =>
           currentImages.filter((image) => image.id !== e.record.id)
         );
+        console.log('Image deleted successfully:', e.record);
       }
     });
   });

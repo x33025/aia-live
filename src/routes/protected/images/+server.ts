@@ -1,7 +1,6 @@
 import { json, error } from '@sveltejs/kit';
-import { ImagesService } from '$lib/services/+image-service';
+import imageService from '$lib/services/+image-service';
 
-const imagesService = new ImagesService();
 
 // Handle image upload (POST request)
 export async function POST({ request }) {
@@ -26,7 +25,7 @@ export async function POST({ request }) {
 
         // Create the image record with activity data
         console.log('Creating image record with activity data');
-        const uploadedImage = await imagesService.createWithActivity(file, user_id);
+        const uploadedImage = await imageService.createWithActivity(file, user_id);
 
         console.log('Image uploaded successfully:', uploadedImage);
         return json(uploadedImage);
@@ -50,7 +49,7 @@ export async function DELETE({ request }) {
 
         // Delete the image using the ImagesService
         console.log('Attempting to delete image record with activity data');
-        const deletedImage = await imagesService.delete(image_id);
+        const deletedImage = await imageService.delete(image_id);
 
         console.log('Image deleted successfully:', deletedImage);
         return json({ message: 'Image deleted successfully', deletedImage });
@@ -78,7 +77,7 @@ export async function PUT({ request }) {
         }
 
         // Update the image using the ImagesService
-        const updatedImage = await imagesService.update(image_id, data);
+        const updatedImage = await imageService.update(image_id, data);
 
         console.log('Image updated successfully:', updatedImage);
         return json(updatedImage);

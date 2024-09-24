@@ -11,7 +11,7 @@
   import  ImagePicker  from '$lib/components/images/+image-picker.svelte';
   import Keywords from '$lib/components/keyword/+keywords.svelte';
   import Label from '$lib/core/display/+label.svelte'; // Add this import
-  import GoBackButton from '$lib/components/navigation/+go-back.svelte';
+  import GoBackButton from '$lib/core/navigation/+go-back.svelte';
   
   function openNotesSidebar() {
     if ($article?.expand?.notes) {

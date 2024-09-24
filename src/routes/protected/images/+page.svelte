@@ -1,9 +1,25 @@
 <script lang="ts">  
 
-import ImagePicker from '$lib/components/images/+image-picker.svelte';
+    import Gallery from '$lib/components/images/+gallery.svelte';
+    import ImageDescription from '$lib/components/images/+image-description.svelte';
+    import Stack from '$lib/core/layout/+stack.svelte';
+    import { Direction } from '$lib/types';
+    import { selected_image } from '$lib/stores/data/+images';
 
+    
 </script>
-
-
-
-<ImagePicker />
+    
+    
+    
+    <Stack direction={Direction.Vertical} spacing={2}>
+    
+       
+     <Gallery />
+      
+      {#if $selected_image}
+        <ImageDescription image={$selected_image} />
+      {/if}
+ 
+    
+    
+    </Stack>
