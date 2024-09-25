@@ -1,12 +1,10 @@
 <script lang="ts">
-  import { images } from '$lib/stores/data/+images';
+  import { images, selected_image } from '$lib/stores/data/+images';
   import { onMount } from 'svelte';
   import { Direction, type Image } from '$lib/types';
   import Stack from '$lib/core/layout/+stack.svelte';
-
   import ImageComponent from '$lib/core/display/+image.svelte';
-  import { selected_image } from '$lib/stores/data/+images';
-  
+
 
 
   async function fetchImages() {
@@ -24,7 +22,6 @@
 
   function handleImageSelect(image: Image) {
     selected_image.set(image);
-    console.log('Image selected:', image);
   }
 
   onMount(() => {
@@ -36,11 +33,12 @@
   }
 </script>
 
-    <Stack direction={Direction.Vertical} spacing={0.5}>
-      <div class="image-grid">
+    <Stack direction={Direction.Vertical} class="image-grid" spacing={0.5} wrap={true}>
+      
         {#if $images.length > 0}
           {#each $images as image}
-            <div
+            <button
+              type="button"
               on:click={() => handleImageSelect(image)}
               class="image-container {image.id === $selected_image?.id ? 'selected' : ''}"
             >
@@ -50,22 +48,22 @@
                 maskShape="square"
                 aspect_ratio={3 / 2}
               />
-            </div>
+            </button>
           {/each}
         {:else}
           <p>No images found.</p>
         {/if}
-      </div>
+      
     </Stack>
 
 
 
 
 <style>
- .image-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  gap: 1.5em;
+ :global(.image-grid) {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)) !important;
+  gap: 1.5em !important;
 }
 
 .image-container {

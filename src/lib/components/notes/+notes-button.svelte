@@ -20,16 +20,12 @@
     // Removed notes sorting
 </script>
   
-<div on:click={openNotesSidebar} class="clickable-cell">
-  {#if notes.length}
+<button on:click={openNotesSidebar}>
+  {#if notes.length > 0}
     {sanitizeHTML(notes[0].content)}
   {:else}
     No notes
   {/if}
-</div>
+</button>
   
-<style>
-  .clickable-cell {
-    cursor: pointer;
-  }
-</style>
+

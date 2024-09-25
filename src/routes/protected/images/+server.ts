@@ -90,12 +90,12 @@ export const PUT: RequestHandler = async ({ request }) => {
 // Handle image list retrieval (GET request)
 export const GET: RequestHandler = async () => {
     try {
-        console.log('Received GET request for image list');
+        // console.log('Received GET request for image list');
 
         // Fetch the list of images using the ImagesService
         const images = await imageService.getList({expand: 'activity,notes'});
 
-        console.log('Image list retrieved successfully:', images);
+        // console.log('Image list retrieved successfully:', images);
         return json(images);
     } catch (err) {
         console.error('Error in retrieving image list:', err);

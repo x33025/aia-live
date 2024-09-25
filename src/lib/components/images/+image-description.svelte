@@ -13,7 +13,6 @@
   import Spinner from '$lib/core/display/+spinner.svelte';  // Import the Spinner component
   export let image: Image;
 
-  let description = image.description || '';
   let observePromise: Promise<any> | null = null;  // Track the observe image promise
 
   // Generate image URL
@@ -52,8 +51,8 @@
     const textarea = event.target as HTMLTextAreaElement;
     const newValue = textarea.value;
     if (newValue !== undefined) {
-      description = newValue;
-      updateDescription(description);
+      image.description = newValue;
+      updateDescription(image.description);
     } else {
       console.error('Failed to read input value from event detail:', event);
     }
@@ -88,42 +87,34 @@
   
   // Observe image function
   async function observeImage() {
-    observePromise = new Promise(async (resolve, reject) => {
-      try {
-        const response = await fetch('/api/gpt/analyse-image', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ imageUrl: image_url })
-        });
+    try {
+      const response = await fetch('/api/gpt/analyse-image', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ imageUrl: image_url })
+      });
 
-        if (response.ok) {
-          const data = await response.json();
-          console.log('GPT Analysis:', data.gptAnalysis);
+      if (response.ok) {
+        const data = await response.json();
+        console.log('GPT Analysis:', data.gptAnalysis);
 
-          const newDescription = data.gptAnalysis.message.content;
-          image.description = newDescription;
+        const newDescription = data.gptAnalysis.message.content;
+        image.description = newDescription;
 
-          // Save the description to the database
-          updateDescription(newDescription);
+        // Save the description to the database
+        await updateDescription(newDescription);
 
-          // Update the description in the UI
-          description = newDescription;  // Update the description variable
-          
-          resolve(data.gptAnalysis);
-        } else {
-          const errorResponse = await response.json();
-          console.error('Failed to analyze image:', errorResponse);
-          reject(errorResponse);
-        }
-      } catch (err) {
-        console.error('Error analyzing image:', err);
-        reject(err);
-      } finally {
-        observePromise = null;  // Clear the promise once complete
+        // Update the description in the UI
+       
+      } else {
+        const errorResponse = await response.json();
+        console.error('Failed to analyze image:', errorResponse);
       }
-    });
+    } catch (err) {
+      console.error('Error analyzing image:', err);
+    }
   }
 
 </script>
@@ -160,7 +151,7 @@
         <textarea
           style="background-color: var(--gray-1); padding: 0.5em; border-radius: 0.5em; width: 100%;"
           rows="4"
-          value={description}  
+          value={image.description}  
           on:input={handleDescriptionChange}
           placeholder="Add a description"
         ></textarea>
@@ -168,7 +159,7 @@
     </Label>
     <Spacer />
     <Label name="Notes">
-      <NotesButton />
+      <NotesButton notes={image.expand?.notes || []} />
     </Label>
     <Spacer />
     <Stack direction={Direction.Horizontal} wrap={true}>
