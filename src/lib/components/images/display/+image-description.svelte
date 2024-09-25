@@ -7,23 +7,24 @@
   import { Alignment, Direction, type Image } from '$lib/types';
   import ActivityDataView from '$lib/components/activity/+activity-data.svelte';
   import NotesButton from '../../notes/+notes-button.svelte';
-  import { debounce } from 'lodash-es';  // Import lodash debounce
+  import { debounce } from 'lodash-es';
   import ActivityDate from '$lib/core/advanced-display/+activity-date.svelte';
-  import ObserveIcon from '$lib/core/ui/icons/+observe.svelte';  // Import ObserveIcon
-  import Spinner from '$lib/core/display/+spinner.svelte';  // Import the Spinner component
+  import ObserveIcon from '$lib/core/ui/icons/+observe.svelte';
+  import Spinner from '$lib/core/display/+spinner.svelte';
+  import { createEventDispatcher } from 'svelte';
 
-
-  
   export let image: Image;
 
-  let observePromise: Promise<any> | null = null;  // Track the observe image promise
+  let observePromise: Promise<any> | null = null; // Track the observe image promise
+
+  let error: string | null = null; // Error message
 
   // Generate image URL
-  $: image_url = image 
+  $: image_url = image
     ? `${import.meta.env.VITE_POCKETBASE_URL}/api/files/images/${image.id}/${image.file}`
     : '';
 
-  // Debounced function to update the description
+  // Debounced function to update the description in the backend
   const updateDescription = debounce(async (newDescription: string) => {
     if (!image || !image.id) {
       console.error('Image ID is missing');
@@ -34,9 +35,9 @@
       const response = await fetch('/protected/images', {
         method: 'PUT',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ image_id: image.id, data: { description: newDescription } })
+        body: JSON.stringify({ image_id: image.id, data: { description: newDescription } }),
       });
 
       if (response.ok) {
@@ -50,6 +51,7 @@
     }
   }, 500);
 
+  // Handle description changes from the textarea
   function handleDescriptionChange(event: Event) {
     const textarea = event.target as HTMLTextAreaElement;
     const newValue = textarea.value;
@@ -57,7 +59,7 @@
       image.description = newValue;
       updateDescription(image.description);
     } else {
-      console.error('Failed to read input value from event detail:', event);
+      console.error('Failed to read input value from event:', event);
     }
   }
 
@@ -72,13 +74,14 @@
       const response = await fetch('/protected/images', {
         method: 'DELETE',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ image_id: image.id })
+        body: JSON.stringify({ image_id: image.id }),
       });
 
       if (response.ok) {
         console.log('Image deleted successfully');
+        // Optionally, you might want to remove the image from the UI or navigate away
       } else {
         const errorResponse = await response.json();
         console.error('Failed to delete image:', errorResponse);
@@ -87,44 +90,46 @@
       console.error('Error deleting image:', err);
     }
   }
-  
-  // Observe image function
-  async function observeImage() {
 
-    try {
-
-      const response = await fetch('/api/gpt/analyse-image', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ imageUrl: image_url })
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        console.log('GPT Analysis:', data.gptAnalysis);
-
-        const newDescription = data.gptAnalysis.message.content;
-        image.description = newDescription;
-
-        // Save the description to the database
-        await updateDescription(newDescription);
-
-        // Update the description in the UI
-       
-      } else {
-        const errorResponse = await response.json();
-        console.error('Failed to analyze image:', errorResponse);
-      }
-    } catch (err) {
-      console.error('Error analyzing image:', err);
-    }
+  // Handle success from the Spinner component
+  function handleSuccess(event: any) {
+    const result = event.detail.result;
+    image.description = result; // Update the image object
+    updateDescription(image.description || ''); // Save to backend
+    observePromise = null; // Reset promise to hide Spinner
   }
 
+  // Handle error from the Spinner component
+  function handleError(event: any) {
+    const err = event.detail.error;
+    error = err.message || 'Failed to analyze image';
+    console.error('Error analyzing image:', error);
+    observePromise = null; // Reset promise to hide Spinner
+  }
+
+  // Function to initiate image observation
+  function observeImage() {
+    error = null; // Reset error message
+    observePromise = fetch('/api/gpt/analyse-image', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ imageUrl: image_url }),
+    })
+      .then(response => {
+        if (!response.ok) {
+          return response.json().then(err => {
+            throw new Error(err.message || 'Failed to analyze image');
+          });
+        }
+        return response.json();
+      })
+      .then(data => {
+        return data.gptAnalysis.message.content; // Return the description
+      });
+  }
 </script>
-
-
 
 <Stack direction={Direction.Horizontal} spacing={1.5} style="border-top: 1px solid var(--gray-2); padding-top: 1em;">
   <Stack direction={Direction.Vertical} wrap={true} spacing={1}>
@@ -135,7 +140,7 @@
         alt_text={image.description || 'No description provided'}
         aspect_ratio={3 / 2}
       />
-      <button class="overlay-button" on:click={observeImage}>
+      <button class="overlay-button" on:click={observeImage} disabled={observePromise !== null}>
         <ObserveIcon size={1.25} />
       </button>
     </div>
@@ -151,12 +156,21 @@
   <Stack direction={Direction.Vertical}>
     <Label name="Description">
       {#if observePromise}
-        <Spinner promise={observePromise} />
+        <Spinner
+          promise={observePromise}
+          loadingText="Analyzing image..."
+          errorText="Failed to analyze image"
+          on:success={handleSuccess}
+          on:error={handleError}
+        />
       {:else}
+        {#if error}
+          <p style="color: var(--red);">{error}</p>
+        {/if}
         <textarea
           style="background-color: var(--gray-1); padding: 0.5em; border-radius: 0.5em; width: 100%;"
           rows="4"
-          value={image.description}  
+          bind:value={image.description}
           on:input={handleDescriptionChange}
           placeholder="Add a description"
         ></textarea>
@@ -169,12 +183,15 @@
     <Spacer />
     <Stack direction={Direction.Horizontal} wrap={true}>
       <Spacer />
-      <button style="background-color: var(--red); color: white; padding: 0.5em 0.75em; border-radius: 0.5em;" on:click={deleteImage}>Delete</button>
+      <button
+        style="background-color: var(--red); color: white; padding: 0.5em 0.75em; border-radius: 0.5em;"
+        on:click={deleteImage}
+      >
+        Delete
+      </button>
     </Stack>
   </Stack>
 </Stack>
-
-
 
 <style>
   .overlay-button {
@@ -192,5 +209,15 @@
   .image-container {
     position: relative;
     display: inline-block;
+  }
+
+  button:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+
+  /* Optional: Style the error message */
+  p[style*='color: var(--red);'] {
+    margin-top: 0.5em;
   }
 </style>
