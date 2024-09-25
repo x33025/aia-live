@@ -8,6 +8,7 @@
   export let aspect_ratio: number = 1;
   export let alt_text: string = 'Image';
   export let maskShape: 'circle' | 'square' = 'square'; 
+  export let border_radius: number = 0.5;
 
   const { class: externalClass = '', style: externalStyle = '', ...restProps } = $$restProps;
 
@@ -15,7 +16,7 @@
   const getCommonStyles = () => `
     width: ${size}em;
     height: calc(${size}em / ${aspect_ratio});
-    border-radius: ${maskShape === 'circle' ? '50%' : '0.35em'};
+    border-radius: ${maskShape === 'circle' ? '50%' : `${border_radius}em`};
   `;
   
   const getClasses = () => ['image-container', externalClass].join(' ');

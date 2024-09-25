@@ -46,6 +46,7 @@
                 image_url={constructImageUrl(image)}
                 alt_text={image.description || 'No description'}
                 maskShape="square"
+                border_radius={0.5}
                 aspect_ratio={3 / 2}
               />
             </button>

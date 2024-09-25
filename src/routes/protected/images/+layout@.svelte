@@ -21,7 +21,7 @@
     current_user.set($page.data.user);
 
     // Subscribe to PocketBase real-time changes for the 'images' collection
-    pb.collection('images').subscribe('*', (e) => {
+    pb.collection('images').subscribe('*', (e) => { 
       console.log(`Action: ${e.action}`, e.record);
       
       // Update the images store based on the action type
@@ -39,7 +39,7 @@
         );
         console.log('Image deleted successfully:', e.record);
       }
-    });
+    }, { expand: 'activity' });
   });
 
   function handleFileSelection() {

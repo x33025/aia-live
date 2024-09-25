@@ -87,7 +87,9 @@
   
   // Observe image function
   async function observeImage() {
+
     try {
+
       const response = await fetch('/api/gpt/analyse-image', {
         method: 'POST',
         headers: {
@@ -180,7 +182,7 @@
     border: none;
     color: white;
     padding: 0.5em;
-    border-radius: 0.5em;
+    border-radius: 0.25em;
     cursor: pointer;
   }
 
