@@ -15,16 +15,29 @@
         unsubscribe();
     });
 </script>
+
+<style>
+    .overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: white;
+    }
+   :global(.container) {
+        position: relative;
+    }
+</style>
     
-    <Stack direction={Direction.Vertical} spacing={2}>
-    
-       
-     <Gallery />
-      
-      {#if selectedImage}
-        <ImageDescription image={selectedImage} />
-      {/if}
- 
-    
-    
-    </Stack>
+<Stack direction={Direction.Vertical} spacing={2} class="container">
+    <Gallery />
+    {#if selectedImage}
+        <div class="overlay">
+            <ImageDescription image={selectedImage} />
+        </div>
+    {/if}
+</Stack>
