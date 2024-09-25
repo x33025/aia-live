@@ -5,8 +5,10 @@
     import Stack from '$lib/core/layout/+stack.svelte';
     import { Direction, type Image } from '$lib/types';
     import { selected_image } from '$lib/stores/data/+images';
+    import { page } from '$app/stores';
 
     let selectedImage: Image | null = null;
+
     const unsubscribe = selected_image.subscribe(value => {
         selectedImage = value;
     });
@@ -34,7 +36,7 @@
 </style>
     
 <Stack direction={Direction.Vertical} spacing={2} class="container">
-    <Gallery />
+    <Gallery images={$page.data.images} />
     {#if selectedImage}
         <div class="overlay">
             <ImageDescription image={selectedImage} />

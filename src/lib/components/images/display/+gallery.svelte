@@ -1,42 +1,24 @@
 <script lang="ts">
-  import { images, selected_image } from '$lib/stores/data/+images';
-  import { onMount } from 'svelte';
   import { Direction, type Image } from '$lib/types';
+  import { selected_image } from '$lib/stores/data/+images';
   import Stack from '$lib/core/layout/+stack.svelte';
   import ImageComponent from '$lib/core/display/+image.svelte';
 
+  export let images: Image[] = [];
 
-
-  async function fetchImages() {
-    try {
-      const response = await fetch('/protected/images');
-      if (!response.ok) {
-        throw new Error('Failed to fetch images');
-      }
-      const resultList = await response.json();
-      images.set(resultList);
-    } catch (error) {
-      console.error('Error fetching images:', error);
-    }
+  function constructImageUrl(image: Image): string {
+    return `${import.meta.env.VITE_POCKETBASE_URL}/api/files/images/${image.id}/${image.file}`;
   }
 
   function handleImageSelect(image: Image) {
     selected_image.set(image);
   }
-
-  onMount(() => {
-    fetchImages();
-  });
-
-  function constructImageUrl(image: Image): string {
-    return `${import.meta.env.VITE_POCKETBASE_URL}/api/files/images/${image.id}/${image.file}`;
-  }
 </script>
 
     <Stack direction={Direction.Vertical} class="image-grid" spacing={0.5} wrap={true}>
       
-        {#if $images.length > 0}
-          {#each $images as image}
+        {#if images.length > 0}
+          {#each images as image}
             <button
               type="button"
               on:click={() => handleImageSelect(image)}

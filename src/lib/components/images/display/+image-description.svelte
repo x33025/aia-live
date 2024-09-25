@@ -11,6 +11,9 @@
   import ActivityDate from '$lib/core/advanced-display/+activity-date.svelte';
   import ObserveIcon from '$lib/core/ui/icons/+observe.svelte';  // Import ObserveIcon
   import Spinner from '$lib/core/display/+spinner.svelte';  // Import the Spinner component
+
+
+  
   export let image: Image;
 
   let observePromise: Promise<any> | null = null;  // Track the observe image promise
