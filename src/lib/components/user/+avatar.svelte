@@ -5,6 +5,7 @@
   import { get } from 'svelte/store';
   import ImageComponent from '$lib/core/display/+image.svelte';
   import type { User } from '$lib/types';
+  import CircularText from '$lib/core/display/+circular-text.svelte';
 
   export let userId: string;
   export let size: number = 2.5; // Default size in em
@@ -28,11 +29,13 @@
 </script>
 
 <div class="avatar-wrapper border-highlight" style="width: {size+0.5}em; height: {size+0.5}em;">
+  <CircularText >
   {#if hasAvatar}
       <ImageComponent image_url={avatarUrl} alt_text="User Avatar" size={size} aspect_ratio={1} maskShape="circle" />
   {:else}
       <Text class="initials" type={TextType.Subheadline}>{userInitials}</Text>
   {/if}
+</CircularText>
 </div>
 
 <style>

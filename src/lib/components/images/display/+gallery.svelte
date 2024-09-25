@@ -14,7 +14,7 @@
   }
 </script>
 
-    <Stack direction={Direction.Vertical} class="image-grid" spacing={0.5} wrap={true}>
+    <Stack direction={Direction.Vertical} class="image-grid" wrap={true}>
       
         {#if $images.length > 0}
           {#each $images as image}
@@ -45,7 +45,9 @@
  :global(.image-grid) {
   display: grid !important;
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)) !important;
-  gap: 1.5em !important;
+  gap: 1em !important;
+  overflow-y: auto; /* Enable vertical scrolling */
+
 }
 
 .image-container {
@@ -56,10 +58,13 @@
   transition: transform 0.3s ease;
   outline: none; /* Add this to ensure the default outline doesn’t add space */
   box-sizing: border-box; /* Ensures padding and border are included in width and height */
+  margin: 0.5em;
+
 }
 
 .image-container:hover {
   transform: scale(1.05);
+
 }
 
 .image-container.selected {

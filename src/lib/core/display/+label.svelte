@@ -10,7 +10,6 @@
 
   // Compute the classes
   const getClasses = () => [
-    'label',
     externalClass // Add external class here
   ].join(' ');
 

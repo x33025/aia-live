@@ -10,7 +10,7 @@ export const load = async ({ cookies }) => {
 
   const users = await userService.getList(); 
 
-  const images = await imageService.getList();
+  const images = await imageService.getList({expand: 'activity,notes'});
 
   return {
     title: "Images",
