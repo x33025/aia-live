@@ -4,13 +4,18 @@
     import ImageDescription from '$lib/components/images/display/+image-description.svelte';
     import Stack from '$lib/core/layout/+stack.svelte';
     import { Direction, type Image } from '$lib/types';
-    import { selected_image } from '$lib/stores/data/+images';
+    import { selected_image, images } from '$lib/stores/data/+images';
     import { page } from '$app/stores';
-
+    import { onMount } from 'svelte';
     let selectedImage: Image | null = null;
 
     const unsubscribe = selected_image.subscribe(value => {
         selectedImage = value;
+    });
+
+    onMount(() => {
+     
+        images.set($page.data.images);
     });
 
     onDestroy(() => {
@@ -36,7 +41,7 @@
 </style>
     
 <Stack direction={Direction.Vertical} spacing={2} class="container">
-    <Gallery images={$page.data.images} />
+    <Gallery />
     {#if selectedImage}
         <div class="overlay">
             <ImageDescription image={selectedImage} />

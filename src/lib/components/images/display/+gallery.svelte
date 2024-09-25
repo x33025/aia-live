@@ -3,8 +3,7 @@
   import { selected_image } from '$lib/stores/data/+images';
   import Stack from '$lib/core/layout/+stack.svelte';
   import ImageComponent from '$lib/core/display/+image.svelte';
-
-  export let images: Image[] = [];
+  import { images } from '$lib/stores/data/+images';
 
   function constructImageUrl(image: Image): string {
     return `${import.meta.env.VITE_POCKETBASE_URL}/api/files/images/${image.id}/${image.file}`;
@@ -17,8 +16,8 @@
 
     <Stack direction={Direction.Vertical} class="image-grid" spacing={0.5} wrap={true}>
       
-        {#if images.length > 0}
-          {#each images as image}
+        {#if $images.length > 0}
+          {#each $images as image}
             <button
               type="button"
               on:click={() => handleImageSelect(image)}
