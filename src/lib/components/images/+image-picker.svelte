@@ -1,6 +1,6 @@
 <script lang="ts">  
 
-    import Gallery from '$lib/components/images/+gallery.svelte';
+    import Gallery from '$lib/components/images/display/+gallery.svelte';
     import Stack from '$lib/core/layout/+stack.svelte';
     import { Direction } from '$lib/types';
     import { selected_image } from '$lib/stores/data/+images';

@@ -11,7 +11,7 @@
   import Keywords from '../keyword/+keywords.svelte';
   import Label from '$lib/core/display/+label.svelte';
   import Spacer from '$lib/core/layout/+spacer.svelte';
-  import MainImage from '../images/+main-image.svelte';
+  import MainImage from '../images/display/+main-image.svelte';
   import NotesSidebar from '../notes/+notes-sidebar.svelte';
   import { openSidebar } from '$lib/stores/ui/+sidebar';
     import NotesButton from '../notes/+notes-button.svelte';

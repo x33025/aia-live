@@ -6,7 +6,7 @@
   import Stack from '$lib/core/layout/+stack.svelte';
   import { Alignment, Direction, type Image } from '$lib/types';
   import ActivityDataView from '$lib/components/activity/+activity-data.svelte';
-  import NotesButton from '../notes/+notes-button.svelte';
+  import NotesButton from '../../notes/+notes-button.svelte';
   import { debounce } from 'lodash-es';  // Import lodash debounce
   import ActivityDate from '$lib/core/advanced-display/+activity-date.svelte';
   import ObserveIcon from '$lib/core/ui/icons/+observe.svelte';  // Import ObserveIcon

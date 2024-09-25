@@ -3,7 +3,7 @@
   import { Direction } from '$lib/types';
   import  TextInput from '$lib/core/actions/+text-input.svelte';
   import { TextType } from '$lib/types';
-  import MainImage  from '$lib/components/images/+main-image.svelte';
+  import MainImage  from '$lib/components/images/display/+main-image.svelte';
   import { article } from '$lib/stores/data/+articles';
   import { openModal } from '$lib/stores/ui/+modal';
   import { openSidebar } from '$lib/stores/ui/+sidebar';
