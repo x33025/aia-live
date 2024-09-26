@@ -33,7 +33,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        background: rgba(255, 255, 255, 0.216);
+        background: rgba(255, 255, 255, 0.6);
         backdrop-filter: blur(1em);
     }
 
