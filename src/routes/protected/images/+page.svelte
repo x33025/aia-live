@@ -33,14 +33,16 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        background: white;
+        background: rgba(255, 255, 255, 0.216);
+        backdrop-filter: blur(1em);
     }
+
    :global(.container) {
         position: relative;
     }
 </style>
     
-<Stack direction={Direction.Vertical} spacing={2} class="container">
+<Stack direction={Direction.Vertical} class="container" style="padding: 0em 2em; padding-top: 0em;">
     <Gallery />
     {#if selectedImage}
         <div class="overlay">

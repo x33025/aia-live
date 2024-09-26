@@ -72,8 +72,8 @@
   }
 </script>
 
-<Stack direction={Direction.Vertical} spacing={2} style="padding: 2em;">
-  <Stack direction={Direction.Horizontal} wrap={true} spacing={1.5}>
+<Stack direction={Direction.Vertical} spacing={2}   >
+  <Stack direction={Direction.Horizontal} wrap={true} spacing={1.5} style="padding: 0em 2em; padding-top: 2em;">
     <GoBackButton />
     <PageTitle />
     <div style="border-left: 1px solid var(--gray-3); height: 80%; width: 1px;" />

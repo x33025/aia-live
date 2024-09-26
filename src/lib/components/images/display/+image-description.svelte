@@ -131,7 +131,7 @@
   }
 </script>
 
-<Stack direction={Direction.Horizontal} spacing={1.5} style="border-top: 1px solid var(--gray-2); padding-top: 1em;">
+<Stack direction={Direction.Horizontal} spacing={1.5} style="border-top: 1px solid var(--gray-2); padding: 2em; ">
   <Stack direction={Direction.Vertical} wrap={true} spacing={1}>
     <div class="image-container">
       <ImageComponent
