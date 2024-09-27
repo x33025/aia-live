@@ -23,11 +23,17 @@
 
 <button on:click={openNotesSidebar}>
 <Stack direction={Direction.Horizontal} spacing={0.5} wrap={true}> 
-  {#if notes.length > 0}
-    {#if notes[0].expand?.activity?.created_by}
-      <Avatar size={1.5} userId={notes[0].expand?.activity?.created_by} />
-    {/if}
-    {sanitizeHTML(notes[0].content)}
+  {#if notes && notes.length > 0}
+
+    {#each notes as note (note.id)}
+      {#if note.expand?.activity?.created_by}
+        <Avatar size={1.5} userId={note.expand?.activity?.created_by} />
+      {/if}
+      {sanitizeHTML(note.content)}
+      {#if notes.length > 1}
+        <div style="border-left: 1px solid #e0e0e0; height: 100%;"></div>
+      {/if}
+    {/each}
   {:else}
     No notes
   {/if}

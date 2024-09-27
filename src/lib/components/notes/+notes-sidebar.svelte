@@ -34,7 +34,7 @@
           if (response.ok) {
               const addedNote = await response.json(); // Renamed to avoid shadowing
               notes = [...notes, addedNote];
-              
+
               newNote.content = ''; // Clear after adding
           } else {
               console.error('Failed to add note', await response.text());
@@ -75,8 +75,10 @@
   {/if}
   </Stack>
 
+  {#if activity}
   <Stack direction={Direction.Vertical} wrap={true} style="height: 320px;" spacing={0.75}>
       <Text type={TextType.Subheadline} style="font-weight: bold;">Activity Data</Text>
       <ActivityDataView {activity} />
   </Stack>
+  {/if}
 </Stack>
