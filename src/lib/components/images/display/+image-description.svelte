@@ -12,6 +12,8 @@
   import ObserveIcon from '$lib/core/ui/icons/+observe.svelte';
   import Spinner from '$lib/core/display/+spinner.svelte';
   import { createEventDispatcher } from 'svelte';
+    import { selected_image } from '$lib/stores/data/+images';
+    import { current_user } from '$lib/stores/data/+users';
 
   export let image: Image;
 
@@ -64,24 +66,25 @@
   }
 
   // Delete image function
-  async function deleteImage() {
-    if (!image || !image.id) {
+  async function markDeleted() {
+    if (!image || !image.expand?.activity) {
       console.error('Image ID is missing');
       return;
     }
 
     try {
-      const response = await fetch('/protected/images', {
-        method: 'DELETE',
+      const response = await fetch('/api/data/mark-deleted', {
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ image_id: image.id }),
+        body: JSON.stringify({ id: image.expand?.activity.id, user_id: $current_user.id }),
       });
 
       if (response.ok) {
-        console.log('Image deleted successfully');
-        // Optionally, you might want to remove the image from the UI or navigate away
+
+        selected_image.set(null);
+      
       } else {
         const errorResponse = await response.json();
         console.error('Failed to delete image:', errorResponse);
@@ -185,7 +188,7 @@
       <Spacer />
       <button
         style="background-color: var(--red); color: white; padding: 0.5em 0.75em; border-radius: 0.5em;"
-        on:click={deleteImage}
+        on:click={markDeleted}
       >
         Delete
       </button>

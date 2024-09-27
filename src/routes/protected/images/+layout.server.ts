@@ -10,7 +10,7 @@ export const load = async ({ cookies }) => {
 
   const users = await userService.getList(); 
 
-  const images = await imageService.getList({expand: 'activity,notes'});
+  const images = await imageService.getList({pageSize: 100, expand: 'activity,notes', sort: '-created', filter: 'activity.deleted=null'});
 
   return {
     title: "Images",

@@ -35,29 +35,6 @@ export const POST: RequestHandler = async ({ request }) => {
     }
 };
 
-// Handle image deletion (DELETE request)
-export const DELETE: RequestHandler = async ({ request }) => {
-    try {
-        const { image_id } = await request.json();
-
-        console.log('Received DELETE request for image:', { image_id });
-
-        if (!image_id) {
-            console.error('Image ID is missing in the request');
-            throw error(400, 'Image ID is required');
-        }
-
-        // Delete the image using the ImagesService
-        console.log('Attempting to delete image record with activity data');
-        const deletedImage = await imageService.delete(image_id);
-
-        console.log('Image deleted successfully:', deletedImage);
-        return json({ message: 'Image deleted successfully', deletedImage });
-    } catch (err) {
-        console.error('Error in image deletion:', err);
-        throw error(500, 'Failed to delete image');
-    }
-};
 
 // Handle image update (PUT request)
 export const PUT: RequestHandler = async ({ request }) => {

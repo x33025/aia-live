@@ -42,7 +42,7 @@
     }
 </style>
     
-<Stack direction={Direction.Vertical} class="container" style="padding: 0em 2em; padding-top: 0em;">
+<Stack direction={Direction.Vertical} class="container" style="padding: 0em 2em 0em 2em;">
     <Gallery />
     {#if selectedImage}
         <div class="overlay">
