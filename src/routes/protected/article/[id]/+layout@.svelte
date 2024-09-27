@@ -28,10 +28,11 @@
 </script>
 
 
-<Stack direction={Direction.Vertical}  spacing={1} style="padding: 1em;"> 
+<Stack direction={Direction.Vertical} spacing={1} style="padding: 1em;"> 
   
 <Stack direction={Direction.Horizontal} wrap={true}  spacing={1} style="padding-bottom: 1em; border-bottom: 1px solid var(--gray-3);">
 
+  
   <GoBackButton path="/protected/articles" />
 
   <MainImage main_image={$article?.expand?.main_image} on:click={openImageModal}/>

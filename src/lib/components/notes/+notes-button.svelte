@@ -21,7 +21,7 @@
 </script>
   
 <button on:click={openNotesSidebar}>
-  {#if notes.length > 0}
+  {#if notes && notes.length > 0}
     {sanitizeHTML(notes[0].content)}
   {:else}
     No notes
