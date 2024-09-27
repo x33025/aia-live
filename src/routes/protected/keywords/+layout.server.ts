@@ -10,7 +10,7 @@ export const load: LayoutServerLoad = async () => {
 
     // Fetch keywords from the keyword service
     const keywords = await keywordService.getList({
-      expand: 'activity,country,notes',
+      expand: 'activity,country,notes.activity',
       sort: '-created',
       filter: 'activity.deleted=null'
     });
