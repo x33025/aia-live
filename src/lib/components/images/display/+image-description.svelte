@@ -14,6 +14,7 @@
   import { createEventDispatcher } from 'svelte';
     import { selected_image } from '$lib/stores/data/+images';
     import { current_user } from '$lib/stores/data/+users';
+    import { markDeleted } from '$lib/api/activity/+mark-deleted';
 
   export let image: Image;
 
@@ -65,34 +66,7 @@
     }
   }
 
-  // Delete image function
-  async function markDeleted() {
-    if (!image || !image.expand?.activity) {
-      console.error('Image ID is missing');
-      return;
-    }
 
-    try {
-      const response = await fetch('/api/data/mark-deleted', {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ id: image.expand?.activity.id, user_id: $current_user.id }),
-      });
-
-      if (response.ok) {
-
-        selected_image.set(null);
-      
-      } else {
-        const errorResponse = await response.json();
-        console.error('Failed to delete image:', errorResponse);
-      }
-    } catch (err) {
-      console.error('Error deleting image:', err);
-    }
-  }
 
   // Handle success from the Spinner component
   function handleSuccess(event: any) {
@@ -108,6 +82,16 @@
     error = err.message || 'Failed to analyze image';
     console.error('Error analyzing image:', error);
     observePromise = null; // Reset promise to hide Spinner
+  }
+
+  async function handleDelete() {
+    if (!image || !image.expand?.activity) {
+      console.error('Cannot delete image: Missing necessary data');
+      return;
+    }
+    
+    await markDeleted(image.expand.activity.id, $current_user.id);
+    selected_image.set(null); // Clear the selected image
   }
 
   // Function to initiate image observation
@@ -188,7 +172,7 @@
       <Spacer />
       <button
         style="background-color: var(--red); color: white; padding: 0.5em 0.75em; border-radius: 0.5em;"
-        on:click={markDeleted}
+        on:click={handleDelete}
       >
         Delete
       </button>
