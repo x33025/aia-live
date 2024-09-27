@@ -18,7 +18,7 @@ export const load: LayoutServerLoad = async ({ locals, url }) => {
       pageSize: PAGE_SIZE,
       expand: 'keywords,main_keyword,main_image,activity_data,notes',
       sort: '-created',
-      fields: 'id,title,description,created,updated,main_image,main_keyword,keywords,activity_data,notes'
+      fields: 'id,title,description,created,updated,main_image,main_keyword,keywords,activity_data,notes,word_count,target_word_count,category,author,raw_data,schedule'
     });
 
     console.log('Fetched Articles with Expanded Data:', articles);

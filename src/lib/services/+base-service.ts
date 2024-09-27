@@ -2,6 +2,8 @@
 import { pb } from '$lib/config/pocketbase';
 import type { BaseModel } from '$lib/types';
 
+//NEVER IMPORT DERIVED SERVICES HERE. ONLY BASE SERVICES.
+
 /**
  * BaseService for handling CRUD operations on PocketBase collections.
  * @template T - The type of the model that this service operates on.

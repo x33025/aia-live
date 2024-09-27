@@ -25,7 +25,7 @@ export const POST: RequestHandler = async ({ request }) => {
 
         // Create the image record with activity data
         console.log('Creating image record with activity data');
-        const uploadedImage = await imageService.createWithActivity(file, user_id);
+        const uploadedImage = await imageService.uploadWithActivity(file, user_id);
 
         console.log('Image uploaded successfully:', uploadedImage);
         return json(uploadedImage);

@@ -4,7 +4,7 @@
     import { TextType } from '$lib/types';
     import { onMount } from 'svelte';
 
-    export let note: Note;
+    export let note: Partial<Note>;
 
 
     
