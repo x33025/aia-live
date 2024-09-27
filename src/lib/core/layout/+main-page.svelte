@@ -8,6 +8,8 @@
   import { goto } from '$app/navigation';
   import PageTitle from './+page-title.svelte';
 
+
+
   // Extract title from the $page store
   const title = derived(page, $page => $page.data.title);
   const headTitle = derived(title, $title => $title || 'aia');
@@ -18,7 +20,7 @@
   <title>{"aia • "} {$headTitle}</title>
 </svelte:head>
 
-<BaseLayout>
+  <BaseLayout>
   <Stack direction={Direction.Horizontal} wrap={true} style="margin-bottom: 0.8em; position: relative;" slot="header">
     
     <!-- Leading Navigation -->

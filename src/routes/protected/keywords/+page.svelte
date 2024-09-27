@@ -6,6 +6,7 @@
   import KeywordRow from '$lib/components/keyword/+keyword-row.svelte';
   import { keywords } from '$lib/stores/data/+keywords';
   import { Direction, SortOptions, type Keyword } from '$lib/types';
+    import TextInput from '$lib/core/actions/+text-input.svelte';
 
   
   const headers = ["Keyword", "Evergreen", "Country", "Volume", "Density", "Notes"];
@@ -51,25 +52,17 @@
   function updateKeyword(id: string, updatedFields: object) {
     console.log('Keyword updated:', id, updatedFields);
   }
+
+  function handleNewKeyword(event: CustomEvent<string>) {
+    console.log('New keyword:', event.detail);
+  }
 </script>
 
-<Stack direction={Direction.Vertical} spacing={1}>
+<Stack direction={Direction.Vertical} spacing={1} style="margin: 1em;">
   <Stack direction={Direction.Horizontal} wrap={true}>
 
 
-    <!-- Dropdown for Sorting -->
-    <!-- <DropdownMenu id="sort" placeholder="Sort by" on:select={handleSortChange}>
-      <svelte:fragment slot="button">{selectedSortOption}</svelte:fragment>
-    
-      <svelte:fragment slot="default">
-        <div on:click={() => toggleSortOption(SortOptions.DateCreatedAsc)}>
-          Date Created
-      </div>
-      <div on:click={() => toggleSortOption(SortOptions.DateUpdatedAsc)}>
-          Date Updated
-        </div>
-      </svelte:fragment>
-    </DropdownMenu> -->
+  <TextInput id="new-keyword" label="New Keyword" on:input={handleNewKeyword} />
     
   </Stack>
 

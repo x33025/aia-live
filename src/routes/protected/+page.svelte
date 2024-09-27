@@ -11,7 +11,7 @@
 
 </script>
 
-<Stack direction={Direction.Vertical} spacing={1}>
+<Stack direction={Direction.Vertical} spacing={1} style="margin: 1em;">
   <RouteNavigation />
 
   <Stack direction={Direction.Horizontal} spacing={1} style="border-top: 1px solid var(--gray-1); padding-top: 1em;">

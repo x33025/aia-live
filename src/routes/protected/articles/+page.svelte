@@ -13,7 +13,7 @@
 
 </script>
 
-<Stack spacing={1} class="scrollable-stack">
+<Stack spacing={1} class="scrollable-stack" style="margin: 1em;">
 
     {#each $articles as article, index (article.id)}
       <ArticleRow 
