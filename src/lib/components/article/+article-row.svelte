@@ -12,9 +12,7 @@
   import Label from '$lib/core/display/+label.svelte';
   import Spacer from '$lib/core/layout/+spacer.svelte';
   import MainImage from '../images/display/+main-image.svelte';
-  import NotesSidebar from '../notes/+notes-sidebar.svelte';
-  import { openSidebar } from '$lib/stores/ui/+sidebar';
-    import NotesButton from '../notes/+notes-button.svelte';
+  import NotesButton from '../notes/+notes-button.svelte';
 
   export let article: Article;
   export let categories: Category[];
@@ -62,10 +60,7 @@
     }
   }
 
-  function openNotesSidebar() {
-    const notes = article.expand?.notes || [];  // Default to an empty array if notes are undefined
-    openSidebar(NotesSidebar, { notes });
-  }
+
 </script>
 
 <Stack wrap={true} spacing={0.5}>

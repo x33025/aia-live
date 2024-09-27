@@ -58,7 +58,7 @@
   }
 </script>
 
-<Stack direction={Direction.Vertical} spacing={1} style="margin: 1em;">
+<Stack direction={Direction.Vertical} spacing={1} >
   <Stack direction={Direction.Horizontal} wrap={true}>
 
 
@@ -67,8 +67,8 @@
   </Stack>
 
   <!-- Table for Displaying Keywords -->
-  <Stack spacing={1} class="table-container">
-    <table>
+  <Stack spacing={1} class="table-container" >
+    <table >
       <thead>
         <tr>
           {#each headers as header}
@@ -92,7 +92,9 @@
     width: 100%;
     min-width: 66.67%;
     border-collapse: collapse;
+    
   }
+
 
   th {
     position: sticky;

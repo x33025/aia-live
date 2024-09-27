@@ -12,6 +12,7 @@
   function handleImageSelect(image: Image) {
     selected_image.set(image);
   }
+  
 </script>
 
     <Stack direction={Direction.Vertical} class="image-grid" wrap={true}>

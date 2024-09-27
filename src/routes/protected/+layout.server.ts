@@ -25,8 +25,6 @@ export const load: LayoutServerLoad = async ({ cookies }) => {
     userService.getList()
   ]);
 
-  console.log(users, "users");
-
   return {
     user,
     statuses,

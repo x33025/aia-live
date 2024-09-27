@@ -3,7 +3,7 @@
     export let color: string = 'black'; // Default color
     export let opacity: number = 0.85; // Default opacity
     export let strokeWidth: number = 0.1; // Default stroke width
-    export let strokeColor: string = 'black'; // Default stroke color
+    export let strokeColor: string = color; // Default stroke color
 </script>
   
   <div class="icon-container" style="--icon-size: {size}em;">

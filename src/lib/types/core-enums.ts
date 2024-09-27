@@ -45,3 +45,11 @@ export enum InputType {
   Checkbox = 'checkbox',
   Radio = 'radio',
 }
+
+    // New enum for modal orientations
+export enum SidebarOrientation {
+    Right = 'right',
+    Left = 'left',
+    Top = 'top',
+    Bottom = 'bottom'
+}

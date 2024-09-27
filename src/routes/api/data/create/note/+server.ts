@@ -8,11 +8,11 @@ export const POST: RequestHandler = async ({ request }) => {
         console.log('Received request:', request);
 
         const { data, user_id } = await request.json();
-        console.log('Parsed request JSON:', { data, user_id  });
+        console.log('Parsed request JSON:', { data, user_id });
 
         if (!data || !user_id) {
-            console.error('Validation error: data and user_id are required.');
-            return json({ error: 'data and user_id are required.' }, { status: 400 });
+            console.error('Validation error: data, user_id are required.');
+            return json({ error: 'data, user_id are required.' }, { status: 400 });
         }
 
       

@@ -25,9 +25,6 @@ export const load: LayoutServerLoad = async ({ params }) => {
       throw error(404, 'Article not found');
     }
 
-    console.log(`ARTICLE: Successfully fetched article with ID: ${id}`);
-    console.log('ARTICLE: Returning article to the page:', { article, title: null });
-
     return {
       article
     };

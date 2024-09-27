@@ -2,6 +2,8 @@
     export let size: number = 1; // Size in em
     export let color: string = 'var(--gray-1)'; // Default color
     export let opacity: number = 0.85; // Default opacity
+    export let strokeWidth: number = 0.1; // Default stroke width
+    export let strokeColor: string = color; // Default stroke color
 </script>
 
 <div class="icon-container" style="--icon-size: {size}em;">
@@ -18,6 +20,8 @@
                 d="M0 8.05664C0 8.53516 0.400391 8.92578 0.869141 8.92578L7.1875 8.92578L7.1875 15.2441C7.1875 15.7129 7.57812 16.1133 8.05664 16.1133C8.53516 16.1133 8.93555 15.7129 8.93555 15.2441L8.93555 8.92578L15.2441 8.92578C15.7129 8.92578 16.1133 8.53516 16.1133 8.05664C16.1133 7.57812 15.7129 7.17773 15.2441 7.17773L8.93555 7.17773L8.93555 0.869141C8.93555 0.400391 8.53516 0 8.05664 0C7.57812 0 7.1875 0.400391 7.1875 0.869141L7.1875 7.17773L0.869141 7.17773C0.400391 7.17773 0 7.57812 0 8.05664Z"
                 fill="{color}"
                 fill-opacity="{opacity}"
+                stroke="{strokeColor}"
+                stroke-width="{strokeWidth}"
             />
         </g>
     </svg>
