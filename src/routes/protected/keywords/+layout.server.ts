@@ -1,22 +1,18 @@
 import type { LayoutServerLoad } from './$types';
 import { keywordService } from '$lib/services/+keyword-service';
-import type { Keyword } from '$lib/types';
+import type { Keyword } from '$lib/types';  
 
-const PAGE_SIZE = 20;
 
-export const load: LayoutServerLoad = async ({ locals, url }) => {
+export const load: LayoutServerLoad = async () => {
   try {
     console.log('FETCH_KEYWORDS: Starting load function');
 
-    const page = Number(url.searchParams.get('page')) || 1;  // Start page from 1
-    console.log(`FETCH_KEYWORDS: Fetching page ${page} with page size ${PAGE_SIZE}`);
 
     // Fetch keywords from the keyword service
     const keywords = await keywordService.getList({
-      page,
-      pageSize: PAGE_SIZE,
       expand: 'activity,country,notes',
-      sort: '-created'
+      sort: '-created',
+      filter: 'activity.deleted=null'
     });
 
     console.log('FETCH_KEYWORDS: Fetch request completed');
@@ -27,12 +23,11 @@ export const load: LayoutServerLoad = async ({ locals, url }) => {
     }
 
 
-    let total = keywords.length;
+    let totalKeywords = keywords.length;
 
     return {
       keywords,
-      total,
-      page,
+      totalKeywords,
       title: "Keywords",
     };
   } catch (error) {

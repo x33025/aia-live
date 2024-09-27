@@ -7,6 +7,8 @@
   import ActivityDataView from '$lib/components/activity/+activity-data.svelte';
   import type { ActivityData } from '$lib/types';
   import { current_user } from '$lib/stores/data/+users';
+
+
   export let notes: Note[] = [];
   export let activity: ActivityData;
 
@@ -32,6 +34,7 @@
           if (response.ok) {
               const addedNote = await response.json(); // Renamed to avoid shadowing
               notes = [...notes, addedNote];
+              
               newNote.content = ''; // Clear after adding
           } else {
               console.error('Failed to add note', await response.text());
