@@ -13,7 +13,7 @@ export const load: PageServerLoad = async () => {
     const draftedThisMonth = await pb.collection('articles').getList<Article>(1, 100, {
         filter: `created >= "${startOfMonth.toISOString()}" && created <= "${endOfMonth.toISOString()}"`,
         sort: '-created',
-        expand: 'activity' // Expands the activity_data relation within articles
+        expand: 'activity,notes.activity' // Expands the activity_data relation within articles
     });
 
     return {

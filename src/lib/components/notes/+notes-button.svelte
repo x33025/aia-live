@@ -16,9 +16,12 @@
 
   // Function to sanitize HTML and extract text content
   function sanitizeHTML(html: string): string {
-      const div = document.createElement('div');
-      div.innerHTML = html;
-      return div.textContent || '';
+      if (typeof document !== 'undefined') {
+          const div = document.createElement('div');
+          div.innerHTML = html;
+          return div.textContent || '';
+      }
+      return '';
   }
 </script>
 

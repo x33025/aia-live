@@ -21,10 +21,6 @@
     }
   }
 
-  function openImageModal() {
-    console.log("Opening Image Modal for page: ", 1, "with perPage:", 50);
-    openModal(ImagePicker, "Images", { page: 1, perPage: 50 });
-  }
 </script>
 
 
@@ -35,7 +31,7 @@
   
   <GoBackButton path="/protected/articles" />
 
-  <MainImage main_image={$article?.expand?.main_image} on:click={openImageModal}/>
+  <MainImage main_image={$article?.expand?.main_image}/>
 
 
 <Stack direction={Direction.Vertical} spacing={1}>

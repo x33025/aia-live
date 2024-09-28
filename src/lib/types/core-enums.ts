@@ -53,3 +53,9 @@ export enum SidebarOrientation {
     Top = 'top',
     Bottom = 'bottom'
 }
+
+export enum TimeFrame {
+  TODAY = 'today',
+  THIS_WEEK = 'this week',
+  THIS_MONTH = 'this month'
+}

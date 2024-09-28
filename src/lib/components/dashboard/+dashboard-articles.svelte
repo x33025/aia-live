@@ -5,10 +5,10 @@
   import type { Article } from '$lib/types'; 
     import Avatar from '../user/+avatar.svelte';
     import Spacer from '$lib/core/layout/+spacer.svelte';
-  import { get } from 'svelte/store';
-  import { users } from '$lib/stores/data/+users';
+    import TimeFrameSelector from '$lib/components/dashboard/+time-frame-selector.svelte';
   import OpenArticleButton from '$lib/components/actions/+open-article-button.svelte';
     import NotesButton from '../notes/+notes-button.svelte';
+    import ChevronUpDown from '$lib/core/ui/icons/+chevron-up-down.svelte';
   // Accept the draftedThisMonth prop
   export let draftedThisMonth: { items: Article[] } = { items: [] };
 
@@ -19,10 +19,8 @@
 
 
 <Stack style="background-color: white; border-left: 1px solid var(--gray-2);">
-  <Text type={TextType.Subheadline} style="padding: 0.5em; border-bottom: 1px solid var(--gray-2)">
-    Articles This Week
-  </Text>
 
+  <TimeFrameSelector />
   <Stack spacing={0.3} style="padding: 0.3em;">
     {#if articles.length > 0} 
       {#each articles as article (article.id)}
