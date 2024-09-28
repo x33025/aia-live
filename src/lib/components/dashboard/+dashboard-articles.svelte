@@ -37,7 +37,7 @@
         </Stack>
       </Text>
       <Stack direction={Direction.Horizontal} wrap={true} spacing={0.5}>
-        <NotesButton notes={article.expand?.notes ?? []} />
+        <NotesButton notes={article.expand?.notes ?? []} parent={article} parent_collection="articles" />
         <Spacer />
         <OpenArticleButton articleId={article.id} />
       </Stack>

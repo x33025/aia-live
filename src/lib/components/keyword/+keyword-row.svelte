@@ -2,10 +2,10 @@
   import NumericInput from '$lib/core/advanced-input/+numeric-input.svelte';
   import DropdownMenu from '$lib/core/actions/+dropdown-menu.svelte';
   import TextInput from '$lib/core/actions/+text-input.svelte';
-  import { TextType, type Country, type Keyword } from '$lib/types';
+  import { type Country, type Keyword } from '$lib/types';
   import { openSidebar } from '$lib/stores/ui/+sidebar';
   import NotesSidebar from '../notes/+notes-sidebar.svelte';
-    import NotesButton from '../notes/+notes-button.svelte';
+  import NotesButton from '../notes/+notes-button.svelte';
  
   export let keyword: Keyword;
   export let countries: Country[] = [];
@@ -96,6 +96,8 @@
     <NotesButton
         notes={keyword.expand?.notes}
         activity={keyword.expand?.activity}
+        parent={keyword}
+        parent_collection="keywords"
     />
    </td>
  </tr>

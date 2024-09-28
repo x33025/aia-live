@@ -22,7 +22,7 @@ export const load: LayoutServerLoad = async ({ cookies }) => {
     categoryService.getList(),
     countryService.getList(),
     websiteService.getList(),
-    userService.getList()
+    userService.getList({ expand: 'role' })
   ]);
 
   return {

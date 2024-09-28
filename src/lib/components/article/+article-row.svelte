@@ -11,6 +11,7 @@
   import MainImage from '../images/display/+main-image.svelte';
   import NotesButton from '../notes/+notes-button.svelte';
   import OpenArticleButton from '$lib/components/actions/+open-article-button.svelte';
+
   export let article: Article;
   export let categories: Category[];
   export let writers: User[];
@@ -126,7 +127,9 @@
         <Label name="Notes">
           <NotesButton
             notes={article.expand?.notes}
-          activity={article.expand?.activity}
+            activity={article.expand?.activity}
+            parent={article}
+            parent_collection="articles"
       />
         </Label>
        

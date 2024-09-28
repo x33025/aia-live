@@ -7,11 +7,15 @@
   import { Direction, TextType } from '$lib/types';
   import Text from '$lib/core/display/+text.svelte';
   import PlusIcon from '$lib/core/ui/icons/+plus.svelte';
+  import type { BaseModel } from '$lib/types';
+
   export let notes: Note[] = [];
+  export let parent: BaseModel;
+  export let parent_collection: 'articles' | 'keywords' | 'images';
   export let activity: ActivityData | null = null;
 
   function openNotesSidebar() {
-    openSidebar(NotesSidebar, { notes, activity });
+    openSidebar(NotesSidebar, { notes, activity, parent, parent_collection });
   }
 
   // Function to sanitize HTML and extract text content

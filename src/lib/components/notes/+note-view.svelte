@@ -2,11 +2,10 @@
     import type { Note } from '$lib/types';
     import Text from '$lib/core/display/+text.svelte';
     import { TextType } from '$lib/types';
-    import { onMount } from 'svelte';
     import Avatar from '$lib/components/user/+avatar.svelte'; // Import Avatar component
     import { current_user } from '$lib/stores/data/+users';
 
-    
+
     export let note: Note;
 
 
@@ -20,8 +19,8 @@
         </div>
     {/if}
 
-    <Text type={TextType.Subheadline}>
-        <div contenteditable={note.expand?.activity?.created_by === $current_user?.id}>
+   <Text type={TextType.Subheadline}>    <!--  TextType for review -->
+        <div contenteditable={note.expand?.activity?.created_by === $current_user?.id} class="note-content">
             {@html note.content}
         </div>
     </Text>
@@ -40,16 +39,17 @@
 }
 
 div[contenteditable="true"] {
-    padding: 1em;
-    border-radius: 1em;
-    min-height: 125px;
-    outline: none;
-    background-color: var(--gray-1); /* Transparent background */
+   
+ 
     z-index: 1000; /* Ensure it is above other elements */
-    font-size: smaller;
+
 }
 
-div[contenteditable="true"]:focus {
-    border-color: var(--blue); /* Highlight border on focus */
+
+.note-content {
+    min-height: 125px;
+    background-color: var(--gray-1); /* Transparent background */
+    padding: 0.5em;
+    border-radius: 0.5em;
 }
 </style>

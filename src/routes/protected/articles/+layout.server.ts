@@ -11,7 +11,7 @@ export const load: LayoutServerLoad = async () => {
  
     // Use the ArticleService to fetch articles with expanded relations
     const articles = await articleService.getList({
-      expand: 'keywords,activity,main_keyword,main_image,notes.activity',
+      expand: 'keywords,activity,main_keyword,main_image,notes.activity,author',
       sort: '-created',
       filter: 'activity.deleted=null'
       });

@@ -165,7 +165,7 @@
     </Label>
     <Spacer />
     <Label name="Notes">
-      <NotesButton notes={image.expand?.notes || []} />
+      <NotesButton notes={image.expand?.notes || []} parent={image} parent_collection="images" />
     </Label>
     <Spacer />
     <Stack direction={Direction.Horizontal} wrap={true}>

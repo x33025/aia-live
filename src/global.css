@@ -99,6 +99,11 @@ textarea {
   width: inherit;
 }
 
+
+div[contenteditable="true"] {
+  outline: none;
+}
+
 /* Remove default button styling */
 button {
   background: none;
