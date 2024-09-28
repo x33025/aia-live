@@ -125,11 +125,6 @@ h3 {
   font-size: 1.17em;
 }
 
-.content {
-  background-color: white;
-  border-radius: 1em;
-}
-
 .align-horizontal-start {
   align-self: flex-start;
 }
