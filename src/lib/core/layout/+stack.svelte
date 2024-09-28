@@ -39,7 +39,7 @@
   }
 
   .expand {
-    width: 100%;
+    width: auto;
     height: 100%;
     flex: 1;
   }
