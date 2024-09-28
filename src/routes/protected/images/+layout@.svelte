@@ -19,6 +19,7 @@
     // Set users and current user
     users.set($page.data.users);
     current_user.set($page.data.user);
+    images.set($page.data.images);
 
     // Subscribe to PocketBase real-time changes for the 'images' collection
     pb.collection('images').subscribe('*', (e) => { 
@@ -39,7 +40,7 @@
         );
         console.log('Image deleted successfully:', e.record);
       }
-    }, { expand: 'activity' });
+    }, { expand: 'activity,notes' });
   });
 
   function handleFileSelection() {
@@ -56,7 +57,7 @@
       
       try {
         console.log('Uploading file...');  // Log before uploading
-        const response = await fetch('/protected/images', {
+        const response = await fetch('/api/data/upload', {
           method: 'POST',
           body: formData
         });

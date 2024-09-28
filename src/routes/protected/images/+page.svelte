@@ -13,11 +13,6 @@
         selectedImage = value;
     });
 
-    onMount(() => {
-     
-        images.set($page.data.images);
-    });
-
     onDestroy(() => {
         unsubscribe();
     });
