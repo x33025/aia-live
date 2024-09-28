@@ -5,6 +5,8 @@
     import { onMount } from 'svelte';
     import Avatar from '$lib/components/user/+avatar.svelte'; // Import Avatar component
     import { current_user } from '$lib/stores/data/+users';
+
+    
     export let note: Note;
 
 

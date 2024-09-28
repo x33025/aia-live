@@ -4,8 +4,9 @@
   import type { ActivityData, Note } from '$lib/types';
   import Stack from '$lib/core/layout/+stack.svelte';
   import Avatar from '$lib/components/user/+avatar.svelte';
-  import { Direction } from '$lib/types';
-
+  import { Direction, TextType } from '$lib/types';
+  import Text from '$lib/core/display/+text.svelte';
+  import PlusIcon from '$lib/core/ui/icons/+plus.svelte';
   export let notes: Note[] = [];
   export let activity: ActivityData | null = null;
 
@@ -22,7 +23,9 @@
 </script>
 
 <button on:click={openNotesSidebar}>
-<Stack direction={Direction.Horizontal} spacing={0.5} wrap={true}> 
+<Stack direction={Direction.Horizontal} spacing={0.5} wrap={true}>
+
+ 
   {#if notes && notes.length > 0}
 
     {#each notes as note (note.id)}
@@ -35,7 +38,10 @@
       {/if}
     {/each}
   {:else}
-    No notes
+  <Stack direction={Direction.Horizontal} style="background-color: var(--gray-1); padding: var(--default-padding); border-radius: 10em; " spacing={0.3} wrap={true}>
+  <PlusIcon size={0.7} color="var(--blue) " strokeWidth={0.3} />
+  <Text type={TextType.Caption} style="color: var(--blue); font-weight: bold;">Add a note</Text>
+</Stack>
   {/if}
 </Stack>
 </button>

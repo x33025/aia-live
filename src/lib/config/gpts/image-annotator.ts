@@ -2,7 +2,7 @@ import  openai  from '$lib/config/open-ai'; // Import OpenAI from your implement
 
 class ImageAnnotator {
   // Method to analyze an image by URL
-  async analyzeImage(imageUrl: string, question: string = "Describe exactly what you see in the image in 150 characters or less.") {
+  async analyzeImage(imageUrl: string, question: string = "Describe previsely and exactly what you see in the image in 150 characters or less.") {
     try {
       const response = await openai.chat.completions.create({
         model: "gpt-4o-mini", // Use the relevant GPT-4 model
