@@ -7,7 +7,8 @@
     import Spacer from '$lib/core/layout/+spacer.svelte';
   import { get } from 'svelte/store';
   import { users } from '$lib/stores/data/+users';
-
+  import OpenArticleButton from '$lib/components/actions/+open-article-button.svelte';
+    import NotesButton from '../notes/+notes-button.svelte';
   // Accept the draftedThisMonth prop
   export let draftedThisMonth: { items: Article[] } = { items: [] };
 
@@ -29,12 +30,19 @@
         <Text type={TextType.Body} style="padding: 0.5em; background-color: var(--gray-1); border-radius: 0.5em; font-weight: 600;">
           <Stack direction={Direction.Horizontal} wrap={true} spacing={0.5}>
           {article.title} 
-          <Spacer />
-        <Avatar userId={article.author ?? 'defaultUserId'} size={1.75} />  
-        </Stack>
-        </Text>
-
     
+          <Spacer />
+ 
+          <Avatar userId={article.author ?? 'defaultUserId'} size={1.75} />  
+         
+
+        </Stack>
+      </Text>
+      <Stack direction={Direction.Horizontal} wrap={true} spacing={0.5}>
+        <NotesButton notes={article.expand?.notes ?? []} />
+        <Spacer />
+        <OpenArticleButton articleId={article.id} />
+      </Stack>
 
       {/each}
     {:else}

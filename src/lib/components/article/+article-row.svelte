@@ -6,14 +6,11 @@
   import NumericTarget from '$lib/core/advanced-input/+numeric-target.svelte';
   import Stack from '$lib/core/layout/+stack.svelte';
   import { Direction, type Article, type Category, type Status, type User, toIdentifiableUser, type IdentifiableUser, Alignment, type Website } from '$lib/types';
-  import { goto } from '$app/navigation';
-  import Button from '$lib/core/actions/+button.svelte';
   import Keywords from '../keyword/+keywords.svelte';
   import Label from '$lib/core/display/+label.svelte';
-  import Spacer from '$lib/core/layout/+spacer.svelte';
   import MainImage from '../images/display/+main-image.svelte';
   import NotesButton from '../notes/+notes-button.svelte';
-
+  import OpenArticleButton from '$lib/components/actions/+open-article-button.svelte';
   export let article: Article;
   export let categories: Category[];
   export let writers: User[];
@@ -52,13 +49,7 @@
 
 
 
-  function openArticle() {
-    if (article.id) {
-      goto(`/protected/article/${article.id}`);
-    } else {
-      console.warn('Article ID is missing');
-    }
-  }
+
 
 
 </script>
@@ -111,7 +102,7 @@
           </svelte:fragment>
         </DropdownMenu>
     
-        <Button on:click={openArticle} class="open-article-button">Open Article</Button>
+        <OpenArticleButton articleId={article.id} />
 
 
       </Stack>

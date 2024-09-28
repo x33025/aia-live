@@ -7,7 +7,7 @@
   import ActivityDataView from '$lib/components/activity/+activity-data.svelte';
   import type { ActivityData } from '$lib/types';
   import { current_user } from '$lib/stores/data/+users';
-
+  import { page } from '$app/stores';
 
   export let notes: Note[] = [];
   export let activity: ActivityData;
@@ -77,7 +77,7 @@
 
   {#if activity}
   <Stack direction={Direction.Vertical} wrap={true} style="height: 320px;" spacing={0.75}>
-      <Text type={TextType.Subheadline} style="font-weight: bold;">Activity Data</Text>
+      <Text type={TextType.Subheadline} style="font-weight: bold;">{($page.data.title).slice(0, -1)} Activity Data</Text>
       <ActivityDataView {activity} />
   </Stack>
   {/if}
