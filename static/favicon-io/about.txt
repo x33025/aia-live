@@ -1,0 +1,6 @@
+This favicon was generated using the following font:
+
+- Font Title: DotGothic16
+- Font Author: Copyright 2020 The DotGothic16 Project Authors (https://github.com/fontworks-fonts/DotGothic16/)
+- Font Source: https://fonts.gstatic.com/s/dotgothic16/v18/v6-QGYjBJFKgyw5nSoDAGE7L435YPFrT.ttf
+- Font License: SIL Open Font License, 1.1 (http://scripts.sil.org/OFL))
