@@ -5,10 +5,8 @@
   import { TextType } from '$lib/types';
   import MainImage  from '$lib/components/images/display/+main-image.svelte';
   import { article } from '$lib/stores/data/+articles';
-  import { openModal } from '$lib/stores/ui/+modal';
   import { openSidebar } from '$lib/stores/ui/+sidebar';
   import  NotesSidebar  from '$lib/components/notes/+notes-sidebar.svelte';
-  import  ImagePicker  from '$lib/components/images/+image-picker.svelte';
   import Keywords from '$lib/components/keyword/+keywords.svelte';
   import Label from '$lib/core/display/+label.svelte'; // Add this import
   import GoBackButton from '$lib/core/navigation/+go-back.svelte';

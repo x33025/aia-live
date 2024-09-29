@@ -325,9 +325,5 @@
         {/if}
     </div>
 
-    <Stack direction={Direction.Horizontal}>
-        <button type="button" on:click={closeModal}>Reset</button>
-        <Spacer />
-        <button type="button" on:click={confirmCrop}>Crop</button>
-    </Stack>
+
 </Stack>

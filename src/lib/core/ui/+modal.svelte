@@ -91,6 +91,8 @@
     .modal-footer {
         position: sticky;
         bottom: 0;
+        /* Add a shadow to visually separate footer from content */
+        box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
     }
 
     /* Content Styling */
