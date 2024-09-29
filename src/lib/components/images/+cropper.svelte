@@ -191,15 +191,14 @@
         }
     });
 
-    // When the image element is bound, initialize the overlay
+    // Initialize the overlay when the image loads
     $: if (imageElement && imageSrc) {
-        // Wait for the image to load
         imageElement.onload = () => {
             initializeOverlay();
         };
     }
 
-    // Confirm crop function remains unchanged
+    // Confirm crop function
     async function confirmCrop() {
         if (overlayElement && overlayElement.parentElement) {
             const img = new Image();
@@ -239,14 +238,14 @@
 
 <Stack>
     <div
-        style="position: relative;"
+        style="position: relative; width: 100%; height: 100%; box-shadow: 1px 1px 1em rgba(0, 0, 0, 0.3);"
         bind:this={imageContainer}
     >
         {#if imageSrc}
             <img
                 src={imageSrc}
                 alt="To Crop"
-                style="display: block; width: 100%;"
+                style="display: block; width: 100%; height: 100%; object-fit: contain; "
                 bind:this={imageElement}
             />
 
@@ -259,6 +258,7 @@
                     width: 100%;
                     height: {overlay.y}px;
                     background-color: rgba(0, 0, 0, 0.5);
+                  
                     z-index: 1;
                 "
             ></div>
@@ -272,6 +272,7 @@
                     width: {overlay.x}px;
                     height: {overlay.height}px;
                     background-color: rgba(0, 0, 0, 0.5);
+            
                     z-index: 1;
                 "
             ></div>
@@ -285,6 +286,7 @@
                     width: calc(100% - {overlay.x + overlay.width}px);
                     height: {overlay.height}px;
                     background-color: rgba(0, 0, 0, 0.5);
+          
                     z-index: 1;
                 "
             ></div>
@@ -299,6 +301,7 @@
                     height: calc(100% - {overlay.y + overlay.height}px);
                     background-color: rgba(0, 0, 0, 0.5);
                     z-index: 1;
+            
                 "
             ></div>
 

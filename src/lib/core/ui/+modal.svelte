@@ -1,43 +1,51 @@
 <script lang="ts">
     import { modalVisible, modalContent } from '$lib/stores/ui/+modal';
-    import { fly } from 'svelte/transition';
     import Text from '$lib/core/display/+text.svelte';
-    import { Direction, TextType } from '$lib/types';
-    import Stack from '$lib/core/layout/+stack.svelte';
+    import { TextType } from '$lib/types';
     import Spacer from '$lib/core/layout/+spacer.svelte';
     import XMark from '$lib/core/ui/icons/+x-mark.svelte';
-    // Directly use the global store values
+
+    // Access global store values
     $: visible = $modalVisible;
     $: ModalComponent = $modalContent?.component || null;
     $: modalProps = $modalContent?.props || {};
-    $: modalHeader = $modalContent?.header || ''; // New header property
-
+    $: modalHeader = $modalContent?.header || '';
+    $: ModalFooter = $modalContent?.footer || null; // New footer property
+    $: modalFooterProps = $modalContent?.footerProps || {};
 </script>
 
 {#if visible && ModalComponent}
-    <button class="modal-backdrop" 
-            on:click={() => modalVisible.set(false)} 
-            on:keydown={(e) => e.key === 'Escape' && modalVisible.set(false)} 
-            aria-label="Close modal">
+    <button
+        class="modal-backdrop"
+        on:click={() => modalVisible.set(false)}
+        on:keydown={(e) => e.key === 'Escape' && modalVisible.set(false)}
+        aria-label="Close modal">
     </button>
-   
-      
-        <div class="modal">
-     <Stack direction={Direction.Vertical}  wrap={true}>
 
-    
-            <Stack direction={Direction.Horizontal}  wrap={true}>
-                <Text type={TextType.Title}>{modalHeader}</Text> 
+    <div class="modal">
+        <!-- Header -->
+        <div class="modal-header">
+            <div class="header-content">
+                <Text type={TextType.Title}>{modalHeader}</Text>
                 <Spacer />
-                <button on:click={() => modalVisible.set(false)}>
-                   <XMark size={1} />
+                <button class="close-button" on:click={() => modalVisible.set(false)}>
+                    <XMark size={1} />
                 </button>
-            </Stack>
-            <svelte:component this={ModalComponent} {...(modalProps || {})} />
-        </Stack>
+            </div>
         </div>
-  
- 
+
+        <!-- Content -->
+        <div class="modal-content">
+            <svelte:component this={ModalComponent} {...(modalProps || {})} />
+        </div>
+
+        <!-- Footer -->
+        {#if ModalFooter}
+            <div class="modal-footer">
+                <svelte:component this={ModalFooter} {...(modalFooterProps || {})} />
+            </div>
+        {/if}
+    </div>
 {/if}
 
 <style>
@@ -47,25 +55,65 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background-color: rgba(0, 0, 0, 0.5); /* Dim background */
+        background-color: rgba(0, 0, 0, 0.5);
         z-index: 500;
-        border: none; /* Remove default button border */
-        padding: 0; /* Remove default button padding */
+        border: none;
+        padding: 0;
     }
 
     .modal {
         position: fixed;
         top: 10%;
         left: 10%;
-        width: 80%;  /* 80% of screen width */
-        height: 80%; /* 80% of screen height */
+        width: 80%;
+        height: 80%;
         z-index: 700;
         background-color: white;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
         border-radius: 1em;
-        overflow-y: auto; /* Re-enabled to allow scrolling */
-       padding: 1em;
+        display: flex;
+        flex-direction: column;
     }
 
+    /* Header and Footer Styling */
+    .modal-header,
+    .modal-footer {
+        background-color: white;
+        z-index: 1;
+        padding: 1em;
+    }
 
+    .modal-header {
+        position: sticky;
+        top: 0;
+    }
+
+    .modal-footer {
+        position: sticky;
+        bottom: 0;
+    }
+
+    /* Content Styling */
+    .modal-content {
+        flex: 1;
+        overflow-y: auto;
+        padding: 1em;
+    }
+
+    /* Header Content Alignment */
+    .header-content {
+        display: flex;
+        align-items: center;
+    }
+
+    .header-content .spacer {
+        flex: 1;
+    }
+
+    /* Close Button Styling */
+    .close-button {
+        background: none;
+        border: none;
+        cursor: pointer;
+    }
 </style>

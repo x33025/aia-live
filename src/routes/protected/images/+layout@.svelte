@@ -15,6 +15,7 @@
   import { openModal } from '$lib/stores/ui/+modal';  // Import modal handling functions
   import CropperComponent from '$lib/components/images/+cropper.svelte';  // Import the cropper component
 
+  
   let fileInput: HTMLInputElement;
 
   onMount(() => {
@@ -52,7 +53,7 @@
       console.log('File selected:', file.name);
 
       // Open the modal and pass the selected file to CropperComponent
-      openModal(CropperComponent, 'Crop Image', { file });
+      openModal(CropperComponent, 'Crop Image', { file }, );
     } else {
       console.log('No file selected');
     }
