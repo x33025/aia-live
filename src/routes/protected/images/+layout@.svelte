@@ -12,20 +12,19 @@
   import { pb } from '$lib/config/pocketbase';
   import type { Image } from '$lib/types';
   import { images } from '$lib/stores/data/+images';
+  import { openModal } from '$lib/stores/ui/+modal';  // Import modal handling functions
+  import CropperComponent from '$lib/components/images/+cropper.svelte';  // Import the cropper component
 
   let fileInput: HTMLInputElement;
 
   onMount(() => {
-    // Set users and current user
     users.set($page.data.users);
     current_user.set($page.data.user);
     images.set($page.data.images);
 
-    // Subscribe to PocketBase real-time changes for the 'images' collection
     pb.collection('images').subscribe('*', (e) => { 
       console.log(`Action: ${e.action}`, e.record);
       
-      // Update the images store based on the action type
       if (e.action === 'create') {
         images.update((currentImages) => [...currentImages, e.record as unknown as Image]);
         console.log('Image uploaded successfully:', e.record);
@@ -44,36 +43,23 @@
   });
 
   function handleFileSelection() {
-    fileInput.click();  // Programmatically trigger the file input
+    fileInput.click();  // Trigger the file input
   }
 
   async function handleFileChange(event: Event) {
     const file = (event.target as HTMLInputElement)?.files?.[0];
     if (file) {
-      console.log('File selected:', file.name);  // Log the selected file name
-      const formData = new FormData();
-      formData.append('file', file);
-      formData.append('user_id', $page.data.user.id);
-      
-      try {
-        console.log('Uploading file...');  // Log before uploading
-        const response = await fetch('/api/data/upload', {
-          method: 'POST',
-          body: formData
-        });
+      console.log('File selected:', file.name);
 
-        const result = await response.json();
-        console.log('Image uploaded successfully:', result);  // Log success response
-      } catch (error) {
-        console.error('Error uploading image:', error);  // Log error
-      }
+      // Open the modal and pass the selected file to CropperComponent
+      openModal(CropperComponent, 'Crop Image', { file });
     } else {
-      console.log('No file selected');  // Log if no file is selected
+      console.log('No file selected');
     }
   }
 </script>
 
-<Stack direction={Direction.Vertical} spacing={2}   >
+<Stack direction={Direction.Vertical} spacing={2}>
   <Stack direction={Direction.Horizontal} wrap={true} spacing={1.5} style="padding: 2em 2em 0em;">
     <GoBackButton />
     <PageTitle />

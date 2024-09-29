@@ -4,9 +4,9 @@
     import ImageDescription from '$lib/components/images/display/+image-description.svelte';
     import Stack from '$lib/core/layout/+stack.svelte';
     import { Direction, type Image } from '$lib/types';
-    import { selected_image, images } from '$lib/stores/data/+images';
-    import { page } from '$app/stores';
-    import { onMount } from 'svelte';
+    import { selected_image } from '$lib/stores/data/+images';
+
+
     let selectedImage: Image | null = null;
 
     const unsubscribe = selected_image.subscribe(value => {
