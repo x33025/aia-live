@@ -79,8 +79,17 @@
     .modal-header,
     .modal-footer {
         background-color: white;
+      
         z-index: 1;
         padding: 1em;
+    }
+
+    .modal-header {
+        border-radius: 1em 1em 0 0;
+    }
+
+    .modal-footer {
+        border-radius: 0 0 1em 1em;
     }
 
     .modal-header {

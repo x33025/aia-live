@@ -7,6 +7,7 @@
   import Spacer from '$lib/core/layout/+spacer.svelte';
   import NumericTarget from '$lib/core/advanced-input/+numeric-target.svelte';
   import { article } from '$lib/stores/data/+articles';
+    import DropdownMenu from '$lib/core/actions/+dropdown-menu.svelte';
 
   
   let editor;
@@ -44,6 +45,10 @@
   <button class="label" on:click={() => editor?.textFormatter.toggleItalic()}>
     <Text type={TextType.Callout}><i>Italic</i></Text>
   </button>
+  <button class="label" on:click={() => editor?.textFormatter.toggleUnderline()}>
+    <Text type={TextType.Callout}><u>Underline</u></Text>
+  </button>
+
   <button class="label" on:click={() => editor?.linkHandler.attachLink()}>
     <Text type={TextType.Callout}>Attach Link</Text>
   </button>

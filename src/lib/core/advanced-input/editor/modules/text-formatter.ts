@@ -2,6 +2,7 @@ import { SmartStyle } from './smart-style';
 import { toggleBold } from './format/bold';
 import { toggleItalic } from './format/italic';
 import { toggleH1, toggleH2, toggleH3, toggleH4 } from './format/H';
+import { toggleUnderline } from './format/underline';
 
 export class TextFormatter {
     private smartStyle: SmartStyle;
@@ -16,6 +17,10 @@ export class TextFormatter {
 
     toggleItalic() {
         toggleItalic(this.smartStyle);
+    }
+
+    toggleUnderline() {
+        toggleUnderline(this.smartStyle);
     }
 
     toggleH1() {
