@@ -5,22 +5,31 @@
   export let image_url: string | null = null;
   export let size: number = 10;  
   export let object_fit: string = 'cover';
-  export let aspect_ratio: number = 1;
+  export let aspect_ratio: number | null = null; // Allow aspect_ratio to be null
   export let alt_text: string = 'Image';
   export let maskShape: 'circle' | 'square' = 'square'; 
   export let border_radius: number = 0.5;
 
   const { class: externalClass = '', style: externalStyle = '', ...restProps } = $$restProps;
 
-  // Get common styles for both the image and the placeholder div
+  let calculatedAspectRatio = 1;
+
   const getCommonStyles = () => `
     width: ${size}em;
-    height: calc(${size}em / ${aspect_ratio});
+    ${aspect_ratio ? `height: calc(${size}em / ${aspect_ratio});` : ''}
     border-radius: ${maskShape === 'circle' ? '50%' : `${border_radius}em`};
   `;
   
   const getClasses = () => ['image-container', externalClass].join(' ');
   const getStyles = () => [externalStyle].join(' ');
+
+  function handleImageLoad(event: Event) {
+    const img = event.target as HTMLImageElement;
+    if (!aspect_ratio) {
+      calculatedAspectRatio = img.naturalWidth / img.naturalHeight;
+      img.style.height = `calc(${size}em / ${calculatedAspectRatio})`;
+    }
+  }
 </script>
 
 <div class={getClasses()} style={getStyles()} {...restProps}>
@@ -29,6 +38,7 @@
       src={image_url} 
       alt={alt_text} 
       style="object-fit: {object_fit}; {getCommonStyles()}" 
+      on:load={handleImageLoad}
       {...restProps} 
     />
   {:else}
