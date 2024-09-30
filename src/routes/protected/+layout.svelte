@@ -10,8 +10,6 @@
   import SearchBar from '$lib/components/search/+search-bar.svelte';
   import PageTitle from '$lib/core/layout/+page-title.svelte';
   import GoBackButton from '$lib/core/navigation/+go-back.svelte';
-  import { pb } from '$lib/config/pocketbase';  // Import PocketBase client from config
-  import type { BaseModel } from 'pocketbase';
 
   let intervalId: number;
 

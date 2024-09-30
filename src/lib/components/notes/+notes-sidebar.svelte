@@ -9,7 +9,7 @@
   import { images } from '$lib/stores/data/+images';
   import { articles } from '$lib/stores/data/+articles';
   import { keywords } from '$lib/stores/data/+keywords';
-
+  import PlusIcon from '$lib/core/ui/icons/+plus.svelte';
   export let notes: Note[] = [];
   export let parent: BaseModel;
   export let parent_collection: 'articles' | 'keywords' | 'images';
@@ -37,7 +37,7 @@
           });
 
           if (response.ok) {
-              const addedNote = await response.json(); // Renamed to avoid shadowing
+              const addedNote = await response.json();
               notes = [...notes, addedNote];
 
               newNote.content = ''; // Clear after adding
@@ -76,18 +76,21 @@
 
 </script>
 
-<div class="stack expand" style="margin: 1em;">
+<div class="stack expand" style="--align: flex-start; --gap: 1em; padding: 1em;">
   <Text type={TextType.Title}>Notes</Text>
 
-  <Text type={TextType.Subheadline}>
-    <div contenteditable="true" class="note-container" on:keydown={handleKeydown} on:input={updateContent}>
-        {newNote.content}
- 
-  </div>
-</Text>
-  <button class="add-note-button" on:click={addNote}>Add Note</button>
 
-  <div class="stack">
+    <div class="note-input-wrapper">
+      <Text type={TextType.Subheadline}>
+      <div contenteditable="true" class="note-container" on:keydown={handleKeydown} on:input={updateContent}>
+          {newNote.content}
+      </div>
+    </Text>
+      <button class="add-note-button" on:click={addNote}><PlusIcon size={1} /></button>
+    </div>
+
+
+  <div class="scrollable-stack expand" style="--gap: 0.5em;">
     {#if notes.length > 0}
     {#each notes as note (note.id)}
       <NoteView {note} />
@@ -97,6 +100,7 @@
   {/if}
   </div>
 
+  <div class="spacer" />
   {#if activity}
   <div class="stack" style="height: 320px;">
       <Text type={TextType.Subheadline} style="font-weight: bold;">{($page.data.title).slice(0, -1)} Activity Data</Text>
@@ -106,18 +110,32 @@
 </div>
 
 <style>
-  .note-container {
-  background-color: var(--gray-1);
+  .note-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    background-color: var(--gray-1);
     border-radius: 0.5em;
-    padding: 0.5em;
+  }
 
+  .note-container {
+  
+
+    padding: 0.5em;
+    width: 100%;
+    min-height: 3em;
+    z-index: 5000;
   }
 
   .add-note-button {
+    position: absolute;
+    right: 0.5em;
+    bottom: 0.5em;
     background-color: var(--blue);
     color: white;
     border: none;
-    padding: var(--default-padding);
+    padding: 0.5em;
     border-radius: 0.5em;
     cursor: pointer;
   }

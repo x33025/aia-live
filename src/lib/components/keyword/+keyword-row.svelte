@@ -44,6 +44,7 @@
     openSidebar(NotesSidebar, { notes, activity });
   }
 
+  
  </script>
  
  <tr>
@@ -71,7 +72,7 @@
        </svelte:fragment>
 
 
-       <svelte:fragment slot="default" let:selectOption>
+       <svelte:fragment let:selectOption>
          {#each countries as country}
            <p class="menu-item" on:click={() => { selectOption(country.id); selectCountry(country); }}>
              {country.name}
@@ -119,6 +120,7 @@
     padding: var(--default-padding);
      cursor: pointer;
      border-radius: 0.3em;
+         width: 100%;
    }
    .menu-item:hover {
      background-color: var(--gray-1);

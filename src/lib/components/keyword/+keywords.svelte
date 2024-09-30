@@ -10,7 +10,7 @@
 
 </script>
 
-<div class="scrollable-stack">
+<div class="stack expand" style="--direction: row;">
   {#if main_keyword}
     <Text type={TextType.Callout} class="label" style="color: var(--yellow);"><b>{main_keyword.keyword}</b></Text>
   {/if}

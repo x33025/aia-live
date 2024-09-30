@@ -161,6 +161,7 @@
      padding: 0.5em;
      cursor: pointer;
      border-radius: 0.3em;
+     width: 100%;
    }
    .picker-item:hover {
      background-color: var(--gray-1);

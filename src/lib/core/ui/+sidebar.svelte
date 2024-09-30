@@ -43,7 +43,7 @@
         width: 25%;
         height: 100%;
         z-index: 700;
-        overflow-y: auto;
+        overflow-y: hidden;
         box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
 
         background-color: white;

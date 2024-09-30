@@ -4,43 +4,45 @@
   import Text from '$lib/core/display/+text.svelte';
   import Avatar from './+avatar.svelte';
 
-  import { Direction } from '$lib/types';
+  import { TextType } from '$lib/types';
 </script>
 
 <DropdownMenu id="users-dropdown">
-  <span slot="button" class="users-dropdown border-highlight">
+  <div slot="button" class="users-dropdown border-highlight">
     {"Active Users"}
-  </span>
+  </div>
 
   {#each $sortedUsers as user}
-    <div class="dropdown-item" >
+    <div class="stack dropdown-item" style="--direction: row; --gap: 0.5em; --align: center; --justify: flex-start;">
       <Avatar userId={user.id} size={1.75} /> 
-      <Text> {user.first_name} {user.last_name}</Text>
+      <Text type={TextType.Callout}> {user.first_name} {user.last_name}</Text>
+      <div class="spacer"/>
       {#if $activeUsers.includes(user)}
-        <span class="green-dot"></span>
+        <div class="green-dot"></div>
       {/if}
     </div>
   {/each}
 </DropdownMenu>
 
 <style>
-  :global(.dropdown-item) {
+  .dropdown-item {
       padding: 0.5em;
       border-radius: 0.3em;
       cursor: pointer;
+  width: 100%;
   }
 
-  :global(.dropdown-item:hover) {
+  .dropdown-item:hover {
       background-color: var(--gray-1);
   }
 
-  :global(.users-dropdown) {
+  .users-dropdown {
     background-color: white;    
     padding: var(--default-padding);
     border-radius: 0.5em;
   }
 
-  :global(.green-dot) {
+  .green-dot {
     display: inline-block;
     width: 0.5em;
     height: 0.5em;
