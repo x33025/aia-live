@@ -11,10 +11,11 @@
 
 </script>
 
-<Stack direction={Direction.Vertical} spacing={1} style="margin: 1em;">
+
+<div class="stack expand" style="--align: flex-start;" >
   <RouteNavigation />
 
-  <Stack direction={Direction.Horizontal} spacing={1} style="border-top: 1px solid var(--gray-1); padding-top: 1em;">
+  <div class="stack" style="border-top: 1px solid var(--gray-1); padding-top: 1em; --direction: row; --justify: space-between; --gap: 1em">
 
     <DashboardCalendar />
    
@@ -22,5 +23,5 @@
 
   
    
-  </Stack>
-</Stack>
+  </div>
+</div>

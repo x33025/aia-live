@@ -3,7 +3,7 @@
 .stack {
     display: flex;
     border: 1px solid var(--red);
-    gap: 0em;
+    gap: var(--gap, 0em);
     flex-direction: var(--direction, column);
     justify-content: var(--justify, flex-start);
     align-items: var(--align, center);

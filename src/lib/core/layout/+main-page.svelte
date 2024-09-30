@@ -1,11 +1,9 @@
 <script lang="ts">
   import BaseLayout from './+base-layout.svelte';
-  import Stack from './+stack.svelte';
   import { page } from '$app/stores';
   import { derived } from 'svelte/store';
-  import { Direction } from '$lib/types';
   import Spacer from './+spacer.svelte';
-  import { goto } from '$app/navigation';
+
   import PageTitle from './+page-title.svelte';
 
 
@@ -20,29 +18,16 @@
   <title>{"aia • "} {$headTitle}</title>
 </svelte:head>
 
-  <BaseLayout>
-  <Stack direction={Direction.Horizontal} wrap={true} style="margin-bottom: 0.8em; position: relative;" slot="header">
-    
-    <!-- Leading Navigation -->
-    <slot name="navigation-leading">
-  
-      <Stack direction={Direction.Horizontal} spacing={1}>
-        <!-- Go Back Button -->
-     
-        <PageTitle />
-      </Stack>
+<BaseLayout>
+  <div class="stack expand" slot="header" style="--direction: row; --justify: space-between;">
+    <slot name="navigation-leading" style="--align: flex-start;">
+      <PageTitle />
     </slot>
     
-    <Spacer />
-    
-    <!-- Center Navigation -->
     <slot name="navigation-center"></slot>
     
-    <Spacer />
-    
-    <!-- Trailing Navigation -->
-    <slot name="navigation-trailing"></slot>
-  </Stack>
+    <slot name="navigation-trailing" style="--align: flex-end;"></slot>
+  </div>
 
-  <slot />
+  <slot slot="content" />
 </BaseLayout>

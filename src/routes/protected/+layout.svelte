@@ -56,7 +56,7 @@
 
 
 <MainPage>
-  <Stack direction={Direction.Horizontal} spacing={1} slot="navigation-leading" style="min-width: 50%;">
+  <div class="stack" slot="navigation-leading" >
     {#if $page.url.pathname !== '/protected'}
       <GoBackButton />
     {/if}
@@ -64,7 +64,7 @@
     <PageTitle /> 
     <div class="divider" />
     <SearchBar type={TextType.Headline} onSearch={(value) => console.log(value)} placeholder="I'm looking for..." />
-  </Stack>
+  </div>
 
   <svelte:fragment slot="navigation-trailing">
     <Stack direction={Direction.Horizontal} wrap={true} spacing={0.75}>
