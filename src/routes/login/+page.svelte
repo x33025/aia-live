@@ -1,13 +1,11 @@
 <script lang="ts">
   import { enhance } from '$app/forms';
   import BaseLayout from '$lib/core/layout/+base-layout.svelte';
-  import Stack from '$lib/core/layout/+stack.svelte';
-  import Button from '$lib/core/actions/+button.svelte';
-  import { Alignment, ButtonType, Direction, TextType } from '$lib/types';
+  import { TextType } from '$lib/types';
   import Text from '$lib/core/display/+text.svelte';
 
   import GoBackButton from '$lib/core/navigation/+go-back.svelte';
-    import Spacer from '$lib/core/layout/+spacer.svelte';
+
 
   interface FormData {
       email: string;
@@ -25,15 +23,16 @@
 
 <BaseLayout>
   
-  <Stack direction={Direction.Horizontal} alignment={Alignment.Center}>
+
     
-    <Stack direction={Direction.Vertical} alignment={Alignment.Center} spacing={1} style="max-width: 300px" >
+    <div class="stack expand" style="max-width: 300px; --justify: center;" slot="content">
      
-      <Stack direction={Direction.Horizontal} alignment={Alignment.Center} spacing={1} wrap={true}>
+      <div class="stack" style="--direction: row; gap: 0.5em" >
         <GoBackButton path="/"/>
+        <div class="spacer" />
         <Text type={TextType.Title}>Sign In</Text>
-        <Spacer/>
-      </Stack>
+     
+      </div>
    
       <form method="POST" action="?/login" use:enhance>
         <input 
@@ -55,12 +54,12 @@
         {#if form?.error}
           <p class="error">{form.error}</p>
         {/if}
-        <Button buttonType={ButtonType.Submit} class="login-button" style="width: 100%;">
+        <button class="login-button" style="width: 100%;">
           Sign In
-        </Button>
+        </button>
       </form>
-    </Stack>
-  </Stack>
+    </div>
+
 </BaseLayout>
 
 <style>

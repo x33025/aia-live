@@ -1,9 +1,6 @@
 <script lang="ts">
   import { goto } from '$app/navigation';
-  import Stack from '$lib/core/layout/+stack.svelte';
-  import Button from '$lib/core/actions/+button.svelte';
   import BaseLayout from '$lib/core/layout/+base-layout.svelte';
-  import { Direction, Alignment } from '$lib/types';
 
   function handleLoginClick() {
     console.log('Login button clicked');
@@ -30,7 +27,6 @@
     </pre>
     <button on:click={handleLoginClick} class="main-login-button">
       Sign In
-      
     </button>
   </div>
 </BaseLayout>
