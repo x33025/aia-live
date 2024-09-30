@@ -1,15 +1,11 @@
 <script lang="ts">
     import { page } from '$app/stores';
     import { pb } from '$lib/config/pocketbase';
-    import ImageComponent from "$lib/core/display/+image.svelte"; // Import the new image component
-    import DropdownMenu from "$lib/core/actions/+dropdown-menu.svelte"; // Import the DropdownMenu component
-
+    import DropdownMenu from "$lib/core/actions/+dropdown-menu.svelte"; 
     import Avatar from './+avatar.svelte';
 
 
-
-
-
+    
     function logout() {
         pb.authStore.clear(); // Clear PocketBase authentication
         window.location.href = '/login'; // Redirect to login page

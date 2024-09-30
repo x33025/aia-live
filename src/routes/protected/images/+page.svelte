@@ -31,13 +31,9 @@
         background: rgba(255, 255, 255, 0.6);
         backdrop-filter: blur(1em);
     }
-
-   :global(.container) {
-        position: relative;
-    }
 </style>
     
-<div class="container" style="padding: 0em 2em 0em 2em;">
+<div class="stack expand" style="padding: 0em 2em 0em 2em;">
     <Gallery />
     {#if selectedImage}
         <div class="overlay">

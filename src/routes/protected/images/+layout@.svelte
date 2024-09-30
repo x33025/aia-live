@@ -61,12 +61,12 @@
 </script>
 
 <div class="stack expand" style="--align: flex-start; --gap: 1em" >
-  <div class="stack expand" style="padding: 2em 2em 0em;">
+  <div class="stack expand" style="--direction: row; --justify: space-between; --align: center; padding: 2em 2em 0em;">
     <GoBackButton />
     <PageTitle />
     <div style="border-left: 1px solid var(--gray-3); height: 80%; width: 1px;" />
     <SearchBar type={TextType.Headline} onSearch={(value) => console.log(value)} placeholder="Show me images of..." />
-    <div class="spacer" />
+
     <button class="add-image-button" on:click={handleFileSelection}>
       <Plus color="white" size={1.25} />
     </button>
