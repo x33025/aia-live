@@ -21,11 +21,11 @@
   <div class="stack" style="--direction: row; --justify: space-between; padding: 0.5em;">
     <TimeFrameSelector />
   </div>
-  <div class="stack" style=" padding: 0.5em; border-top: 1px solid var(--gray-1)">
+  <div class="stack" style=" padding: 0.5em; border-top: 1px solid var(--gray-1); ">
     {#if articles.length > 0} 
       {#each articles as article (article.id)}
 
-       <div class="stack" style="--direction: column; --gap: 0.5em;">
+       <div class="stack" style="--direction: column; --gap: 0.5em; ">
           <div class="stack" style="--direction: row; --align: center; --justify: space-between; padding: 0.5em; background-color: var(--gray-1); border-radius: 0.5em;">
         
           {article.title} 
@@ -38,7 +38,7 @@
 
         </div>
    
-        <div class="stack" style="--direction: row; --justify: space-between; --align: center; width: 100%;">
+        <div class="stack" style="--direction: row; --justify: space-between; --align: center;  width: 100%;">
           <NotesButton notes={article.expand?.notes ?? []} parent={article} parent_collection="articles" />
       
           <OpenArticleButton articleId={article.id} />

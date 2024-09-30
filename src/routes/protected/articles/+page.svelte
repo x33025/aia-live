@@ -14,7 +14,7 @@
 
 </script>
 
-<Stack spacing={1} class="scrollable-stack" style="margin: 1em;">
+<div class="stack expand" >
 
     {#each $articles as article, index (article.id)}
       <ArticleRow 
@@ -22,29 +22,10 @@
         categories={$page.data.categories}
         writers={$writers}
       />
-      {#if index < $articles.length - 1}
-        <div class="divider"></div>
-      {/if}
+  
     {/each}
 
 
-</Stack>
+</div>
 
 
-<style>
-
-  /* Divider style */
-  .divider {
-    height: 1px;
-    background-color: #ddd;
-    margin: 0.5em 0;
-  }
-
-  /* Make the stack scrollable and fit into the parent */
-  :global(.scrollable-stack) {
-    flex-grow: 1; /* Grow to fill available space */
-    overflow-y: auto; /* Enable scrolling */
-    padding: 0; /* Ignore parent paddings */
-    margin: 0;
-  }
-</style>

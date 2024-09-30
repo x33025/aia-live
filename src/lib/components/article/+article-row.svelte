@@ -4,7 +4,6 @@
   import TextInput from '$lib/core/actions/+text-input.svelte';
   import NumericInput from '$lib/core/advanced-input/+numeric-input.svelte';
   import NumericTarget from '$lib/core/advanced-input/+numeric-target.svelte';
-  import Stack from '$lib/core/layout/+stack.svelte';
   import { Direction, type Article, type Category, type Status, type User, toIdentifiableUser, type IdentifiableUser, Alignment, type Website } from '$lib/types';
   import Keywords from '../keyword/+keywords.svelte';
   import Label from '$lib/core/display/+label.svelte';
@@ -55,11 +54,11 @@
 
 </script>
 
-<Stack wrap={true} spacing={0.5}>
-  <Stack direction={Direction.Horizontal} spacing={0.5}>
+<div class="stack" style="--direction: column; width: 100%;" >
+  <div class="stack" style="--direction: row;">
     <MainImage main_image={article.expand?.main_image} />
-    <Stack spacing={0.5}>
-      <Stack direction={Direction.Horizontal} spacing={0.5}>
+    <div class="stack" style="--direction: column;">
+      <div class="stack" style="--direction: row;">
         <TextInput
           class="article-row-title"
           value={article.title}
@@ -106,9 +105,9 @@
         <OpenArticleButton articleId={article.id} />
 
 
-      </Stack>
+      </div>
     
-      <Stack direction={Direction.Horizontal} spacing={0.5}>
+      <div class="stack" style="--direction: row;">
         <Label name="Semrush Score">
           <NumericInput
             value={article.semrush_score} 
@@ -133,15 +132,15 @@
       />
         </Label>
        
-      </Stack>
+      </div>
     
-    </Stack>
+    </div>
     
-  </Stack>
+  </div>
   <Label name="Keywords">
     <Keywords main_keyword={article.expand?.main_keyword} keywords={article.expand?.keywords} />
   </Label>
-</Stack>
+</div>
 
 <style>
   :global(.article-row-title) {
