@@ -16,7 +16,7 @@
     }
   </script>
   
-  <Stack spacing={1} wrap={true}   style="background-color: white; padding: 0.55em 0.75em; border-radius: 0.5em;">
+  <div style="background-color: white; padding: 0.55em 0.75em; border-radius: 0.5em; width: 100%;">
     <TextInput 
       value={value} 
       placeholder={placeholder} 
@@ -25,5 +25,5 @@
       on:input={handleSearchInput}
     
     />
-  </Stack>
+  </div>
   

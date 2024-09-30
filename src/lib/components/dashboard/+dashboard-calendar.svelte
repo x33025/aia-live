@@ -9,9 +9,9 @@
 
 </script>
 
-<Stack direction={Direction.Vertical} spacing={0.5}>
+<div class="stack expand" style="--direction: column;" >
     <Text type={TextType.Title}>Calendar</Text>
     <Text type={TextType.Body} style="font-weight: bold;">{$selectedDay.toDateString()}</Text>
     <Calendar/>
-    <Spacer />
-</Stack>
+    <div class="spacer" />
+</div>

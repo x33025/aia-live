@@ -29,5 +29,7 @@
     <slot name="navigation-trailing" style="--align: flex-end;"></slot>
   </div>
 
+  
   <slot slot="content" />
+
 </BaseLayout>

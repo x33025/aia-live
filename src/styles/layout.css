@@ -2,7 +2,6 @@
 
 .stack {
     display: flex;
-    border: 1px solid var(--red);
     gap: var(--gap, 0em);
     flex-direction: var(--direction, column);
     justify-content: var(--justify, flex-start);
@@ -31,6 +30,10 @@
 
   .spacer {
     flex-grow: 1;
+  }
+
+  .reset-stack {
+    all: initial;
   }
   
   

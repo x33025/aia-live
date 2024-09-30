@@ -12,10 +12,10 @@
 </script>
 
 
-<div class="stack expand" style="--align: flex-start;" >
+<div class="stack expand" style="--align: flex-start; --gap: 1em" >
   <RouteNavigation />
 
-  <div class="stack" style="border-top: 1px solid var(--gray-1); padding-top: 1em; --direction: row; --justify: space-between; --gap: 1em">
+  <div class="stack expand" style="border-top: 1px solid var(--gray-2); padding-top: 1em; --direction: row; --justify: space-between; --gap: 1em">
 
     <DashboardCalendar />
    

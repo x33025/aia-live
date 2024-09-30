@@ -27,10 +27,10 @@
   
 
 
-    <Stack direction={Direction.Horizontal} spacing={0.3} style="padding: 0.3em; border-bottom: 1px solid var(--gray-25); padding: 0.5em;" wrap={true}>
+    <div class="stack" style="--direction: row; --align: center;  --gap: 0.5em">
         <Text type={TextType.Subheadline}>
       Articles 
-    </Text>
+         </Text>
       <DropdownMenu id="time-frame-selector" selectedOption={currentFrame} on:optionSelected={handleTimeFrameChange}>
         <svelte:fragment slot="button">
             <Stack direction={Direction.Horizontal} wrap={true}>
@@ -47,6 +47,6 @@
 
 
       </DropdownMenu>
-    </Stack>
+    </div>
  
   

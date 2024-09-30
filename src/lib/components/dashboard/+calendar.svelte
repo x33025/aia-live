@@ -5,9 +5,6 @@
     import Month from './+month.svelte';
     import Text from '$lib/core/display/+text.svelte';
     import { TextType } from '$lib/types';
-    import Stack from '$lib/core/layout/+stack.svelte';
-    import { Direction, Alignment } from '$lib/types'; 
-    import Spacer from '$lib/core/layout/+spacer.svelte';
 
     let currentYear: number;
     let currentMonth: number;
@@ -45,35 +42,22 @@
     }
 </script>
 
+<div class="stack" style="--direction: row; --gap: 1em;">
+    <div class="stack" style="--direction: row; --gap: 1em;">
+        <Month selectedDay={new Date(currentYear, currentMonth)} onDaySelect={onDaySelect} />
+    </div>
 
-<Stack direction={Direction.Horizontal} spacing={1} wrap={true}>
-
-
-    <Stack direction={Direction.Horizontal}  spacing={1}>
-   
-     
-
-  
-    <Month selectedDay={new Date(currentYear, currentMonth)} onDaySelect={onDaySelect} />
- 
- 
- 
-
-        
-    </Stack>
-    <Stack direction={Direction.Vertical} spacing={2}>
-
-        <button  on:click={goToPreviousMonth} style="color: var(--gray-6);">
-        <Text type={TextType.Subheadline}>{getMonthName(currentYear, currentMonth - 1 < 0 ? 11 : currentMonth - 1)}</Text>
-  
-    </button>
-
-    <Text type={TextType.Subheadline} style="position: relative; top: 0; left: 0;">{getMonthName(currentYear, currentMonth)}</Text>
-      
-    <button on:click={goToNextMonth} style="color: var(--gray-6);">
-        <Text type={TextType.Subheadline}>{getMonthName(currentYear, currentMonth + 1 > 11 ? 0 : currentMonth + 1)}</Text>
+    <div class="stack" style="--direction: column; --gap: 2em;">
+        <button on:click={goToPreviousMonth} style="color: var(--gray-6);">
+            <Text type={TextType.Subheadline}>{getMonthName(currentYear, currentMonth - 1 < 0 ? 11 : currentMonth - 1)}</Text>
         </button>
-    </Stack>
 
- 
-</Stack>
+        <Text type={TextType.Subheadline} style="position: relative; top: 0; left: 0;">
+            {getMonthName(currentYear, currentMonth)}
+        </Text>
+
+        <button on:click={goToNextMonth} style="color: var(--gray-6);">
+            <Text type={TextType.Subheadline}>{getMonthName(currentYear, currentMonth + 1 > 11 ? 0 : currentMonth + 1)}</Text>
+        </button>
+    </div>
+</div>

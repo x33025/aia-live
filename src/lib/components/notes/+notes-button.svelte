@@ -29,10 +29,11 @@
   }
 </script>
 
-<button on:click={openNotesSidebar}>
-  <Stack direction={Direction.Horizontal} spacing={0.5} wrap={true} >
+<button  on:click={openNotesSidebar}>
+ 
     {#if notes && notes.length > 0}
       {#each notes as note (note.id)}
+      <div class="stack" style="--direction: row; --align: center; ">
         {#if note.expand?.activity?.created_by}
           <Avatar size={1.5} userId={note.expand?.activity?.created_by} />
         {/if}
@@ -40,12 +41,13 @@
         {#if notes.length > 1}
           <div style="border-left: 1px solid var(--gray-2); height: 100%;"></div>
         {/if}
+      </div>
       {/each}
     {:else}
-      <Stack direction={Direction.Horizontal} style="background-color: var(--gray-1); padding: var(--default-padding); border-radius: 10em;" spacing={0.3} wrap={true}>
+      <div class="stack" style="--direction: row; --justify: center; --align: center; background-color: var(--gray-1); padding: var(--default-padding); border-radius: 10em; --gap: 0.35em">
         <PlusIcon size={0.7} color="var(--blue)" strokeWidth={0.3} />
         <Text type={TextType.Caption} style="color: var(--blue); font-weight: bold;">Add a note</Text>
-      </Stack>
+      </div>
     {/if}
-  </Stack>
+
 </button>

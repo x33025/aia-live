@@ -1,14 +1,12 @@
 <script lang="ts">
-  import { Direction, TextType } from '$lib/types';
+  import {  TextType } from '$lib/types';
   import Text from '$lib/core/display/+text.svelte';
-  import Stack from '$lib/core/layout/+stack.svelte';
   import type { Article } from '$lib/types'; 
     import Avatar from '../user/+avatar.svelte';
-    import Spacer from '$lib/core/layout/+spacer.svelte';
+
     import TimeFrameSelector from '$lib/components/dashboard/+time-frame-selector.svelte';
   import OpenArticleButton from '$lib/components/actions/+open-article-button.svelte';
     import NotesButton from '../notes/+notes-button.svelte';
-    import ChevronUpDown from '$lib/core/ui/icons/+chevron-up-down.svelte';
   // Accept the draftedThisMonth prop
   export let draftedThisMonth: { items: Article[] } = { items: [] };
 
@@ -18,29 +16,32 @@
 </script>
 
 
-<Stack style="background-color: white; border-left: 1px solid var(--gray-2);">
+<div class="stack expand" style="--direction: column; --justify: start; border-left: 1px solid var(--gray-2);">
 
-  <TimeFrameSelector />
-  <Stack spacing={0.3} style="padding: 0.3em;">
+  <div class="stack" style="--direction: row; --justify: space-between; padding: 0.5em;">
+    <TimeFrameSelector />
+  </div>
+  <div class="stack" style=" padding: 0.3em; border-top: 1px solid var(--gray-1)">
     {#if articles.length > 0} 
       {#each articles as article (article.id)}
 
-        <Text type={TextType.Body} style="padding: 0.5em; background-color: var(--gray-1); border-radius: 0.5em; font-weight: 600;">
-          <Stack direction={Direction.Horizontal} wrap={true} spacing={0.5}>
+       
+          <div class="stack" style="--direction: row; --align: center; --justify: space-between; padding: 0.5em; background-color: var(--gray-1); border-radius: 0.5em;">
+        
           {article.title} 
     
-          <Spacer />
+           <div class="spacer" />
  
           <Avatar userId={article.author ?? 'defaultUserId'} size={1.75} />  
          
 
-        </Stack>
-      </Text>
-      <Stack direction={Direction.Horizontal} wrap={true} spacing={0.5}>
+        </div>
+   
+      <div class="stack" style="--direction: row; --justify: space-between;">
         <NotesButton notes={article.expand?.notes ?? []} parent={article} parent_collection="articles" />
-        <Spacer />
+        <div class="spacer" />
         <OpenArticleButton articleId={article.id} />
-      </Stack>
+      </div>
 
       {/each}
     {:else}
@@ -48,5 +49,5 @@
         No articles drafted this month
       </Text>
     {/if}
-  </Stack>
-</Stack>
+  </div>
+</div>

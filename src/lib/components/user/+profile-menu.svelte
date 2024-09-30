@@ -20,10 +20,10 @@
     <svelte:fragment slot="button">
        <Avatar size={2.3} userId={$page.data.user.id} />
     </svelte:fragment>
-    <Stack wrap={true} spacing={0.5} style="padding: 0.5em;">
+    <div class="stack" style="padding: 0.5em;">
         <!-- <a href="/profile">Profile</a> -->
         <button on:click={logout}>Log out</button>
 
-    </Stack>
+    </div>
    
 </DropdownMenu>
