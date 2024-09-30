@@ -44,7 +44,7 @@
 
 
 <style>
- :global(.image-grid) {
+ .image-grid {
   display: grid !important;
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)) !important;
   gap: 1em !important;

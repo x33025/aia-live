@@ -33,7 +33,7 @@
     }
 </style>
     
-<div class="stack expand" style="padding: 0em 2em 0em 2em;">
+<div class="scrollable-stack" style="padding: 0em 2em 0em 2em;">
     <Gallery />
     {#if selectedImage}
         <div class="overlay">

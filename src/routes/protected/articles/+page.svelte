@@ -13,7 +13,7 @@
 
 </script>
 
-<div class="stack expand" >
+<div class="scrollable-stack expand" >
 
     {#each $articles as article, index (article.id)}
       <ArticleRow 
