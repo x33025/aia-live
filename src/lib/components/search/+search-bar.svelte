@@ -1,6 +1,6 @@
 <script lang="ts">
     import TextInput from '$lib/core/actions/+text-input.svelte';
-    import Stack from '$lib/core/layout/+stack.svelte';
+
     import { TextType } from '$lib/types';
     import { search } from '$lib/stores/ui/+search';
   

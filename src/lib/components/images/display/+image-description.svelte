@@ -1,17 +1,13 @@
 <script lang="ts">
-  import TextInput from '$lib/core/actions/+text-input.svelte';
   import ImageComponent from '$lib/core/display/+image.svelte';
   import Label from '$lib/core/display/+label.svelte';
-  import Spacer from '$lib/core/layout/+spacer.svelte';
-  import Stack from '$lib/core/layout/+stack.svelte';
-  import { Alignment, Direction, type Image } from '$lib/types';
+  import { type Image } from '$lib/types';
   import ActivityDataView from '$lib/components/activity/+activity-data.svelte';
   import NotesButton from '../../notes/+notes-button.svelte';
   import { debounce } from 'lodash-es';
   import ActivityDate from '$lib/core/advanced-display/+activity-date.svelte';
   import ObserveIcon from '$lib/core/ui/icons/+observe.svelte';
   import Spinner from '$lib/core/display/+spinner.svelte';
-  import { createEventDispatcher } from 'svelte';
     import { selected_image } from '$lib/stores/data/+images';
     import { current_user } from '$lib/stores/data/+users';
     import { markDeleted } from '$lib/api/activity/+mark-deleted';
@@ -118,8 +114,8 @@
   }
 </script>
 
-<Stack direction={Direction.Horizontal} spacing={1.5} style="border-top: 1px solid var(--gray-2); padding: 2em; ">
-  <Stack direction={Direction.Vertical} wrap={true} spacing={1}>
+<div class="stack expand" style="--direction: row; --align: flex-start; --gap: 1em; --border-top: 1px solid var(--gray-2); padding: 2em; ">
+  <div class="stack" style="--direction: column; --gap: 0.5em; align-items: flex-start;">
     <div class="image-container">
       <ImageComponent
         image_url={image_url}
@@ -136,11 +132,11 @@
       {#if image.expand?.activity}
         <ActivityDataView activity={image.expand.activity} />
       {/if}
-      <Spacer />
+   
     </Label>
-  </Stack>
+  </div>
 
-  <Stack direction={Direction.Vertical}>
+  <div class="stack" style="--direction: column; --gap: 0.5em; align-items: flex-start;">
     <Label name="Description">
       {#if observePromise}
         <Spinner
@@ -163,22 +159,22 @@
         ></textarea>
       {/if}
     </Label>
-    <Spacer />
+
     <Label name="Notes">
       <NotesButton notes={image.expand?.notes || []} parent={image} parent_collection="images" />
     </Label>
-    <Spacer />
-    <Stack direction={Direction.Horizontal} wrap={true}>
-      <Spacer />
+    
+    <div class="stack" style="--direction: row; --justify: space-between;">
+ 
       <button
         style="background-color: var(--red); color: white; padding: 0.5em 0.75em; border-radius: 0.5em;"
         on:click={handleDelete}
       >
         Delete
       </button>
-    </Stack>
-  </Stack>
-</Stack>
+    </div>
+  </div>
+</div>
 
 <style>
   .overlay-button {

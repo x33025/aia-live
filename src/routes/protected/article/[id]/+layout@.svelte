@@ -1,5 +1,4 @@
 <script lang="ts">
-  import Stack  from '$lib/core/layout/+stack.svelte';
   import { Direction } from '$lib/types';
   import  TextInput from '$lib/core/actions/+text-input.svelte';
   import { TextType } from '$lib/types';
@@ -22,9 +21,9 @@
 </script>
 
 
-<Stack direction={Direction.Vertical} spacing={1} style="padding: 1em;"> 
+<div class="stack" style="padding: 1em;"> 
   
-<Stack direction={Direction.Horizontal} wrap={true}  spacing={1} style="padding-bottom: 1em; border-bottom: 1px solid var(--gray-3);">
+<div class="stack" style="padding-bottom: 1em; border-bottom: 1px solid var(--gray-3);">
 
   
   <GoBackButton path="/protected/articles" />
@@ -32,7 +31,7 @@
   <MainImage main_image={$article?.expand?.main_image}/>
 
 
-<Stack direction={Direction.Vertical} spacing={1}>
+<div class="stack">
 
   <TextInput
     class="article-title border-highlight"
@@ -45,7 +44,7 @@
 <Label name="Keywords" >
   <Keywords />
   </Label>
-</Stack>
-</Stack>
+</div>
+</div>
   <slot />
-</Stack>
+</div>

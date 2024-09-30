@@ -1,6 +1,5 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import Stack from "$lib/core/layout/+stack.svelte";
   import Text from "$lib/core/display/+text.svelte";
   import { type Keyword, Direction, TextType } from "$lib/types";
   // Removed Label import
@@ -11,7 +10,7 @@
 
 </script>
 
-<Stack wrap={true} direction={Direction.Horizontal} spacing={0.5} class="scrollable-stack">
+<div class="scrollable-stack">
   {#if main_keyword}
     <Text type={TextType.Callout} class="label" style="color: var(--yellow);"><b>{main_keyword.keyword}</b></Text>
   {/if}
@@ -25,7 +24,7 @@
   {#if !main_keyword && (!keywords || keywords.length === 0)}
     <p>No keywords available</p>
   {/if}
-</Stack>
+</div>
 
 <style>
   :global(.label) {

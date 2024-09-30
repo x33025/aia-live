@@ -14,4 +14,6 @@
   }
 </style>
 
-<h1>{$title}</h1>
+<div class="stack">
+  <h1>{$title}</h1>
+</div>

@@ -2,7 +2,6 @@
     import { modalVisible, modalContent } from '$lib/stores/ui/+modal';
     import Text from '$lib/core/display/+text.svelte';
     import { TextType } from '$lib/types';
-    import Spacer from '$lib/core/layout/+spacer.svelte';
     import XMark from '$lib/core/ui/icons/+x-mark.svelte';
 
     // Access global store values
@@ -27,7 +26,7 @@
         <div class="modal-header">
             <div class="header-content">
                 <Text type={TextType.Title}>{modalHeader}</Text>
-                <Spacer />
+                <div class="spacer" />
                 <button class="close-button" on:click={() => modalVisible.set(false)}>
                     <XMark size={1} />
                 </button>

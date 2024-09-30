@@ -3,7 +3,7 @@
   import DropdownMenu from '$lib/core/actions/+dropdown-menu.svelte';
   import Text from '$lib/core/display/+text.svelte';
   import Avatar from './+avatar.svelte';
-  import Stack from '$lib/core/layout/+stack.svelte';
+
   import { Direction } from '$lib/types';
 </script>
 
@@ -13,13 +13,13 @@
   </span>
 
   {#each $sortedUsers as user}
-    <Stack class="dropdown-item" direction={Direction.Horizontal} wrap={true} spacing={0.5}>
+    <div class="dropdown-item" >
       <Avatar userId={user.id} size={1.75} /> 
       <Text> {user.first_name} {user.last_name}</Text>
       {#if $activeUsers.includes(user)}
         <span class="green-dot"></span>
       {/if}
-    </Stack>
+    </div>
   {/each}
 </DropdownMenu>
 

@@ -1,5 +1,5 @@
 <script lang="ts">
-    import Stack from "$lib/core/layout/+stack.svelte";
+  
     import { Direction } from "$lib/types";
     import { timer, startTimer, stopTimer } from "$lib/stores/logic/+timer";
     import { onDestroy } from 'svelte';
@@ -35,9 +35,9 @@
     }
 </style>
 
-<Stack direction={Direction.Horizontal}>
+<div class="stack" style="--direction: row;">
     <div class="timer-display">{elapsedTime}s</div>
     <button on:click={toggleStream}>
         {isStreaming ? 'Pause' : 'Start'}
     </button>
-</Stack>
+</div>

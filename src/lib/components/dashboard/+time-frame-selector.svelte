@@ -1,6 +1,5 @@
 <script lang="ts">
     import { TimeFrame, Direction, TextType } from '$lib/types';
-    import Stack from '$lib/core/layout/+stack.svelte';
     import ChevronUpDown from '$lib/core/ui/icons/+chevron-up-down.svelte';
     import Text from '$lib/core/display/+text.svelte';
     import DropdownMenu from '$lib/core/actions/+dropdown-menu.svelte';
@@ -33,10 +32,10 @@
          </Text>
       <DropdownMenu id="time-frame-selector" selectedOption={currentFrame} on:optionSelected={handleTimeFrameChange}>
         <svelte:fragment slot="button">
-            <Stack direction={Direction.Horizontal} wrap={true}>
+            <div class="stack" style="--direction: row; --align: center;  --gap: 0.5em">
           <Text style="color: var(--blue); font-weight: 600;">{currentFrame.toLowerCase().replace(/_/g, ' ').replace(/\b\w/g, char => char.toUpperCase())}</Text> <!-- Bind the current frame value -->
           <ChevronUpDown size={0.75} color="var(--blue)" strokeWidth={0.5} />
-        </Stack>
+        </div>
         </svelte:fragment>
 
       <svelte:fragment >

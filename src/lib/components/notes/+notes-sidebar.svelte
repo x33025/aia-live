@@ -1,7 +1,5 @@
 <script lang="ts">
   import Text from '$lib/core/display/+text.svelte';
-  import Spacer from '$lib/core/layout/+spacer.svelte';
-  import Stack from '$lib/core/layout/+stack.svelte';
   import { Alignment, Direction, TextType, type Note } from '$lib/types'; // Adjust the path as needed
   import NoteView from './+note-view.svelte'; // Adjust the path as needed
   import ActivityDataView from '$lib/components/activity/+activity-data.svelte';
@@ -78,7 +76,7 @@
 
 </script>
 
-<Stack spacing={1} style="margin: 1em;">
+<div class="stack expand" style="margin: 1em;">
   <Text type={TextType.Title}>Notes</Text>
 
   <Text type={TextType.Subheadline}>
@@ -89,7 +87,7 @@
 </Text>
   <button class="add-note-button" on:click={addNote}>Add Note</button>
 
-  <Stack spacing={1}>
+  <div class="stack">
     {#if notes.length > 0}
     {#each notes as note (note.id)}
       <NoteView {note} />
@@ -97,15 +95,15 @@
   {:else}
     <p>No notes available.</p>
   {/if}
-  </Stack>
+  </div>
 
   {#if activity}
-  <Stack direction={Direction.Vertical} wrap={true} style="height: 320px;" spacing={0.75}>
+  <div class="stack" style="height: 320px;">
       <Text type={TextType.Subheadline} style="font-weight: bold;">{($page.data.title).slice(0, -1)} Activity Data</Text>
       <ActivityDataView {activity} />
-  </Stack>
+  </div>
   {/if}
-</Stack>
+</div>
 
 <style>
   .note-container {

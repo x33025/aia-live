@@ -25,12 +25,12 @@
     {#if articles.length > 0} 
       {#each articles as article (article.id)}
 
-       <div class="stack" style="--direction: column; --gap: 0.5em; ">
-          <div class="stack" style="--direction: row; --align: center; --justify: space-between; padding: 0.5em; background-color: var(--gray-1); border-radius: 0.5em;">
+       <div class="stack" style="--direction: column; --gap: 0.5em;  ">
+          <div class="stack" style="--direction: row; --align: center; --justify: space-between; padding: 0.5em; background-color: var(--gray-1); border-radius: 0.5em; ">
         
           {article.title} 
     
-           <div class="spacer" />
+           <div class="spacer"  />
  
           <Avatar userId={article.author ?? 'defaultUserId'} size={1.75} />  
          

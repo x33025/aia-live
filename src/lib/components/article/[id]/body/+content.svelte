@@ -7,7 +7,7 @@
   export let onSelectionChange: (selection: { text: string, start: number, end: number } | null) => void;
 </script>
 
-<div style="display: flex; flex-direction: column; gap: 0.5rem; max-width: 40%;">
+<div class="stack expand" style="--direction: column; --gap: 0.5em; max-width: 40%;">
   <Toolbar />
 
   <TextEditor 

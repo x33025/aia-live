@@ -1,13 +1,11 @@
 <script lang="ts">
-  import Stack from '$lib/core/layout/+stack.svelte';
   import { Direction, TextType } from '$lib/types';
   import { editorStore } from '$lib/core/advanced-input/editor/+store'; // Correct store import
   import { onDestroy } from 'svelte';
   import Text from '$lib/core/display/+text.svelte';
-  import Spacer from '$lib/core/layout/+spacer.svelte';
+
   import NumericTarget from '$lib/core/advanced-input/+numeric-target.svelte';
   import { article } from '$lib/stores/data/+articles';
-    import DropdownMenu from '$lib/core/actions/+dropdown-menu.svelte';
 
   
   let editor;
@@ -38,7 +36,7 @@
     }
 </script>
 
-<Stack direction={Direction.Horizontal} wrap={true} spacing={0.5}>
+<div class="stack" style="--direction: row; --justify: space-between;">
   <button class="label" on:click={() => editor?.textFormatter.toggleBold()}>
     <Text type={TextType.Callout}><strong>Bold</strong></Text>
   </button>
@@ -55,13 +53,13 @@
   <button class="label" on:click={() => editor?.toggleSmartStyle()}>
     <Text type={TextType.Callout}>Smart Style: {smartStyleEnabled ? 'On' : 'Off'}</Text>
   </button>
-  <Spacer />
+  <div class="spacer" />
   <NumericTarget
   target={$article.target_word_count} 
   current={$article.word_count} 
   update={updateTargetWordCount}
 />
-</Stack>
+</div>
 
 <style>
   .label {

@@ -1,7 +1,7 @@
 <script lang="ts">
   import { Direction, type Image } from '$lib/types';
   import { selected_image } from '$lib/stores/data/+images';
-  import Stack from '$lib/core/layout/+stack.svelte';
+
   import ImageComponent from '$lib/core/display/+image.svelte';
   import { images } from '$lib/stores/data/+images';
 
@@ -15,7 +15,7 @@
   
 </script>
 
-    <Stack direction={Direction.Vertical} class="image-grid" wrap={true}>
+    <div class="image-grid" >
       
         {#if $images.length > 0}
           {#each $images as image}
@@ -38,7 +38,7 @@
           <p>No images found.</p>
         {/if}
       
-    </Stack>
+    </div>
 
 
 

@@ -2,7 +2,7 @@
     import { onDestroy } from 'svelte';
     import Gallery from '$lib/components/images/display/+gallery.svelte';
     import ImageDescription from '$lib/components/images/display/+image-description.svelte';
-    import Stack from '$lib/core/layout/+stack.svelte';
+
     import { Direction, type Image } from '$lib/types';
     import { selected_image } from '$lib/stores/data/+images';
 
@@ -37,11 +37,11 @@
     }
 </style>
     
-<Stack direction={Direction.Vertical} class="container" style="padding: 0em 2em 0em 2em;">
+<div class="container" style="padding: 0em 2em 0em 2em;">
     <Gallery />
     {#if selectedImage}
         <div class="overlay">
             <ImageDescription image={selectedImage} />
         </div>
     {/if}
-</Stack>
+</div>

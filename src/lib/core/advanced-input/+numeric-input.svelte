@@ -51,7 +51,7 @@
   }
 </script>
 
-<Text >
+
 <input
   type="text"
   bind:value={input}
@@ -61,5 +61,4 @@
   class="numeric-input"
   style="padding: {padding}em;" 
 />
-</Text>
 

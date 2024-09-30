@@ -5,7 +5,7 @@
   import { users, current_user } from '$lib/stores/data/+users';
   import Users from '$lib/components/user/+users.svelte';
   import ProfileMenu from '$lib/components/user/+profile-menu.svelte';
-  import Stack from '$lib/core/layout/+stack.svelte';
+
   import { Direction, TextType } from '$lib/types';
   import SearchBar from '$lib/components/search/+search-bar.svelte';
   import PageTitle from '$lib/core/layout/+page-title.svelte';
@@ -56,13 +56,13 @@
 
 
 <MainPage>
-  <div class="stack" slot="navigation-leading"  >
+  <div class="stack" slot="navigation-leading" style="--gap: 1em;" >
     {#if $page.url.pathname !== '/protected'}
       <GoBackButton />
     {/if}
     
     <PageTitle /> 
-    <div class="divider" />
+
     <SearchBar type={TextType.Headline} onSearch={(value) => console.log(value)} placeholder="I'm looking for..." />
   </div>
 
@@ -76,11 +76,3 @@
   <!-- Render the main content -->
   <slot />
 </MainPage>
-
-<style>
-  .divider {
-    border-left: 1px solid var(--gray-3);
-    height: 80%;
-    margin: 0 1em;
-  }
-</style>

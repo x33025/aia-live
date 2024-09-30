@@ -1,4 +1,4 @@
-<script>
+<!-- <script>
 
     import MainLayout from "$lib/core/layout/+main-page.svelte";
     import { TextType } from "$lib/types";
@@ -33,4 +33,4 @@
   
 </MainLayout>
 
-  
+   -->

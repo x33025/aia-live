@@ -2,8 +2,6 @@
   import { onMount } from 'svelte';
   import { page } from '$app/stores';
   import { article } from '$lib/stores/data/+articles';
-
-  import Spacer from '$lib/core/layout/+spacer.svelte';
   import Body from '$lib/components/article/[id]/body/+content.svelte';
   // Function to publish updates
   function publishUpdate(updatedContent: string) {

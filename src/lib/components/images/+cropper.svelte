@@ -1,9 +1,8 @@
 <script lang="ts">
     import { closeModal } from '$lib/stores/ui/+modal';
     import { onMount, onDestroy, tick } from 'svelte';
-    import Stack from '$lib/core/layout/+stack.svelte';
-    import { Direction } from '$lib/types';
-    import Spacer from '$lib/core/layout/+spacer.svelte';
+
+
 
     export let file: File;  // File prop passed from the modal
 
@@ -236,7 +235,7 @@
     }
 </script>
 
-<Stack>
+<div class="stack">
     <div
         style="position: relative; width: 100%; height: 100%; box-shadow: 1px 1px 1em rgba(0, 0, 0, 0.3);"
         bind:this={imageContainer}
@@ -326,4 +325,4 @@
     </div>
 
 
-</Stack>
+</div>

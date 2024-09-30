@@ -2,10 +2,6 @@
   import BaseLayout from './+base-layout.svelte';
   import { page } from '$app/stores';
   import { derived } from 'svelte/store';
-  import Spacer from './+spacer.svelte';
-
-  import PageTitle from './+page-title.svelte';
-
 
 
   // Extract title from the $page store
@@ -19,14 +15,13 @@
 </svelte:head>
 
 <BaseLayout>
+
   <div class="stack expand" slot="header" style="--direction: row; --justify: space-between;">
-    <slot name="navigation-leading" style="--align: flex-start;">
-      <PageTitle />
-    </slot>
-    
-    <slot name="navigation-center"></slot>
-    
-    <slot name="navigation-trailing" style="--align: flex-end;"></slot>
+
+    <slot name="navigation-leading" />
+
+
+    <slot name="navigation-trailing" />
   </div>
 
   

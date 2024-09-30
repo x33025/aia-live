@@ -1,4 +1,4 @@
-<script lang="ts">
+<!-- <script lang="ts">
     import Stack from "$lib/core/layout/+stack.svelte";
     import { news } from "$lib/stores/data/+news"; // News store
     import { Alignment, Direction, TextType, type News } from '$lib/types';
@@ -38,15 +38,15 @@
     }
 </script>
 
-<!-- UI -->
+
 <Stack direction={Direction.Horizontal} alignment={Alignment.Center} >
 
     <Stack direction={Direction.Vertical} style="max-width: 550px;" spacing={1}>
         <button on:click={handleFetchNews} disabled={isFetching}>
             {isFetching ? 'Fetching...' : 'Fetch News'}
         </button>
-        <!-- Displaying the streamed news -->
+        Displaying the streamed news
         <NewsStream />
     </Stack>
 
-</Stack>
+</Stack> -->

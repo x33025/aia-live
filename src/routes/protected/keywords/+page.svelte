@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import { page } from '$app/stores';
-  import Stack from '$lib/core/layout/+stack.svelte';
+
   import Text from '$lib/core/display/+text.svelte';
   import KeywordRow from '$lib/components/keyword/+keyword-row.svelte';
   import { keywords } from '$lib/stores/data/+keywords';
@@ -58,16 +58,16 @@
   }
 </script>
 
-<Stack direction={Direction.Vertical} spacing={1} >
-  <Stack direction={Direction.Horizontal} wrap={true}>
+<div class="stack expand" style="--align: flex-start; --gap: 1em" >
+  <div class="stack">
 
 
   <TextInput id="new-keyword" label="New Keyword" on:input={handleNewKeyword} />
     
-  </Stack>
+  </div>
 
   <!-- Table for Displaying Keywords -->
-  <Stack spacing={1} class="table-container" >
+  <div class="table-container" >
     <table >
       <thead>
         <tr>
@@ -84,8 +84,8 @@
         {/each}
       </tbody>
     </table>
-  </Stack>
-</Stack>
+  </div>
+</div>
 
 <style>
   table {

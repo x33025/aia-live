@@ -1,7 +1,7 @@
 <script lang="ts">
     import { writable } from 'svelte/store';
     import { setContext } from 'svelte';
-    import Stack from '../layout/+stack.svelte';
+
     import { Direction } from '$lib/types';
   
     export let defaultTab: string;
@@ -16,17 +16,17 @@
     setContext('showTab', showTab);
   </script>
   
-  <Stack direction={Direction.Vertical}>
-    <Stack wrap={true} direction={Direction.Horizontal} spacing={0.5} style="margin-bottom: 0.5em;" >
+  <div class="stack" style="--direction: column; --justify: flex-start; --align: flex-start; " >
+    <div class="stack"  style="margin-bottom: 0.5em;" >
         <slot name="header"></slot>
      
-    </Stack>
+    </div>
      
-     <Stack style="padding: 1em; " >
+     <div class="stack"  style="padding: 1em; " >
         <slot name="content"></slot>
-      </Stack>
+      </div>
 
-  </Stack>
+  </div>
 
   
   <style>

@@ -1,7 +1,4 @@
 <script lang="ts">
-    import Stack from '$lib/core/layout/+stack.svelte';
-    import Spacer from '$lib/core/layout/+spacer.svelte';
-    import { Direction } from '$lib/types';
 
     function confirmCrop() {
         console.log("Confirming crop");
@@ -15,8 +12,8 @@
 
 
 
-<Stack direction={Direction.Horizontal}>
+<div class="stack" style="--direction: row; --justify: space-between;">
     <button type="button" on:click={closeModal}>Reset</button>
-    <Spacer />
+    <div class="spacer" />
     <button type="button" on:click={confirmCrop}>Crop</button>
-</Stack>
+</div>

@@ -2,7 +2,7 @@
   import { openSidebar } from '$lib/stores/ui/+sidebar';
   import NotesSidebar from './+notes-sidebar.svelte';
   import type { ActivityData, Note } from '$lib/types';
-  import Stack from '$lib/core/layout/+stack.svelte';
+
   import Avatar from '$lib/components/user/+avatar.svelte';
   import { Direction, TextType } from '$lib/types';
   import Text from '$lib/core/display/+text.svelte';

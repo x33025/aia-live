@@ -1,9 +1,9 @@
 <script lang="ts">
-  import Stack from '$lib/core/layout/+stack.svelte';
+
   import { Direction, TextType } from '$lib/types';
   import PageTitle from '$lib/core/layout/+page-title.svelte';
   import SearchBar from '$lib/components/search/+search-bar.svelte';
-  import Spacer from '$lib/core/layout/+spacer.svelte';
+
   import GoBackButton from '$lib/core/navigation/+go-back.svelte';
   import Plus from '$lib/core/ui/icons/+plus.svelte';
   import { page } from '$app/stores';
@@ -60,20 +60,20 @@
   }
 </script>
 
-<Stack direction={Direction.Vertical} spacing={2}>
-  <Stack direction={Direction.Horizontal} wrap={true} spacing={1.5} style="padding: 2em 2em 0em;">
+<div class="stack expand" style="--align: flex-start; --gap: 1em" >
+  <div class="stack expand" style="padding: 2em 2em 0em;">
     <GoBackButton />
     <PageTitle />
     <div style="border-left: 1px solid var(--gray-3); height: 80%; width: 1px;" />
     <SearchBar type={TextType.Headline} onSearch={(value) => console.log(value)} placeholder="Show me images of..." />
-    <Spacer />
+    <div class="spacer" />
     <button class="add-image-button" on:click={handleFileSelection}>
       <Plus color="white" size={1.25} />
     </button>
     <input type="file" accept="image/*" bind:this={fileInput} style="display:none" on:change={handleFileChange} />
-  </Stack>
+  </div>
   <slot />
-</Stack>
+</div>
 
 <style>
   .add-image-button {

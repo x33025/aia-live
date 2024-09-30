@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Stack from '$lib/core/layout/+stack.svelte';
+
   import { Alignment, Direction, TextType } from '$lib/types';
   import { page } from '$app/stores'; // Import page to access $page.data
   import Text from '$lib/core/display/+text.svelte';
@@ -18,7 +18,7 @@
   <div class="stack expand" style="border-top: 1px solid var(--gray-2); padding-top: 1em; --direction: row; --justify: space-between; --gap: 1em">
 
     <DashboardCalendar />
-   <div class="spacer" />
+    <div class="spacer" style="max-width: 400px;" />
     <DashboardArticles {draftedThisMonth} /> 
 
   
