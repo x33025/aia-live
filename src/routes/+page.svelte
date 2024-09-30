@@ -13,7 +13,7 @@
 
 <BaseLayout>
  
-  <div class="stack" style=" padding: 1em; ">
+  <div class="stack expand" slot="content">
   
     <pre class="ascii-art">
       ___                       ___     
@@ -45,9 +45,8 @@
     font-weight: bold;
     color: white;
     background-color: black;
-    z-index: 100;
-    position: absolute;
-    top: 68%;
+    position: absolute; 
+     top: 68%;
     left: 50%;
     transform: translate(-50%, -50%);
   
@@ -62,7 +61,8 @@
     color: black;
     position: absolute;
     top: 45%;
-    left: 50%;
+
     transform: translate(-50%, -50%);
+    left: 50%;
   }
 </style>

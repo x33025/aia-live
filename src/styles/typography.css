@@ -1,0 +1,22 @@
+/* Font Faces */
+
+@font-face {
+    font-family: 'Nunito';
+    src: url('/src/fonts/Nunito-VariableFont_wght.ttf') format('truetype');
+    font-weight: 200 1000;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'Inter';
+    src: url('/src/fonts/Inter-VariableFont_wght.ttf') format('truetype');
+    font-weight: 100 900;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'Noto-Serif';
+    src: url('NotoSerifDisplay-VariableFont_wdth,wght.ttf') format('truetype');
+    font-weight: 100 900;
+    font-style: normal;
+  }
