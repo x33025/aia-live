@@ -13,7 +13,7 @@
 
 <BaseLayout>
  
-  <Stack direction={Direction.Vertical} style=" padding: 1em;">
+  <div class="stack" style=" padding: 1em; ">
   
     <pre class="ascii-art">
       ___                       ___     
@@ -32,7 +32,7 @@
       Sign In
       
     </button>
-  </Stack>
+  </div>
 </BaseLayout>
 
 <style>

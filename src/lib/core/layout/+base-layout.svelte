@@ -1,17 +1,15 @@
-<script lang="ts">
-  import Stack from './+stack.svelte';
 
 
-</script>
-
-<Stack style="background-color: var(--gray-1); ">
+<div class="z-stack expand" style="background-color: var(--gray-1); padding: 1em; ">
   
-  <Stack  style="margin: 1em 1em 0em;" wrap={true} >
+  <div class="stack wrap-content"  style="padding: 1em" >
  
   <slot name="header" />
-  </Stack>
-  <Stack class="border-highlight" style="margin: 0em 1em 1em; background-color: white; border-radius: 1em;" >
+  </div>
+
+
+  <div  class="stack expand border-highlight" style="padding: 1em; background-color: white; border-radius: 1em;" >
  
     <slot />
-  </Stack>
-</Stack>
+  </div>
+</div>

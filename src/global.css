@@ -228,4 +228,38 @@ a {
 
 
 
+.stack {
+  display: flex;
+  gap: var(--stack-gap, 0); /* Use CSS variables for flexibility */
+  flex-direction: var(--stack-direction, column); /* Default to vertical */
+  justify-content: var(--stack-justify, flex-start);
+  align-items: var(--stack-align, stretch);
+}
+
+.wrap-content {
+  flex-wrap: wrap;
+}
+
+.expand {
+  flex: 1;
+}
+
+
+
+.z-stack {
+  position: relative;
+  width: 100%;  /* Full width of the viewport */
+  height: 100%; /* Full height of the viewport */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.z-stack > * {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
 
