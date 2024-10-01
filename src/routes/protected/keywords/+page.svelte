@@ -58,7 +58,7 @@
   }
 </script>
 
-<div class="stack expand" style="--align: flex-start; --gap: 1em" >
+<div class="stack expand" style="--align: flex-start; --gap: 1em;" >
   <div class="stack">
 
 
@@ -67,7 +67,7 @@
   </div>
 
   <!-- Table for Displaying Keywords -->
-  <div class="table-container" >
+  <div class="table-container " >
     <table >
       <thead>
         <tr>

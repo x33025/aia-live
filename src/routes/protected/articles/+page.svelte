@@ -12,7 +12,7 @@
 
 </script>
 
-<div class="scrollable-stack expand" >
+<div class="scrollable-stack expand" style="padding: 1em;" >
 
     {#each $articles as article, index (article.id)}
       <ArticleRow 
