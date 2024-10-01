@@ -30,7 +30,7 @@
       <div class="stack" style="--direction: row; --justify: space-between; --gap: 0.5em; width: 100%; margin-bottom: 1.1em;" >
         <GoBackButton path="/"/>
        
-        <Text type={TextType.Title}>Sign In</Text>
+        <Text type={TextType.Title}>Welcome Back</Text>
         <div class="spacer" />
       </div>
    

@@ -56,7 +56,9 @@
 <MainPage>
   <div class="stack" slot="navigation-leading" style="--gap: 1em;" >
     {#if $page.url.pathname !== '/protected'}
+    <div class="stack" style="margin-left: 0.75em;">
       <GoBackButton />
+    </div>
     {/if}
     
     <PageTitle /> 
