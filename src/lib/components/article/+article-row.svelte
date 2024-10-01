@@ -35,6 +35,8 @@
 
   function handleCategorySelect(category: Category | null) {
     selectedCategory = category;
+    console.log(`Category change detected. New category: ${category?.id ?? null}`);
+    updateArticle(article.id, { category: category?.id ?? null }); // Direct call to updateArticle
   }
 
   function updateSemrushScore(value: number) {
