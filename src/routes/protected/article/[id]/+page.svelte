@@ -15,7 +15,7 @@
 </script>
 
 
-  <div style="display: flex; overflow-x: auto; flex-direction: column; gap: 1em; justify-content: center; align-items: center;">
+  <div class="stack expand" >
     {#if $article}
       <Body 
         content={$article.content} 

@@ -6,7 +6,7 @@
 
 </script>
 
-<div  class="stack expand"  style="--direction: column; --justify: flex-start; --align: flex-start; " >
+<div  class="stack expand"  style="--direction: column; --justify: flex-start; --align: flex-start; --gap: 0.5em;" >
   <Text type={TextType.Callout} class="description"><strong>{name}</strong></Text> <!-- Use the label prop here -->
   <slot />
 </div>

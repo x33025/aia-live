@@ -9,15 +9,13 @@ class ArticleService extends BaseService<Article> {
         super('articles'); // Assuming 'keywords' is the name of your collection
     }
 
-    async createWithActivity(data: Partial<Article>, user_id: string): Promise<Article> {
+    async createWithActivity(user_id: string): Promise<Article> {
         try {
             // Create the activity
             const activity = await activityDataService.create({ created_by: user_id });
 
             // Add the activity ID to the data
-            data.activity = activity.id;
-
-            const newArticle = await this.create(data);
+            const newArticle = await this.create({ activity: activity.id });
      
             return newArticle;
         } catch (error) {

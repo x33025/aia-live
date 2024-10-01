@@ -10,7 +10,7 @@
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ data: { title: "New Article" }, user_id: $current_user.id }),
+        body: JSON.stringify({user_id: $current_user.id }),
       });
 
       const newArticle = await response.json();

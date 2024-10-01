@@ -49,18 +49,18 @@
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)) !important;
   gap: 1em !important;
   overflow-y: auto; /* Enable vertical scrolling */
+  padding: 0.5em;
 
 }
 
 .image-container {
-  position: relative;
-  overflow: hidden;
+
   border-radius: 0.5em;
   cursor: pointer;
   transition: transform 0.3s ease;
   outline: none; /* Add this to ensure the default outline doesn’t add space */
-  box-sizing: border-box; /* Ensures padding and border are included in width and height */
-  margin: 0.5em;
+ 
+
 
 }
 
@@ -71,7 +71,7 @@
 
 .image-container.selected {
   outline: 2px solid var(--blue);
-  box-sizing: border-box; /* Ensures the outline does not affect the layout */
+
 }
 
 </style>

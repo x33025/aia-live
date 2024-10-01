@@ -7,10 +7,10 @@ export const POST: RequestHandler = async ({ request }) => {
     try {
         console.log('Received request:', request);
 
-        const { data, user_id } = await request.json();
-        console.log('Parsed request JSON:', { data, user_id, });
+        const { user_id } = await request.json();
+        console.log('Parsed request JSON:', { user_id, });
 
-        if (!data || !user_id) {
+        if (!user_id) {
             console.error('Validation error: data, user_id are required.');
             return json({ error: 'data, user_id are required.' }, { status: 400 });
         }
@@ -18,7 +18,7 @@ export const POST: RequestHandler = async ({ request }) => {
       
           
 
-        const newItem = await articleService.createWithActivity(data, user_id);
+        const newItem = await articleService.createWithActivity(user_id);
 
         console.log('Created new item:', newItem);
 

@@ -1,6 +1,8 @@
 <script lang="ts">
     import { goto } from '$app/navigation';
     import ChevronLeft from '$lib/core/ui/icons/+chevron-left.svelte';
+
+    
     export let path: string = '/protected';
 
     const goBack = () => {
