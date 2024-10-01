@@ -114,7 +114,7 @@
   }
 </script>
 
-<div class="stack expand" style="--direction: row; --align: flex-start; --gap: 1em; --border-top: 1px solid var(--gray-2); padding: 2em; ">
+<div class="stack expand" style="--direction: row; --align: flex-start; --gap: 1em; --border-top: 1px solid var(--gray-2); padding: 2em; position: relative;">
   <div class="stack" style="--direction: column; --gap: 0.5em; align-items: flex-start;">
     <div class="image-container">
       <ImageComponent
@@ -166,15 +166,14 @@
     
 
   </div>
-  <div class="stack expand" style="bottom: 0; " >
- 
+
     <button
-      style="background-color: var(--red); color: white; padding: 0.5em 0.75em; border-radius: 0.5em;"
+      class="delete-button"
       on:click={handleDelete}
     >
       Delete
     </button>
-  </div>
+
 </div>
 
 <style>
@@ -203,5 +202,15 @@
   /* Optional: Style the error message */
   p[style*='color: var(--red);'] {
     margin-top: 0.5em;
+  }
+
+  .delete-button {
+    position: absolute;
+    bottom: 1.5em;
+    right:1.5em;
+    background-color: var(--red);
+    color: white;
+    padding: 0.5em 0.75em;
+    border-radius: 0.5em;
   }
 </style>

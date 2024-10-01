@@ -5,12 +5,19 @@
   import type { Article } from "$lib/types";
 
   export let article: Article;
+  
+  // Add a function to handle input changes
+  function handleTitleChange(event: Event) {
+    const input = event.target as HTMLInputElement;
+    article.title = input.value;
+  }
 </script>
 
 <div class="stack expand" style="--direction: column; --gap: 0.5em;  ">
     <div class="stack" style="--direction: row; --align: center; --justify: space-between; padding: 0.5em; background-color: var(--gray-1); border-radius: 0.5em; width: 100%;">
-  
-    {article.title} 
+    
+    <!-- Replace static title with input and add placeholder -->
+    <input type="text" bind:value={article.title} on:input={handleTitleChange} placeholder="Enter article title" />
 
      <div class="spacer"  />
 
