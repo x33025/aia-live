@@ -1,64 +1,49 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
-    import Text from '../display/+text.svelte';
-    import { TextType } from '$lib/types';
 
   export let value: number | null = null;
-  export let min: number | null = null;
-  export let max: number | null = null;
-  export let placeholder: number = 0;
-  export let padding: number = 0.5; // Default padding value
-
+  export let padding: number = 0.5;
+  export let placeholder: string = '0';  // Placeholder defaults to '0'
   const dispatch = createEventDispatcher();
 
-  let input = value !== null ? value.toString() : '';
+  // Treat null and 0 the same for input
+  let input = value !== null && value !== 0 ? value.toString() : '';
 
-  $: allowNegative = min === null || min < 0;
+  let eventTarget: HTMLInputElement | null = null;
 
-  $: if (value !== null && value.toString() !== input) {
-    input = value.toString();
+  // Sync input value with external changes, but avoid resetting while typing
+  $: if (document.activeElement !== eventTarget) {
+    input = value !== null && value !== 0 ? value.toString() : '';
   }
 
   function handleInput(event: Event) {
     const target = event.target as HTMLInputElement;
     const inputValue = target.value;
-    if (isValidInput(inputValue)) {
-      input = inputValue;
-    }
-  }
 
-  function handleEnter(event: KeyboardEvent) {
-    if (event.key === 'Enter') {
-      processInput();
-    }
-  }
+    // Store reference to the active input element
+    eventTarget = target;
 
-  function isValidInput(inputValue: string): boolean {
-    const integerPattern = allowNegative ? /^-?\d*$/ : /^\d*$/;
-    return integerPattern.test(inputValue);
-  }
-
-  function processInput() {
-    let result = parseInt(input);
-    if (!isNaN(result)) {
-      if (min !== null) result = Math.max(min, result);
-      if (max !== null) result = Math.min(max, result);
-      input = result.toString();
-      dispatch('update', { value: result });
-    } else {
-      input = value !== null ? value.toString() : '';
+    // Dispatch valid numbers or treat empty as null
+    if (!isNaN(parseFloat(inputValue))) {
+      const parsedValue = parseFloat(inputValue);
+      dispatch('update', { value: parsedValue === 0 ? null : parsedValue });  // Treat 0 as null
+    } else if (inputValue === '') {
+      dispatch('update', { value: null });  // Handle empty input as null
     }
   }
 </script>
 
-
 <input
-  type="text"
+  type="number"
   bind:value={input}
-  placeholder={placeholder.toString()}
   on:input={handleInput}
-  on:keydown={handleEnter}
+  placeholder={placeholder}
   class="numeric-input"
-  style="padding: {padding}em;" 
+  style="padding: {padding}em;"
 />
 
+<style>
+  .numeric-input {
+    width: 100%;
+  }
+</style>

@@ -42,14 +42,15 @@
   function updateSemrushScore(value: number) {
     console.log(`Updating semrush_score to ${value}`);
     // Implement actual update logic here, e.g., making a request to your backend.
+    updateArticle(article.id, { semrush_score: value });
   }
 
   function updateTargetWordCount(value: number) {
     console.log(`Updating target_word_count to ${value}`);
     // Implement actual update logic here, e.g., making a request to your backend.
+    updateArticle(article.id, { target_word_count: value });
+
   }
-
-
 
 
 
