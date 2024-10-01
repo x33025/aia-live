@@ -65,7 +65,7 @@
     <GoBackButton />
     <PageTitle />
     <div style="border-left: 1px solid var(--gray-3); height: 80%; width: 1px;" />
-    <SearchBar type={TextType.Headline} onSearch={(value) => console.log(value)} placeholder="Show me images of..." />
+    <!-- <SearchBar type={TextType.Headline} onSearch={(value) => console.log(value)} placeholder="Show me images of..." /> -->
 
     <button class="add-image-button" on:click={handleFileSelection}>
       <Plus color="white" size={1.25} />

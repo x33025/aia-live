@@ -63,7 +63,7 @@
     
     <PageTitle /> 
 
-    <SearchBar type={TextType.Headline} onSearch={(value) => console.log(value)} placeholder="I'm looking for..." />
+    <!-- <SearchBar type={TextType.Headline} onSearch={(value) => console.log(value)} placeholder="I'm looking for..." /> -->
   </div>
 
 
