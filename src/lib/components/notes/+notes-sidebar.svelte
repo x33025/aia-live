@@ -66,7 +66,9 @@
   function handleKeydown(event: KeyboardEvent) {
       if (event.key === 'Enter' && !event.shiftKey) {
           event.preventDefault();
+       
           addNote();
+          newNote.content = '';
       }
   }
 
@@ -86,7 +88,6 @@
           {newNote.content}
       </div>
   
-      <button class="add-note-button" on:click={addNote}><PlusIcon size={0.8} /></button>
     </div>
 
 

@@ -19,11 +19,11 @@
         </div>
     {/if}
 
-   <Text type={TextType.Subheadline}>    <!--  TextType for review -->
+  
         <div contenteditable={note.expand?.activity?.created_by === $current_user?.id} class="note-content">
             {@html note.content}
         </div>
-    </Text>
+
 </div>
 
 <style>
