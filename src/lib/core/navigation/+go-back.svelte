@@ -11,8 +11,3 @@
 
 <button on:click={goBack}><ChevronLeft size={1.25} /></button>
 
-<style>
-    button {
-      padding-left: 0.5em;
-    }
-</style>

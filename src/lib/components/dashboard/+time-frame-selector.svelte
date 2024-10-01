@@ -26,7 +26,7 @@
   
 
 
-    <div class="stack" style="--direction: row; --align: center;  --gap: 0.5em">
+    <div class="stack" style="--direction: row; --align: flex-end;  --gap: 0.5em">
         <Text type={TextType.Subheadline}>
       Articles 
          </Text>

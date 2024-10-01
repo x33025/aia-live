@@ -3,7 +3,7 @@
   import BaseLayout from '$lib/core/layout/+base-layout.svelte';
   import { TextType } from '$lib/types';
   import Text from '$lib/core/display/+text.svelte';
-
+  import OpenDoorIcon from '$lib/core/ui/icons/+door-open.svelte';
   import GoBackButton from '$lib/core/navigation/+go-back.svelte';
 
 
@@ -27,11 +27,11 @@
     
     <div class="stack expand" style="max-width: 300px; --justify: center;" slot="content">
      
-      <div class="stack" style="--direction: row; gap: 0.5em" >
+      <div class="stack" style="--direction: row; --justify: space-between; --gap: 0.5em; width: 100%; margin-bottom: 1.1em;" >
         <GoBackButton path="/"/>
-        <div class="spacer" />
+       
         <Text type={TextType.Title}>Sign In</Text>
-     
+        <div class="spacer" />
       </div>
    
       <form method="POST" action="?/login" use:enhance>
@@ -54,8 +54,9 @@
         {#if form?.error}
           <p class="error">{form.error}</p>
         {/if}
-        <button class="login-button" style="width: 100%;">
-          Sign In
+        <button class="login-button stack" style="width: 100%; --justify: flex-end; --direction: row;">
+          <span class="button-text">Enter</span>
+          <OpenDoorIcon color="white" size={1.25} />
         </button>
       </form>
     </div>
@@ -77,13 +78,17 @@ input {
   color: var(--red);
 }
 
-:global(.login-button) {
+.login-button {
   background-color: var(--blue);
   color: white;
   padding: var(--default-padding);
   border-radius: 0.5em;
-  display: flex; /* Add flex display */
-  justify-content: center; /* Center horizontally */
-  align-items: center; /* Center vertically */
+  font-weight: bold;
+  display: flex; /* Use flexbox */
+  justify-content: flex-end; /* Align items to the right */
+}
+
+.button-text {
+  margin-left: auto; /* Push text to the far right */
 }
 </style>

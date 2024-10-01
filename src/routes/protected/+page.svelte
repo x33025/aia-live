@@ -4,7 +4,7 @@
   import { page } from '$app/stores'; // Import page to access $page.data
   import Text from '$lib/core/display/+text.svelte';
   import RouteNavigation from '$lib/components/dashboard/+route-navigation.svelte';
-  import DashboardArticles from '$lib/components/dashboard/+dashboard-articles.svelte'; // Import the new component
+  import DashboardArticles from '$lib/components/dashboard/articles/+dashboard-articles.svelte'; // Import the new component
   import DashboardCalendar from '$lib/components/dashboard/+dashboard-calendar.svelte';
 
   let draftedThisMonth = $page.data.draftedThisMonth;

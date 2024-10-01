@@ -1,7 +1,7 @@
 <script lang="ts">
   import ImageComponent from "$lib/core/display/+image.svelte"; // Import the new image component
     import { openModal } from "$lib/stores/ui/+modal";
-    // import ImagePicker from "$lib/components/images/+image-picker.svelte";
+
     import type { Image } from "$lib/types";
 
     
