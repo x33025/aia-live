@@ -70,6 +70,7 @@ export interface Article extends BaseModel {
   notes: string[];
   raw_data: string[];
   schedule: string[];
+  status: string | null; // ID as string, optional
 
   expand?: {
     activity?: ActivityData;
@@ -81,6 +82,7 @@ export interface Article extends BaseModel {
     raw_data?: RawData[]; // Expanded raw data objects
     schedule?: Schedule[]; // Expanded schedule objects
     author?: User | null; // Expanded author object
+    status?: Status | null; // Expanded status object
   };
 }
 

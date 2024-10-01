@@ -19,6 +19,7 @@
         {article}
         categories={$page.data.categories}
         writers={$writers}
+        statuses={$page.data.statuses}
       />
   
     {/each}
