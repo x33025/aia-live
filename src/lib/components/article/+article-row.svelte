@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { createEventDispatcher, onDestroy } from 'svelte';
   import DropdownMenu from '$lib/core/actions/+dropdown-menu.svelte';
   import TextInput from '$lib/core/actions/+text-input.svelte';
   import NumericInput from '$lib/core/advanced-input/+numeric-input.svelte';
@@ -10,6 +9,7 @@
   import MainImage from '../images/display/+main-image.svelte';
   import NotesButton from '../notes/+notes-button.svelte';
   import OpenArticleButton from '$lib/components/actions/+open-article-button.svelte';
+  import { updateArticle } from '$lib/api/article/+update-article';
 
   export let article: Article;
   export let categories: Category[];
@@ -18,19 +18,19 @@
   // Convert writers to IdentifiableUser array
   const identifiableWriters = writers.map(toIdentifiableUser);
 
-  const dispatch = createEventDispatcher();
-
   $: selectedCategory = article.category ? categories.find(c => c.id === article.category) : null;
-  $: selectedWriter = (typeof article.author === 'object' && article.author !== null) ? toIdentifiableUser(article.author) : null;
-
+  $: selectedWriter = article.author ? identifiableWriters.find(w => w.id === article.author) : null;
 
   function handleTitleChange(event: CustomEvent<string>) {
     const newTitle = event.detail;
-    dispatch('update', { field: 'title', value: newTitle });
+    console.log(`Title change detected. New title: ${newTitle}`);
+    updateArticle(article.id, { title: newTitle }); // Direct call to updateArticle
   }
 
   function handleWriterSelect(writer: IdentifiableUser | null) {
     selectedWriter = writer;
+    console.log(`Writer change detected. New writer: ${writer?.id ?? null}`);
+    updateArticle(article.id, { author: writer?.id ?? null }); // Direct call to updateArticle
   }
 
   function handleCategorySelect(category: Category | null) {
@@ -76,7 +76,7 @@
           <span class="label" slot="button">
             {selectedWriter ? selectedWriter.name : 'Select a writer'}
           </span>
-          <svelte:fragment slot="default" let:selectOption>
+          <svelte:fragment let:selectOption>
             {#each identifiableWriters as writer}
               <p class="picker-item" on:click={() => { selectOption(writer.id); handleWriterSelect(writer); }}>
                 {writer.name}

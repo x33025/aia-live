@@ -8,7 +8,6 @@
   // Set articles when the component mounts
   onMount(() => {
     articles.set($page.data.articles); // Set articles from $page.data
-    console.log('writers', $writers);
   });
 
 </script>

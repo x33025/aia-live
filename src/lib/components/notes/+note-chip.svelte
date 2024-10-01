@@ -33,6 +33,8 @@
     background-color: var(--gray-1);
     border-radius: 0.5em;
     padding: 0.3em;
+    padding-right: 0.5em;
+
     
   }
 
