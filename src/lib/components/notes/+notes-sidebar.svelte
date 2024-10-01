@@ -1,15 +1,12 @@
 <script lang="ts">
   import Text from '$lib/core/display/+text.svelte';
-  import { Alignment, Direction, TextType, type Note } from '$lib/types'; // Adjust the path as needed
+  import { TextType, type Note } from '$lib/types'; // Adjust the path as needed
   import NoteView from './+note-view.svelte'; // Adjust the path as needed
   import ActivityDataView from '$lib/components/activity/+activity-data.svelte';
   import type { ActivityData, BaseModel } from '$lib/types';
   import { current_user } from '$lib/stores/data/+users';
   import { page } from '$app/stores';
   import { images } from '$lib/stores/data/+images';
-  import { articles } from '$lib/stores/data/+articles';
-  import { keywords } from '$lib/stores/data/+keywords';
-  import PlusIcon from '$lib/core/ui/icons/+plus.svelte';
   export let notes: Note[] = [];
   export let parent: BaseModel;
   export let parent_collection: 'articles' | 'keywords' | 'images';
@@ -41,19 +38,6 @@
               notes = [...notes, addedNote];
 
               newNote.content = ''; // Clear after adding
-              if (parent_collection === 'articles') {
-                articles.update((currentArticles) =>
-                  currentArticles.map((article) => article.id === parent.id ? { ...article, notes: [...article.notes, addedNote] } : article)
-                );
-              } else if (parent_collection === 'keywords') {
-                keywords.update((currentKeywords) =>
-                  currentKeywords.map((keyword) => keyword.id === parent.id ? { ...keyword, notes: [...keyword.notes, addedNote] } : keyword)
-                );
-              } else if (parent_collection === 'images') {
-                images.update((currentImages) => 
-                  currentImages.map((image) => image.id === parent.id ? { ...image, notes: [...image.notes, addedNote] } : image)
-                );
-              }
           } else {
               console.error('Failed to add note', await response.text());
           }

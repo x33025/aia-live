@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { selectedDay, year, month } from '$lib/stores/util/+calendar';
+    import { selectedDay, year, month } from '$lib/stores/ui/+calendar';
     import { onMount } from 'svelte';
     import { get } from 'svelte/store';
     import Month from './+month.svelte';

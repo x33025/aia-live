@@ -12,12 +12,17 @@
     
 </script>
 
-<div class="note-container">
-    {#if note.expand?.activity}
+<div class="stack">
+    <div class="stack" > 
+        {#if note.expand?.activity}
         <div class="avatar-overlay">
             <Avatar size={2} userId={note.expand.activity.created_by} />
         </div>
+        <Text type={TextType.Callout}>{note.expand.activity.expand?.created_by?.first_name} </Text>
     {/if}
+
+    </div>
+   
 
   
         <div contenteditable={note.expand?.activity?.created_by === $current_user?.id} class="note-content">
@@ -27,9 +32,7 @@
 </div>
 
 <style>
-.note-container {
-    position: relative;
-}
+
 
 .avatar-overlay {
     position: absolute;
