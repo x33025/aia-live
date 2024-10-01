@@ -136,7 +136,7 @@
     </Label>
   </div>
 
-  <div class="stack" style="--direction: column; --gap: 0.5em; align-items: flex-start;">
+  <div class="stack expand" style="--direction: column; --gap: 0.5em; align-items: flex-start width: 100%;">
     <Label name="Description">
       {#if observePromise}
         <Spinner
@@ -164,15 +164,16 @@
       <NotesButton notes={image.expand?.notes || []} parent={image} parent_collection="images" />
     </Label>
     
-    <div class="stack" style="--direction: row; --justify: space-between;">
+
+  </div>
+  <div class="stack expand" style="bottom: 0; " >
  
-      <button
-        style="background-color: var(--red); color: white; padding: 0.5em 0.75em; border-radius: 0.5em;"
-        on:click={handleDelete}
-      >
-        Delete
-      </button>
-    </div>
+    <button
+      style="background-color: var(--red); color: white; padding: 0.5em 0.75em; border-radius: 0.5em;"
+      on:click={handleDelete}
+    >
+      Delete
+    </button>
   </div>
 </div>
 

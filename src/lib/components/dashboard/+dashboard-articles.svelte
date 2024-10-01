@@ -3,7 +3,7 @@
   import Text from '$lib/core/display/+text.svelte';
   import type { Article } from '$lib/types'; 
     import Avatar from '../user/+avatar.svelte';
-
+    import AddArticleButton from '$lib/components/article/+add-article-button.svelte';
     import TimeFrameSelector from '$lib/components/dashboard/+time-frame-selector.svelte';
   import OpenArticleButton from '$lib/components/actions/+open-article-button.svelte';
     import NotesButton from '../notes/+notes-button.svelte';
@@ -18,10 +18,11 @@
 
 <div class="stack expand" style="--direction: column; --justify: start; --gap: 0.5em; border-left: 1px solid var(--gray-2);">
 
-  <div class="stack" style="--direction: row; --justify: space-between; padding: 0.5em;">
+  <div class="stack " style="--direction: row; --justify: space-between; padding: 0.5em; width: 100%; border-bottom: 1px solid var(--gray-1); ">
     <TimeFrameSelector />
+    <AddArticleButton />
   </div>
-  <div class="stack" style=" padding: 0.5em; border-top: 1px solid var(--gray-1); ">
+  <div class="stack" style=" padding: 0.5em; ">
     {#if articles.length > 0} 
       {#each articles as article (article.id)}
 
