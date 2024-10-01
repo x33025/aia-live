@@ -32,8 +32,9 @@
     
            <div class="spacer"  />
  
-          <Avatar userId={article.author ?? 'defaultUserId'} size={1.75} />  
-         
+           {#if article.author || article.expand?.activity?.created_by}
+          <Avatar userId={article.author ?? article.expand?.activity?.created_by ?? ''} size={1.75} />  
+         {/if}
           
 
         </div>

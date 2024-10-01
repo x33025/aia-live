@@ -81,12 +81,12 @@
 
 
     <div class="note-input-wrapper">
-      <Text type={TextType.Subheadline}>
-      <div contenteditable="true" class="note-container" on:keydown={handleKeydown} on:input={updateContent}>
+    
+      <div contenteditable="true" class="note-container" placeholder="Add a note..." on:keydown={handleKeydown} on:input={updateContent}>
           {newNote.content}
       </div>
-    </Text>
-      <button class="add-note-button" on:click={addNote}><PlusIcon size={1} /></button>
+  
+      <button class="add-note-button" on:click={addNote}><PlusIcon size={0.8} /></button>
     </div>
 
 
@@ -117,6 +117,7 @@
     width: 100%;
     background-color: var(--gray-1);
     border-radius: 0.5em;
+    
   }
 
   .note-container {
@@ -125,7 +126,7 @@
     padding: 0.5em;
     width: 100%;
     min-height: 3em;
-    z-index: 5000;
+  
   }
 
   .add-note-button {
