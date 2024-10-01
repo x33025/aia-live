@@ -6,7 +6,7 @@
 
   export let content: string;
   export let onPublishUpdate: (updatedContent: string) => void;
-  export let onSelectionChange: (selection: { text: string, start: number, end: number } | null) => void;
+  export let onSelectionChange: (selection: { text: string, start: number, end: number } | null) => void = () => {};
   export let placeholder: string; // Add this line
 
   const editor = new Editor(); // Create an instance of the Editor class
@@ -65,7 +65,7 @@
 </script>
 
 <div 
-  class="editable-content" 
+  class="scrollable-stack expand editable-content" 
   contenteditable="true" 
   on:input={handleInput} 
   on:selectionchange={handleSelectionChange} 
@@ -85,12 +85,10 @@
     border-radius: 0.5em;
     outline: none; 
     padding: 1em;
-    height: 100%;
-    overflow: hidden;
     font-family: 'Noto Serif', serif;
     line-height: 1.6em;
     border-top: 1px solid #ddd;
-
+    font-size: 1em;
     display: block;
   }
 </style>

@@ -1,33 +1,25 @@
 <script lang="ts">
   import MainImage from '$lib/components/images/display/+main-image.svelte';
   import { article } from '$lib/stores/data/+articles';
-  import { openSidebar } from '$lib/stores/ui/+sidebar';
-  import NotesSidebar from '$lib/components/notes/+notes-sidebar.svelte';
+
   import Keywords from '$lib/components/keyword/+keywords.svelte';
   import Label from '$lib/core/display/+label.svelte'; 
   import GoBackButton from '$lib/core/navigation/+go-back.svelte';
   import { page } from '$app/stores'; 
-  import { onMount } from 'svelte';
-  import type { Article } from '$lib/types'; // Import Article type
+
   import { updateArticle } from '$lib/api/article/+update-article';
   import Body from '$lib/components/article/[id]/body/+content.svelte';
   import { debounce } from 'lodash-es'; // Import debounce from lodash-es
 
-  // Function to publish updates
-  function publishUpdate(updatedContent: string) {
-    console.log("Publishing update:", updatedContent);
-  }
 
   // Function to update the article title
   function updateArticleTitle(event: Event) {
-    console.log("Updating article title");
+
     const target = event.target as HTMLInputElement;
-    console.log("Article title updated to:", target.value);
-    if ($article?.id) {
-      updateArticle($article.id, { title: target.value });
-    } else {
-      console.error("Article ID is undefined");
-    }
+
+
+    updateArticle($article.id, { title: target.value });
+
   }
 
   // Debounced version of updateArticleTitle
@@ -62,11 +54,7 @@
   </div>
   <div class="stack expand" >
     {#if $article}
-      <Body 
-        content={$article.content} 
-        onPublishUpdate={publishUpdate} 
-        onSelectionChange={(selection) => console.log("Selection changed:", selection)} 
-      />
+      <Body />
     {/if}
   </div>
 </div>

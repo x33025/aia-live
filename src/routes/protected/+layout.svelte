@@ -14,14 +14,13 @@
   let intervalId: number;
 
   // Function to update the last_active status
-  async function updateLastActive(userId: string) {
-    if (!userId) return;
-
+  async function updateLastActive() {
+ 
     try {
-      const response = await fetch('/protected', {
+      const response = await fetch('/api/data/update', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ userId }),
+        body: JSON.stringify({ collection: 'users', id: $current_user.id, data: { last_active: new Date().toISOString() } }),
       });
 
       if (!response.ok) {
@@ -37,10 +36,10 @@
     users.set($page.data.users);
     current_user.set($page.data.user);
 
-    updateLastActive($current_user.id);
+    updateLastActive();
 
     intervalId = window.setInterval(() => {
-      updateLastActive($current_user.id);
+      updateLastActive();
     }, 5 * 60 * 1000);  // 5 minutes
 
     return () => clearInterval(intervalId);  // Cleanup interval on component destroy

@@ -5,19 +5,19 @@ import type { RequestHandler } from './$types';
 
 export const DELETE: RequestHandler = async ({ request }) => {
     try {
-        const { collectionName, id } = await request.json();
+        const { collection, id } = await request.json();
         
-        console.log('[DELETE] Received request to delete record:', { collectionName, id });
+        console.log('[DELETE] Received request to delete record:', { collection, id });
 
-        if (!collectionName || !id) {
+        if (!collection || !id) {
             console.error('[DELETE] Collection name or ID is missing in the request');
             return json({ error: 'Collection name and ID are required.' }, { status: 400 });
         }
 
-        const service = new BaseService(collectionName);
+        const service = new BaseService(collection);
         await service.delete(id);
 
-        console.log('[DELETE] Record deleted successfully:', { collectionName, id });
+        console.log('[DELETE] Record deleted successfully:', { collection, id });
         return json({ message: 'Record deleted successfully.' }, { status: 200 });
     } catch (error) {
         console.error('[DELETE] Error deleting record:', error);

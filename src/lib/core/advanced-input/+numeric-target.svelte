@@ -1,8 +1,5 @@
 <script lang="ts">
   import NumericInput from '$lib/core/advanced-input/+numeric-input.svelte';
-    import { Direction, TextType } from '$lib/types';
-
-    import Text from '../display/+text.svelte';
 
   export let target: number | null;
   export let current: number;

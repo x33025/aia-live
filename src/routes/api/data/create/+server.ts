@@ -7,16 +7,16 @@ export const POST: RequestHandler = async ({ request }) => {
     try {
         console.log('Received request:', request);
 
-        const { collectionName, data } = await request.json();
-        console.log('Parsed request JSON:', { collectionName, data  });
+        const { collection, data } = await request.json();
+        console.log('Parsed request JSON:', { collection, data  });
 
-        if (!collectionName || !data) {
+        if (!collection || !data) {
             console.error('Validation error: Collection name and data are required.');
             return json({ error: 'Collection name and data are required.' }, { status: 400 });
         }
 
-        const service = new BaseService(collectionName);
-        console.log('Initialized BaseService with collectionName:', collectionName);
+        const service = new BaseService(collection);
+        console.log('Initialized BaseService with collection:', collection);
 
         const newItem = await service.create(data);
         console.log('Created new item:', newItem);

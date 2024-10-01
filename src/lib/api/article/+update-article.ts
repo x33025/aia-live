@@ -12,7 +12,7 @@ export async function updateArticle(article_id: string, data: any) {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ collectionName: 'articles', id: article_id, data: data }),
+        body: JSON.stringify({ collection: 'articles', id: article_id, data: data }),
       });
   
       if (response.ok) {
