@@ -16,11 +16,11 @@
   }
 </script>
 
-<div class="stack note-chip" style="--direction: row; --align: center;">
+<div class="stack note-chip caption" style="--direction: row; --align: center;">
     {#if note.expand?.activity?.created_by}
       <Avatar size={1.5} userId={note.expand?.activity?.created_by} />
     {/if}
-    <div class="note-content">
+    <div class="note-content ">
       {sanitizeHTML(note.content)}
     </div>
 </div>
@@ -43,5 +43,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+
+    font-weight: bold;
   }
 </style>

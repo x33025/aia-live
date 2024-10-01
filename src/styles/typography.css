@@ -20,3 +20,34 @@
     font-weight: 100 900;
     font-style: normal;
   }
+
+
+  .title {
+    font-size: 1.5em;
+    font-weight: bold;
+  }
+  
+  .headline {
+    font-size: 1.25em;
+    font-weight: bold;
+  }
+  
+  .subheadline {
+    font-size: 1.125em;
+    font-weight: normal;
+  }
+  
+  .body {
+    font-size: 1em;
+    font-weight: normal;
+  }
+  
+  .callout {
+    font-size: 0.875em;
+    font-weight: normal;
+  }
+  
+  .caption {
+    font-size: 0.75em;
+    font-weight: normal;
+  }
