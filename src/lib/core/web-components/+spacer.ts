@@ -21,5 +21,5 @@ if (typeof window !== 'undefined') {
   }
   
   // Define the custom element
-  customElements.define('spacer', Spacer);
+  customElements.define('spacer-element', Spacer);
 }
