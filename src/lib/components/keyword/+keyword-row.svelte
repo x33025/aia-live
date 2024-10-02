@@ -3,47 +3,45 @@
   import DropdownMenu from '$lib/core/actions/+dropdown-menu.svelte';
   import TextInput from '$lib/core/actions/+text-input.svelte';
   import { type Country, type Keyword } from '$lib/types';
-  import { openSidebar } from '$lib/stores/ui/+sidebar';
-  import NotesSidebar from '../notes/+notes-sidebar.svelte';
+
   import NotesButton from '../notes/+notes-button.svelte';
- 
+  import { updateKeyword } from '$lib/api/keyword/+update-keyword';
+
+
+
   export let keyword: Keyword;
   export let countries: Country[] = [];
-  export let updateKeyword: (id: string, updatedFields: object) => void;
+
  
   $: selectedCountry = keyword.country ? countries.find(c => c.id === keyword.country) : null;
  
+
+
+
   function selectCountry(country: Country) {
-    updateKeyword(keyword.id, { country: country.id });
+    selectedCountry = country;
+    updateKeyword(keyword.id, { country: country.id }); // Direct call to updateKeyword
   }
  
   function handleKeywordEnter(event: CustomEvent) {
     const newValue = event.detail.value;
-    updateKeyword(keyword.id, { keyword: newValue });
+    updateKeyword(keyword.id, { keyword: newValue }); // Direct call to updateKeyword
   }
  
   function handleVolumeChange(event: CustomEvent) {
     const newVolume = event.detail.value;
-    updateKeyword(keyword.id, { volume: newVolume });
+    updateKeyword(keyword.id, { volume: newVolume }); // Direct call to updateKeyword
   }
  
   function handleDensityChange(event: CustomEvent) {
     const newDensity = event.detail.value;
-    updateKeyword(keyword.id, { density: newDensity });
+    updateKeyword(keyword.id, { density: newDensity }); // Direct call to updateKeyword
   }
  
   function handleEvergreenToggle() {
     const newEvergreenState = !keyword.evergreen;
-    updateKeyword(keyword.id, { evergreen: newEvergreenState });
+    updateKeyword(keyword.id, { evergreen: newEvergreenState }); // Direct call to updateKeyword
   }
-
-  function openNotesSidebar() {
-    const notes = keyword.expand?.notes || []; // Fallback to an empty array if notes are undefined
-    const activity = keyword.expand?.activity; // Define activity with a fallback
-    console.log('Opening Notes Sidebar with:', { notes, activity });
-    openSidebar(NotesSidebar, { notes, activity });
-  }
-
   
  </script>
  

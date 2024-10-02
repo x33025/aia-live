@@ -5,42 +5,13 @@
   import Text from '$lib/core/display/+text.svelte';
   import KeywordRow from '$lib/components/keyword/+keyword-row.svelte';
   import { keywords } from '$lib/stores/data/+keywords';
-  import { Direction, SortOptions, type Keyword } from '$lib/types';
-    import TextInput from '$lib/core/actions/+text-input.svelte';
+  import TextInput from '$lib/core/actions/+text-input.svelte';
 
   
   const headers = ["Keyword", "Evergreen", "Country", "Volume", "Density", "Notes"];
 
-  let selectedSortOption: SortOptions = SortOptions.DateCreatedDesc; // Default to DateCreated Descending
 
-  // Function to toggle the sort option
-  function toggleSortOption(option: SortOptions) {
-    if (selectedSortOption === option) {
-      selectedSortOption = option.includes('Asc') ? (option.replace('Asc', 'Desc') as SortOptions) : (option.replace('Desc', 'Asc') as SortOptions);
-    } else {
-      selectedSortOption = option;
-    }
-    console.log("Selected sort option:", selectedSortOption);
-    updateKeywordList();
-  }
 
-  // Handle sorting option change from DropdownMenu
-  function handleSortChange(event: CustomEvent<{ selectedOption: SortOptions }>) {
-    toggleSortOption(event.detail.selectedOption);
-  }
-
-  // Fetch the sorted list of keywords
-  async function updateKeywordList() {
-    try {
-      console.log('updateKeywordList called with sort option:', selectedSortOption);
-      const response = await fetch(`/protected/keywords?sort=${selectedSortOption}`);
-      const sortedKeywords = await response.json();
-      console.log('updateKeywordList response:', sortedKeywords);
-      keywords.set(sortedKeywords); // Update the store with sorted keywords
-    } catch (error) {
-      console.error('Failed to fetch sorted keywords:', error);
-    }
-  }
 
   // Set initial keywords in the store
   onMount(() => {
@@ -49,9 +20,6 @@
  
   });
 
-  function updateKeyword(id: string, updatedFields: object) {
-    console.log('Keyword updated:', id, updatedFields);
-  }
 
   function handleNewKeyword(event: CustomEvent<string>) {
     console.log('New keyword:', event.detail);
@@ -67,7 +35,7 @@
   </div>
 
   <!-- Table for Displaying Keywords -->
-  <div class="table-container " >
+
     <table >
       <thead>
         <tr>
@@ -80,11 +48,11 @@
       </thead>
       <tbody>
         {#each $keywords as keyword (keyword.id)}
-          <KeywordRow {keyword} countries={$page.data.countries} {updateKeyword} />
+          <KeywordRow {keyword} countries={$page.data.countries} />
         {/each}
       </tbody>
     </table>
-  </div>
+ 
 </div>
 
 <style>
@@ -108,16 +76,5 @@
     border-bottom: 1px solid #ddd;
   }
 
-  :global(.table-container) {
-    flex: 1;
-    overflow-y: auto;
-    overflow-x: auto; /* Add horizontal scroll if needed */
-  }
 
-  :global(.search-bar) {
-    padding: var(--default-padding);
-    background-color: var(--gray-1);
-    border-radius: 0.5em;
-    position: sticky;
-  }
 </style>
