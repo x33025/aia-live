@@ -6,6 +6,7 @@
   import Users from '$lib/components/user/+users.svelte';
   import ProfileMenu from '$lib/components/user/+profile-menu.svelte';
 
+  import'$lib/core/web-components/+spacer';
   import { Direction, TextType } from '$lib/types';
   import SearchBar from '$lib/components/search/+search-bar.svelte';
   import PageTitle from '$lib/core/layout/+page-title.svelte';

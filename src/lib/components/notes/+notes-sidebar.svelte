@@ -63,11 +63,12 @@
 
 </script>
 
-<div class="stack expand" style="--align: flex-start; --gap: 1em; padding: 1em;">
-  <Text type={TextType.Title}>Notes</Text>
+<div class="stack  expand" style="--align: flex-start; --gap: 1em; padding: 1em;">
+  
+    <Text type={TextType.Title}>Notes</Text>
 
 
-    <div class="note-input-wrapper">
+    <div class=" scrollable-stack note-input-wrapper">
     
       <div contenteditable="true" class="note-container" placeholder="Add a note..." on:keydown={handleKeydown} on:input={updateContent}>
           {newNote.content}
@@ -76,7 +77,7 @@
     </div>
 
 
-  <div class="scrollable-stack expand" style="--gap: 0.5em;">
+  <div class="expand" style="--gap: 0.5em;">
     {#if notes.length > 0}
     {#each notes as note (note.id)}
       <NoteView {note} />
@@ -86,7 +87,8 @@
   {/if}
   </div>
 
-  <div class="spacer" />
+  <spacer />
+
   {#if activity}
   <div class="stack" style="height: 320px;">
       <Text type={TextType.Subheadline} style="font-weight: bold;">{($page.data.title).slice(0, -1)} Activity Data</Text>
@@ -115,15 +117,5 @@
   
   }
 
-  .add-note-button {
-    position: absolute;
-    right: 0.5em;
-    bottom: 0.5em;
-    background-color: var(--blue);
-    color: white;
-    border: none;
-    padding: 0.5em;
-    border-radius: 0.5em;
-    cursor: pointer;
-  }
+
 </style>
