@@ -14,6 +14,6 @@
 
 <div class="stack" style="--direction: row; --justify: space-between;">
     <button type="button" on:click={closeModal}>Reset</button>
-    <spacer-element />
+    <div class="spacer" />
     <button type="button" on:click={confirmCrop}>Crop</button>
 </div>

@@ -13,13 +13,13 @@
 
 
 <div class="stack expand" style="--align: flex-start; --gap: 1em; padding: 1em;" >
-<spacer-element />
+
   <RouteNavigation />
 
   <div class="stack expand" style="border-top: 1px solid var(--gray-2); padding-top: 1em; --direction: row; --justify: space-between; --gap: 1em">
 
     <DashboardCalendar />
-    <spacer style="max-width: 400px;" />
+    <div class="spacer" style="max-width: 400px;" />
     <DashboardArticles {draftedThisMonth} /> 
 
   

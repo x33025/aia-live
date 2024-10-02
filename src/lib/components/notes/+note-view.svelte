@@ -19,7 +19,7 @@
          <Avatar size={1.5} userId={note.expand.activity.created_by} />
      
         <Text type={TextType.Callout} style="font-weight: bold;">{$users.filter((user) => user.id === note.expand?.activity?.created_by)[0].first_name} {$users.filter((user) => user.id === note.expand?.activity?.created_by)[0].last_name.charAt(0)}. </Text>
-        <spacer />
+        <div class="spacer" />
         <DeleteButton activity={note.expand?.activity} />
     {/if}
 

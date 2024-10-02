@@ -87,7 +87,7 @@
   {/if}
   </div>
 
-  <spacer />
+  <div class="spacer" />
 
   {#if activity}
   <div class="stack" style="height: 320px;">

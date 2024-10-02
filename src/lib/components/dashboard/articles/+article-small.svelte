@@ -31,7 +31,7 @@
     <!-- Replace static title with input and add placeholder -->
     <input type="text" bind:value={article.title} on:input={debouncedHandleTitleChange} placeholder="Enter article title" />
 
-     <spacer  />
+    <div class="spacer" />
 
      <a href={`/protected/article/${article.id}`} class="open-article-button">
       Open 

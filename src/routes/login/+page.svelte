@@ -31,7 +31,7 @@
         <GoBackButton path="/"/>
        
         <Text type={TextType.Title}>Welcome Back</Text>
-        <spacer />
+        <div class="spacer" />
       </div>
    
       <form method="POST" action="?/login" use:enhance>
