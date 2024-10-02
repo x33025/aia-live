@@ -18,7 +18,7 @@
   <div class="stack expand" style="border-top: 1px solid var(--gray-2); padding-top: 1em; --direction: row; --justify: space-between; --gap: 1em">
 
     <DashboardCalendar />
-    <div class="spacer" style="max-width: 400px;" />
+    <spacer style="max-width: 400px;" />
     <DashboardArticles {draftedThisMonth} /> 
 
   

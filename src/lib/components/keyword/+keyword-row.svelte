@@ -91,7 +91,7 @@
         {#each sortedCountries as country}
           <div class="stack menu-item" style="--direction: row; --align: center;" on:click={() => { selectOption(country.id); selectCountry(country); }}>
             {country.name} 
-            <div class="spacer" />
+            <spacer />
             {getFlagEmoji(country.name)}
           </div>
         {/each}

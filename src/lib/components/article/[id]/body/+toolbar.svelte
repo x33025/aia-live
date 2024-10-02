@@ -53,7 +53,7 @@
   <button class="label" on:click={() => editor?.toggleSmartStyle()}>
     <Text type={TextType.Callout}>Smart Style: {smartStyleEnabled ? 'On' : 'Off'}</Text>
   </button>
-  <div class="spacer" />
+  <spacer />
   <NumericTarget
   target={$article.target_word_count} 
   current={$article.word_count} 

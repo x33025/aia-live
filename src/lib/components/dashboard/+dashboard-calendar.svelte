@@ -9,9 +9,9 @@
 
 </script>
 
-<div class="stack expand" style="--direction: column;" >
+<div class="stack expand" style="--direction: column; --align: flex-start; --justify: flex-start;" >
     <Text type={TextType.Title}>Calendar</Text>
     <Text type={TextType.Body} style="font-weight: bold;">{$selectedDay.toDateString()}</Text>
     <Calendar/>
-    <div class="spacer" />
+    <spacer />
 </div>

@@ -16,7 +16,7 @@
     <div class="stack dropdown-item" style="--direction: row; --gap: 0.5em; --align: center; --justify: flex-start;">
       <Avatar userId={user.id} size={1.75} /> 
       <Text type={TextType.Callout}> {user.first_name} {user.last_name}</Text>
-      <div class="spacer"/>
+      <spacer />
       {#if $activeUsers.includes(user)}
         <div class="green-dot"></div>
       {/if}

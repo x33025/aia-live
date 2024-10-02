@@ -64,7 +64,7 @@
   <div class="stack" style="--direction: row; --justify: flex-start; --align: center; padding: 2em 2em 0em; width: 100%; ">
     <GoBackButton />
     <PageTitle />
-  <div class="spacer" />
+    <spacer />
     <!-- <SearchBar type={TextType.Headline} onSearch={(value) => console.log(value)} placeholder="Show me images of..." /> -->
 
     <button class="add-image-button" on:click={handleFileSelection}>
