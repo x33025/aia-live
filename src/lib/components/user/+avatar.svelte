@@ -33,7 +33,7 @@
   {#if hasAvatar}
       <ImageComponent image_url={avatarUrl} alt_text="User Avatar" size={size} aspect_ratio={1} maskShape="circle" />
   {:else}
-      <Text class="initials" type={TextType.Subheadline}>{userInitials}</Text>
+      <Text style="font-weight: 650;" type={TextType.Body}>{userInitials}</Text>
   {/if}
 </CircularText>
 </div>
@@ -49,7 +49,5 @@
   align-items: center;
 }
 
-:global(.initials) {
-  font-weight: 800;
-}
+
 </style>

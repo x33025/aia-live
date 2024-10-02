@@ -4,7 +4,7 @@
     import { TextType } from '$lib/types';
     import Avatar from '$lib/components/user/+avatar.svelte'; // Import Avatar component
     import { users, current_user } from '$lib/stores/data/+users';
-
+    import DeleteButton from '$lib/components/actions/+delete-button.svelte';
 
     export let note: Note;
 
@@ -12,20 +12,22 @@
     
 </script>
 
-<div class="stack">
-    <div class="stack" style="--direction: row; --align: center;" > 
+<div class="stack expand note-content" > 
+    <div class="stack" style="--direction: row; --align: center; width: 100%; padding-right: 0.3em; " > 
         {#if note.expand?.activity}
     
-         <Avatar size={1.75} userId={note.expand.activity.created_by} />
+         <Avatar size={1.5} userId={note.expand.activity.created_by} />
      
         <Text type={TextType.Callout} style="font-weight: bold;">{$users.filter((user) => user.id === note.expand?.activity?.created_by)[0].first_name} {$users.filter((user) => user.id === note.expand?.activity?.created_by)[0].last_name.charAt(0)}. </Text>
+        <div class="spacer" />
+        <DeleteButton activity={note.expand?.activity} />
     {/if}
 
     </div>
    
 
   
-        <div contenteditable={note.expand?.activity?.created_by === $current_user?.id} class="stack expand note-content">
+        <div contenteditable={note.expand?.activity?.created_by === $current_user?.id} class="stack expand">
             {@html note.content}
         </div>
 
@@ -47,6 +49,6 @@ div[contenteditable="true"] {
     min-height: 125px;
     background-color: var(--gray-1); /* Transparent background */
     padding: 0.5em;
-    border-radius: 0.5em;
+    border-radius: 1em;
 }
 </style>
