@@ -18,7 +18,7 @@
  
     try {
       const response = await fetch('/api/data/update', {
-        method: 'POST',
+        method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ collection: 'users', id: $current_user.id, data: { last_active: new Date().toISOString() } }),
       });

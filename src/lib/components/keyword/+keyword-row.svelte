@@ -42,6 +42,15 @@
     const newEvergreenState = !keyword.evergreen;
     updateKeyword(keyword.id, { evergreen: newEvergreenState }); // Direct call to updateKeyword
   }
+
+
+  function getFlagEmoji(countryCode: string) {
+    const codePoints = countryCode
+      .toUpperCase()
+      .split('')
+      .map(char => 127397 + char.charCodeAt(0));
+    return String.fromCodePoint(...codePoints);
+  }
   
  </script>
  
@@ -73,7 +82,7 @@
        <svelte:fragment let:selectOption>
          {#each countries as country}
            <p class="menu-item" on:click={() => { selectOption(country.id); selectCountry(country); }}>
-             {country.name}
+             {country.name} {getFlagEmoji(country.name)}
            </p>
          {/each}
        </svelte:fragment>

@@ -1,10 +1,11 @@
 // src/routes/api/user/update-last-active/+server.ts
 
 import { json } from '@sveltejs/kit';
-import { pb } from '$lib/config/pocketbase';
-import type { User } from '$lib/types';
+import { userService } from '$lib/services/+user-service';
 
 export async function POST({ request }: { request: Request }) {
+
+  
   const { userId } = await request.json();
 
   if (!userId) {
@@ -13,15 +14,15 @@ export async function POST({ request }: { request: Request }) {
 
   try {
     // Fetch the user by ID
-    const user = await pb.collection('users').getOne<User>(userId);
+    const user = await userService.getOne(userId);
 
     if (!user) {
       return json({ error: 'User not found' }, { status: 404 });
     }
 
     // Update the user's last_active field
-    await pb.collection('users').update(userId, {
-      last_active: new Date().toISOString(),
+    await userService.update(userId, {
+      last_active: new Date()
     });
 
     return json({ success: true });

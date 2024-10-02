@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import { page } from '$app/stores';
-
+  import { TextType } from '$lib/types';
   import Text from '$lib/core/display/+text.svelte';
   import KeywordRow from '$lib/components/keyword/+keyword-row.svelte';
   import { keywords } from '$lib/stores/data/+keywords';
@@ -41,11 +41,12 @@
         <tr>
           {#each headers as header}
             <th>
-              <Text>{header}</Text>
+              <Text type={TextType.Subheadline} style="font-weight: bold;">{header}</Text>
             </th>
           {/each}
         </tr>
       </thead>
+
       <tbody>
         {#each $keywords as keyword (keyword.id)}
           <KeywordRow {keyword} countries={$page.data.countries} />
@@ -60,7 +61,7 @@
     width: 100%;
     min-width: 66.67%;
     border-collapse: collapse;
-    
+
   }
 
 
