@@ -49,6 +49,18 @@
       .map(char => 127397 + char.charCodeAt(0));
     return String.fromCodePoint(...codePoints);
   }
+
+
+  $: sortedCountries = countries.slice().sort((a, b) => {
+  if (a.name === "Global") return -1; // Global first
+  if (b.name === "Global") return 1;
+  if (a.name === "US") return -1; // US first
+  if (b.name === "US") return 1;
+  if (a.name === "UK") return -1; // UK second
+  if (b.name === "UK") return 1;
+  return a.name.localeCompare(b.name); // Sort the rest alphabetically
+});
+
 </script>
 
 <tr>
@@ -76,10 +88,12 @@
       </svelte:fragment>
 
       <svelte:fragment let:selectOption>
-        {#each countries as country}
-          <p class="menu-item" on:click={() => { selectOption(country.id); selectCountry(country); }}>
-            {country.name} {getFlagEmoji(country.name)}
-          </p>
+        {#each sortedCountries as country}
+          <div class="stack menu-item" style="--direction: row; --align: center;" on:click={() => { selectOption(country.id); selectCountry(country); }}>
+            {country.name} 
+            <div class="spacer" />
+            {getFlagEmoji(country.name)}
+          </div>
         {/each}
       </svelte:fragment>
     </DropdownMenu>
