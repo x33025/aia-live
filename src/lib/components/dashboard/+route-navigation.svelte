@@ -1,15 +1,16 @@
 <script lang="ts">
-
+import '$lib/core/web-components/+spacer';
     import RouteButton from "./+route-button.svelte";
 
 </script>
 
 
-<div class="stack" style="--direction: row; --justify: space-between; --gap: 1em" >
+<div class="stack" style="--direction: row; --justify: flex-start; --gap: 1em;" >
  
     <RouteButton route="/protected/articles" emojis={["📰", "📄", "🖋️"]} text="Articles"  />
     <RouteButton route="/protected/keywords" emojis={["🔑", "📊", "🏷️"]} text="Keywords"  />
     <RouteButton route="/protected/images" emojis={["📸", "🌉", "📹"]} text="Images" />
+    <spacer />
     <RouteButton route="/protected/stream" emojis={["📡", "📺", "🎥"]} text="Stream"  underConstruction={true} />
     <!-- <RouteButton route="/protected" emojis={["🤖", "🧠", "🔍", "🚧"]} text={"Coming Soon"} /> -->
    

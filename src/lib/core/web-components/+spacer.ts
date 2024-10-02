@@ -15,12 +15,11 @@ if (typeof window !== 'undefined') {
           flex-grow: 1;
         }
       `;
-  
       shadow.appendChild(style);
       shadow.appendChild(div);
     }
   }
   
   // Define the custom element
-  customElements.define('spacer-component', Spacer);
+  customElements.define('spacer', Spacer);
 }

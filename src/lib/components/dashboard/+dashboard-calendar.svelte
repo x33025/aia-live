@@ -13,5 +13,5 @@
     <Text type={TextType.Title}>Calendar</Text>
     <Text type={TextType.Body} style="font-weight: bold;">{$selectedDay.toDateString()}</Text>
     <Calendar/>
-    <spacer />
+
 </div>
