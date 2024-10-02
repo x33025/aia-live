@@ -3,7 +3,7 @@
     import Text from '$lib/core/display/+text.svelte';
     import { TextType } from '$lib/types';
     import Avatar from '$lib/components/user/+avatar.svelte'; // Import Avatar component
-    import { current_user } from '$lib/stores/data/+users';
+    import { users, current_user } from '$lib/stores/data/+users';
 
 
     export let note: Note;
@@ -13,19 +13,19 @@
 </script>
 
 <div class="stack">
-    <div class="stack" > 
+    <div class="stack" style="--direction: row; --align: center;" > 
         {#if note.expand?.activity}
-        <div class="avatar-overlay">
-            <Avatar size={2} userId={note.expand.activity.created_by} />
-        </div>
-        <Text type={TextType.Callout}>{note.expand.activity.expand?.created_by?.first_name} </Text>
+    
+         <Avatar size={1.75} userId={note.expand.activity.created_by} />
+     
+        <Text type={TextType.Callout} style="font-weight: bold;">{$users.filter((user) => user.id === note.expand?.activity?.created_by)[0].first_name} {$users.filter((user) => user.id === note.expand?.activity?.created_by)[0].last_name.charAt(0)}. </Text>
     {/if}
 
     </div>
    
 
   
-        <div contenteditable={note.expand?.activity?.created_by === $current_user?.id} class="note-content">
+        <div contenteditable={note.expand?.activity?.created_by === $current_user?.id} class="stack expand note-content">
             {@html note.content}
         </div>
 
@@ -34,12 +34,6 @@
 <style>
 
 
-.avatar-overlay {
-    position: absolute;
-    bottom: 0.5em;
-    right: 0.5em;
-    z-index: 1001; /* Ensure it is above the contenteditable div */
-}
 
 div[contenteditable="true"] {
    

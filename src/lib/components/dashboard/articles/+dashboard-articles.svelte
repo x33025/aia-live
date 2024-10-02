@@ -6,6 +6,8 @@
     import TimeFrameSelector from '$lib/components/dashboard/+time-frame-selector.svelte';
     import ArticleSmall from '$lib/components/dashboard/articles/+article-small.svelte';
   // Accept the draftedThisMonth prop
+
+  
   export let draftedThisMonth: { items: Article[] } = { items: [] };
 
   // Extract the items array

@@ -45,7 +45,6 @@
 
   <div class="stack" style="--direction: row; --justify: space-between; --align: center;  width: 100%;">
     <NotesButton notes={article.expand?.notes ?? []} parent={article} parent_collection="articles" />
-
   
   </div>
 </div>

@@ -6,7 +6,8 @@
   import type { ActivityData, BaseModel } from '$lib/types';
   import { current_user } from '$lib/stores/data/+users';
   import { page } from '$app/stores';
-  import { images } from '$lib/stores/data/+images';
+
+
   export let notes: Note[] = [];
   export let parent: BaseModel;
   export let parent_collection: 'articles' | 'keywords' | 'images';
