@@ -14,7 +14,7 @@
 
 <div class="stack expand" style="--direction: column; --justify: start; --gap: 0.5em; border-left: 1px solid var(--gray-2);">
 
-  <div class="stack " style="--direction: row;  --justify: space-between; padding: 0.5em; width: 100%; border-bottom: 1px solid var(--gray-1); ">
+  <div class="stack " style="--direction: row; --align: center; --justify: space-between; padding: 0.5em; width: 100%; border-bottom: 1px solid var(--gray-1); ">
     <TimeFrameSelector />
     <AddArticleButton />
   </div>
