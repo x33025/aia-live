@@ -1,7 +1,7 @@
 <script lang="ts">
   import { page } from '$app/stores';
   import { users, current_user } from '$lib/stores/data/+users';
-  import { onMount } from 'svelte';
+  import { onMount, onDestroy } from 'svelte';
   import { pb } from '$lib/config/pocketbase';
   import type { Image } from '$lib/types';
   import { images } from '$lib/stores/data/+images';
@@ -9,6 +9,7 @@
   onMount(() => {
     users.set($page.data.users);
     current_user.set($page.data.user);
+    
     images.set($page.data.images);
 
     pb.collection('images').subscribe('*', (e) => { 
@@ -31,6 +32,9 @@
     }, { expand: 'activity,notes' });
   });
 
+  onDestroy(() => {
+    pb.collection('images').unsubscribe('*');
+  });
 
 </script>
 

@@ -10,6 +10,8 @@
   import { pb } from '$lib/config/pocketbase';
   import type { Article } from '$lib/types';
   import { articles } from '$lib/stores/data/+articles';
+  import { keywords } from '$lib/stores/data/+keywords';
+  import type { Keyword } from '$lib/types';
 
   let intervalId: number;
 
@@ -49,6 +51,16 @@
       } 
     });
 
+        // Subscribe to real-time changes in the keywords collection
+        pb.collection('keywords').subscribe('*', (e) => {
+      if (e.action === 'create') {
+        console.log('create', e.record);
+        keywords.update(currentKeywords => [...currentKeywords, e.record as unknown as Keyword]); // Add new article
+      } else if (e.action === 'update') {
+        console.log('update', e.record);
+        keywords.update(currentKeywords => currentKeywords.map(keyword => keyword.id === e.record.id ? e.record as unknown as Keyword : keyword)); // Update existing article
+      } 
+    });
 
 
 
@@ -64,6 +76,7 @@
   onDestroy(() => {
     clearInterval(intervalId);
     pb.collection('articles').unsubscribe('*');
+    pb.collection('keywords').unsubscribe('*');
   });
 </script>
 
