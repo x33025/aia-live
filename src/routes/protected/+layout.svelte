@@ -5,10 +5,6 @@
   import { users, current_user } from '$lib/stores/data/+users';
   import Users from '$lib/components/user/+users.svelte';
   import ProfileMenu from '$lib/components/user/+profile-menu.svelte';
-
-
-  import { Direction, TextType } from '$lib/types';
-  import SearchBar from '$lib/components/search/+search-bar.svelte';
   import PageTitle from '$lib/core/layout/+page-title.svelte';
   import GoBackButton from '$lib/core/navigation/+go-back.svelte';
 
@@ -63,8 +59,7 @@
     
     <PageTitle /> 
 
-    <!-- <SearchBar type={TextType.Headline} onSearch={(value) => console.log(value)} placeholder="I'm looking for..." /> -->
-  </div>
+    </div>
 
 
     <div class="stack" slot="navigation-trailing">

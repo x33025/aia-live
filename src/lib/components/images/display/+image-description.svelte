@@ -3,14 +3,14 @@
   import Label from '$lib/core/display/+label.svelte';
   import { type Image } from '$lib/types';
   import ActivityDataView from '$lib/components/activity/+activity-data.svelte';
-  import NotesButton from '../../notes/+notes-button.svelte';
+  import NotesButton from '$lib/components/notes/+notes-button.svelte';
   import { debounce } from 'lodash-es';
   import ActivityDate from '$lib/core/advanced-display/+activity-date.svelte';
   import ObserveIcon from '$lib/core/ui/icons/+observe.svelte';
   import Spinner from '$lib/core/display/+spinner.svelte';
-    import { selected_image } from '$lib/stores/data/+images';
-    import { current_user } from '$lib/stores/data/+users';
-    import { markDeleted } from '$lib/api/activity/+mark-deleted';
+  import { selected_image } from '$lib/stores/data/+images';
+  import { current_user } from '$lib/stores/data/+users';
+  import { markDeleted } from '$lib/api/activity/+mark-deleted';
 
   export let image: Image;
 

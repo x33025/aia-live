@@ -2,18 +2,18 @@
     import { onMount } from 'svelte';
     import TrashIcon from '$lib/core/ui/icons/+trash.svelte';
     import type { BaseModel } from '$lib/types';
-    import type { ActivityData } from '$lib/types';
+
     import { markDeleted } from '$lib/api/activity/+mark-deleted';
     import { current_user } from '$lib/stores/data/+users';
 
-    export let activity: ActivityData;
+    export let activity: string;
 
     const handleDelete = async () => {
         console.log('delete', activity);
 
 
    
-     markDeleted(activity.id, $current_user.id);
+     markDeleted(activity, $current_user.id);
   
     }
 </script>

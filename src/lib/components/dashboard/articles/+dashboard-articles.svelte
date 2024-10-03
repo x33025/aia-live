@@ -5,13 +5,9 @@
     import AddArticleButton from '$lib/components/article/+add-article-button.svelte';
     import TimeFrameSelector from '$lib/components/dashboard/+time-frame-selector.svelte';
     import ArticleSmall from '$lib/components/dashboard/articles/+article-small.svelte';
-  // Accept the draftedThisMonth prop
+    import { articles } from '$lib/stores/data/+articles';
 
-  
-  export let draftedThisMonth: { items: Article[] } = { items: [] };
 
-  // Extract the items array
-  const articles = draftedThisMonth.items;
 
 </script>
 
@@ -24,8 +20,8 @@
   </div>
 
   <div class="stack expand" style=" padding: 0.5em; ">
-    {#if articles.length > 0} 
-      {#each articles as article (article.id)}
+    {#if $articles.length > 0} 
+      {#each $articles as article (article.id)}
         <ArticleSmall article={article} />
       {/each}
     {:else}

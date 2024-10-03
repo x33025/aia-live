@@ -143,6 +143,7 @@ export interface Image extends BaseModel {
 export interface Note extends BaseModel {
   content: string; // Editor field
   activity: string; // ID as string, required
+  icon: string | null;
 
   expand?: {
     activity?: ActivityData;

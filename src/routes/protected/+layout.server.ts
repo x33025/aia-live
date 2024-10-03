@@ -1,14 +1,12 @@
 import type { LayoutServerLoad } from './$types';
-import { pb } from '$lib/config/pocketbase';
-import { redirect } from '@sveltejs/kit';
-import { articleService } from '$lib/services/+article-service';
 import { countryService } from '$lib/services/+country-service';
 import { userService } from '$lib/services/+user-service';
 import { categoryService } from '$lib/services/+category-service';
 import { statusService } from '$lib/services/+status-service';
 import { websiteService } from '$lib/services/+website-service';
-import type { User } from '$lib/types';
 import { authenticateUser } from '$lib/services/+authentication-service';
+
+
 
 export const load: LayoutServerLoad = async ({ cookies }) => {
 
