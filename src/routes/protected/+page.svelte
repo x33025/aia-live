@@ -18,7 +18,13 @@
       if (e.action === 'create') {
         console.log('create', e.record);
         articles.update(currentArticles => [...currentArticles, e.record as unknown as Article]); // Add new article
-      } 
+      } else if (e.action === 'update') {
+        console.log('update', e.record);
+        articles.update(currentArticles => currentArticles.map(article => article.id === e.record.id ? e.record as unknown as Article : article)); // Update existing article
+      } else if (e.action === 'delete') {
+        console.log('delete', e.record);
+        articles.update(currentArticles => currentArticles.filter(article => article.id !== e.record.id)); // Remove deleted article
+      }
     });
 
  
