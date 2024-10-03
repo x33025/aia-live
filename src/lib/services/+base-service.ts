@@ -64,10 +64,13 @@ export class BaseService<T extends BaseModel> {
      */
     async create(data: Partial<T>, { expand = '', fields = '' } = {}): Promise<T> {
         try {
-            return await pb.collection(this.collectionName).create<T>(data, {
+            console.log(`Creating record in ${this.collectionName} with data:`, data);
+            const result = await pb.collection(this.collectionName).create<T>(data, {
                 expand,
                 fields
             });
+            console.log(`Successfully created record in ${this.collectionName} with ID: ${result.id}`);
+            return result;
         } catch (error) {
             console.error(`Error creating record in ${this.collectionName}:`, error);
             throw error;

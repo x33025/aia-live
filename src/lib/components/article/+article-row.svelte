@@ -64,7 +64,7 @@
 
 </script>
 
-<div class="stack expand" style="--direction: column; --align: flex-start; --justify: stretch; " >
+<div class="stack " style="--direction: column; --align: flex-start; --justify: stretch; width: 100%;" >
   <div class="stack expand" style="--direction: row;">
     <MainImage main_image={article.expand?.main_image} />
     <div class="stack expand" style="--direction: column;">

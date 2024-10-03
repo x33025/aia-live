@@ -10,23 +10,15 @@
 
   onMount(() => {
     // Set initial data from SSR
-    articles.set($page.data.draftedThisMonth);
-     console.log($page.data.draftedThisMonth);
+    articles.set($page.data.draftedThisMonth.items);
+    console.log($page.data.draftedThisMonth.items);
 
     // Subscribe to real-time changes in the articles collection
     pb.collection('articles').subscribe('*', (e) => {
       if (e.action === 'create') {
         console.log('create', e.record);
         articles.update(currentArticles => [...currentArticles, e.record as unknown as Article]); // Add new article
-      } else if (e.action === 'update') {
-        articles.update(currentArticles => 
-          currentArticles.map(article => article.id === e.record.id ? e.record as unknown as Article : article)
-        );
-      } else if (e.action === 'delete') {
-        articles.update(currentArticles => 
-          currentArticles.filter(article => article.id !== e.record.id as unknown as string)
-        );
-      }
+      } 
     });
 
  

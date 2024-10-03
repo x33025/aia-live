@@ -5,14 +5,13 @@ import { articleService } from '$lib/services/+article-service';
 
 export const POST: RequestHandler = async ({ request }) => {
     try {
-        console.log('Received request:', request);
 
         const { user_id } = await request.json();
         console.log('Parsed request JSON:', { user_id, });
 
         if (!user_id) {
-            console.error('Validation error: data, user_id are required.');
-            return json({ error: 'data, user_id are required.' }, { status: 400 });
+            console.error('Validation error: user_id are required.');
+            return json({ error: 'user_id are required.' }, { status: 400 });
         }
 
       

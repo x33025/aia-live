@@ -11,11 +11,15 @@ class ArticleService extends BaseService<Article> {
 
     async createWithActivity(user_id: string): Promise<Article> {
         try {
+            console.log(`Starting createWithActivity with user_id: ${user_id}`);
+            
             // Create the activity
             const activity = await activityDataService.create({ created_by: user_id });
+            console.log(`Activity created with ID: ${activity.id}`);
 
             // Add the activity ID to the data
             const newArticle = await this.create({ activity: activity.id });
+            console.log(`New article created with ID: ${newArticle.id}`);
      
             return newArticle;
         } catch (error) {
