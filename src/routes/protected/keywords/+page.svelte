@@ -39,8 +39,8 @@
     <table >
       <thead>
         <tr>
-          {#each headers as header}
-            <th>
+          {#each headers as header, index}
+            <th style={index === 0 ? "padding-left: 2em;" : ""}>
               <Text type={TextType.Subheadline} style="font-weight: bold;">{header}</Text>
             </th>
           {/each}

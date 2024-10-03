@@ -64,7 +64,7 @@
 </script>
 
 <tr>
-  <td>
+  <td style="width: 30%; padding-left: 2em;">
     <TextInput
       value={keyword.keyword}
       placeholder="Enter keyword"
