@@ -1,5 +1,5 @@
 import type { News } from '$lib/types';
-import { fetchBingNews } from '$lib/utils/+bing-news';
+import { fetchBingNews } from '$lib/utils/web/+bing-news';
 import type { RequestEvent } from '@sveltejs/kit';
 
 const encoder = new TextEncoder();

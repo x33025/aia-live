@@ -12,7 +12,7 @@
     
 </script>
 
-<div class="stack expand note-content" > 
+<div class="stack expand note-content"  > 
     <div class="stack" style="--direction: row; --align: center; width: 100%; padding-right: 0.3em; " > 
         {#if note.expand?.activity}
     
@@ -46,9 +46,10 @@ div[contenteditable="true"] {
 
 
 .note-content {
-    min-height: 125px;
+    max-height: 125px;
     background-color: var(--gray-1); /* Transparent background */
     padding: 0.5em;
     border-radius: 1em;
+    aspect-ratio: 1;
 }
 </style>

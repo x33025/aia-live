@@ -68,7 +68,7 @@
     <Text type={TextType.Title}>Notes</Text>
 
 
-    <div class=" scrollable-stack note-input-wrapper">
+    <div class=" scrollable-stack note-input-wrapper" style="--gap: 0.25em;">
     
       <div contenteditable="true" class="note-container" placeholder="Add a note..." on:keydown={handleKeydown} on:input={updateContent}>
           {newNote.content}
@@ -77,7 +77,7 @@
     </div>
 
 
-  <div class="expand" style="--gap: 0.5em;">
+  <div class="stack expand" style="--gap: 0.5em;">
     {#if notes.length > 0}
     {#each notes as note (note.id)}
       <NoteView {note} />

@@ -14,7 +14,7 @@
 
   {#each $sortedUsers as user}
     <div class="stack dropdown-item" style="--direction: row; --gap: 0.5em; --align: center; --justify: flex-start;">
-      <Avatar userId={user.id} size={1.75} /> 
+      <Avatar userId={user.id} size={1.5} /> 
       <Text type={TextType.Callout}> {user.first_name} {user.last_name}</Text>
       <div class="spacer" />
       {#if $activeUsers.includes(user)}

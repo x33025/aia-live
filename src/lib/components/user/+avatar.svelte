@@ -33,7 +33,7 @@
   {#if hasAvatar}
       <ImageComponent image_url={avatarUrl} alt_text="User Avatar" size={size} aspect_ratio={1} maskShape="circle" />
   {:else}
-      <Text style="font-weight: 650;" type={TextType.Body}>{userInitials}</Text>
+      <Text style="font-weight: 650;" type={TextType.Callout}>{userInitials}</Text>
   {/if}
 </CircularText>
 </div>
