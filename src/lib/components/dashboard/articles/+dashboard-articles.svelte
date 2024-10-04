@@ -5,7 +5,7 @@
     import AddArticleButton from '$lib/components/article/+add-article-button.svelte';
     import TimeFrameSelector from '$lib/components/dashboard/+time-frame-selector.svelte';
     import ArticleSmall from '$lib/components/dashboard/articles/+article-small.svelte';
-    import { articles } from '$lib/stores/data/+articles';
+    import { articles, sortedArticles } from '$lib/stores/data/+articles';
 
 
 
@@ -19,9 +19,9 @@
     <AddArticleButton />
   </div>
 
-  <div class="stack expand" style=" padding: 0.5em; ">
+  <div class="stack expand" style="--gap: 0.75em; padding: 0.75em; ">
     {#if $articles.length > 0} 
-      {#each $articles as article (article.id)}
+      {#each $sortedArticles as article (article.id)}
         <ArticleSmall article={article} />
       {/each}
     {:else}

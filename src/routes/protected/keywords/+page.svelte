@@ -4,7 +4,7 @@
   import { TextType } from '$lib/types';
   import Text from '$lib/core/display/+text.svelte';
   import KeywordRow from '$lib/components/keyword/+keyword-row.svelte';
-  import { keywords } from '$lib/stores/data/+keywords';
+  import { keywords, sortedKeywords } from '$lib/stores/data/+keywords';
 
   import AddKeyword from '$lib/components/keyword/+add-keyword.svelte';
   const headers = ["Keyword", "Evergreen", "Country", "Volume", "Density", "Notes"];
@@ -40,7 +40,7 @@
       </thead>
 
       <tbody>
-        {#each $keywords as keyword (keyword.id)}
+        {#each $sortedKeywords as keyword (keyword.id)}
           <KeywordRow {keyword} />
         {/each}
       </tbody>
