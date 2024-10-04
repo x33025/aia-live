@@ -11,11 +11,10 @@
       version="1.1"
       xmlns="http://www.w3.org/2000/svg"
       xmlns:xlink="http://www.w3.org/1999/xlink"
-      width="{size}em" 
-      height="{size}em"
+      width="19.2676" 
+      height="23.4863"
       viewBox="0 0 19.2676 23.4863"
-      fill={color}
-      fill-opacity={opacity}
+
     >
         <g>
             <rect height="23.4863" opacity="0" width="19.2676" x="0" y="0"/>

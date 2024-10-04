@@ -11,7 +11,7 @@
       version="1.1"
       xmlns="http://www.w3.org/2000/svg"
       xmlns:xlink="http://www.w3.org/1999/xlink"
-      width="{size}em" height="{size}em"
+      width="18.3398" height="17.998"
       viewBox="0 0 18.3398 17.998"
     >
         <g>

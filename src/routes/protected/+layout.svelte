@@ -12,7 +12,7 @@
   import { articles } from '$lib/stores/data/+articles';
   import { keywords } from '$lib/stores/data/+keywords';
   import type { Keyword } from '$lib/types';
-
+  import { countries } from '$lib/stores/data/+countries';
   let intervalId: number;
 
   // Function to update the last_active status
@@ -37,6 +37,7 @@
   onMount(() => {
     users.set($page.data.users);
     current_user.set($page.data.user);
+    countries.set($page.data.countries);
 
 
 

@@ -3,7 +3,7 @@ import { writable } from 'svelte/store';
 
 export const openDropdownId = writable<string | null>(null);
 
-export function closeAllDropdowns() {
+export function closeDropdown() {
   openDropdownId.set(null);
 }
 

@@ -5,6 +5,8 @@ export async function updateKeyword(keyword_id: string, data: any) {
       console.error('Keyword ID or Data is missing');
       return;
     }
+
+    console.log("updateKeyword", keyword_id, data);
   
     try {
       const response = await fetch('/api/data/update', {

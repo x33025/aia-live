@@ -5,13 +5,15 @@
   import { type Country, type Keyword } from '$lib/types';
   import NotesButton from '../notes/+notes-button.svelte';
   import { updateKeyword } from '$lib/api/keyword/+update-keyword';
+  import CountryDropdown from '../actions/+country-dropdown.svelte';
+  import { countries } from '$lib/stores/data/+countries';
 
   export let keyword: Keyword;
-  export let countries: Country[] = [];
 
-  $: selectedCountry = keyword.country ? countries.find(c => c.id === keyword.country) : null;
+  $: selectedCountry = keyword.country ? $countries.filter(c => c.id === keyword.country)[0] : null;
 
   function selectCountry(country: Country) {
+    console.log("selectCountry", country);
     selectedCountry = country;
     updateKeyword(keyword.id, { country: country.id }); // Direct call to updateKeyword
   }
@@ -36,30 +38,6 @@
     updateKeyword(keyword.id, { evergreen: newEvergreenState }); // Direct call to updateKeyword
   }
 
-  function getFlagEmoji(countryCode: string) {
-    if (countryCode === "Global") {
-      return "🌍"; // Globe emoji for Global
-    }
-    if (countryCode === "UK") {
-      countryCode = "GB"; // Correct UK to GB
-    }
-    const codePoints = countryCode
-      .toUpperCase()
-      .split('')
-      .map(char => 127397 + char.charCodeAt(0));
-    return String.fromCodePoint(...codePoints);
-  }
-
-
-  $: sortedCountries = countries.slice().sort((a, b) => {
-  if (a.name === "Global") return -1; // Global first
-  if (b.name === "Global") return 1;
-  if (a.name === "US") return -1; // US first
-  if (b.name === "US") return 1;
-  if (a.name === "UK") return -1; // UK second
-  if (b.name === "UK") return 1;
-  return a.name.localeCompare(b.name); // Sort the rest alphabetically
-});
 
 </script>
 
@@ -79,24 +57,10 @@
     />
   </td>
   <td>
-    <DropdownMenu 
-      id={`country-dropdown-${keyword.id}`}
-      selectedOption={selectedCountry?.id}
-    >
-      <svelte:fragment slot="button">
-        {selectedCountry ? `${selectedCountry.name} ${getFlagEmoji(selectedCountry.name)}` : 'Select a country'}
-      </svelte:fragment>
-
-      <svelte:fragment let:selectOption>
-        {#each sortedCountries as country}
-          <div class="stack menu-item" style="--direction: row; --align: center;" on:click={() => { selectOption(country.id); selectCountry(country); }}>
-            {country.name} 
-            <div class="spacer" />
-            {getFlagEmoji(country.name)}
-          </div>
-        {/each}
-      </svelte:fragment>
-    </DropdownMenu>
+   <CountryDropdown
+   selectedCountry={selectedCountry}
+   on:countrySelected={(e) => selectCountry(e.detail.country)}
+   />
   </td>
   <td>
     <NumericInput
@@ -127,17 +91,9 @@
   td {
     padding: 0.5em;
     text-align: left;
-    border-bottom: 1px solid #ddd;
+ 
   }
-  .menu-item {
-    padding: var(--default-padding);
-    cursor: pointer;
-    border-radius: 0.3em;
-    width: 100%;
-  }
-  .menu-item:hover {
-    background-color: var(--gray-1);
-  }
+
   tr:nth-child(even) {
     background-color: var(--gray-1); /* Light gray background for even rows */
   }

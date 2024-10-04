@@ -80,20 +80,21 @@
 
         <!-- Dropdown for selecting writer -->
         <DropdownMenu 
-          id={`writer-dropdown-${article.id}`}
-          selectedOption={selectedWriter?.id}
-        >
-          <span class="label" slot="button">
-            {selectedWriter ? selectedWriter.name : 'Select a writer'}
-          </span>
-          <svelte:fragment let:selectOption>
-            {#each identifiableWriters as writer}
-              <p class="picker-item" on:click={() => { selectOption(writer.id); handleWriterSelect(writer); }}>
-                {writer.name}
-              </p>
-            {/each}
-          </svelte:fragment>
-        </DropdownMenu>
+        id={`writer-dropdown-${article.id}`}
+        selectedOption={selectedWriter?.id}
+      >
+        <span class="label" slot="button">
+          {selectedWriter ? selectedWriter.name : 'Select a writer'}
+        </span>
+        <svelte:fragment>
+          {#each identifiableWriters as writer}
+            <button class="picker-item" on:click={() => handleWriterSelect(writer)}>
+              {writer.name}
+            </button>
+          {/each}
+        </svelte:fragment>
+      </DropdownMenu>
+      
     
         <!-- Dropdown for selecting category -->
         <DropdownMenu 
@@ -103,11 +104,11 @@
           <span class="label" slot="button">
             {selectedCategory ? selectedCategory.name : 'Select a category'}
           </span>
-          <svelte:fragment let:selectOption>
+          <svelte:fragment>
             {#each categories as category}
-              <p class="picker-item" on:click={() => { selectOption(category.id); handleCategorySelect(category); }}>
+              <button class="picker-item" on:click={() => handleCategorySelect(category)}>
                 {category.name}
-              </p>
+              </button>
             {/each}
           </svelte:fragment>
         </DropdownMenu>
@@ -120,11 +121,11 @@
           <span class="label" slot="button">
             {selectedStatus ? selectedStatus.name : 'Select a status'}
           </span>
-          <svelte:fragment let:selectOption>
+          <svelte:fragment>
             {#each statuses as status}
-              <p class="picker-item" on:click={() => { selectOption(status.id); handleStatusSelect(status); }}>
+              <button class="picker-item" on:click={() => handleStatusSelect(status)}>
                 {status.name}
-              </p>
+              </button>
             {/each}
           </svelte:fragment>
         </DropdownMenu>
