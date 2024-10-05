@@ -11,8 +11,8 @@
         keyword: '',
         evergreen: false,
         country: '',
-        volume: 0,
-        density: 0
+        volume: null,
+        density: null
     };
 
 
@@ -28,7 +28,13 @@
       });
 
       if (response.ok) {
-        newKeyword = {};
+        newKeyword = {
+            keyword: '',
+            evergreen: false,
+            country: '',
+            volume: null,
+            density: null
+        };
       }
 
    
@@ -66,10 +72,15 @@
     on:countrySelected={(e) => handleCountrySelected(e.detail.country)}
     />
     <!-- Numeric input for volume -->
-    <NumericInput value={newKeyword.volume} />
+    <NumericInput 
+    bind:value={newKeyword.volume}
+    
+    />
 
     <!-- Numeric input for density -->
-    <NumericInput value={newKeyword.density} />
+    <NumericInput 
+    bind:value={newKeyword.density}
+    />
     <div class="spacer"  />
 
     <!-- Button to add the keyword -->

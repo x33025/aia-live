@@ -15,22 +15,19 @@
   function selectCountry(country: Country) {
     console.log("selectCountry", country);
     selectedCountry = country;
-    updateKeyword(keyword.id, { country: country.id }); // Direct call to updateKeyword
+    updateKeyword(keyword.id, { country: country.id }); 
   }
 
-  function handleKeywordEnter(event: CustomEvent) {
-    const newValue = event.detail.value;
-    updateKeyword(keyword.id, { keyword: newValue }); // Direct call to updateKeyword
+  function handleKeywordEnter(name: string) {
+    updateKeyword(keyword.id, { keyword: name }); 
   }
 
-  function handleVolumeChange(event: CustomEvent) {
-    const newVolume = event.detail.value;
-    updateKeyword(keyword.id, { volume: newVolume }); // Direct call to updateKeyword
+  function handleVolumeChange(volume: number) {
+    updateKeyword(keyword.id, { volume: volume }); 
   }
 
-  function handleDensityChange(event: CustomEvent) {
-    const newDensity = event.detail.value;
-    updateKeyword(keyword.id, { density: newDensity }); // Direct call to updateKeyword
+  function handleDensityChange(density: number) {
+    updateKeyword(keyword.id, { density: density }); 
   }
 
   function handleEvergreenToggle() {
@@ -38,6 +35,7 @@
     updateKeyword(keyword.id, { evergreen: newEvergreenState }); // Direct call to updateKeyword
   }
 
+  
 
 </script>
 
@@ -46,7 +44,7 @@
     <TextInput
       value={keyword.keyword}
       placeholder="Enter keyword"
-      on:enter={handleKeywordEnter}
+      on:enter={(e) => handleKeywordEnter(e.detail.value)}
     />
   </td>
   <td>
@@ -65,13 +63,13 @@
   <td>
     <NumericInput
       value={keyword.volume}
-      on:update={handleVolumeChange}
+      on:update={(e) => handleVolumeChange(e.detail.value)}
     />
   </td>
   <td>
     <NumericInput
       value={keyword.density}
-      on:update={handleDensityChange}
+      on:update={(e) => handleDensityChange(e.detail.value)}
     />
   </td>
   <td>

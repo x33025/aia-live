@@ -1,14 +1,15 @@
+<!-- NumericInput.svelte -->
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
 
   export let value: number | null = null;
+
   export let padding: number = 0.5;
   export let placeholder: string = '0';
 
   const dispatch = createEventDispatcher();
 
   let input = value !== null && value !== 0 ? value.toString() : '';
-
   let inputElement: HTMLInputElement;
 
   // Sync input value with external changes, but avoid resetting while typing
@@ -29,16 +30,19 @@
       inputValue = parts[0] + '.' + parts.slice(1).join('');
     }
 
-    // Dispatch valid numbers or treat empty as null
-    const parsedValue = parseFloat(inputValue);
-    if (!isNaN(parsedValue) && parsedValue >= 0) {
-      dispatch('update', { value: parsedValue });
-    } else if (inputValue === '') {
-      dispatch('update', { value: null });
-    }
-
     // Update the input field value to the cleaned-up value
     input = inputValue;
+
+    // Update 'value' to the parsed number or null
+    const parsedValue = parseFloat(inputValue);
+    if (!isNaN(parsedValue) && parsedValue >= 0) {
+      value = parsedValue;
+    } else if (inputValue === '') {
+      value = null;
+    }
+
+    // Dispatch an event with the new value
+    dispatch('update', { value });
   }
 </script>
 

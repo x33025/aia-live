@@ -10,6 +10,8 @@
   import NotesButton from '../notes/+notes-button.svelte';
   import OpenArticleButton from '$lib/components/actions/+open-article-button.svelte';
   import { updateArticle } from '$lib/api/article/+update-article';
+  import { debounce } from 'lodash-es';
+    import { e } from 'mathjs';
 
   export let article: Article;
   export let categories: Category[];
@@ -22,10 +24,15 @@
   $: selectedWriter = article.author ? identifiableWriters.find(w => w.id === article.author) : null;
   $: selectedStatus = article.status ? statuses.find(s => s.id === article.status) : null;
 
+  // Debounce the title change handler
+  const debouncedUpdateArticle = debounce((articleId, newTitle) => {
+    console.log(`Title change detected. New title: ${newTitle}`);
+    updateArticle(articleId, { title: newTitle });
+  }, 300); // Adjust the debounce delay as needed
+
   function handleTitleChange(event: CustomEvent<string>) {
     const newTitle = event.detail;
-    console.log(`Title change detected. New title: ${newTitle}`);
-    updateArticle(article.id, { title: newTitle }); // Direct call to updateArticle
+    debouncedUpdateArticle(article.id, newTitle);
   }
 
   function handleWriterSelect(writer: IdentifiableUser | null) {
@@ -42,13 +49,11 @@
 
   function updateSemrushScore(value: number) {
     console.log(`Updating semrush_score to ${value}`);
-    // Implement actual update logic here, e.g., making a request to your backend.
     updateArticle(article.id, { semrush_score: value });
   }
 
   function updateTargetWordCount(value: number) {
     console.log(`Updating target_word_count to ${value}`);
-    // Implement actual update logic here, e.g., making a request to your backend.
     updateArticle(article.id, { target_word_count: value });
 
   }
@@ -138,9 +143,9 @@
       <div class="stack" style="--direction: row;">
         <Label name="Semrush Score">
           <NumericInput
-            value={article.semrush_score} 
-            on:update={(event) => updateSemrushScore(event.detail.value)}
-            padding={0}
+            bind:value={article.semrush_score}
+            on:update={(e) => updateSemrushScore(e.detail.value)}
+   
           />
         </Label>
         
@@ -148,7 +153,7 @@
           <NumericTarget
             target={article.target_word_count} 
             current={article.word_count} 
-            update={updateTargetWordCount}
+            on:update={(e) => updateTargetWordCount(e.detail.value)}
           />
         </Label>
         <Label name="Notes">

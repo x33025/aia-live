@@ -55,9 +55,8 @@
   </button>
   <div class="spacer" />
   <NumericTarget
-  target={$article.target_word_count} 
+  bind:target={$article.target_word_count} 
   current={$article.word_count} 
-  update={updateTargetWordCount}
 />
 </div>
 
