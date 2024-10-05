@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { createEventDispatcher, onMount } from 'svelte';
+  import { createEventDispatcher, onMount, onDestroy } from 'svelte';
   import Text from "../display/+text.svelte";
   import { TextType, InputType } from '$lib/types';
 
@@ -11,59 +11,55 @@
 
   let inputElement: HTMLInputElement;
   let dynamicWidth: string = 'auto';
+  let tempSpan: HTMLSpanElement;
 
   const dispatch = createEventDispatcher();
 
-  // Extract specific props from $$restProps
-  const { class: externalClass = '', style: externalStyle = '', ...restProps } = $$restProps;
-
-  const getClasses = () => [
-    externalClass // Add external class here
-  ].join(' ');
-
-  const getStyles = () => [
-    externalStyle // Add external style here
-  ].join(' ');
-
-  // Handle input manually instead of using bind:value
   function handleInput(event: Event) {
-  const inputValue = (event.target as HTMLInputElement).value;
-  value = inputValue; // Set internal value
-  dispatch('input', inputValue); // Dispatch only the input value directly
-  updateInputWidth();
-}
-
+    value = (event.target as HTMLInputElement).value;
+    dispatch('input', value);
+    updateInputWidth();
+  }
 
   function handleKeydown(event: KeyboardEvent) {
     if (event.key === 'Enter') {
-      dispatch('enter', { value });
-      inputElement.blur(); // Lose focus when Enter is pressed
+      dispatch('enter', value);
+      inputElement.blur();
     }
     dispatch('keydown', event);
   }
 
-  // Function to update input width dynamically based on content
   function updateInputWidth() {
     if (!fullWidth) {
-      const tempSpan = document.createElement('span');
-      tempSpan.style.font = getComputedStyle(inputElement).font;
+      if (!tempSpan) {
+        tempSpan = document.createElement('span');
+        tempSpan.style.visibility = 'hidden';
+        tempSpan.style.position = 'absolute';
+        tempSpan.style.whiteSpace = 'pre';
+        tempSpan.style.font = getComputedStyle(inputElement).font;
+        document.body.appendChild(tempSpan);
+      }
       tempSpan.textContent = inputElement.value || placeholder;
-      document.body.appendChild(tempSpan);
-      dynamicWidth = `${tempSpan.offsetWidth + 2}px`; // Add padding to account for input padding
-      document.body.removeChild(tempSpan);
+      dynamicWidth = `${tempSpan.offsetWidth + 2}px`;
     }
   }
 
   onMount(() => {
     updateInputWidth();
   });
+
+  onDestroy(() => {
+    if (tempSpan && tempSpan.parentNode) {
+      tempSpan.parentNode.removeChild(tempSpan);
+    }
+  });
 </script>
 
-<Text {type} class="{getClasses()}" style="{getStyles()}" {...restProps}>
+<Text {type} {...$$restProps}>
   <input
     bind:this={inputElement}
     type={inputType}
-    value={value} 
+    value={value}
     placeholder={placeholder}
     autocomplete="off"
     autocorrect="off"
@@ -76,6 +72,6 @@
 
 <style>
   input.full-width {
-    width: 100%; /* If fullWidth prop is true, take up full width */
+    width: 100%;
   }
 </style>

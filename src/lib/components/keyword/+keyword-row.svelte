@@ -1,50 +1,71 @@
 <script lang="ts">
   import NumericInput from '$lib/core/advanced-input/+numeric-input.svelte';
   import DropdownMenu from '$lib/core/actions/+dropdown-menu.svelte';
-  import TextInput from '$lib/core/actions/+text-input.svelte';
   import { type Country, type Keyword } from '$lib/types';
   import NotesButton from '../notes/+notes-button.svelte';
   import { updateKeyword } from '$lib/api/keyword/+update-keyword';
   import CountryDropdown from '../actions/+country-dropdown.svelte';
   import { countries } from '$lib/stores/data/+countries';
+  import { debounce } from 'lodash-es';
 
   export let keyword: Keyword;
 
   $: selectedCountry = keyword.country ? $countries.filter(c => c.id === keyword.country)[0] : null;
 
   function selectCountry(country: Country) {
-    console.log("selectCountry", country);
     selectedCountry = country;
-    updateKeyword(keyword.id, { country: country.id }); 
+    updateKeyword(keyword.id, { country: country.id });
   }
 
-  function handleKeywordEnter(name: string) {
-    updateKeyword(keyword.id, { keyword: name }); 
+  // Handle input change for keyword name
+  async function handleKeywordChange(event: Event) {
+    const input = event.target as HTMLInputElement;
+    keyword.keyword = input.value;
+
+    // Update keyword with new value
+    try {
+      await updateKeyword(keyword.id, { keyword: keyword.keyword });
+    } catch (error) {
+      console.error('Failed to update keyword:', error);
+    }
   }
 
+  // Debounced function to handle input changes
+  const debouncedHandleKeywordChange = debounce(handleKeywordChange, 300);
+
+  const debouncedUpdateVolume = debounce((volume: number) => {
+    updateKeyword(keyword.id, { volume: volume });
+  }, 600);
+
+  const debouncedUpdateDensity = debounce((density: number) => {
+    updateKeyword(keyword.id, { density: density });
+  }, 600);
+
+  // Event handlers for volume and density changes
   function handleVolumeChange(volume: number) {
-    updateKeyword(keyword.id, { volume: volume }); 
+    debouncedUpdateVolume(volume);
   }
 
   function handleDensityChange(density: number) {
-    updateKeyword(keyword.id, { density: density }); 
+    debouncedUpdateDensity(density);
   }
 
   function handleEvergreenToggle() {
     const newEvergreenState = !keyword.evergreen;
-    updateKeyword(keyword.id, { evergreen: newEvergreenState }); // Direct call to updateKeyword
+    updateKeyword(keyword.id, { evergreen: newEvergreenState });
   }
-
-  
-
 </script>
 
 <tr>
   <td style="width: 30%; padding-left: 2em;">
-    <TextInput
-      value={keyword.keyword}
+    <!-- Input field with debounced keyword change handler -->
+    <input
+      class="keyword-input"
+      style="width: 100%"
+      type="text"
+      bind:value={keyword.keyword}
+      on:input={debouncedHandleKeywordChange}
       placeholder="Enter keyword"
-      on:enter={(e) => handleKeywordEnter(e.detail.value)}
     />
   </td>
   <td>
@@ -55,10 +76,10 @@
     />
   </td>
   <td>
-   <CountryDropdown
-   selectedCountry={selectedCountry}
-   on:countrySelected={(e) => selectCountry(e.detail.country)}
-   />
+    <CountryDropdown
+      selectedCountry={selectedCountry}
+      on:countrySelected={(e) => selectCountry(e.detail.country)}
+    />
   </td>
   <td>
     <NumericInput
@@ -83,16 +104,15 @@
 </tr>
 
 <style>
-  :global(.keyword-input) {
+  .keyword-input {
     padding: var(--default-padding);
   }
   td {
     padding: 0.5em;
     text-align: left;
- 
   }
 
   tr:nth-child(even) {
-    background-color: var(--gray-1); /* Light gray background for even rows */
+    background-color: var(--gray-1);
   }
 </style>
