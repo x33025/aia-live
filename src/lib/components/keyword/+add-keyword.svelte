@@ -1,5 +1,5 @@
 <script lang="ts">
-    import type { Keyword } from '$lib/types';
+    import type { Keyword, Country } from '$lib/types';
     import NumericInput from '$lib/core/advanced-input/+numeric-input.svelte';
     import { current_user } from '$lib/stores/data/+users';
     import CountryDropdown from '$lib/components/actions/+country-dropdown.svelte';
@@ -40,6 +40,11 @@
       console.error(error);
     }
   }
+
+
+  function handleCountrySelected(country: Country) {
+    newKeyword.country = country.id;
+  }
 </script>
 
 <div class="stack" style="--direction: row; --align: center;  padding: 1em; padding-left: 2em; width: 100%; ">
@@ -58,6 +63,7 @@
 
     <CountryDropdown
     selectedCountry={$countries.filter(c => c.id === newKeyword.country)[0]}
+    on:countrySelected={(e) => handleCountrySelected(e.detail.country)}
     />
     <!-- Numeric input for volume -->
     <NumericInput value={newKeyword.volume} />

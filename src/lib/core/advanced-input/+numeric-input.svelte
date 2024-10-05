@@ -3,18 +3,17 @@
 
   export let value: number | null = null;
   export let padding: number = 0.5;
-  export let placeholder: string = '0';  // Placeholder defaults to '0'
-  
+  export let placeholder: string = '0';
+
   const dispatch = createEventDispatcher();
 
-  // Treat null and 0 the same for input
   let input = value !== null && value !== 0 ? value.toString() : '';
 
-  let eventTarget: HTMLInputElement | null = null;
+  let inputElement: HTMLInputElement;
 
   // Sync input value with external changes, but avoid resetting while typing
-  $: if (typeof window !== 'undefined' && document.activeElement !== eventTarget) {
-    input = value !== null && value !== 0 ? value.toString() : ''; // Update here to not display 0
+  $: if (typeof window !== 'undefined' && document.activeElement !== inputElement) {
+    input = value !== null && value !== 0 ? value.toString() : '';
   }
 
   function handleInput(event: Event) {
@@ -25,43 +24,34 @@
     inputValue = inputValue.replace(/[^\d.]/g, '');
 
     // Ensure there is only one decimal point
-    if ((inputValue.match(/\./g) || []).length > 1) {
-      inputValue = inputValue.slice(0, -1);  // Remove extra decimal point
+    const parts = inputValue.split('.');
+    if (parts.length > 2) {
+      inputValue = parts[0] + '.' + parts.slice(1).join('');
     }
 
     // Dispatch valid numbers or treat empty as null
-    if (!isNaN(parseFloat(inputValue)) && parseFloat(inputValue) >= 0) {
-      const parsedValue = parseFloat(inputValue);
+    const parsedValue = parseFloat(inputValue);
+    if (!isNaN(parsedValue) && parsedValue >= 0) {
       dispatch('update', { value: parsedValue });
     } else if (inputValue === '') {
-      dispatch('update', { value: null });  // Handle empty input as null
+      dispatch('update', { value: null });
     }
 
     // Update the input field value to the cleaned-up value
     input = inputValue;
   }
-
-  // Ensure this code runs only in the browser
-  if (typeof window !== 'undefined') {
-    // Example of code that might be causing the issue
-    const inputElement = document.querySelector('#numeric-input');
-    if (inputElement) {
-      inputElement.addEventListener('input', (event) => {
-        // Your input handling code
-      });
-    }
-  }
 </script>
 
 <input
-  type="text" 
+  type="text"
   bind:value={input}
+  bind:this={inputElement}
   on:input={handleInput}
   placeholder={placeholder}
   class="numeric-input"
   style="padding: {padding}em;"
-  inputmode="decimal"  
-  pattern="^\d*(\.\d+)?$" 
+  inputmode="decimal"
+  pattern="^\d*(\.\d+)?$"
 />
 
 <style>
