@@ -50,7 +50,8 @@
         console.log('update', e.record);
         articles.update(currentArticles => currentArticles.map(article => article.id === e.record.id ? e.record as unknown as Article : article)); // Update existing article
       } 
-    });
+    }, { expand: 'keywords,activity,main_image,main_keyword,notes.activity' } );
+
 
         // Subscribe to real-time changes in the keywords collection
         pb.collection('keywords').subscribe('*', (e) => {
@@ -61,7 +62,7 @@
         console.log('update', e.record);
         keywords.update(currentKeywords => currentKeywords.map(keyword => keyword.id === e.record.id ? e.record as unknown as Keyword : keyword)); // Update existing article
       } 
-    });
+    }, { expand: 'activity,notes.activity' });
 
 
 
@@ -71,7 +72,7 @@
       updateLastActive();
     }, 5 * 60 * 1000);  // 5 minutes
 
-    return () => clearInterval(intervalId);  // Cleanup interval on component destroy
+   
   });
 
   onDestroy(() => {

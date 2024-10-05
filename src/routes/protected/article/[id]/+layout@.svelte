@@ -1,5 +1,5 @@
 <script lang="ts">
-import { onMount } from 'svelte';
+import { onMount, onDestroy } from 'svelte';
 import { article } from '$lib/stores/data/+articles'; 
 import { page } from '$app/stores';
 import { pb } from '$lib/config/pocketbase';
@@ -16,7 +16,12 @@ onMount(() => {
       console.log('update', e.record);
       article.set(e.record as unknown as Article); // Update only if it's the current article
     } 
-  });
+  }, { expand: 'keywords,activity,main_image,main_keyword,notes.activity' } );
+});
+
+
+onDestroy(() => {
+  pb.collection('articles').unsubscribe('*');
 });
 
 </script>

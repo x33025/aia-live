@@ -2,9 +2,7 @@
   import { onMount } from 'svelte';
   import Text from "$lib/core/display/+text.svelte";
   import { type Keyword, Direction, TextType } from "$lib/types";
-  // Removed Label import
-  // import Label from '$lib/components/display/+label.svelte';
-  
+
   export let keywords: Keyword[] = [];
   export let main_keyword: Keyword | null = null;
 

@@ -13,23 +13,19 @@
     images.set($page.data.images);
 
     pb.collection('images').subscribe('*', (e) => { 
-      console.log(`Action: ${e.action}`, e.record);
-      
+  
       if (e.action === 'create') {
         images.update((currentImages) => [...currentImages, e.record as unknown as Image]);
-        console.log('Image uploaded successfully:', e.record);
       } else if (e.action === 'update') {
         images.update((currentImages) =>
           currentImages.map((image) => image.id === e.record.id ? e.record as unknown as Image : image)
         );
-        console.log('Image updated successfully:', e.record);
       } else if (e.action === 'delete') {
         images.update((currentImages) =>
           currentImages.filter((image) => image.id !== e.record.id)
         );
-        console.log('Image deleted successfully:', e.record);
       }
-    }, { expand: 'activity,notes' });
+    }, { expand: 'activity,notes.activity' });
   });
 
   onDestroy(() => {

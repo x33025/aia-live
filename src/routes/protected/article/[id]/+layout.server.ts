@@ -7,12 +7,12 @@ export const load: LayoutServerLoad = async ({ params }) => {
   const { id } = params;
 
   if (!id) {
-    console.error('ARTICLE: Missing article ID');
+  
     throw error(400, 'Missing article ID');
   }
 
   try {
-    console.log(`ARTICLE: Fetching article with ID: ${id}`);
+    
 
     // Fetch article by ID from PocketBase collection without expand option
     const article = await articleService.getOne(id, {
@@ -21,7 +21,6 @@ export const load: LayoutServerLoad = async ({ params }) => {
     });
 
     if (!article) {
-      console.error(`ARTICLE: Article not found with ID: ${id}`);
       throw error(404, 'Article not found');
     }
 
@@ -29,7 +28,6 @@ export const load: LayoutServerLoad = async ({ params }) => {
       article
     };
   } catch (err) {
-    console.error(`ARTICLE: Error fetching article with ID: ${id} - ${err}`);
     throw error(500, 'Failed to fetch article');
   }
 };
