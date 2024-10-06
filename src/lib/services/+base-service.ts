@@ -39,6 +39,31 @@ export class BaseService<T extends BaseModel> {
     }
 
     /**
+     * Get a full list of records with optional sorting, filtering, expanding, and field selection.
+     * This method fetches all records in one request.
+     * @param params - Options for sorting, filtering, expanding, and fields.
+     * @returns A promise that resolves to a list of records.
+     */
+    async getFullList({
+        sort = '-created',
+        filter = '',
+        expand = '',
+        fields = ''
+    } = {}): Promise<T[]> {
+        try {
+            return await pb.collection(this.collectionName).getFullList<T>({
+                sort,
+                filter,
+                expand,
+                fields
+            });
+        } catch (error) {
+            console.error(`Error fetching full list from ${this.collectionName}:`, error);
+            throw error;
+        }
+    }
+
+    /**
      * Get a single record by ID with optional expand and field selection.
      * @param id - The ID of the record.
      * @param options - Options for expanding relationships and selecting fields.

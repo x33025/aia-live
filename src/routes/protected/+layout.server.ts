@@ -6,8 +6,6 @@ import { statusService } from '$lib/services/+status-service';
 import { websiteService } from '$lib/services/+website-service';
 import { authenticateUser } from '$lib/services/+authentication-service';
 
-
-
 export const load: LayoutServerLoad = async ({ cookies }) => {
 
   
@@ -16,11 +14,11 @@ export const load: LayoutServerLoad = async ({ cookies }) => {
   const user = await userService.getOne(userId);
 
   const [statuses, categories, countries, websites, users] = await Promise.all([
-    statusService.getList(),
-    categoryService.getList(),
-    countryService.getList(),
-    websiteService.getList(),
-    userService.getList({ expand: 'role' })
+    statusService.getFullList(),
+    categoryService.getFullList(),
+    countryService.getFullList(),
+    websiteService.getFullList(),
+    userService.getFullList({ expand: 'role' })
   ]);
 
   return {

@@ -1,11 +1,10 @@
 import type { LayoutServerLoad } from './$types';
 import { articleService } from '$lib/services/+article-service';
-import type { Article } from '$lib/types';
 
 
 export const load: LayoutServerLoad = async () => {
   try {
-    console.log('FETCH_DATA: Starting load function');
+
     
 
  
@@ -16,10 +15,9 @@ export const load: LayoutServerLoad = async () => {
       filter: 'activity.deleted=null'
       });
 
-    console.log('Fetched Articles with Expanded Data:', articles);
+  
 
     if (!articles || articles.length === 0) {
-      console.error('FETCH_DATA: No articles found, throwing an error');
       throw new Error("No articles returned");
     }
 
@@ -32,7 +30,6 @@ export const load: LayoutServerLoad = async () => {
       title: "Articles",
     };
   } catch (error) {
-    console.error('FETCH_DATA: Error fetching data:', error);
     throw new Error('Failed to load data');
   }
 };
