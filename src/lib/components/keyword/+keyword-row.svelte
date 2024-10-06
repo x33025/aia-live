@@ -8,7 +8,8 @@
   import { countries } from '$lib/stores/data/+countries';
   import { debounce } from 'lodash-es';
   import CircleIcon from '$lib/core/ui/icons/+circle.svelte';
-
+  import { selectedKeywords } from '$lib/stores/data/+keywords';
+    import CircleFillIcon from '$lib/core/ui/icons/+circle-fill.svelte';
   export let keyword: Keyword;
 
   $: selectedCountry = keyword.country ? $countries.filter(c => c.id === keyword.country)[0] : null;
@@ -59,14 +60,25 @@
 
   function selectKeyword() {
     console.log('select keyword');
+    selectedKeywords.update((keywords) => {
+      if (keywords.some(k => k.id === keyword.id)) {
+        return keywords.filter(k => k.id !== keyword.id);
+      } else {
+        return [...keywords, keyword];
+      }
+    });
   }
 </script>
 
 <tr>
   <td style="padding-left: 1.5em;">
     <button class="stack" on:click={selectKeyword}>
+      {#if $selectedKeywords.some(k => k.id === keyword.id)}
+      <CircleFillIcon size={1} color="var(--blue)" />
+    {:else}
       <CircleIcon size={1} color="var(--gray-6)" />
- 
+    {/if}
+    
     </button>
   </td>
   <td style="width: 25%; ">

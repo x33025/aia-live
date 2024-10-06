@@ -2,7 +2,6 @@
   import Text from "$lib/core/display/+text.svelte";
   import { TextType } from "$lib/types";
   import { page } from '$app/stores';
-  import { get } from 'svelte/store';
   import ImageComponent from '$lib/core/display/+image.svelte';
   import type { User } from '$lib/types';
   import CircularText from '$lib/core/display/+circular-text.svelte';

@@ -13,6 +13,8 @@
   import { keywords } from '$lib/stores/data/+keywords';
   import type { Keyword } from '$lib/types';
   import { countries } from '$lib/stores/data/+countries';
+  import SelectionTray from '$lib/components/interaction/+selection-tray.svelte';
+
   let intervalId: number;
 
   // Function to update the last_active status
@@ -89,6 +91,7 @@
   </div>
 
   <div class="stack" slot="navigation-trailing">
+    <SelectionTray />
     <Users />
     <ProfileMenu />
   </div>

@@ -1,4 +1,4 @@
-<script lang="ts">
+<!-- <script lang="ts">
     import Text from "$lib/core/display/+text.svelte";
     import Stack from "$lib/core/layout/+stack.svelte";
     import { news as newsStore } from "$lib/stores/data/+news"; // Import the news store
@@ -32,4 +32,4 @@
             {/each}
      
     {/if}
-</Stack>
+</Stack> -->
