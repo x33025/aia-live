@@ -2,8 +2,10 @@
   import { type Keyword } from "$lib/types";
   import KeywordChip from "$lib/components/keyword/+keyword-chip.svelte";
   import PlusIcon from '$lib/core/ui/icons/+plus.svelte';
+
   export let keywords: Keyword[] = [];
   export let main_keyword: Keyword | null = null;
+
 
 </script>
 
@@ -20,12 +22,14 @@
   {#if keywords && keywords.length > 0}
     {#each keywords as keyword}
       {#if keyword.id !== main_keyword?.id}
+   
         <KeywordChip keyword={keyword} />
+     
       {/if}
     {/each}
   {/if}
   {#if !main_keyword && (!keywords || keywords.length === 0)}
-    <p>No keywords available</p>
+    <p class="callout">No keywords available</p>
   {/if}
 </div>
 
