@@ -17,14 +17,8 @@
       if (e.action === 'create') {
         images.update((currentImages) => [...currentImages, e.record as unknown as Image]);
       } else if (e.action === 'update') {
-        images.update((currentImages) =>
-          currentImages.map((image) => image.id === e.record.id ? e.record as unknown as Image : image)
-        );
-      } else if (e.action === 'delete') {
-        images.update((currentImages) =>
-          currentImages.filter((image) => image.id !== e.record.id)
-        );
-      }
+        images.update(currentImages => currentImages.map(image => image.id === e.record.id ? e.record as unknown as Image : image));
+      } 
     }, { expand: 'activity,notes.activity' });
   });
 

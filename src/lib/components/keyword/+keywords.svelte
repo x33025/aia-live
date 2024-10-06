@@ -1,21 +1,26 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
-  import Text from "$lib/core/display/+text.svelte";
-  import { type Keyword, Direction, TextType } from "$lib/types";
-
+  import { type Keyword } from "$lib/types";
+  import KeywordChip from "$lib/components/keyword/+keyword-chip.svelte";
+  import PlusIcon from '$lib/core/ui/icons/+plus.svelte';
   export let keywords: Keyword[] = [];
   export let main_keyword: Keyword | null = null;
 
 </script>
 
-<div class="stack expand" style="--direction: row;">
+<div class="stack expand" style="--direction: row; --align: center;">
+  <button class="add-keyword-button">    
+    <PlusIcon size={1} color="var(--gray-6)" />
+  </button>
+
   {#if main_keyword}
-    <Text type={TextType.Callout} class="label" style="color: var(--yellow);"><b>{main_keyword.keyword}</b></Text>
+
+      <KeywordChip keyword={main_keyword} is_main={true} />
+
   {/if}
   {#if keywords && keywords.length > 0}
     {#each keywords as keyword}
       {#if keyword.id !== main_keyword?.id}
-        <Text type={TextType.Callout} class="label">{keyword.keyword}</Text>
+        <KeywordChip keyword={keyword} />
       {/if}
     {/each}
   {/if}
@@ -24,14 +29,12 @@
   {/if}
 </div>
 
-<style>
-  :global(.label) {
-    border-radius: 0.5em;
+<style> 
+  .add-keyword-button {
     background-color: var(--gray-1);
+    border: none;
+    border-radius: 0.5em;
     padding: 0.5em;
-  }
-
-  :global(.scrollable-stack) {
-    overflow-y: auto;
+    cursor: pointer;
   }
 </style>
