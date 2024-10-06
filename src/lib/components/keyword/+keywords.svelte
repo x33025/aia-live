@@ -4,6 +4,7 @@
   import PlusIcon from '$lib/core/ui/icons/+plus.svelte';
 
   export let keywords: Keyword[] = [];
+  export let article_id: string;
   export let main_keyword: Keyword | null = null;
 
 
@@ -16,14 +17,14 @@
 
   {#if main_keyword}
 
-      <KeywordChip keyword={main_keyword} is_main={true} />
+      <KeywordChip keyword={main_keyword} is_main={true} article_id={article_id} />
 
   {/if}
   {#if keywords && keywords.length > 0}
     {#each keywords as keyword}
       {#if keyword.id !== main_keyword?.id}
    
-        <KeywordChip keyword={keyword} />
+        <KeywordChip keyword={keyword} article_id={article_id} />
      
       {/if}
     {/each}

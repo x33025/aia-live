@@ -28,12 +28,10 @@
   </script>
   
   {#if contextMenu.show}
-    <div bind:this={menu} class="context-menu" style="top: {contextMenu.y}px; left: {contextMenu.x}px;">
-      <ul>
+    <div bind:this={menu} class="stack context-menu" style="top: {contextMenu.y}px; left: {contextMenu.x}px; --align: left;">
         {#each contextMenu.options as option (option.label)}
-          <li on:click={() => { option.action(); closeContextMenu(); }}>{option.label}</li>
+          <button class="context-menu-item" on:click={() => { option.action(); closeContextMenu(); }}>{option.label}</button>
         {/each}
-      </ul>
     </div>
   {/if}
   
@@ -43,22 +41,20 @@
       background-color: white;
       border: 1px solid #ccc;
       z-index: 1000;
-      width: 150px;
+      border-radius: 0.5em;
+      padding: 0.3em;
     }
   
-    .context-menu ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-  
-    .context-menu ul li {
-      padding: 8px;
-      cursor: pointer;
-    }
-  
-    .context-menu ul li:hover {
-      background-color: #f0f0f0;
-    }
+  .context-menu-item {
+
+
+    padding: 0.5em;
+    border-radius: 0.25em;
+
+  }
+
+  .context-menu-item:hover {
+    background-color: var(--gray-1);
+  }
   </style>
   

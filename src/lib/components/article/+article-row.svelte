@@ -171,7 +171,7 @@
     
   </div>
   <Label name="Keywords">
-    <Keywords main_keyword={article.expand?.main_keyword} keywords={article.expand?.keywords} />
+    <Keywords main_keyword={article.expand?.main_keyword} keywords={article.expand?.keywords} article_id={article.id} />
   </Label>
 </div>
 

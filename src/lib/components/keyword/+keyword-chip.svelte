@@ -5,14 +5,15 @@
 
 
     export let keyword: Keyword;
+    export let article_id: string;
     export let is_main: boolean = false;
 
 
     function handleRightClick(event: MouseEvent) {
         event.preventDefault();
         openContextMenu(event.clientX, event.clientY, [
-          { label: 'Option 1', action: () => console.log('Option 1 clicked') },
-          { label: 'Option 2', action: () => console.log('Option 2 clicked') },
+          { label: 'Set as main keyword', action: () => console.log('Option 1 clicked', article_id, keyword.id) },
+          { label: 'Remove from article', action: () => console.log('Option 2 clicked', article_id, keyword.id) },
           { label: 'Option 3', action: () => console.log('Option 3 clicked') },
         ]);
       }
