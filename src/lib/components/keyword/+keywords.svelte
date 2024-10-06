@@ -17,14 +17,14 @@
 
   {#if main_keyword}
 
-      <KeywordChip keyword={main_keyword} is_main={true} article_id={article_id} />
+      <KeywordChip keyword={main_keyword} is_main={true} article_id={article_id} keywords={keywords.map(k => k.id)} />
 
   {/if}
   {#if keywords && keywords.length > 0}
     {#each keywords as keyword}
       {#if keyword.id !== main_keyword?.id}
    
-        <KeywordChip keyword={keyword} article_id={article_id} />
+        <KeywordChip keyword={keyword} article_id={article_id} keywords={keywords.map(k => k.id)} />
      
       {/if}
     {/each}

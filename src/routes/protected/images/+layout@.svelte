@@ -15,8 +15,10 @@
     pb.collection('images').subscribe('*', (e) => { 
   
       if (e.action === 'create') {
+        console.log('REALTIME CREATE', e.record);
         images.update((currentImages) => [...currentImages, e.record as unknown as Image]);
       } else if (e.action === 'update') {
+        console.log('REALTIME UPDATE', e.record);
         images.update(currentImages => currentImages.map(image => image.id === e.record.id ? e.record as unknown as Image : image));
       } 
     }, { expand: 'activity,notes.activity' });

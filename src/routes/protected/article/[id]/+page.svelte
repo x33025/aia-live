@@ -48,7 +48,7 @@
       />
 
       <Label name="Keywords">
-        <Keywords keywords={$article?.expand?.keywords}  main_keyword={$article?.expand?.main_keyword}/>
+        <Keywords keywords={$article?.expand?.keywords}  main_keyword={$article?.expand?.main_keyword} article_id={$article?.id} />
       </Label>
     </div>
   </div>

@@ -7,7 +7,7 @@
   import { keywords, sortedKeywords } from '$lib/stores/data/+keywords';
 
   import AddKeyword from '$lib/components/keyword/+add-keyword.svelte';
-  const headers = ["Keyword", "Evergreen", "Country", "Volume", "Density", "Notes"];
+  const headers = ["", "Keyword", "Evergreen", "Country", "Volume", "Density", "Notes"];
 
 
   // Set initial keywords in the store
@@ -33,7 +33,7 @@
         <tr>
           {#each headers as header, index}
             <th style={index === 0 ? "padding-left: 2em;" : ""}>
-              <Text type={TextType.Subheadline} style="font-weight: bold;">{header}</Text>
+              <p class="subheadline"  style="font-weight: bold;">{header}</p>
             </th>
           {/each}
         </tr>

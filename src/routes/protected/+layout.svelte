@@ -45,10 +45,10 @@
     // Subscribe to real-time changes in the articles collection
     pb.collection('articles').subscribe('*', (e) => {
       if (e.action === 'create') {
-        console.log('create', e.record);
+        console.log('REALTIME CREATE', e.record);
         articles.update(currentArticles => [...currentArticles, e.record as unknown as Article]); // Add new article
       } else if (e.action === 'update') {
-        console.log('update', e.record);
+        console.log('REALTIME UPDATE', e.record);
         articles.update(currentArticles => currentArticles.map(article => article.id === e.record.id ? e.record as unknown as Article : article)); // Update existing article
       }
     }, { expand: 'keywords,activity,main_image,main_keyword,notes.activity' });
@@ -56,10 +56,10 @@
     // Subscribe to real-time changes in the keywords collection
     pb.collection('keywords').subscribe('*', (e) => {
       if (e.action === 'create') {
-        console.log('create', e.record);
+        console.log('REALTIME CREATE', e.record);
         keywords.update(currentKeywords => [...currentKeywords, e.record as unknown as Keyword]); // Add new keyword
       } else if (e.action === 'update') {
-        console.log('update', e.record);
+        console.log('REALTIME UPDATE', e.record);
         keywords.update(currentKeywords => currentKeywords.map(keyword => keyword.id === e.record.id ? e.record as unknown as Keyword : keyword)); // Update existing keyword
       }
     }, { expand: 'activity,notes.activity' });

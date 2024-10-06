@@ -7,6 +7,7 @@
   import CountryDropdown from '../actions/+country-dropdown.svelte';
   import { countries } from '$lib/stores/data/+countries';
   import { debounce } from 'lodash-es';
+  import CircleIcon from '$lib/core/ui/icons/+circle.svelte';
 
   export let keyword: Keyword;
 
@@ -54,10 +55,21 @@
     const newEvergreenState = !keyword.evergreen;
     updateKeyword(keyword.id, { evergreen: newEvergreenState });
   }
+
+
+  function selectKeyword() {
+    console.log('select keyword');
+  }
 </script>
 
 <tr>
-  <td style="width: 30%; padding-left: 2em;">
+  <td style="padding-left: 1.5em;">
+    <button class="stack" on:click={selectKeyword}>
+      <CircleIcon size={1} color="var(--gray-6)" />
+ 
+    </button>
+  </td>
+  <td style="width: 25%; ">
     <!-- Input field with debounced keyword change handler -->
     <input
       class="keyword-input"
@@ -93,7 +105,7 @@
       on:update={(e) => handleDensityChange(e.detail.value)}
     />
   </td>
-  <td>
+  <td style="margin-right: 1.5em;">
     <NotesButton
       notes={keyword.expand?.notes}
       activity={keyword.expand?.activity}
@@ -104,9 +116,7 @@
 </tr>
 
 <style>
-  .keyword-input {
-    padding: var(--default-padding);
-  }
+
   td {
     padding: 0.5em;
     text-align: left;
