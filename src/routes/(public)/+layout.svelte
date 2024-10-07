@@ -4,7 +4,8 @@
 </script>
 
 <BaseLayout>
-    <div slot="content">
+
+  
 <slot />
-</div>
+
 </BaseLayout>

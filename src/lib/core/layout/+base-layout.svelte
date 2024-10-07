@@ -5,6 +5,6 @@
     </div>
   {/if}
   <div class="stack expand border-highlight" style=" --align: center; --justify: center; background-color: white; border-radius: 1em; flex-grow: 1; overflow: auto;">
-    <slot name="content" />
+    <slot />
   </div>
 </div>

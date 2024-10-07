@@ -38,7 +38,7 @@
   <svelte:fragment slot="content">
     {#if $activeTab === 'keywords'}
       {#if $article && $article.expand}
-        <Keywords keywords={$article.expand.keywords} main_keyword={$article.expand.main_keyword} />
+        <Keywords keywords={$article.expand.keywords} main_keyword={$article.expand.main_keyword} article_id={$article.id} />
       {/if}
     {:else if $activeTab === 'extracted'}
       {"Extracted Data"}

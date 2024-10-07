@@ -2,10 +2,9 @@ import type { LayoutServerLoad } from './$types';
 import { articleService } from '$lib/services/+article-service';
 
 
-export const load: LayoutServerLoad = async ( { parent }) => {
+export const load: LayoutServerLoad = async ( ) => {
 
-  const parentData = await parent();
-  console.log(parentData);
+
   
   try {
 
@@ -25,12 +24,9 @@ export const load: LayoutServerLoad = async ( { parent }) => {
       throw new Error("No articles returned");
     }
 
-    const totalArticles = articles.length; // You can customize this based on totalItems if available.
-
     // Return the fetched articles data including expanded keywords
     return {
       articles,
-      totalArticles,
       title: "Articles",
     };
   } catch (error) {

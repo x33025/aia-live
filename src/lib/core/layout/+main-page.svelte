@@ -25,6 +25,6 @@
   </div>
 
   
-  <slot slot="content" />
+  <slot />
 
 </BaseLayout>
