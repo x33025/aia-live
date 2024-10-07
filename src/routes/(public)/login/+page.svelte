@@ -1,6 +1,6 @@
 <script lang="ts">
   import { enhance } from '$app/forms';
-  import BaseLayout from '$lib/core/layout/+base-layout.svelte';
+
   import { TextType } from '$lib/types';
   import Text from '$lib/core/display/+text.svelte';
   import OpenDoorIcon from '$lib/core/ui/icons/+door-open.svelte';
@@ -21,11 +21,11 @@
   };
 </script>
 
-<BaseLayout>
+
   
 
     
-    <div class="stack expand" style="max-width: 300px; --justify: center;" slot="content">
+    <div class="stack expand" style="max-width: 300px; --justify: center;">
      
       <div class="stack" style="--direction: row; --justify: space-between; --gap: 0.5em; width: 100%; margin-bottom: 1.1em;" >
         <GoBackButton path="/"/>
@@ -60,8 +60,6 @@
         </button>
       </form>
     </div>
-
-</BaseLayout>
 
 <style>
 input {

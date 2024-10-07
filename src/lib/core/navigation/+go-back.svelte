@@ -3,7 +3,7 @@
     import ChevronLeft from '$lib/core/ui/icons/+chevron-left.svelte';
 
     
-    export let path: string = '/protected';
+    export let path: string = '/dashboard';
 
     const goBack = () => {
      goto(path)

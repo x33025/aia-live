@@ -4,12 +4,15 @@ import { articleService } from '$lib/services/+article-service';
 
 export const load: LayoutServerLoad = async ({ params }) => {
 
+
   const { id } = params;
 
   if (!id) {
   
     throw error(400, 'Missing article ID');
   }
+
+
 
   try {
     
@@ -23,6 +26,7 @@ export const load: LayoutServerLoad = async ({ params }) => {
     if (!article) {
       throw error(404, 'Article not found');
     }
+
 
     return {
       article

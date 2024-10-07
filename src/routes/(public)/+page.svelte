@@ -8,9 +8,8 @@
   }
 </script>
 
-<BaseLayout>
- 
-  <div class="stack expand" slot="content">
+
+  <div class="stack expand" >
   
     <pre class="ascii-art">
       ___                       ___     
@@ -29,7 +28,7 @@
       Sign In
     </button>
   </div>
-</BaseLayout>
+
 
 <style>
 

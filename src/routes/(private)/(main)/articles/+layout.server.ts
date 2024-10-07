@@ -2,7 +2,11 @@ import type { LayoutServerLoad } from './$types';
 import { articleService } from '$lib/services/+article-service';
 
 
-export const load: LayoutServerLoad = async () => {
+export const load: LayoutServerLoad = async ( { parent }) => {
+
+  const parentData = await parent();
+  console.log(parentData);
+  
   try {
 
     

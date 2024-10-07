@@ -9,28 +9,22 @@ export const actions: Actions = {
     const email = formData.get('email') as string;
     const password = formData.get('password') as string;
 
-    console.log('LOGIN: Extracted form data', { email, password: password ? '***' : null });
 
     if (!email || !password) {
-      console.error('LOGIN: Email or password missing');
       return fail(400, { error: 'Email and password are required' });
     }
 
-    console.log(`LOGIN: Attempting login with email: ${email}`);
 
     try {
       const authData = await pb.collection('users').authWithPassword(email, password, { fetch });
-      console.log('LOGIN: Authentication successful', { authData });
 
       // Update user's last_active field
       const userId = authData.record.id;
       await pb.collection('users').update(userId, { last_login: new Date().toISOString() });
-      console.log('LOGIN: Updated user last_login', { userId });
 
       // Store the entire auth store state in the cookie
       const authCookie = pb.authStore.exportToCookie();
-      console.log('LOGIN: Exported auth store to cookie', { authCookie });
-
+     
       cookies.set('pb_auth', authCookie, {
         path: '/',
         httpOnly: true,
@@ -39,19 +33,19 @@ export const actions: Actions = {
         maxAge: 60 * 60 * 24 * 7 // 1 week
       });
 
-      console.log('LOGIN: Auth cookie set successfully');
+   
 
     } catch (error) {
       if (error instanceof Error) {
-        console.error('LOGIN: Login failed:', error.message);
+       
         return fail(400, { email, error: 'Invalid email or password' });
       } else {
-        console.error('LOGIN: An unexpected error occurred:', error);
+    
         return fail(400, { email, error: 'An unexpected error occurred' });
       }
     }
 
-    console.log('LOGIN: Redirecting to /protected');
-    return redirect(303, '/protected');
+ 
+    return redirect(303, '/dashboard');
   }
 };

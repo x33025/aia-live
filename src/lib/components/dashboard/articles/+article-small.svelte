@@ -33,7 +33,7 @@
 
     <div class="spacer" />
 
-     <a href={`/protected/article/${article.id}`} class="open-article-button">
+     <a href={`/article/${article.id}`} class="open-article-button">
       Open 
     </a>
 

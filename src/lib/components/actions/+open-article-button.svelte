@@ -3,7 +3,7 @@
     export let articleId: string | null = null;
   </script>
 
-  <a href={`/protected/article/${articleId}`} class="open-article-button">
+  <a href={`/article/${articleId}`} class="open-article-button">
     Open Article
   </a>
   

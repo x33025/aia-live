@@ -1,7 +1,5 @@
 import type { LayoutServerLoad } from './$types';
 import { keywordService } from '$lib/services/+keyword-service';
-import type { Keyword } from '$lib/types';  
-
 
 export const load: LayoutServerLoad = async () => {
   try {
@@ -23,11 +21,10 @@ export const load: LayoutServerLoad = async () => {
     }
 
 
-    let totalKeywords = keywords.length;
+  
 
     return {
       keywords,
-      totalKeywords,
       title: "Keywords",
     };
   } catch (error) {

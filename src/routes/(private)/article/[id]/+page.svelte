@@ -26,9 +26,9 @@
   const debouncedUpdateArticleTitle = debounce(updateArticleTitle, 300);
 
   // Dynamically determine the back path based on the current route
-  $: backPath = $page.url.pathname.startsWith('/protected/articles') 
-    ? '/protected/articles' 
-    : '/protected';
+  $: backPath = $page.url.pathname.startsWith('/articles') 
+    ? '/articles' 
+    : '/dashboard';
 </script>
 
 <div class="stack expand" style="padding: 1em;">
