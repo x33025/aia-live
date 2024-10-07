@@ -27,7 +27,7 @@
     <AddKeyword />  
  
   <!-- Table for Displaying Keywords -->
-
+  {#if $sortedKeywords.length > 0}
     <table >
       <thead>
         <tr>
@@ -45,6 +45,11 @@
         {/each}
       </tbody>
     </table>
+  {:else}
+    <div class="stack expand" style="--align: center; --justify: center; " >
+      <p class="subheadline"  style="font-weight: bold; color: var(--gray-6);">No keywords found</p>
+    </div>
+  {/if}
  
 </div>
 

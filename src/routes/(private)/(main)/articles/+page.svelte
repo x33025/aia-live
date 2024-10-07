@@ -14,6 +14,7 @@
 
 <div class="scrollable-stack expand" style="padding: 1em;" >
 
+  {#if $sortedArticles.length > 0}
     {#each $sortedArticles as article, index (article.id)}
       <ArticleRow 
         {article}
@@ -21,8 +22,13 @@
         writers={$writers}
         statuses={$page.data.statuses}
       />
-  
+    
     {/each}
+  {:else}
+    <div class="stack expand" style="--align: center; --justify: center; " >
+      <p class="subheadline"  style="font-weight: bold; color: var(--gray-6);">No articles found</p>
+    </div>
+  {/if}
 
 
 </div>
