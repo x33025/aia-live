@@ -57,7 +57,7 @@ onMount(() => {
       console.log('REALTIME UPDATE', e.record);
       keywords.update(currentKeywords => currentKeywords.map(keyword => keyword.id === e.record.id ? e.record as unknown as Keyword : keyword)); // Update existing keyword
     }
-  }, { expand: 'activity,notes.activity' });
+  }, { expand: 'activity,notes.activity'});
 
   pb.collection('images').subscribe('*', (e) => { 
   
@@ -68,7 +68,7 @@ onMount(() => {
     console.log('REALTIME UPDATE', e.record);
     images.update(currentImages => currentImages.map(image => image.id === e.record.id ? e.record as unknown as Image : image));
   } 
-}, { expand: 'activity,notes.activity' });
+}, { expand: 'activity,notes.activity'});
 
   updateLastActive();
 
