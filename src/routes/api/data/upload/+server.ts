@@ -1,5 +1,5 @@
 import { json, error } from '@sveltejs/kit';
-import imageService from '$lib/services/+image-service';
+import  imageService  from '$lib/services/image-service';
 import type { RequestHandler } from './$types';
 
 export const POST: RequestHandler = async ({ request }) => {

@@ -1,7 +1,7 @@
 // /route/api/data/create/+server.ts
 import { json } from '@sveltejs/kit';
 import type { RequestHandler } from '@sveltejs/kit';
-import { BaseService } from '$lib/services/+base-service'; // Adjust the import path as necessary
+import { pb } from '$lib/config/pocketbase';
 
 export const POST: RequestHandler = async ({ request }) => {
     try {
@@ -15,10 +15,9 @@ export const POST: RequestHandler = async ({ request }) => {
             return json({ error: 'Collection name and data are required.' }, { status: 400 });
         }
 
-        const service = new BaseService(collection);
         console.log('Initialized BaseService with collection:', collection);
 
-        const newItem = await service.create(data);
+        const newItem = await pb.collection(collection).create(data);
         console.log('Created new item:', newItem);
 
         return json(newItem, { status: 201 });

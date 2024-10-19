@@ -1,6 +1,6 @@
 import type { LayoutServerLoad } from './$types';
-import { articleService } from '$lib/services/+article-service';
-
+import { pb } from '$lib/config/pocketbase';
+import type { Article } from '$lib/types';
 
 export const load: LayoutServerLoad = async ( ) => {
 
@@ -12,7 +12,7 @@ export const load: LayoutServerLoad = async ( ) => {
 
  
     // Use the ArticleService to fetch articles with expanded relations
-    const articles = await articleService.getList({
+    const articles = await pb.collection<Article>('articles').getFullList({
       expand: 'keywords,activity,main_keyword,main_image,notes.activity,author',
       sort: '-created',
       filter: 'activity.deleted=null'

@@ -1,6 +1,7 @@
 import { error } from '@sveltejs/kit';
 import type { LayoutServerLoad } from './$types';
-import { articleService } from '$lib/services/+article-service';
+import { pb } from '$lib/config/pocketbase';
+import type { Article } from '$lib/types';
 
 export const load: LayoutServerLoad = async ({ params }) => {
 
@@ -18,7 +19,7 @@ export const load: LayoutServerLoad = async ({ params }) => {
     
 
     // Fetch article by ID from PocketBase collection without expand option
-    const article = await articleService.getOne(id, {
+    const article = await pb.collection<Article>('articles').getOne(id, {
           expand: 'keywords,activity,main_image,main_keyword,notes.activity'
 
     });

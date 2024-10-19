@@ -1,6 +1,6 @@
 // /route/api/data/delete/+server.ts
 import { json } from '@sveltejs/kit';
-import { BaseService } from '$lib/services/+base-service';
+import { pb } from '$lib/config/pocketbase';
 import type { RequestHandler } from './$types';
 
 export const DELETE: RequestHandler = async ({ request }) => {
@@ -14,8 +14,7 @@ export const DELETE: RequestHandler = async ({ request }) => {
             return json({ error: 'Collection name and ID are required.' }, { status: 400 });
         }
 
-        const service = new BaseService(collection);
-        await service.delete(id);
+        await pb.collection(collection).delete(id);
 
         console.log('[DELETE] Record deleted successfully:', { collection, id });
         return json({ message: 'Record deleted successfully.' }, { status: 200 });

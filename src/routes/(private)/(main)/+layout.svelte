@@ -1,9 +1,9 @@
 <script lang="ts">
   import { page } from '$app/stores';
-  import MainPage from '$lib/core/layout/+main-page.svelte';
+  import MainPage from '$lib/layout/+main-page.svelte';
   import Users from '$lib/components/user/+users.svelte';
   import ProfileMenu from '$lib/components/user/+profile-menu.svelte';
-  import PageTitle from '$lib/core/layout/+page-title.svelte';
+  import PageTitle from '$lib/layout/+page-title.svelte';
   import GoBackButton from '$lib/core/navigation/+go-back.svelte';
 
   import SelectionTray from '$lib/components/interaction/+selection-tray.svelte';

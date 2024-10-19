@@ -1,7 +1,7 @@
 // /route/api/data/create/+server.ts
 import { json } from '@sveltejs/kit';
 import type { RequestHandler } from '@sveltejs/kit';
-import { noteService } from '$lib/services/+note-service'; // Adjust the import path as necessary
+import { noteService } from '$lib/services/note-service'; // Adjust the import path as necessary
 
 export const POST: RequestHandler = async ({ request }) => {
     try {

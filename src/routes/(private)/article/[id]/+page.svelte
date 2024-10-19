@@ -3,7 +3,6 @@
   import { article } from '$lib/stores/data/+articles';
 
   import Keywords from '$lib/components/keyword/+keywords.svelte';
-  import Label from '$lib/core/display/+label.svelte'; 
   import GoBackButton from '$lib/core/navigation/+go-back.svelte';
   import { page } from '$app/stores'; 
 
@@ -47,9 +46,10 @@
         on:input={debouncedUpdateArticleTitle} 
       />
 
-      <Label name="Keywords">
+      <div>
+        {"Keywords"}
         <Keywords keywords={$article?.expand?.keywords}  main_keyword={$article?.expand?.main_keyword} article_id={$article?.id} />
-      </Label>
+      </div>
     </div>
   </div>
   <div class="stack expand" >

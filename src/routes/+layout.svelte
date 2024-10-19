@@ -1,8 +1,8 @@
 <script lang="ts">
   import '../styles/index.css';
-  import Sidebar from '$lib/core/ui/+sidebar.svelte';
-  import Modal from '$lib/core/ui/+modal.svelte';
-  import ContextMenu from '$lib/core/ui/+context-menu.svelte';
+  import { Sidebar } from '@x33025/components';
+  import { Modal } from '@x33025/components';
+  import { ContextMenu } from '@x33025/components';
 
 </script>
 

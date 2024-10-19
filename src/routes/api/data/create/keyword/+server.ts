@@ -1,7 +1,7 @@
 // /route/api/data/create/+server.ts
 import { json } from '@sveltejs/kit';
 import type { RequestHandler } from '@sveltejs/kit';
-import { keywordService } from '$lib/services/+keyword-service'; 
+import { keywordService } from '$lib/services/keyword-service'; 
 
 export const POST: RequestHandler = async ({ request }) => {
     try {

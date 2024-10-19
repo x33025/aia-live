@@ -1,7 +1,8 @@
 // /route/api/data/mark-deleted/+server.ts
 import { json } from '@sveltejs/kit';
-import { activityDataService } from '$lib/services/+activity-data-service';
+import { pb } from '$lib/config/pocketbase';
 import type { RequestHandler } from './$types';
+import type { ActivityData } from '$lib/types';
 
 export const PUT: RequestHandler = async ({ request }) => {
     try {
@@ -19,7 +20,7 @@ export const PUT: RequestHandler = async ({ request }) => {
         };
 
         // Perform the update using ActivityDataService
-        const updatedItem = await activityDataService.update(activity_id, updatedData);
+        const updatedItem = await pb.collection<ActivityData>('activities').update(activity_id, updatedData);
 
         return json(updatedItem, { status: 200 });
     } catch (error) {
