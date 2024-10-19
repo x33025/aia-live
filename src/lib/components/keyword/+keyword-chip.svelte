@@ -1,6 +1,6 @@
 <script lang="ts">
     import type { Keyword } from '$lib/types';
-    import { openContextMenu } from '$lib/stores/ui/+context-menu';
+    import { openContextMenu } from '@x33025/components';
     import StarFillIcon from '$lib/core/ui/icons/+star-fill.svelte';
     import { updateArticle } from '$lib/api/article/+update-article';
 

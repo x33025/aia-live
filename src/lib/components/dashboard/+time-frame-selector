@@ -27,9 +27,9 @@
 
 
     <div class="stack" style="--direction: row; --align: flex-end;  --gap: 0.5em">
-        <Text type={TextType.Subheadline}>
+        <p class="subheadline">
       Articles 
-         </Text>
+         </p>
       <DropdownMenu id="time-frame-selector" selectedOption={currentFrame} on:optionSelected={handleTimeFrameChange}>
         <svelte:fragment slot="button">
             <div class="stack" style="--direction: row; --align: center;  --gap: 0.5em">

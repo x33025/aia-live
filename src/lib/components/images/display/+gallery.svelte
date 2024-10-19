@@ -1,8 +1,8 @@
 <script lang="ts">
-  import { Direction, type Image } from '$lib/types';
+  import { type Image } from '$lib/types';
   import { selected_image } from '$lib/stores/data/+images';
 
-  import ImageComponent from '$lib/core/display/+image.svelte';
+
   import { images } from '$lib/stores/data/+images';
 
   function constructImageUrl(image: Image): string {
@@ -24,12 +24,10 @@
               on:click={() => handleImageSelect(image)}
               class="image-container {image.id === $selected_image?.id ? 'selected' : ''}"
             >
-              <ImageComponent
-                image_url={constructImageUrl(image)}
-                alt_text={image.description || 'No description'}
-                maskShape="square"
-                border_radius={0.5}
-                aspect_ratio={3 / 2}
+              <img
+                src={constructImageUrl(image)}
+                alt={image.description || 'No description'}
+                class="image"
           
               />
             </button>

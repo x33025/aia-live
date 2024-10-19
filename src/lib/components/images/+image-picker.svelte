@@ -3,7 +3,7 @@
     import Gallery from '$lib/components/images/display/+gallery.svelte';
     import ImageDescription from '$lib/components/images/display/+image-description.svelte';
 
-    import { Direction, type Image } from '$lib/types';
+    import { type Image } from '$lib/types';
     import { selected_image } from '$lib/stores/data/+images';
 
 

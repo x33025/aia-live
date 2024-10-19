@@ -1,6 +1,6 @@
 <script lang="ts">
     import type { Keyword, Country } from '$lib/types';
-    import NumericInput from '$lib/core/advanced-input/+numeric-input.svelte';
+
     import { current_user } from '$lib/stores/data/+users';
     import CountryDropdown from '$lib/components/actions/+country-dropdown.svelte';
     import UploadKeywords from './+upload-keywords.svelte';
@@ -72,13 +72,15 @@
     on:countrySelected={(e) => handleCountrySelected(e.detail.country)}
     />
     <!-- Numeric input for volume -->
-    <NumericInput 
+    <input 
+    type="number"
     bind:value={newKeyword.volume}
     
     />
 
     <!-- Numeric input for density -->
-    <NumericInput 
+    <input 
+    type="number"
     bind:value={newKeyword.density}
     />
     <div class="spacer"  />

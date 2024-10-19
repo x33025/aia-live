@@ -1,5 +1,7 @@
 import type { LayoutServerLoad } from './$types';
-import { keywordService } from '$lib/services/+keyword-service';
+import { pb } from '$lib/config/pocketbase';
+import { keywordService } from '$lib/services/keyword-service';
+import type { Keyword } from '$lib/types';
 
 export const load: LayoutServerLoad = async () => {
   try {
@@ -7,7 +9,7 @@ export const load: LayoutServerLoad = async () => {
 
 
     // Fetch keywords from the keyword service
-    const keywords = await keywordService.getList({
+    const keywords = await pb.collection<Keyword>('keywords').getFullList({
       expand: 'activity,country,notes.activity',
       sort: '-created',
       filter: 'activity.deleted=null'

@@ -1,6 +1,6 @@
 <script lang="ts">
-  import Text from '$lib/core/display/+text.svelte';
-  import { TextType, type Note } from '$lib/types'; // Adjust the path as needed
+  
+  import { type Note } from '$lib/types'; // Adjust the path as needed
   import NoteView from './+note-view.svelte'; // Adjust the path as needed
   import ActivityDataView from '$lib/components/activity/+activity-data.svelte';
   import type { ActivityData, BaseModel } from '$lib/types';
@@ -65,7 +65,7 @@
 
 <div class="stack  expand" style="--align: flex-start; --gap: 1em; padding: 1em;">
   
-    <Text type={TextType.Title}>Notes</Text>
+    <p class="title">Notes</p>
 
 
     <div class=" scrollable-stack note-input-wrapper" style="--gap: 0.25em;">
@@ -91,7 +91,7 @@
 
   {#if activity}
   <div class="stack" style="height: 320px;">
-      <Text type={TextType.Subheadline} style="font-weight: bold;">{($page.data.title).slice(0, -1)} Activity Data</Text>
+      <p class="subheadline" style="font-weight: bold;">{($page.data.title).slice(0, -1)} Activity Data</p>
       <ActivityDataView {activity} />
   </div>
   {/if}

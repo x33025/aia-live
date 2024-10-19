@@ -1,13 +1,11 @@
 <script lang="ts">
-  import ImageComponent from '$lib/core/display/+image.svelte';
-  import Label from '$lib/core/display/+label.svelte';
   import { type Image } from '$lib/types';
   import ActivityDataView from '$lib/components/activity/+activity-data.svelte';
   import NotesButton from '$lib/components/notes/+notes-button.svelte';
   import { debounce } from 'lodash-es';
-  import ActivityDate from '$lib/core/advanced-display/+activity-date.svelte';
+
   import ObserveIcon from '$lib/core/ui/icons/+observe.svelte';
-  import Spinner from '$lib/core/display/+spinner.svelte';
+  // import Spinner from '$lib/core/display/+spinner.svelte';
   import { selected_image } from '$lib/stores/data/+images';
   import { current_user } from '$lib/stores/data/+users';
   import { markDeleted } from '$lib/api/activity/+mark-deleted';
@@ -117,35 +115,36 @@
 <div class="stack expand" style="--direction: row; --align: flex-start; --gap: 1em; --border-top: 1px solid var(--gray-2); padding: 2em; position: relative;">
   <div class="stack" style="--direction: column; --gap: 0.5em; align-items: flex-start;">
     <div class="image-container">
-      <ImageComponent
-        image_url={image_url}
-        size={20}
-        alt_text={image.description || 'No description provided'}
-        aspect_ratio={3 / 2}
+      <img
+        src={image_url}
+        class="image"
+          alt={image.description || 'No description provided'}
       />
       <button class="overlay-button" on:click={observeImage} disabled={observePromise !== null}>
         <ObserveIcon size={1.25} />
       </button>
     </div>
-    <ActivityDate created={image.created} updated={image.updated} />
-    <Label name="Activity">
+    <!-- <DateDisplay created={image.created} updated={image.updated} /> -->
+    <div >
+      {"Activity"}
       {#if image.expand?.activity}
         <ActivityDataView activity={image.expand.activity} />
       {/if}
    
-    </Label>
+    </div>
   </div>
 
   <div class="stack expand" style="--direction: column; --gap: 0.5em; align-items: flex-start width: 100%;">
-    <Label name="Description">
+    <div>
+      {"Description"}
       {#if observePromise}
-        <Spinner
+        <!-- <Spinner
           promise={observePromise}
           loadingText="Analyzing image..."
           errorText="Failed to analyze image"
           on:success={handleSuccess}
           on:error={handleError}
-        />
+        /> -->
       {:else}
         {#if error}
           <p style="color: var(--red);">{error}</p>
@@ -158,11 +157,12 @@
           placeholder="Add a description"
         ></textarea>
       {/if}
-    </Label>
+    </div>
 
-    <Label name="Notes">
+    <div>
+      {"Notes"}
       <NotesButton notes={image.expand?.notes || []} parent={image} parent_collection="images" />
-    </Label>
+    </div>
     
 
   </div>

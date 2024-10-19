@@ -1,6 +1,5 @@
 <script lang="ts">
   import { goto } from '$app/navigation';
-  import BaseLayout from '$lib/core/layout/+base-layout.svelte';
 
   function handleLoginClick() {
     console.log('Login button clicked');

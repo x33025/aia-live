@@ -1,6 +1,6 @@
 <script lang="ts">
   import Toolbar from './+toolbar.svelte'; // Import the toolbar component
-  import TextEditor from '$lib/core/advanced-input/editor/+text-editor.svelte'; // Import the TextEditor component
+  import { TextEditor } from '@x33025/components'; // Import the TextEditor component
 
   import { article } from '$lib/stores/data/+articles';
   import { updateArticle } from '$lib/api/article/+update-article';

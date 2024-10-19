@@ -1,10 +1,10 @@
 <script lang="ts">
-    import DropdownMenu from '$lib/core/actions/+dropdown-menu.svelte';
+    import {DropdownMenu} from '@x33025/components';
     import type { Country } from '$lib/types';
     import { v4 as uuidv4 } from 'uuid';
     import { createEventDispatcher } from 'svelte'; // Import the dispatcher
     import { countries } from '$lib/stores/data/+countries';
-    import { closeDropdown } from '$lib/stores/ui/+dropdown-menu';
+    import { closeDropdown } from '@x33025/components';
 
     export let selectedCountry: Country | null = null;
 
@@ -51,8 +51,6 @@
 
 
 <DropdownMenu 
-id={`country-dropdown-${uuidv4()}`}
-selectedOption={selectedCountry?.id}
 >
 <svelte:fragment slot="button">
   {selectedCountry ? `${selectedCountry.name} ${getFlagEmoji(selectedCountry.name)}` : 'Select a country'}

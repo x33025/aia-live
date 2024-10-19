@@ -1,8 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import { page } from '$app/stores';
-  import { TextType } from '$lib/types';
-  import Text from '$lib/core/display/+text.svelte';
   import KeywordRow from '$lib/components/keyword/+keyword-row.svelte';
   import { keywords, sortedKeywords } from '$lib/stores/data/+keywords';
 

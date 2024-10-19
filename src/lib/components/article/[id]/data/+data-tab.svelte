@@ -3,7 +3,7 @@
   import { writable } from 'svelte/store';
   import { article } from '$lib/stores/data/+articles';
 
-  import TabView from '$lib/core/display/+tab-view.svelte'; // Import the TabView component
+  // import TabView from '$lib/core/display/+tab-view.svelte'; // Import the TabView component
   import Keywords from '$lib/components/keyword/+keywords.svelte';
 
   let activeTab = writable('keywords');
@@ -24,7 +24,7 @@
   });
 </script>
 
-<TabView defaultTab={$activeTab}>
+<!-- <TabView defaultTab={$activeTab}>
   <svelte:fragment slot="header">
     <button class="tab-button" class:selected={$activeTab === 'keywords'} on:click={() => activeTab.set('keywords')}>Keywords</button>
     <button class="tab-button" class:selected={$activeTab === 'extracted'} on:click={() => activeTab.set('extracted')}>
@@ -46,7 +46,7 @@
       {"Magic Data"}
     {/if}
   </svelte:fragment>
-</TabView>
+</TabView> -->
 
 <style>
   .tab-button {

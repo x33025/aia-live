@@ -1,10 +1,8 @@
 <script lang="ts">
-  import Text from "$lib/core/display/+text.svelte";
-  import { TextType } from "$lib/types";
   import { page } from '$app/stores';
-  import ImageComponent from '$lib/core/display/+image.svelte';
+
   import type { User } from '$lib/types';
-  import CircularText from '$lib/core/display/+circular-text.svelte';
+
 
   export let userId: string;
   export let size: number = 2.5; // Default size in em
@@ -28,13 +26,13 @@
 </script>
 
 <div class="avatar-wrapper border-highlight" style="width: {size+0.5}em; height: {size+0.5}em;">
-  <CircularText >
+
   {#if hasAvatar}
-      <ImageComponent image_url={avatarUrl} alt_text="User Avatar" size={size} aspect_ratio={1} maskShape="circle" />
+      <img src={avatarUrl} alt="User Avatar" style="width: {size}em; height: {size}em; border-radius: 50%;" />
   {:else}
-      <Text style="font-weight: 650;" type={TextType.Callout}>{userInitials}</Text>
+      <p class="callout" style="font-weight: 650;">{userInitials}</p>
   {/if}
-</CircularText>
+
 </div>
 
 <style>

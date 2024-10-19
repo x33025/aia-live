@@ -1,8 +1,6 @@
 <script lang="ts">
     import * as d3 from 'd3';
-    import Text from '$lib/core/display/+text.svelte';
     import { goto } from '$app/navigation';
-    import { TextType } from '$lib/types';
     import { tweened } from 'svelte/motion';
     import { cubicOut } from 'svelte/easing';
 
@@ -138,7 +136,7 @@
       <div class="emoji-bg" style="{styles[i]}" class:show={styles[i]}>{emoji}</div>
   {/each}
   <div class="text-container">
-      <Text type={TextType.Title}>{text}</Text>
+      <p class="title">{text}</p>
   </div>
   {#if underConstruction}
       <div class="construction-emoji">🚧</div> <!-- Construction emoji -->

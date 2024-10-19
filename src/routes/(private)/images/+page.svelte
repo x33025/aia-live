@@ -1,6 +1,6 @@
 <script lang="ts">
   import ImagePicker from '$lib/components/images/+image-picker.svelte';
-  import PageTitle from '$lib/core/layout/+page-title.svelte';
+  import PageTitle from '$lib/layout/+page-title.svelte';
   import { openModal } from '$lib/stores/ui/+modal';  // Import modal handling functions
   import CropperComponent from '$lib/components/images/+cropper.svelte';  // Import the cropper component
   import CropImageButton from '$lib/components/actions/+crop-image-button.svelte';

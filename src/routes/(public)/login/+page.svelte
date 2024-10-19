@@ -1,8 +1,6 @@
 <script lang="ts">
   import { enhance } from '$app/forms';
 
-  import { TextType } from '$lib/types';
-  import Text from '$lib/core/display/+text.svelte';
   import OpenDoorIcon from '$lib/core/ui/icons/+door-open.svelte';
   import GoBackButton from '$lib/core/navigation/+go-back.svelte';
 
@@ -30,7 +28,7 @@
       <div class="stack" style="--direction: row; --justify: space-between; --gap: 0.5em; width: 100%; margin-bottom: 1.1em;" >
         <GoBackButton path="/"/>
       
-        <Text type={TextType.Title}>Welcome Back</Text>
+        <p class="title">Welcome Back</p>
         <div class="spacer" />
       </div>
    

@@ -1,17 +1,19 @@
 <script lang="ts">
-  import DropdownMenu from '$lib/core/actions/+dropdown-menu.svelte';
-  import TextInput from '$lib/core/actions/+text-input.svelte';
-  import NumericInput from '$lib/core/advanced-input/+numeric-input.svelte';
-  import NumericTarget from '$lib/core/advanced-input/+numeric-target.svelte';
-  import { Direction, type Article, type Category, type Status, type User, toIdentifiableUser, type IdentifiableUser, Alignment, type Website } from '$lib/types';
+  import {DropdownMenu} from '@x33025/components';
+
+
+  import { NumericTarget } from '@x33025/components';
+
+
+  import { type Article, type Category, type Status, type User, toIdentifiableUser, type IdentifiableUser, type Website } from '$lib/types';
   import Keywords from '../keyword/+keywords.svelte';
-  import Label from '$lib/core/display/+label.svelte';
+
   import MainImage from '../images/display/+main-image.svelte';
   import NotesButton from '../notes/+notes-button.svelte';
   import OpenArticleButton from '$lib/components/actions/+open-article-button.svelte';
   import { updateArticle } from '$lib/api/article/+update-article';
   import { debounce } from 'lodash-es';
-    import { e } from 'mathjs';
+
 
   export let article: Article;
   export let categories: Category[];
@@ -30,8 +32,9 @@
     updateArticle(articleId, { title: newTitle });
   }, 300); // Adjust the debounce delay as needed
 
-  function handleTitleChange(event: CustomEvent<string>) {
-    const newTitle = event.detail;
+  function handleTitleChange(event: Event) {
+    const input = event.target as HTMLInputElement;
+    const newTitle = input.value;
     debouncedUpdateArticle(article.id, newTitle);
   }
 
@@ -74,19 +77,18 @@
     <MainImage main_image={article.expand?.main_image} />
     <div class="stack expand" style="--direction: column;">
       <div class="stack expand" style="--direction: row;">
-        <TextInput
+        <input
+        type="text"
           class="article-row-title"
           value={article.title}
           on:input={handleTitleChange}
           placeholder="Title"
-          fullWidth={true}
+
         />
         
 
         <!-- Dropdown for selecting writer -->
         <DropdownMenu 
-        id={`writer-dropdown-${article.id}`}
-        selectedOption={selectedWriter?.id}
       >
         <span class="label" slot="button">
           {selectedWriter ? selectedWriter.name : 'Select a writer'}
@@ -103,8 +105,7 @@
     
         <!-- Dropdown for selecting category -->
         <DropdownMenu 
-          id={`category-dropdown-${article.id}`}
-          selectedOption={selectedCategory?.id}
+
         >
           <span class="label" slot="button">
             {selectedCategory ? selectedCategory.name : 'Select a category'}
@@ -120,8 +121,7 @@
 
           <!-- Dropdown for selecting category -->
           <DropdownMenu 
-          id={`status-dropdown-${article.id}`}
-          selectedOption={article.status}
+
         >
           <span class="label" slot="button">
             {selectedStatus ? selectedStatus.name : 'Select a status'}
@@ -141,38 +141,43 @@
       </div>
     
       <div class="stack" style="--direction: row;">
-        <Label name="Semrush Score">
-          <NumericInput
+        <div>
+          {"Semrush Score"}
+          <!-- <input
+            type="number"
             bind:value={article.semrush_score}
-            on:update={(e) => updateSemrushScore(e.detail.value)}
+            on:input={(e) => updateSemrushScore((e.target as HTMLInputElement).value)}
    
-          />
-        </Label>
+          /> -->
+        </div>
         
-        <Label name="Word Count">
+        <div >
+          {"Word Count"}
           <NumericTarget
             target={article.target_word_count} 
             current={article.word_count} 
             on:update={(e) => updateTargetWordCount(e.detail.value)}
           />
-        </Label>
-        <Label name="Notes">
+        </div>
+        <div>
+          {"Notes"}
           <NotesButton
             notes={article.expand?.notes}
             activity={article.expand?.activity}
             parent={article}
             parent_collection="articles"
       />
-        </Label>
+        </div>
        
       </div>
     
     </div>
     
   </div>
-  <Label name="Keywords">
+  <div>
+    {"Keywords"}
     <Keywords main_keyword={article.expand?.main_keyword} keywords={article.expand?.keywords} article_id={article.id} />
-  </Label>
+  </div>
 </div>
 
 <style>
@@ -200,3 +205,4 @@
      background-color: var(--gray-1);
    }
 </style>
+

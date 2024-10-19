@@ -1,6 +1,6 @@
 <script lang="ts">
   
-    import { Direction } from "$lib/types";
+
     import { timer, startTimer, stopTimer } from "$lib/stores/logic/+timer";
     import { onDestroy } from 'svelte';
 

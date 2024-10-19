@@ -1,6 +1,6 @@
 <script lang="ts">
 
-  import BaseLayout from '$lib/core/layout/+base-layout.svelte';
+  import BaseLayout from '$lib/layout/+base-layout.svelte';
 </script>
 
 <BaseLayout>

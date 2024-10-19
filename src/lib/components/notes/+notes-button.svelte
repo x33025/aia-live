@@ -1,10 +1,8 @@
 <script lang="ts">
-  import { openSidebar } from '$lib/stores/ui/+sidebar';
+  import { openSidebar } from '@x33025/components';
   import NotesSidebar from './+notes-sidebar.svelte';
   import type { ActivityData, Note } from '$lib/types';
   import NoteChip from './+note-chip.svelte';
-  import { TextType } from '$lib/types';
-  import Text from '$lib/core/display/+text.svelte';
   import PlusIcon from '$lib/core/ui/icons/+plus.svelte';
   import type { BaseModel } from '$lib/types';
 
@@ -14,7 +12,7 @@
   export let activity: ActivityData | null = null;
 
   function openNotesSidebar() {
-    openSidebar(NotesSidebar, { notes, activity, parent, parent_collection });
+    openSidebar(NotesSidebar);
   }
 </script>
 
@@ -43,7 +41,7 @@
   {:else}
     <div class="add-note">
       <PlusIcon size={0.7} color="var(--blue)" strokeWidth={0.3} />
-      <Text type={TextType.Caption} style="color: var(--blue); font-weight: bold;">Add a note</Text>
+      <p class="caption" style="color: var(--blue); font-weight: bold;">Add a note</p>
     </div>
   {/if}
 </button>

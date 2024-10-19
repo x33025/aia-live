@@ -1,6 +1,5 @@
 <script lang="ts">
-  import NumericInput from '$lib/core/advanced-input/+numeric-input.svelte';
-  import DropdownMenu from '$lib/core/actions/+dropdown-menu.svelte';
+  import {DropdownMenu} from '@x33025/components';
   import { type Country, type Keyword } from '$lib/types';
   import NotesButton from '../notes/+notes-button.svelte';
   import { updateKeyword } from '$lib/api/keyword/+update-keyword';
@@ -106,16 +105,18 @@
     />
   </td>
   <td>
-    <NumericInput
+    <!-- <input
+      type="number" 
       value={keyword.volume}
-      on:update={(e) => handleVolumeChange(e.detail.value)}
-    />
+      on:input={(e) => handleVolumeChange(e.target?.value)}
+    /> -->
   </td>
   <td>
-    <NumericInput
+    <!-- <input
+      type="number"
       value={keyword.density}
-      on:update={(e) => handleDensityChange(e.detail.value)}
-    />
+      on:input={(e) => handleDensityChange(e.target?.value)}
+    /> -->
   </td>
   <td style="margin-right: 1.5em;">
     <NotesButton

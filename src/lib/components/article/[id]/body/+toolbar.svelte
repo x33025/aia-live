@@ -1,10 +1,10 @@
 <script lang="ts">
-  import { Direction, TextType } from '$lib/types';
-  import { editorStore } from '$lib/core/advanced-input/editor/+store'; // Correct store import
+  import { TextEditor } from '@x33025/components'; // Correct store import
+  import { editor as editorStore } from '@x33025/components'; // Correct store import
   import { onDestroy } from 'svelte';
-  import Text from '$lib/core/display/+text.svelte';
 
-  import NumericTarget from '$lib/core/advanced-input/+numeric-target.svelte';
+
+  import { NumericTarget } from '@x33025/components';
   import { article } from '$lib/stores/data/+articles';
 
   
@@ -17,7 +17,7 @@
   
   $: {
     if (editor) {
-      unsubscribe = editor.smartStyleState.subscribe(value => {
+      unsubscribe = editor.smartStyleState.subscribe((value: boolean) => {
         smartStyleEnabled = value;
       });
     }
@@ -38,20 +38,20 @@
 
 <div class="stack" style="--direction: row; --justify: space-between;">
   <button class="label" on:click={() => editor?.textFormatter.toggleBold()}>
-    <Text type={TextType.Callout}><strong>Bold</strong></Text>
+    <p class="callout"><strong>Bold</strong></p>
   </button>
   <button class="label" on:click={() => editor?.textFormatter.toggleItalic()}>
-    <Text type={TextType.Callout}><i>Italic</i></Text>
+    <p class="callout"><i>Italic</i></p>
   </button>
   <button class="label" on:click={() => editor?.textFormatter.toggleUnderline()}>
-    <Text type={TextType.Callout}><u>Underline</u></Text>
+    <p class="callout"><u>Underline</u></p>
   </button>
 
   <button class="label" on:click={() => editor?.linkHandler.attachLink()}>
-    <Text type={TextType.Callout}>Attach Link</Text>
+    <p class="callout">Attach Link</p>
   </button>
   <button class="label" on:click={() => editor?.toggleSmartStyle()}>
-    <Text type={TextType.Callout}>Smart Style: {smartStyleEnabled ? 'On' : 'Off'}</Text>
+      <p class="callout">Smart Style: {smartStyleEnabled ? 'On' : 'Off'}</p>
   </button>
   <div class="spacer" />
   <NumericTarget

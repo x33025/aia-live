@@ -1,13 +1,11 @@
 <script lang="ts">
   import { activeUsers, sortedUsers } from '$lib/stores/data/+users';
-  import DropdownMenu from '$lib/core/actions/+dropdown-menu.svelte';
-  import Text from '$lib/core/display/+text.svelte';
+  import { DropdownMenu } from '@x33025/components';
   import Avatar from './+avatar.svelte';
 
-  import { TextType } from '$lib/types';
 </script>
 
-<DropdownMenu id="users-dropdown">
+<DropdownMenu >
   <div slot="button" class="users-dropdown border-highlight">
     {"Active Users"}
   </div>
@@ -15,7 +13,7 @@
   {#each $sortedUsers as user}
     <div class="stack dropdown-item" style="--direction: row; --gap: 0.5em; --align: center; --justify: flex-start; color: {user.last_active ? 'black' : 'var(--gray-6)'};  ">
       <Avatar userId={user.id} size={1.5} /> 
-      <Text type={TextType.Callout}> {user.first_name} {user.last_name}</Text>
+      <p class="callout"> {user.first_name} {user.last_name}</p>
       <div class="spacer" />
       {#if $activeUsers.includes(user)}
         <div class="green-dot"></div>

@@ -1,6 +1,6 @@
 <script lang="ts">
 
-    import { Direction, type ActivityData } from '$lib/types';
+    import { type ActivityData } from '$lib/types';
     import Avatar from '$lib/components/user/+avatar.svelte';
 
 

@@ -3,15 +3,13 @@
     import { get } from 'svelte/store';
     import Calendar from './+calendar.svelte';
 
-    import Text from '$lib/core/display/+text.svelte';
 
-    import { TextType, Direction } from '$lib/types';
 
 </script>
 
 <div class="stack expand" style="--direction: column; --align: flex-start; --justify: flex-start;" >
-    <Text type={TextType.Title}>Calendar</Text>
-    <Text type={TextType.Body} style="font-weight: bold;">{$selectedDay.toDateString()}</Text>
+    <p class="title">Calendar</p>
+    <p class="body" style="font-weight: bold;">{$selectedDay.toDateString()}</p>
     <Calendar/>
 
 </div>
