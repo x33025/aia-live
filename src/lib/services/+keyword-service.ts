@@ -1,22 +1,20 @@
 // $lib/services/+keyword-service.ts
-import { BaseService } from '$lib/services/+base-service';
-import { activityDataService } from '$lib/services/+activity-data-service';
+import { pb } from '$lib/config/pocketbase';
+import type { ActivityData } from '$lib/types';
 import type { Keyword } from '$lib/types';
 
-class KeywordService extends BaseService<Keyword> {
-    constructor() {
-        super('keywords'); // Assuming 'keywords' is the name of your collection
-    }
+class KeywordService  {
+
     async createWithActivity(user_id: string, data: Partial<Keyword>): Promise<Keyword> {
         try {
             console.log(`Starting createWithActivity with user_id: ${user_id}`);
             
             // Create the activity
-            const activity = await activityDataService.create({ created_by: user_id });
+            const activity = await pb.collection<ActivityData>('activities').create({ created_by: user_id });
             console.log(`Activity created with ID: ${activity.id}`);
 
             // Add the activity ID to the data
-            const newKeyword = await this.create({ activity: activity.id, ...data });
+            const newKeyword = await pb.collection<Keyword>('keywords').create({ activity: activity.id, ...data });
             console.log(`New keyword created with ID: ${newKeyword.id}`);
      
             return newKeyword;

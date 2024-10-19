@@ -1,23 +1,19 @@
-import { BaseService } from '$lib/services/+base-service';
 import type { Note } from '$lib/types';
-import { activityDataService } from '$lib/services/+activity-data-service';
 import { pb } from '$lib/config/pocketbase';  // Assuming you have a PocketBase client instance as 'pb'
+import type { ActivityData } from '$lib/types';
 
-class NoteService extends BaseService<Note> {
-    constructor() {
-        super('notes');
-    }
+class NoteService  {
 
     async createWithActivity(data: Partial<Note>, user_id: string, parent_id: string, parent_collection: 'articles' | 'keywords' | 'images'): Promise<Note> {
         try {
             // Create the activity
-            const activity = await activityDataService.create({ created_by: user_id });
+            const activity = await pb.collection<ActivityData>('activities').create({ created_by: user_id });
 
             // Add the activity ID to the data
             data.activity = activity.id;
 
             // Create the new note with the activity ID
-            const newNote = await this.create(data);
+            const newNote = await pb.collection<Note>('notes').create(data);
 
             // Update the parent collection with the new note ID
             await this.appendNoteToParent(parent_id, newNote.id, parent_collection);

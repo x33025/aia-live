@@ -1,12 +1,9 @@
 // $lib/services/imagesService.ts
-import { BaseService } from '$lib/services/+base-service';
-import { activityDataService } from '$lib/services/+activity-data-service';
+import { pb } from '$lib/config/pocketbase';
+import type { ActivityData } from '$lib/types';
 import type { Image } from '$lib/types';
 
-export class ImageService extends BaseService<Image> {
-    constructor() {
-        super('images'); // images collection
-    }
+class ImageService  {
 
     async uploadWithActivity(file: File, user_id: string): Promise<Image> {
         if (!user_id || !file) {
@@ -17,7 +14,7 @@ export class ImageService extends BaseService<Image> {
         try {
             console.log('Creating activity data for user:', user_id);
             // First, create the activity_data record
-            const activity = await activityDataService.create({ created_by: user_id });
+            const activity = await pb.collection<ActivityData>('activities').create({ created_by: user_id });
             console.log('Activity data created:', activity);
 
             // Create the FormData object
@@ -27,7 +24,7 @@ export class ImageService extends BaseService<Image> {
 
             console.log('FormData created:', formData);
 
-            const createdImage = await this.create(formData as unknown as Partial<Image>);
+            const createdImage = await pb.collection<Image>('images').create(formData as unknown as Partial<Image>);
             console.log('Image created:', createdImage);
 
             return createdImage;
